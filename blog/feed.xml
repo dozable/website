@@ -35,4 +35,26 @@ doz ui&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;Dozer Sandbox is free, and its source is on &lt;a href="https://github.com/dozer-sandbox/dozer-sandbox"&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;This blog is where news, early access and tips will appear. They&amp;#x27;re also sent by email to anyone who &lt;a href="https://dozersandbox.com/signup"&gt;signs up&lt;/a&gt; for them. Thanks for reading, and for trying it.&lt;/p&gt;</content>
   </entry>
+  <entry>
+    <title>Dozer Sandbox 0.33</title>
+    <id>https://dozersandbox.com/blog/dozer-0-33</id>
+    <link rel="alternate" type="text/html" href="https://dozersandbox.com/blog/dozer-0-33"/>
+    <published>2026-10-11T00:00:00Z</published>
+    <updated>2026-10-11T00:00:00Z</updated>
+    <summary>Now on the stable channel — see what your agent is doing at a glance, a one-word upgrade, the dashboard in the background, and a way to hear about what's next.</summary>
+    <category term="release-news" label="Release news"/>
+    <content type="html">&lt;p&gt;Dozer Sandbox 0.33 is on the stable channel. Here&amp;#x27;s what changed since the last stable release.&lt;/p&gt;
+&lt;h2 id="see-what-the-agent-is-doing"&gt;See what the agent is doing&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#see-what-the-agent-is-doing" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Claude Code and pi now tell Dozer whether they&amp;#x27;re working, done, or waiting for you. The dashboard shows it on every tab and tile, and tells you when an agent finishes or needs an answer, even when nobody is watching that session. Claude Code needs version 2.1.295 or later, and pi 1.1.0 or later.&lt;/p&gt;
+&lt;h2 id="doz-upgrade"&gt;&lt;code&gt;doz upgrade&lt;/code&gt;&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#doz-upgrade" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;One command moves you to the newest version on your channel. It asks first; &lt;code&gt;-y&lt;/code&gt; skips the question.&lt;/p&gt;
+&lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;doz upgrade&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;h2 id="the-dashboard-in-the-background"&gt;The dashboard in the background&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#the-dashboard-in-the-background" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;doz ui --detach&lt;/code&gt; runs the dashboard without holding a terminal, and &lt;code&gt;doz ui stop&lt;/code&gt; stops it from any terminal.&lt;/p&gt;
+&lt;h2 id="staying-in-touch"&gt;Staying in touch&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#staying-in-touch" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Setup now ends with an optional sign-up for release news, early access, and tips and tricks, by email. Skip it, or sign up later with &lt;code&gt;doz signup&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id="upgrade"&gt;Upgrade&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#upgrade" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;doz upgrade&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;p&gt;New to Dozer Sandbox? &lt;a href="https://dozersandbox.com/docs/getting-started.html"&gt;Getting started&lt;/a&gt; takes a few minutes.&lt;/p&gt;</content>
+  </entry>
 </feed>
