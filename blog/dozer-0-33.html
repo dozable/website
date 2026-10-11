@@ -55,7 +55,15 @@
 <p class="post-summary">Dozer Sandbox 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.</p></header>
 <p>It&#x27;s on the stable channel now. Here&#x27;s each change.</p>
 <h2 id="see-what-the-agent-is-doing">See what the agent is doing<a class="anchor" href="#see-what-the-agent-is-doing" aria-label="Link to this section">#</a></h2>
-<p>Claude Code and pi now tell Dozer whether they&#x27;re working, done, or waiting for you. The dashboard shows it on every tab and tile, and tells you when an agent finishes or needs an answer, even when nobody is watching that session. Claude Code needs version 2.1.295 or later, and pi 1.1.0 or later.</p>
+<p>Claude Code and pi now tell Dozer what they&#x27;re doing: <strong>working</strong>, <strong>done</strong>, waiting for your answer, or stopped by an error. Dozer shows it in the dashboard wherever the session appears, so you can leave an agent to work and glance back when it matters.</p>
+<p>While the agent works, its tab shows <strong>working</strong>, and a dot beside the sandbox in the sidebar says something is going on.</p>
+<figure class="shot"><div class="frame"><img src="images/dozer-0-33/agent-working.jpg" alt="A Claude Code session at work: the tab says working, and the sandbox has a dot in the sidebar" width="1600" height="1137" loading="lazy" decoding="async"></div></figure>
+<p>When the agent stops to ask you something, such as permission to run a command, a notice appears at the top of the dashboard saying what it wants, with an <strong>Open</strong> button that takes you straight to the session. You see it on whichever page you&#x27;re on.</p>
+<figure class="shot"><div class="frame"><img src="images/dozer-0-33/agent-needs-permission.jpg" alt="Claude Code asking to run the tests: the notice at the top names the command, and the tab says needs permission" width="1600" height="1308" loading="lazy" decoding="async"></div></figure>
+<p>When it finishes, the tab says <strong>done</strong> and the notice tells you so. The same status shows on every tile in <strong>All sessions</strong>, so with several sandboxes running you can see at a glance which agent is still busy and which is waiting for you.</p>
+<figure class="shot"><div class="frame"><img src="images/dozer-0-33/agent-done.jpg" alt="Claude Code has finished: the notice says done, and so does the tab" width="1600" height="1025" loading="lazy" decoding="async"></div></figure>
+<figure class="shot"><div class="frame"><img src="images/dozer-0-33/all-sessions-status.jpg" alt="All sessions: the Claude Code tile says done, beside a plain shell" width="1500" height="680" loading="lazy" decoding="async"></div></figure>
+<p>The status shows while the dashboard is open (<code>doz ui</code>). Claude Code needs version 2.1.295 or later, and pi 1.1.0 or later.</p>
 <h2 id="doz-upgrade"><code>doz upgrade</code><a class="anchor" href="#doz-upgrade" aria-label="Link to this section">#</a></h2>
 <p>One command moves you to the newest version on your channel. It asks first; <code>-y</code> skips the question.</p>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz upgrade</code></pre></figure>

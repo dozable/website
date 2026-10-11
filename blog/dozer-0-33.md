@@ -15,9 +15,31 @@ It's on the stable channel now. Here's each change.
 
 ## See what the agent is doing
 
-Claude Code and pi now tell Dozer whether they're working, done, or waiting for you. The dashboard shows it on
-every tab and tile, and tells you when an agent finishes or needs an answer, even when nobody is watching that
-session. Claude Code needs version 2.1.295 or later, and pi 1.1.0 or later.
+Claude Code and pi now tell Dozer what they're doing: **working**, **done**, waiting for your answer, or stopped by an
+error. Dozer shows it in the dashboard wherever the session appears, so you can leave an agent to work and glance
+back when it matters.
+
+While the agent works, its tab shows **working**, and a dot beside the sandbox in the sidebar says something is
+going on.
+
+![A Claude Code session at work: the tab says working, and the sandbox has a dot in the sidebar](https://dozersandbox.com/blog/images/dozer-0-33/agent-working.jpg)
+
+When the agent stops to ask you something, such as permission to run a command, a notice appears at the top of the
+dashboard saying what it wants, with an **Open** button that takes you straight to the session. You see it on
+whichever page you're on.
+
+![Claude Code asking to run the tests: the notice at the top names the command, and the tab says needs permission](https://dozersandbox.com/blog/images/dozer-0-33/agent-needs-permission.jpg)
+
+When it finishes, the tab says **done** and the notice tells you so. The same status shows on every tile in
+**All sessions**, so with several sandboxes running you can see at a glance which agent is still busy and which is
+waiting for you.
+
+![Claude Code has finished: the notice says done, and so does the tab](https://dozersandbox.com/blog/images/dozer-0-33/agent-done.jpg)
+
+![All sessions: the Claude Code tile says done, beside a plain shell](https://dozersandbox.com/blog/images/dozer-0-33/all-sessions-status.jpg)
+
+The status shows while the dashboard is open (`doz ui`). Claude Code needs version 2.1.295 or later, and pi 1.1.0 or
+later.
 
 ## `doz upgrade`
 

@@ -159,7 +159,7 @@ Your sandboxes and their terminals in one place, in your browser or installed as
 
 **A live terminal, in your browser** Pause, sleep or hibernate from the sandbox's own page, with its terminal and details beside it.
 
-![A sandbox page where the agent's session tab carries a blue working badge, and the sidebar marks the sandbox.](https://dozersandbox.com/shots/ui-agent-working.jpg)
+![A sandbox page where the agent's session tab carries a blue working badge, and the sidebar marks the sandbox.](https://dozersandbox.com/shots/ui-agent-working-claude.jpg)
 
 **See what your agent is doing** Claude Code and pi report when they are working, blocked or done, and the session tab and the sidebar show it.
 
