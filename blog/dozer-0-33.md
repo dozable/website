@@ -1,6 +1,6 @@
 ---
 title: "Dozer Sandbox 0.33 - see what your agent is doing — Dozer Sandbox blog"
-description: "Now on the stable channel — see what your agent is doing at a glance, a one-word upgrade, the dashboard in the background, and a way to hear about what's next."
+description: "Dozer Sandbox 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up."
 date: 2026-10-11
 topics: [release-news]
 url: https://dozersandbox.com/blog/dozer-0-33
@@ -11,8 +11,7 @@ source: "Dozer Sandbox blog"
 
 *11 October 2026 · Release news*
 
-Dozer Sandbox 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the
-background, and ends setup with an optional sign-up. It's on the stable channel now; here's each change.
+It's on the stable channel now. Here's each change.
 
 ## See what the agent is doing
 

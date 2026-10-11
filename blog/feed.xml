@@ -41,9 +41,9 @@ doz ui&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
     <link rel="alternate" type="text/html" href="https://dozersandbox.com/blog/dozer-0-33"/>
     <published>2026-10-11T00:00:00Z</published>
     <updated>2026-10-11T00:00:00Z</updated>
-    <summary>Now on the stable channel — see what your agent is doing at a glance, a one-word upgrade, the dashboard in the background, and a way to hear about what's next.</summary>
+    <summary>Dozer Sandbox 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.</summary>
     <category term="release-news" label="Release news"/>
-    <content type="html">&lt;p&gt;Dozer Sandbox 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up. It&amp;#x27;s on the stable channel now; here&amp;#x27;s each change.&lt;/p&gt;
+    <content type="html">&lt;p&gt;It&amp;#x27;s on the stable channel now. Here&amp;#x27;s each change.&lt;/p&gt;
 &lt;h2 id="see-what-the-agent-is-doing"&gt;See what the agent is doing&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#see-what-the-agent-is-doing" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Claude Code and pi now tell Dozer whether they&amp;#x27;re working, done, or waiting for you. The dashboard shows it on every tab and tile, and tells you when an agent finishes or needs an answer, even when nobody is watching that session. Claude Code needs version 2.1.295 or later, and pi 1.1.0 or later.&lt;/p&gt;
 &lt;h2 id="doz-upgrade"&gt;&lt;code&gt;doz upgrade&lt;/code&gt;&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#doz-upgrade" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
