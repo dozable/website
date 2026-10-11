@@ -4,7 +4,7 @@ description: "A sandbox has no network card. Its only way out is a proxy in Doze
 url: https://dozersandbox.com/docs/permissions-and-network.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 10
 ---
 # What the agent can do: permissions and the network

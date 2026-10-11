@@ -4,7 +4,7 @@ description: "Your Mac's own coding agent — Claude Code, Codex, Cursor — can
 url: https://dozersandbox.com/docs/prompts-for-your-agent.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 22
 ---
 # Prompts for your agent

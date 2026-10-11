@@ -4,7 +4,7 @@ description: "Dozer's job is to let an AI agent work freely — install things, 
 url: https://dozersandbox.com/docs/security-model.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 16
 ---
 # Security model

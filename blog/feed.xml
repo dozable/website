@@ -43,7 +43,7 @@ doz ui&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
     <updated>2026-10-11T00:00:00Z</updated>
     <summary>Dozer Sandbox 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.</summary>
     <category term="release-news" label="Release news"/>
-    <content type="html">&lt;p&gt;It&amp;#x27;s on the stable channel now. Here&amp;#x27;s each change.&lt;/p&gt;
+    <content type="html">&lt;p&gt;It&amp;#x27;s on the &lt;a href="https://dozersandbox.com/docs/install-upgrade-uninstall.html"&gt;stable channel&lt;/a&gt; now, as 0.33.1. Here&amp;#x27;s each change.&lt;/p&gt;
 &lt;h2 id="see-what-the-agent-is-doing"&gt;See what the agent is doing&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#see-what-the-agent-is-doing" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Claude Code and pi now tell Dozer what they&amp;#x27;re doing: &lt;strong&gt;working&lt;/strong&gt;, &lt;strong&gt;done&lt;/strong&gt;, waiting for your answer, or stopped by an error. Dozer shows it in the dashboard wherever the session appears, so you can leave an agent to work and glance back when it matters.&lt;/p&gt;
 &lt;p&gt;While the agent works, its tab shows &lt;strong&gt;working&lt;/strong&gt;, and a dot beside the sandbox in the sidebar says something is going on.&lt;/p&gt;
@@ -69,6 +69,8 @@ doz ui&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;code&gt;doz ui --detach&lt;/code&gt; runs the dashboard without holding a terminal, and &lt;code&gt;doz ui stop&lt;/code&gt; stops it from any terminal.&lt;/p&gt;
 &lt;h2 id="staying-in-touch"&gt;Staying in touch&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#staying-in-touch" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Setup now ends with an optional sign-up for release news, early access, and tips and tricks, by email. Skip it, or sign up later with &lt;code&gt;doz signup&lt;/code&gt;.&lt;/p&gt;
+&lt;h2 id="fixed-in-0331-the-agent-can-write-your-workspace-again"&gt;Fixed in 0.33.1: the agent can write your workspace again&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#fixed-in-0331-the-agent-can-write-your-workspace-again" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Since 0.30, an agent in a sandbox could read a shared project folder but not change it, and &lt;code&gt;git&lt;/code&gt; refused the folder (&amp;quot;dubious ownership&amp;quot;). 0.33.1 fixes it. After upgrading, a sandbox that was running, asleep or hibernated needs a &lt;code&gt;doz shutdown NAME&lt;/code&gt; and then &lt;code&gt;doz start NAME&lt;/code&gt;; one that was shut down picks up the fix at its next start.&lt;/p&gt;
 &lt;h2 id="upgrade"&gt;Upgrade&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#upgrade" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;doz upgrade&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;New to Dozer Sandbox? &lt;a href="https://dozersandbox.com/docs/getting-started.html"&gt;Getting started&lt;/a&gt; takes a few minutes.&lt;/p&gt;</content>

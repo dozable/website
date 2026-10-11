@@ -4,7 +4,7 @@ description: "An agent on your Mac uses git and gh as you: it clones your privat
 url: https://dozersandbox.com/docs/github.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 18
 ---
 # GitHub as you

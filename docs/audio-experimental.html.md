@@ -4,7 +4,7 @@ description: "This lets a sandbox use your Mac's microphone and speakers."
 url: https://dozersandbox.com/docs/audio-experimental.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 23
 ---
 # Audio sandboxes (EXPERIMENTAL)

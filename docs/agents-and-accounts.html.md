@@ -4,7 +4,7 @@ description: "Dozer runs three AI coding agents out of the box — Claude Code, 
 url: https://dozersandbox.com/docs/agents-and-accounts.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 9
 ---
 # Agents and accounts

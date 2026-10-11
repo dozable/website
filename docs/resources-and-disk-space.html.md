@@ -4,7 +4,7 @@ description: "Dozer keeps everything in one folder, the store. doz resources —
 url: https://dozersandbox.com/docs/resources-and-disk-space.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 13
 ---
 # Resources and disk space

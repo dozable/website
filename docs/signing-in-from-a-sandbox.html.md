@@ -4,7 +4,7 @@ description: "Many command-line tools sign you in through a web browser: they op
 url: https://dozersandbox.com/docs/signing-in-from-a-sandbox.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 11
 ---
 # Signing in from a sandbox

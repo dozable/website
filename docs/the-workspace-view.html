@@ -105,6 +105,8 @@
 <ol>
 <li><a href="#why-every-workspace-goes-through-it">Why every workspace goes through it</a>
 </li>
+<li><a href="#who-can-write">Who can write</a>
+</li>
 <li><a href="#what-it-does">What it does</a>
 </li>
 <li><a href="#two-processes">Two processes</a>
@@ -136,6 +138,10 @@
 <p><strong>Turning it off.</strong> <code>doz config set workspace.view off</code> (every sandbox), or for one sandbox <code>doz create … --workspace-view off</code>, <code>workspace_view: off</code> in its <code>doz_project.yaml</code>, or <code>doz config set --sandbox NAME workspace.view off</code>. The folder is then shared directly — a little faster, but a program working inside <code>/workspace</code> loses its folder at every wake from hibernation and has to be restarted (<a href="terminals-and-sessions.html#restarting-or-ending-a-session">Restart session</a>). A folder with a <code>.dozignore</code> or <code>.dozreadonly</code> always uses the view.</p>
 <p><strong>When it takes effect.</strong> At the sandbox&#x27;s next start — never under programs that are running. A sandbox that was already running when you upgraded (or turned the setting on) changes over at its next start, or at its next wake from hibernation (whose wake would have cut its programs off anyway). Its first such wake is still the old one; restart the session if a program complains.</p>
 <p><strong>If the view cannot start</strong>, the folder is shared directly instead (never an empty <code>/workspace</code>): the start says so, and <code>doz doctor</code> warns &quot;workspace view&quot; for that sandbox. <code>doz ls --json</code> reports how each running sandbox&#x27;s workspace is served (<code>workspaceView</code>: <code>live</code>, <code>rules</code>, <code>direct</code>, <code>next-start</code> or <code>fallback</code>).</p>
+<h2 id="who-can-write">Who can write<a class="anchor" href="#who-can-write" aria-label="Link to this section">#</a></h2>
+<p>Inside the sandbox, every file in <code>/workspace</code> appears to belong to the sandbox&#x27;s own user — <code>agent</code> in the agent images — and that user can change whatever your Mac account can change in the folder, files only you may read included. Root can too. On your Mac, everything the sandbox writes belongs to you, as before.</p>
+<p>Any <strong>other</strong> user inside the sandbox (for example <code>node</code>, or <code>doz exec --user NAME</code>) can read the folder but not write it through the view. With <code>workspace.view</code> off the plain share lets every user in the sandbox write, as your Mac account.</p>
+<p><strong>Sandboxes started before Dozer 0.33.1</strong> run an older view, under which the agent could not write <code>/workspace</code> at all: &quot;Permission denied&quot;, and git refused the repository (&quot;detected dubious ownership&quot;). Sleeping and waking such a sandbox keeps the old view (the wake says so); shut it down and start it again (<code>doz shutdown NAME</code> then <code>doz start NAME</code>) and it gets the new one.</p>
 <h2 id="what-it-does">What it does<a class="anchor" href="#what-it-does" aria-label="Link to this section">#</a></h2>
 <ul>
 <li><p>Your Mac folder reaches the sandbox as usual, but it is mounted privately at <code>/run/doz/raw/&lt;id&gt;</code>, inside a folder only root can enter.</p></li>
@@ -171,9 +177,9 @@
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Looking inside"><table>
 <thead><tr><th scope="col">to see</th><th scope="col">run</th></tr></thead>
 <tbody>
-<tr><td>the rules, the mode and whether the view is running</td><td><code>doz ignore show NAME</code></td></tr><tr><td>which line decides a path</td><td><code>doz ignore check NAME PATH</code></td></tr><tr><td>the processes</td><td><code>doz exec NAME -- ps</code></td></tr><tr><td>the mode and case setting Dozer gave it</td><td><code>doz exec NAME -- sh -c &#x27;cat /run/doz/view/*.conf&#x27;</code></td></tr><tr><td>its log (rule reloads, reconnects, worker restarts, lines that did not parse)</td><td><code>doz exec NAME -- sh -c &#x27;tail /run/doz/view/*.log&#x27;</code></td></tr>
+<tr><td>the rules, the mode and whether the view is running</td><td><code>doz ignore show NAME</code></td></tr><tr><td>which line decides a path</td><td><code>doz ignore check NAME PATH</code></td></tr><tr><td>the processes</td><td><code>doz exec NAME -- ps</code></td></tr><tr><td>the mode, case setting and owner Dozer gave it</td><td><code>doz exec NAME -- sh -c &#x27;cat /run/doz/view/*.conf&#x27;</code></td></tr><tr><td>its log (rule reloads, reconnects, worker restarts, lines that did not parse)</td><td><code>doz exec NAME -- sh -c &#x27;tail /run/doz/view/*.log&#x27;</code></td></tr>
 </tbody></table></div>
-<p>Its files are in <code>/run/doz/view/</code>: the <code>.conf</code> Dozer writes (the mode, and whether matching ignores case), its <code>.state</code>, its <code>.pid</code> (the supervisor&#x27;s) and its <code>.log</code>. The program is copied into the sandbox at <code>/usr/local/lib/doz/bin/dozview</code> — it never runs from your shared folder.</p>
+<p>Its files are in <code>/run/doz/view/</code>: the <code>.conf</code> Dozer writes (the mode, whether matching ignores case, and the user the files are shown as belonging to), its <code>.state</code>, its <code>.pid</code> (the supervisor&#x27;s) and its <code>.log</code>. The program is copied into the sandbox at <code>/usr/local/lib/doz/bin/dozview</code> — it never runs from your shared folder.</p>
 <h2 id="not-a-security-boundary">Not a security boundary<a class="anchor" href="#not-a-security-boundary" aria-label="Link to this section">#</a></h2>
 <p>Root in the sandbox can stop <code>dozview</code>, or reach the private share directly. The view keeps an agent from stumbling into files you listed; the virtual machine is the boundary. See <a href="security-model.html">Security model</a>.</p>
 <h2 id="about-the-program">About the program<a class="anchor" href="#about-the-program" aria-label="Link to this section">#</a></h2>
@@ -192,6 +198,8 @@
 <h2>On this page</h2>
 <ol>
 <li><a href="#why-every-workspace-goes-through-it">Why every workspace goes through it</a>
+</li>
+<li><a href="#who-can-write">Who can write</a>
 </li>
 <li><a href="#what-it-does">What it does</a>
 </li>

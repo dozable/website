@@ -4,7 +4,7 @@ description: "/workspace inside a sandbox is not your shared folder itself: it i
 url: https://dozersandbox.com/docs/the-workspace-view.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 21
 ---
 # The workspace view (`dozview`)
@@ -53,6 +53,22 @@ still the old one; restart the session if a program complains.
 start says so, and `doz doctor` warns "workspace view" for that sandbox. `doz ls --json` reports how each
 running sandbox's workspace is served (`workspaceView`: `live`, `rules`, `direct`, `next-start` or
 `fallback`).
+
+## Who can write
+
+Inside the sandbox, every file in `/workspace` appears to belong to the sandbox's own user — `agent` in
+the agent images — and that user can change whatever your Mac account can change in the folder, files only
+you may read included. Root can too. On your Mac, everything the sandbox writes belongs to you, as
+before.
+
+Any **other** user inside the sandbox (for example `node`, or `doz exec --user NAME`) can read the folder but
+not write it through the view. With `workspace.view` off the plain share lets every user in the sandbox
+write, as your Mac account.
+
+**Sandboxes started before Dozer 0.33.1** run an older view, under which the agent could not write
+`/workspace` at all: "Permission denied", and git refused the repository ("detected dubious ownership").
+Sleeping and waking such a sandbox keeps the old view (the wake says so); shut it down and start it again
+(`doz shutdown NAME` then `doz start NAME`) and it gets the new one.
 
 ## What it does
 
@@ -115,10 +131,11 @@ plain share's speed. With rules, hiding a big folder often makes a whole-tree wa
 | the rules, the mode and whether the view is running | `doz ignore show NAME` |
 | which line decides a path | `doz ignore check NAME PATH` |
 | the processes | `doz exec NAME -- ps` |
-| the mode and case setting Dozer gave it | `doz exec NAME -- sh -c 'cat /run/doz/view/*.conf'` |
+| the mode, case setting and owner Dozer gave it | `doz exec NAME -- sh -c 'cat /run/doz/view/*.conf'` |
 | its log (rule reloads, reconnects, worker restarts, lines that did not parse) | `doz exec NAME -- sh -c 'tail /run/doz/view/*.log'` |
 
-Its files are in `/run/doz/view/`: the `.conf` Dozer writes (the mode, and whether matching ignores case),
+Its files are in `/run/doz/view/`: the `.conf` Dozer writes (the mode, whether matching ignores case, and the
+user the files are shown as belonging to),
 its `.state`, its `.pid` (the supervisor's) and its `.log`. The program is copied into the sandbox at
 `/usr/local/lib/doz/bin/dozview` — it never runs from your shared folder.
 

@@ -53,7 +53,7 @@
 <header class="post-head"><p class="post-meta"><time datetime="2026-10-11">11 October 2026</time> <span class="chip">Release news</span></p>
 <h1>Dozer Sandbox 0.33 - see what your agent is doing</h1>
 <p class="post-summary">Dozer Sandbox 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.</p></header>
-<p>It&#x27;s on the stable channel now. Here&#x27;s each change.</p>
+<p>It&#x27;s on the <a href="https://dozersandbox.com/docs/install-upgrade-uninstall.html">stable channel</a> now, as 0.33.1. Here&#x27;s each change.</p>
 <h2 id="see-what-the-agent-is-doing">See what the agent is doing<a class="anchor" href="#see-what-the-agent-is-doing" aria-label="Link to this section">#</a></h2>
 <p>Claude Code and pi now tell Dozer what they&#x27;re doing: <strong>working</strong>, <strong>done</strong>, waiting for your answer, or stopped by an error. Dozer shows it in the dashboard wherever the session appears, so you can leave an agent to work and glance back when it matters.</p>
 <p>While the agent works, its tab shows <strong>working</strong>, and a dot beside the sandbox in the sidebar says something is going on.</p>
@@ -79,6 +79,8 @@
 <p><code>doz ui --detach</code> runs the dashboard without holding a terminal, and <code>doz ui stop</code> stops it from any terminal.</p>
 <h2 id="staying-in-touch">Staying in touch<a class="anchor" href="#staying-in-touch" aria-label="Link to this section">#</a></h2>
 <p>Setup now ends with an optional sign-up for release news, early access, and tips and tricks, by email. Skip it, or sign up later with <code>doz signup</code>.</p>
+<h2 id="fixed-in-0331-the-agent-can-write-your-workspace-again">Fixed in 0.33.1: the agent can write your workspace again<a class="anchor" href="#fixed-in-0331-the-agent-can-write-your-workspace-again" aria-label="Link to this section">#</a></h2>
+<p>Since 0.30, an agent in a sandbox could read a shared project folder but not change it, and <code>git</code> refused the folder (&quot;dubious ownership&quot;). 0.33.1 fixes it. After upgrading, a sandbox that was running, asleep or hibernated needs a <code>doz shutdown NAME</code> and then <code>doz start NAME</code>; one that was shut down picks up the fix at its next start.</p>
 <h2 id="upgrade">Upgrade<a class="anchor" href="#upgrade" aria-label="Link to this section">#</a></h2>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz upgrade</code></pre></figure>
 <p>New to Dozer Sandbox? <a href="https://dozersandbox.com/docs/getting-started.html">Getting started</a> takes a few minutes.</p>

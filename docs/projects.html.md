@@ -4,7 +4,7 @@ description: "A project is a folder with a doz_project.yaml file in it."
 url: https://dozersandbox.com/docs/projects.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 4
 ---
 # Projects

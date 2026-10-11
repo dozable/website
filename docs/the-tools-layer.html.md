@@ -4,7 +4,7 @@ description: "Some settings need a tool inside the sandbox to be useful: \"GitHu
 url: https://dozersandbox.com/docs/the-tools-layer.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 19
 ---
 # The tools layer

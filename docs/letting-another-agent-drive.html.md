@@ -4,7 +4,7 @@ description: "So far you have run doz. But the agent you already use on your Mac
 url: https://dozersandbox.com/docs/letting-another-agent-drive.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 14
 ---
 # Letting another agent drive Dozer

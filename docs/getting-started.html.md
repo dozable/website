@@ -4,7 +4,7 @@ description: "Dozer Sandbox runs AI coding agents, such as Claude Code, in small
 url: https://dozersandbox.com/docs/getting-started.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 1
 ---
 # Getting started

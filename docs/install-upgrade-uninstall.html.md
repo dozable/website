@@ -4,7 +4,7 @@ description: "doz is one command-line program. It comes with everything it needs
 url: https://dozersandbox.com/docs/install-upgrade-uninstall.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 2
 ---
 # Installing, upgrading and uninstalling

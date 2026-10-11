@@ -4,7 +4,7 @@ description: "A sandbox is one Linux virtual machine with its own disks."
 url: https://dozersandbox.com/docs/sandboxes-and-lifecycle.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 5
 ---
 # Sandboxes and their lifecycle

@@ -4,7 +4,7 @@ description: "doz ui is Dozer in your browser: every sandbox with a live termina
 url: https://dozersandbox.com/docs/the-dashboard.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 6
 ---
 # The dashboard (`doz ui`)

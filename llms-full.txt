@@ -3256,6 +3256,7 @@ Add `-v` to any command to see every step it takes.
 | symptom | what to do |
 |---|---|
 | Codex: `turn/start failed: invalid cwd: No such file or directory` after a wake; a shell's `ls .` says `No such file or directory` | The program's folder was cut off by a wake from hibernation — a sandbox still on the plain share (`workspace.view` off, or started before 0.30.0). Restart the session: `doz sessions restart NAME SESSION` (the conversation continues), or **⋯ › Restart session** on its tab. From its next start the sandbox uses [the workspace view](https://dozersandbox.com/docs/the-workspace-view.html.md) and this does not happen again. |
+| The agent gets "Permission denied" writing `/workspace`, or git says "detected dubious ownership" | The sandbox runs a workspace view from before Dozer 0.33.1, under which the sandbox's user could not write the shared folder. `doz shutdown NAME` and `doz start NAME` give it the current view (a wake keeps the old one). Another user than the sandbox's own cannot write through the view — see [Who can write](https://dozersandbox.com/docs/the-workspace-view.html.md#who-can-write). |
 | `doz doctor` warns "workspace view" | The live view of `/workspace` could not start, so the folder is shared directly. `doz console NAME --steps` shows why; `doz shutdown NAME` and `doz start NAME` try again. |
 | A program is stuck | `doz sessions restart NAME SESSION`, or `doz sessions end NAME SESSION`. |
 
@@ -3787,6 +3788,22 @@ start says so, and `doz doctor` warns "workspace view" for that sandbox. `doz ls
 running sandbox's workspace is served (`workspaceView`: `live`, `rules`, `direct`, `next-start` or
 `fallback`).
 
+## Who can write
+
+Inside the sandbox, every file in `/workspace` appears to belong to the sandbox's own user — `agent` in
+the agent images — and that user can change whatever your Mac account can change in the folder, files only
+you may read included. Root can too. On your Mac, everything the sandbox writes belongs to you, as
+before.
+
+Any **other** user inside the sandbox (for example `node`, or `doz exec --user NAME`) can read the folder but
+not write it through the view. With `workspace.view` off the plain share lets every user in the sandbox
+write, as your Mac account.
+
+**Sandboxes started before Dozer 0.33.1** run an older view, under which the agent could not write
+`/workspace` at all: "Permission denied", and git refused the repository ("detected dubious ownership").
+Sleeping and waking such a sandbox keeps the old view (the wake says so); shut it down and start it again
+(`doz shutdown NAME` then `doz start NAME`) and it gets the new one.
+
 ## What it does
 
 - Your Mac folder reaches the sandbox as usual, but it is mounted privately at `/run/doz/raw/<id>`, inside
@@ -3848,10 +3865,11 @@ plain share's speed. With rules, hiding a big folder often makes a whole-tree wa
 | the rules, the mode and whether the view is running | `doz ignore show NAME` |
 | which line decides a path | `doz ignore check NAME PATH` |
 | the processes | `doz exec NAME -- ps` |
-| the mode and case setting Dozer gave it | `doz exec NAME -- sh -c 'cat /run/doz/view/*.conf'` |
+| the mode, case setting and owner Dozer gave it | `doz exec NAME -- sh -c 'cat /run/doz/view/*.conf'` |
 | its log (rule reloads, reconnects, worker restarts, lines that did not parse) | `doz exec NAME -- sh -c 'tail /run/doz/view/*.log'` |
 
-Its files are in `/run/doz/view/`: the `.conf` Dozer writes (the mode, and whether matching ignores case),
+Its files are in `/run/doz/view/`: the `.conf` Dozer writes (the mode, whether matching ignores case, and the
+user the files are shown as belonging to),
 its `.state`, its `.pid` (the supervisor's) and its `.log`. The program is copied into the sandbox at
 `/usr/local/lib/doz/bin/dozview` — it never runs from your shared folder.
 

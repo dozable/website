@@ -4,7 +4,7 @@ description: "Every setting Dozer has is in one file, ~/.config/dozer-sandbox/do
 url: https://dozersandbox.com/docs/settings-reference.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 15
 ---
 # Settings reference

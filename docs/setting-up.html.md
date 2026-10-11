@@ -4,7 +4,7 @@ description: "Setup — onboarding — is what you do once after installing: it 
 url: https://dozersandbox.com/docs/setting-up.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 3
 ---
 # Setting up this Mac

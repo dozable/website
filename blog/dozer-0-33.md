@@ -11,7 +11,7 @@ source: "Dozer Sandbox blog"
 
 *11 October 2026 · Release news*
 
-It's on the stable channel now. Here's each change.
+It's on the [stable channel](https://dozersandbox.com/docs/install-upgrade-uninstall.html) now, as 0.33.1. Here's each change.
 
 ## See what the agent is doing
 
@@ -73,6 +73,12 @@ doz upgrade
 
 Setup now ends with an optional sign-up for release news, early access, and tips and tricks, by email. Skip it, or
 sign up later with `doz signup`.
+
+## Fixed in 0.33.1: the agent can write your workspace again
+
+Since 0.30, an agent in a sandbox could read a shared project folder but not change it, and `git` refused the folder
+("dubious ownership"). 0.33.1 fixes it. After upgrading, a sandbox that was running, asleep or hibernated needs a
+`doz shutdown NAME` and then `doz start NAME`; one that was shut down picks up the fix at its next start.
 
 ## Upgrade
 

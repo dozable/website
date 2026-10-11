@@ -4,7 +4,7 @@ description: "OpenAI's Codex runs in a Dozer sandbox the way Claude Code does: r
 url: https://dozersandbox.com/docs/codex.html
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox manual"
-updated: 2026-10-11
+updated: 2026-10-12
 chapter: 24
 ---
 # Codex
