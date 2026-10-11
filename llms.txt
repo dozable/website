@@ -39,7 +39,7 @@ Pages have Markdown twins: add `.md` to a page URL (docs pages: `.html.md`).
 
 - [Blog index](https://dozersandbox.com/blog/index.md): news, early access, tips and tricks.
 - [Introducing Dozer Sandbox](https://dozersandbox.com/blog/introducing-dozer-sandbox.md): Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac — free and open source. Here's what it is, why it exists, and how to try it in a minute.
-- [Dozer Sandbox 0.33: see what your agent is doing](https://dozersandbox.com/blog/dozer-0-33.md): Now on the stable channel — see what your agent is doing at a glance, a one-word upgrade, the dashboard in the background, and a way to hear about what's next.
+- [Dozer Sandbox 0.33 - see what your agent is doing](https://dozersandbox.com/blog/dozer-0-33.md): Now on the stable channel — see what your agent is doing at a glance, a one-word upgrade, the dashboard in the background, and a way to hear about what's next.
 
 ## Site
 
