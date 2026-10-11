@@ -41,6 +41,22 @@ waiting for you.
 The status shows while the dashboard is open (`doz ui`). Claude Code needs version 2.1.295 or later, and pi 1.1.0 or
 later.
 
+### How it works
+
+It uses a terminal escape sequence: bytes mixed into a program's output that the terminal acts on instead of
+showing, the same way programs set a window's title or colours. This one is **OSC 7501**, for program status
+([Mitchell Hashimoto's write-up](https://mitchellh.com/writing/program-status-osc7501)).
+
+- **The handshake:** a program asks the terminal whether it understands the sequence (`ESC ] 7501 ; ? ST`). If the
+  terminal answers, the program reports its state (working, done, blocked or error, with a short message) each time
+  it changes.
+- **Inside the sandbox:** every session runs under a small holder process that reads everything the program writes,
+  whether or not anyone is watching. It answers that question, keeps the latest report, and passes the output on
+  unchanged.
+- **On your Mac:** the Dozer host watches each running session's status, and the dashboard draws it.
+
+Nothing is read from the screen or guessed: Dozer shows exactly what the agent itself reports.
+
 ## `doz upgrade`
 
 One command moves you to the newest version on your channel. It asks first; `-y` skips the question.
