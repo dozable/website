@@ -262,11 +262,11 @@ def site_chrome():
     return header, footer
 
 
-def signup_box(prefix, checked):
+def signup_box(prefix):
+    """The sign-up form. No box is ever pre-ticked (consent must be an active choice)."""
     def box(value, label, hint):
-        c = ' checked' if value in checked else ''
-        return ('    <label class="check"><input type="checkbox" name="interests" value="%s"%s><span><b>%s</b>'
-                '<small>%s</small></span></label>\n' % (value, c, label, hint))
+        return ('    <label class="check"><input type="checkbox" name="interests" value="%s"><span><b>%s</b>'
+                '<small>%s</small></span></label>\n' % (value, label, hint))
     return '''<div class="signup-box signup" data-signup-root>
 <noscript><p class="note">This form needs JavaScript &mdash; or run <code>doz signup</code> in Terminal.</p></noscript>
 <form data-signup action="#" method="post">
@@ -290,7 +290,10 @@ def post_page(p, header, footer):
     title = '%s — Dozer Sandbox blog' % f['title']
     extra = ('<meta property="article:published_time" content="%s">\n' % f['date']
              + ''.join('<meta property="article:tag" content="%s">\n' % esc(TOPICS[t]) for t in f['topics']))
-    topics = ', '.join(TOPICS[t] for t in f['topics'])
+    if len(f['topics']) == 1:
+        sub_h = 'Get %s by email' % TOPICS[f['topics'][0]]
+    else:
+        sub_h = 'Get posts like this by email \u2014 tick what you\u2019d like'
     return (head(title, f['summary'], url, 'article', extra) + '<body class="docs blog">\n'
             '<a class="skip" href="#main">Skip to the post</a>\n' + header + '\n<main id="main">\n'
             '<article class="prose article post">\n'
@@ -298,10 +301,10 @@ def post_page(p, header, footer):
             '<header class="post-head"><p class="post-meta"><time datetime="%s">%s</time> %s</p>\n<h1>%s</h1>\n'
             '<p class="post-summary">%s</p></header>\n%s\n</article>\n'
             '<aside class="post-sub" aria-labelledby="sub-h"><div class="post-sub-in">\n'
-            '<h2 id="sub-h">Get posts like this by email</h2>\n'
-            '<p>%s. <a href="./">Read past issues &rarr;</a></p>\n%s\n</div></aside>\n</main>\n%s\n</body>\n</html>\n'
+            '<h2 id="sub-h">%s</h2>\n'
+            '<p>Tick what you\u2019d like to hear about. <a href="./">Read past issues &rarr;</a></p>\n%s\n</div></aside>\n</main>\n%s\n</body>\n</html>\n'
             % (f['date'], fmt_date(f['date']), chips(f['topics']), esc(f['title']), esc(f['summary']), p['html'],
-               esc(topics), signup_box('post-', f['topics']), footer))
+               esc(sub_h), signup_box('post-'), footer))
 
 
 def index_page(posts, header, footer):
@@ -322,7 +325,7 @@ def index_page(posts, header, footer):
             '<div class="post-items">\n%s</div>\n</div>\n'
             '<aside class="post-sub" aria-labelledby="sub-h"><div class="post-sub-in">\n'
             '<h2 id="sub-h">Get these by email</h2>\n%s\n</div></aside>\n</main>\n%s\n</body>\n</html>\n'
-            % (items, signup_box('blog-', ()), footer))
+            % (items, signup_box('blog-'), footer))
 
 
 # --------------------------------------------------------------------------------------------------------- feed
