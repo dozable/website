@@ -1,5 +1,5 @@
 ---
-title: "\"Dozer Sandbox 0.33: see what your agent is doing\" — Dozer Sandbox blog"
+title: "Dozer Sandbox 0.33: see what your agent is doing — Dozer Sandbox blog"
 description: "Now on the stable channel — see what your agent is doing at a glance, a one-word upgrade, the dashboard in the background, and a way to hear about what's next."
 date: 2026-10-11
 topics: [release-news]
@@ -7,7 +7,7 @@ url: https://dozersandbox.com/blog/dozer-0-33
 image: https://dozersandbox.com/og-image.png
 source: "Dozer Sandbox blog"
 ---
-# "Dozer Sandbox 0.33: see what your agent is doing"
+# Dozer Sandbox 0.33: see what your agent is doing
 
 *11 October 2026 · Release news*
 

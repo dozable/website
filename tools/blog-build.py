@@ -62,6 +62,8 @@ def parse_front(path, name):
             fail('%s:%d' % (name, i + 1), 'duplicate key %r' % key)
         if key in ('topics', 'email', 'status', 'date'):
             val = re.sub(r'\s+#.*$', '', val).strip()         # a trailing comment
+        if len(val) >= 2 and val[0] == val[-1] and val[0] in '"\'':
+            val = val[1:-1]                                     # YAML-style quoting: "…" or '…' is the text inside
         fm[key] = (val, i + 1)
     for key in KEYS:
         if key not in fm:
