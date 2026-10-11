@@ -1,5 +1,5 @@
 #!/bin/bash
-# tools/stamp.sh — run (after tools/blog-build.py and tools/docs-build.py) before every commit that changes site.css, site.js, headlines.js, headlines.txt, docs/docs.css,
+# tools/stamp.sh — run (after tools/docs-build.py, tools/blog-build.py and tools/markdown-build.py) before every commit that changes site.css, site.js, headlines.js, headlines.txt, docs/docs.css,
 # docs/docs.js or the docs pages (tools/docs-build.py).
 #  1. Fingerprints their links in every page — the root pages and docs/*.html, each by its own relative path
 #     (?v=<8 hex of the file's sha256>): Cloudflare tells browsers to keep these files for hours, so a page

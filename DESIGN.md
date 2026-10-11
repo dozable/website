@@ -143,5 +143,22 @@ Generated, like the docs: `python3 tools/blog-build.py <posts repo>` reads the p
 `sitemap.xml`. Only `status: published` posts are built; `--drafts --out <dir outside this repo>` previews drafts.
 The Markdown is rendered by `docs-build.py`'s renderer (imported), so code blocks, tables and images look like the
 docs'; the page chrome is the root pages' header and footer. Never edit `blog/` by hand. The order for a publish:
-`tools/docs-build.py` (if the manual changed), then `tools/blog-build.py`, then `tools/stamp.sh` (it fingerprints the
-links on `blog/*.html` too), then commit.
+`tools/docs-build.py` (if the manual changed), then `tools/blog-build.py`, then `tools/markdown-build.py`, then
+`tools/stamp.sh` (it fingerprints the links on `blog/*.html` too), then commit.
+
+## 10. Markdown for agents
+
+Every page has a Markdown twin at its URL + `.md`, for agents (the llms.txt convention); a Cloudflare Transform Rule can
+rewrite `Accept: text/markdown` requests to the twins (GitHub Pages cannot do content negotiation). Each HTML page's
+`<head>` carries `<link rel="alternate" type="text/markdown" href="…">`. All twins are generated, never edited:
+
+| Page | Twin | Made by |
+|---|---|---|
+| `docs/<page>.html`, `docs/` | `docs/<page>.html.md`, `docs/index.html.md` | `docs-build.py`: the manual's own Markdown, links and images made absolute |
+| `blog/<slug>`, `blog/` | `blog/<slug>.md`, `blog/index.md` | `blog-build.py`: the post's Markdown (published posts only) |
+| `/`, `timeline.html`, `/privacy`, `/signup` | `index.html.md`, `timeline.html.md`, `privacy.md`, `signup.md` | `markdown-build.py`: a converter over the published HTML |
+| | `llms.txt`, `llms-full.txt` | `markdown-build.py` (the index for agents; the whole manual and the privacy policy) |
+
+Links inside twins are absolute and point at other twins (an agent following links stays in Markdown); each twin's
+front matter `url` names its HTML page. `.nojekyll` at the root stops GitHub Pages running Jekyll, which would turn a
+`.md` that starts with `---` into HTML.

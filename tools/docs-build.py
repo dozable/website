@@ -12,7 +12,7 @@ After writing, it reads the pages back and checks that every word and every code
 
 Writes docs/index.html, docs/<slug>.html (slug = the file name without its number), docs/images/, and the docs
 entries of sitemap.xml. Then run tools/stamp.sh (it fingerprints site.css, docs.css and docs.js)."""
-import html, os, posixpath, re, shutil, struct, subprocess, sys, unicodedata
+import html, json, os, posixpath, re, shutil, struct, subprocess, sys, unicodedata
 from collections import Counter
 from html.parser import HTMLParser
 
@@ -22,6 +22,8 @@ TEMPLATE = os.path.join(SITE, 'tools', 'docs-template.html')
 DIAGRAMS = os.path.join(SITE, 'tools', 'docs-diagrams')
 BASE_URL = 'https://dozersandbox.com/docs/'
 REPO = 'https://github.com/dozer-sandbox/dozer-sandbox'
+INDEX_DESCRIPTION = ('The user manual for Dozer Sandbox: install, set up, and run AI coding agents in fast, resumable '
+                     'Linux sandboxes on your Mac, with the doz command or its dashboard.')
 
 # A blockquote whose bold lead-in is one of these is a warning callout (DESIGN.md §4); any other bold lead-in is a
 # note, and a quote with no bold lead-in is an example. Compared without the trailing full stop.
@@ -694,7 +696,9 @@ class Build:
 
     def frame(self, page, title, description, canonical, article, toc):
         tpl = open(TEMPLATE, encoding='utf-8').read()
+        markdown = canonical + '.md' if canonical.endswith('.html') else canonical + 'index.html.md'
         for k, v in (('TITLE', esc(title)), ('DESCRIPTION', esc(description)), ('CANONICAL', canonical),
+                     ('MARKDOWN', markdown),
                      ('SIDEBAR', self.sidebar(page)), ('TOC', toc), ('ARTICLE', article)):
             tpl = tpl.replace('{{%s}}' % k, v)
         return tpl
@@ -779,10 +783,85 @@ class Build:
             '</div>',
             '<p class="edit"><a href="%s/blob/main/docs/manual/README.md">Edit this page on GitHub</a></p>' % REPO,
         ])
-        return self.frame(page, 'The Dozer Sandbox manual — Dozer Sandbox docs',
-                          'The user manual for Dozer Sandbox: install, set up, and run AI coding agents in fast, '
-                          'resumable Linux sandboxes on your Mac, with the doz command or its dashboard.',
+        return self.frame(page, 'The Dozer Sandbox manual — Dozer Sandbox docs', INDEX_DESCRIPTION,
                           BASE_URL, article, '')
+
+    # ---- markdown twins (docs/<page>.html.md): the manual's own Markdown, links and images made absolute
+    def twin(self, page):
+        """The page's Markdown source with a YAML front matter, every link absolute and pointing at the .md twins
+        (an agent following a link stays in Markdown; each twin's `url` says where the HTML page is)."""
+        if page is self.readme:
+            title = strip_tags(page.inline(page.title_src, 1))
+            description = INDEX_DESCRIPTION
+            url, extra = BASE_URL, {}
+        else:
+            title = html.unescape(strip_tags(page.inline(page.title_src, 1)))
+            description = html.unescape(strip_tags(summary_of(page)))
+            url, extra = BASE_URL + page.href, {'chapter': page.num}
+        fm = ['---', 'title: %s' % json.dumps(title + ' — Dozer Sandbox docs' if page is not self.readme else
+                                              'The Dozer Sandbox manual — Dozer Sandbox docs', ensure_ascii=False),
+              'description: %s' % json.dumps(description, ensure_ascii=False),
+              'url: %s' % url, 'image: https://dozersandbox.com/og-image.png', 'source: "Dozer Sandbox manual"',
+              'updated: %s' % self.date]
+        fm += ['%s: %s' % (k, v) for k, v in extra.items()] + ['---', '']
+        body, fence, comment = [], None, False
+        for k, line in enumerate(page.lines):
+            where = '%s:%d' % (page.name, k + 1)
+            st = line.strip()
+            if fence:
+                body.append(line)
+                if st.startswith(fence) and set(st) <= set(fence[0]):
+                    fence = None
+                continue
+            m = FENCE.match(st)
+            if m and not comment:
+                fence = m.group(1)
+                body.append(line)
+                continue
+            if comment:
+                if '-->' in line:
+                    comment = False
+                    line = line.split('-->', 1)[1]
+                    if not line.strip():
+                        continue
+                else:
+                    continue
+            while '<!--' in line:
+                a, _, rest = line.partition('<!--')
+                if '-->' in rest:
+                    line = a + rest.split('-->', 1)[1]
+                else:
+                    line, comment = a, True
+            if comment and not line.strip():
+                continue
+            body.append(self.twin_links(page, line, where))
+        text = '\n'.join(body).rstrip('\n') + '\n'
+        return '\n'.join(fm) + text
+
+    def twin_links(self, page, line, where):
+        codes = []
+
+        def keep(m):
+            codes.append(m.group(0))
+            return '\x00%d\x00' % (len(codes) - 1)
+        line = re.sub(r'(`+)(?:(?!\1).)+?\1', keep, line)
+
+        def repl(m):
+            bang, text, url = m.group(1), m.group(2), m.group(3)
+            if bang:
+                if not re.match(r'^https?:', url):
+                    url = BASE_URL + url
+                return '![%s](%s)' % (text, url)
+            if re.match(r'^(https?|mailto):', url) or url.startswith('#'):
+                return '[%s](%s)' % (text, url)
+            href = page.link(url, where)
+            if not re.match(r'^https?:', href):
+                path, _, frag = href.partition('#')
+                path = 'index.html' if path in ('', './', '.') else path
+                href = BASE_URL + path + ('.md' if path.endswith('.html') else '') + ('#' + frag if frag else '')
+            return '[%s](%s)' % (text, href)
+        line = re.sub(r'(!?)\[((?:[^\[\]]|\[[^\]]*\])*)\]\(([^)\s]+)\)', repl, line)
+        return re.sub(r'\x00(\d+)\x00', lambda m: codes[int(m.group(1))], line)
 
     def write(self):
         os.makedirs(os.path.join(OUT, 'images'), exist_ok=True)
@@ -790,6 +869,15 @@ class Build:
         for p in self.chapters:
             pages[p.href] = self.chapter_html(p)
         self.check_frags()
+        twins = {'index.html.md': self.twin(self.readme)}
+        for p in self.chapters:
+            twins[p.href + '.md'] = self.twin(p)
+        for f in os.listdir(OUT):          # a renamed chapter leaves no stale twin behind
+            if f.endswith('.html.md') and f not in twins:
+                os.remove(os.path.join(OUT, f))
+        for name, text in twins.items():
+            with open(os.path.join(OUT, name), 'w', encoding='utf-8') as f:
+                f.write(text)
         keep = set(pages) | {'docs.css', 'docs.js', 'images'}
         for f in os.listdir(OUT):          # a renamed chapter leaves no stale page behind
             if f.endswith('.html') and f not in keep:

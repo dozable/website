@@ -17,7 +17,7 @@ rebuilt from scratch each run: never edit it by hand. Then run tools/stamp.sh (i
 
 --drafts also builds `status: draft` posts, for a local preview; --out is then REQUIRED and must be outside the website
 repository, so a draft can never be committed here. A preview copy of the site's CSS/JS is written beside it."""
-import argparse, datetime, html, importlib.util, os, re, shutil, struct, sys, types
+import argparse, datetime, html, importlib.util, json, os, re, shutil, struct, sys, types
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = 'https://dozersandbox.com/'
@@ -187,6 +187,24 @@ class Post(docs.Page):
     def body_html(self):
         return self.render(self.blocks)
 
+    def body_md(self):
+        """The post's Markdown with its image paths made absolute (links are absolute already)."""
+        out, fence = [], None
+        for line in self.lines:
+            st = line.strip()
+            if fence:
+                out.append(line)
+                if st.startswith(fence) and set(st) <= set(fence[0]):
+                    fence = None
+                continue
+            m = docs.FENCE.match(st)
+            if m:
+                fence = m.group(1)
+            line = re.sub(r'^!\[([^\]]*)\]\(([A-Za-z0-9][A-Za-z0-9._-]*)\)\s*$',
+                          lambda mm: '![%s](%simages/%s/%s)' % (mm.group(1), BASE + 'blog/', self.slug, mm.group(2)), line)
+            out.append(line)
+        return '\n'.join(out).strip('\n') + '\n'
+
 
 # --------------------------------------------------------------------------------------------------------- pages
 ALT = ('The Dozer Sandbox sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes '
@@ -202,7 +220,7 @@ def chips(topics):
     return ''.join('<span class="chip">%s</span>' % esc(TOPICS[t]) for t in topics)
 
 
-def head(title, desc, url, kind, extra=''):
+def head(title, desc, url, kind, extra='', md=''):
     t, d = esc(title), esc(desc)
     return '''<!doctype html>
 <html lang="en">
@@ -231,7 +249,8 @@ def head(title, desc, url, kind, extra=''):
 <meta name="twitter:description" content="{d}">
 <meta name="twitter:image" content="{base}og-image.png">
 <meta name="twitter:image:alt" content="{alt}">
-{extra}<link rel="alternate" type="application/atom+xml" title="Dozer Sandbox blog" href="feed.xml">
+{extra}<link rel="alternate" type="text/markdown" href="{md}">
+<link rel="alternate" type="application/atom+xml" title="Dozer Sandbox blog" href="feed.xml">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="stylesheet" href="../site.css">
@@ -240,7 +259,7 @@ def head(title, desc, url, kind, extra=''):
 <script defer src="../docs/docs.js"></script>
 <script defer src="../signup.js"></script>
 </head>
-'''.format(t=t, d=d, url=url, kind=kind, base=BASE, alt=esc(ALT), extra=extra)
+'''.format(t=t, d=d, url=url, kind=kind, base=BASE, alt=esc(ALT), extra=extra, md=md)
 
 
 def site_chrome():
@@ -294,7 +313,7 @@ def post_page(p, header, footer):
         sub_h = 'Get %s by email' % TOPICS[f['topics'][0]]
     else:
         sub_h = 'Get posts like this by email \u2014 tick what you\u2019d like'
-    return (head(title, f['summary'], url, 'article', extra) + '<body class="docs blog">\n'
+    return (head(title, f['summary'], url, 'article', extra, url + '.md') + '<body class="docs blog">\n'
             '<a class="skip" href="#main">Skip to the post</a>\n' + header + '\n<main id="main">\n'
             '<article class="prose article post">\n'
             '<p class="crumbs"><a href="./">&lsaquo; All posts</a></p>\n'
@@ -317,7 +336,7 @@ def index_page(posts, header, footer):
     if not items:
         items = '<p>No posts yet.</p>\n'
     desc = 'News, early access and tips and tricks from Dozer Sandbox. Also sent by email to anyone who signs up.'
-    return (head('Blog — Dozer Sandbox', desc, BASE + 'blog/', 'website') + '<body class="docs blog">\n'
+    return (head('Blog — Dozer Sandbox', desc, BASE + 'blog/', 'website', '', BASE + 'blog/index.md') + '<body class="docs blog">\n'
             '<a class="skip" href="#main">Skip to the posts</a>\n' + header + '\n<main id="main">\n'
             '<div class="prose blog-list">\n<h1>Blog</h1>\n'
             '<p class="post-summary">News, early access and tips and tricks. Every post is also sent by email to '
@@ -326,6 +345,34 @@ def index_page(posts, header, footer):
             '<aside class="post-sub" aria-labelledby="sub-h"><div class="post-sub-in">\n'
             '<h2 id="sub-h">Get these by email</h2>\n%s\n</div></aside>\n</main>\n%s\n</body>\n</html>\n'
             % (items, signup_box('blog-'), footer))
+
+
+# ------------------------------------------------------------------------------------------------ markdown twins
+def q(v):
+    return json.dumps(v, ensure_ascii=False)
+
+
+def post_md(p):
+    f = p['fm']
+    topics = ', '.join(TOPICS[t] for t in f['topics'])
+    return ('---\ntitle: %s\ndescription: %s\ndate: %s\ntopics: [%s]\nurl: %sblog/%s\nimage: %sog-image.png\n'
+            'source: "Dozer Sandbox blog"\n---\n# %s\n\n*%s · %s*\n\n%s'
+            % (q(f['title'] + ' — Dozer Sandbox blog'), q(f['summary']), f['date'], ', '.join(f['topics']), BASE,
+               p['slug'], BASE, f['title'], fmt_date(f['date']), topics, p['md']))
+
+
+def index_md(posts):
+    out = ['---', 'title: "Blog — Dozer Sandbox"',
+           'description: "News, early access and tips and tricks from Dozer Sandbox. Also sent by email to anyone who '
+           'signs up."', 'url: %sblog/' % BASE, 'image: %sog-image.png' % BASE, 'source: "Dozer Sandbox blog"', '---',
+           '# Blog', '',
+           'News, early access and tips and tricks. Every post is also sent by email to the people who asked for that '
+           'kind of news. [Atom feed](%sblog/feed.xml) · [Sign up](%ssignup.md)' % (BASE, BASE), '']
+    for p in posts:
+        f = p['fm']
+        out.append('- [%s](%sblog/%s.md) — %s — %s: %s' % (f['title'], BASE, p['slug'], fmt_date(f['date']),
+                                                          ', '.join(TOPICS[t] for t in f['topics']), f['summary']))
+    return '\n'.join(out) + '\n'
 
 
 # --------------------------------------------------------------------------------------------------------- feed
@@ -392,7 +439,7 @@ def load_posts(repo, drafts):
         post.check_fragments()
         if not ''.join(body).strip():
             fail(d + '/index.md', 'an empty post')
-        posts.append({'slug': slug, 'fm': fm, 'html': post.body_html(), 'images': post.images, 'folder': folder})
+        posts.append({'slug': slug, 'fm': fm, 'html': post.body_html(), 'md': post.body_md(), 'images': post.images, 'folder': folder})
     posts.sort(key=lambda p: (p['fm']['date'], p['slug']), reverse=True)
     return posts
 
@@ -438,8 +485,10 @@ def main():
         shutil.rmtree(blog)
     write(os.path.join(blog, 'index.html'), index_page(posts, header, footer))
     write(os.path.join(blog, 'feed.xml'), feed(posts))
+    write(os.path.join(blog, 'index.md'), index_md(posts))
     for p in posts:
         write(os.path.join(blog, p['slug'] + '.html'), post_page(p, header, footer))
+        write(os.path.join(blog, p['slug'] + '.md'), post_md(p))
         for img in p['images']:
             dest = os.path.join(blog, 'images', p['slug'], img)
             os.makedirs(os.path.dirname(dest), exist_ok=True)
