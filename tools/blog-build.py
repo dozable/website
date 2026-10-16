@@ -21,7 +21,7 @@ import argparse, datetime, html, importlib.util, json, os, re, shutil, struct, s
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = 'https://dozersandbox.com/'
-TOPICS = {'release-news': 'Release news', 'early-access': 'Early access', 'tips': 'Tips and tricks'}
+TOPICS = {'release-news': 'Release news', 'tool-news': 'Tool news', 'early-access': 'Early access', 'tips': 'Tips and tricks'}
 KEYS = ('title', 'date', 'topics', 'summary', 'email', 'status')
 REPO = 'https://github.com/dozer-sandbox/dozer-sandbox'
 
@@ -301,6 +301,7 @@ def signup_box(prefix):
 </form>
 <div class="result" data-signup-result role="status" aria-live="polite" tabindex="-1" hidden><p class="result-title" data-signup-title></p><p data-signup-text></p></div>
 </div>'''.format(p=prefix, boxes=box('release-news', 'Release news', 'New versions and what changed.')
+                + box('tool-news', 'Tool news', 'New and updated tools you can try in Dozer.')
                 + box('early-access', 'Early access', 'Try beta and canary builds before they are released.')
                 + box('tips', 'Tips and tricks', 'Ways to get more out of Dozer, now and then.'))
 

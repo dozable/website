@@ -4523,7 +4523,7 @@ URL: https://dozersandbox.com/privacy
 
 # Dozer Sandbox Privacy Policy
 
-**Last updated:** 11 October 2026
+**Last updated:** 16 October 2026
 
 Dozer Sandbox ("Dozer") is made by **Roundrect Pty Ltd** (ABN 36 613 522 277), Queensland, Australia ("we", "us"). This policy explains what Dozer and dozersandbox.com collect, why, and how to turn it off.
 
@@ -4574,7 +4574,7 @@ The first time an official build runs, it prints one line saying statistics are 
 
 ### 2. Sign-up (optional)
 
-If you sign up — in Dozer's setup, with `doz signup`, or on dozersandbox.com/signup — we keep your **email address**, what you asked for (** release news**, ** early access**, ** tips and tricks**), and when you signed up, confirmed and (if you do) unsubscribed. We send a confirmation email first; nothing else is sent until you confirm. Every email has a one-click unsubscribe link. We never sell or share your email, and never link it to your usage statistics. The emails are the posts of our [blog](https://dozersandbox.com/blog/index.md), sent only for the topics you ticked. They contain no open or click tracking. To send each one once and to stop sending to addresses that bounce or report spam, we keep a record of which posts were sent to your address and when, and whether one bounced or was reported; this record is deleted with your sign-up.
+If you sign up — in Dozer's setup, with `doz signup`, or on dozersandbox.com/signup — we keep your **email address**, what you asked for (** release news**, ** tool news**, ** early access**, ** tips and tricks**), and when you signed up, confirmed and (if you do) unsubscribed. We send a confirmation email first; nothing else is sent until you confirm. Every email has a one-click unsubscribe link. We never sell or share your email, and never link it to your usage statistics. The emails are the posts of our [blog](https://dozersandbox.com/blog/index.md), sent only for the topics you ticked. They contain no open or click tracking. To send each one once and to stop sending to addresses that bounce or report spam, we keep a record of which posts were sent to your address and when, and whether one bounced or was reported; this record is deleted with your sign-up.
 
 ### 3. The website and the update feed
 

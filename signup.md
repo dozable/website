@@ -20,5 +20,6 @@ We send a confirmation email first; nothing else is sent until you click its lin
 ## Topics
 
 - **Release news** (`release-news`) — New versions and what changed.
+- **Tool news** (`tool-news`) — New and updated tools you can try in Dozer.
 - **Early access** (`early-access`) — Try beta and canary builds before they are released.
 - **Tips and tricks** (`tips`) — Ways to get more out of Dozer, now and then.
