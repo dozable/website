@@ -64,7 +64,8 @@
 .chead .meta { margin: 18px 0 0; font-size: 14px; color: var(--ink-2); }
 
 /* ---------- prose ---------- */
-.prose { font-size: 17px; line-height: 1.65; overflow-wrap: break-word; max-width: none; margin: 0; padding: 0; } /* not site.css's legal-page column (56px top, 16px sides) */
+.prose { font-size: 17px; line-height: 1.65; overflow-wrap: break-word; }
+.docs:not(.blog) .prose { max-width: none; margin: 0; padding: 0; } /* docs pages sit in the docs grid, not site.css's legal-page column; the blog keeps that column */
 .prose > * { margin: 0 0 1.1em; }
 .prose h2 { font-size: 28px; line-height: 1.15; letter-spacing: -.025em; margin: 2.2em 0 .6em; font-weight: 700; padding-top: .6em; border-top: 1px solid var(--hair); text-wrap: balance; }
 .prose h3 { font-size: 21px; line-height: 1.25; letter-spacing: -.015em; margin: 1.9em 0 .5em; font-weight: 700; }
