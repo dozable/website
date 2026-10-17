@@ -82,7 +82,7 @@ doz try opencode --gateway openrouter --model anthropic/claude-sonnet-4.6
 ## OpenCode 2, and free models with no key
 
 OpenCode 2 is the `opencode` Dozer recommends now; OpenCode 1 stays one word away as `opencode@1`, and a sandbox you
-already have keeps its version. [Our OpenCode 2 post](https://dozersandbox.com/blog/opencode-2.html) has what's new
+already have keeps its version. [Our OpenCode 2 post](https://dozersandbox.com/blog/opencode-2) has what's new
 in it.
 
 OpenCode Zen's free models need no account and no key at all:

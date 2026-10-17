@@ -15,6 +15,10 @@ Writes, into the website (or --out):
 and rewrites the blog entries of sitemap.xml (the other entries are kept). Everything under blog/ is generated and
 rebuilt from scratch each run: never edit it by hand. Then run tools/stamp.sh (it fingerprints the CSS/JS links).
 
+Addresses are /blog/<slug>: no date, no .html (a link to one with .html is refused). Two posts never share a slug,
+and building into the website checks the pages already there: a published address never disappears or starts
+serving another post (a different date) unless --retire SLUG / --replace SLUG says so.
+
 --drafts also builds `status: draft` posts, for a local preview; --out is then REQUIRED and must be outside the website
 repository, so a draft can never be committed here. A preview copy of the site's CSS/JS is written beside it."""
 import argparse, datetime, html, importlib.util, json, os, re, shutil, struct, sys, types
@@ -150,6 +154,8 @@ class Post(docs.Page):
             b['id'], b['plain'] = hid, plain
 
     def link(self, url, where):
+        if re.match(r'^%sblog/[^#?]*\.html' % re.escape(BASE), url):
+            fail(where, 'a blog link is the clean address, without .html: %s' % url)
         if re.match(r'^(https?|mailto):', url):
             return url
         if url.startswith('#'):
@@ -447,6 +453,35 @@ def load_posts(repo, drafts):
     return posts
 
 
+def live_posts(blog):
+    """The posts the website serves now: {slug: the date it was published} (its article:published_time)."""
+    live = {}
+    if os.path.isdir(blog):
+        for name in os.listdir(blog):
+            if name.endswith('.html') and name != 'index.html':
+                page = open(os.path.join(blog, name), encoding='utf-8').read()
+                m = re.search(r'<meta property="article:published_time" content="([0-9-]+)">', page)
+                live[name[:-5]] = m.group(1) if m else None
+    return live
+
+
+def check_addresses(posts, live, replace, retire):
+    """A published address is permanent: it never vanishes and never starts serving another post, unless asked
+    (--retire SLUG, --replace SLUG). A post is the same post while its date is the same."""
+    building = {p['slug']: p['fm']['date'] for p in posts}
+    for slug, date in sorted(live.items()):
+        if slug not in building:
+            if slug not in retire:
+                fail('blog/' + slug, 'a published post would disappear (its folder was removed or renamed): '
+                     '%sblog/%s — keep its slug, or run with --retire %s' % (BASE, slug, slug))
+        elif building[slug] != date and slug not in replace:
+            fail('blog/' + slug, 'a different post would take a published address: %sblog/%s holds the post of %s, '
+                 'the new one is dated %s — choose another slug, or run with --replace %s'
+                 % (BASE, slug, date, building[slug], slug))
+    for slug in sorted(set(retire) - set(live)) + sorted(set(replace) - set(live)):
+        fail('--retire/--replace', 'nothing is published at blog/%s' % slug)
+
+
 def write(path, text):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'w', encoding='utf-8') as fh:
@@ -471,6 +506,10 @@ def main():
     ap.add_argument('repo', help='the posts repository (has posts/)')
     ap.add_argument('--drafts', action='store_true', help='also build drafts (preview only; needs --out)')
     ap.add_argument('--out', help='write here instead of the website (required with --drafts; outside the website repo)')
+    ap.add_argument('--retire', action='append', default=[], metavar='SLUG',
+                    help='let a published post leave the site (its address then answers 404 — say why in the commit)')
+    ap.add_argument('--replace', action='append', default=[], metavar='SLUG',
+                    help='let another post take a published address (or the same post with a new date)')
     a = ap.parse_args()
     out = SITE
     if a.drafts:
@@ -484,6 +523,8 @@ def main():
     posts = load_posts(os.path.realpath(a.repo), a.drafts)
     header, footer = site_chrome()
     blog = os.path.join(out, 'blog')
+    if out == SITE:
+        check_addresses(posts, live_posts(blog), a.replace, a.retire)
     if os.path.isdir(blog):
         shutil.rmtree(blog)
     write(os.path.join(blog, 'index.html'), index_page(posts, header, footer))
