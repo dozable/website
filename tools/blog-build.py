@@ -430,9 +430,10 @@ def load_posts(repo, drafts):
         folder = os.path.join(root, d)
         if not os.path.isdir(folder) or d.startswith('.'):
             continue
-        m = re.match(r'^(\d{4}-\d{2}-\d{2})-([a-z0-9]+(?:-[a-z0-9]+)*)$', d)
+        m = re.match(r'^(\d{4}-\d{2}-\d{2})-([a-z0-9]+(?:-[a-z0-9]+|\.[0-9]+)*)$', d)
         if not m:
-            fail('posts/' + d, 'the folder must be named YYYY-MM-DD-slug (lower case, digits, hyphens)')
+            fail('posts/' + d, 'the folder must be named YYYY-MM-DD-slug (lower case, digits, hyphens; a dot only '
+                 'before digits, as in a version: doz-v0.34.1)')
         slug = m.group(2)
         if slug in ('index', 'feed', 'images') or slug in seen:
             fail('posts/' + d, 'a reserved or duplicate slug: %s' % slug)
