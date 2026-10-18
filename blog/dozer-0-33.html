@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>Dozer Sandbox 0.33 - see what your agent is doing — Dozable blog</title>
-<meta name="description" content="Dozer Sandbox 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.">
+<title>Dozable 0.33 - see what your agent is doing — Dozable blog</title>
+<meta name="description" content="Dozable 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.">
 <link rel="canonical" href="https://dozable.com/blog/dozer-0-33">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="Dozer Sandbox 0.33 - see what your agent is doing — Dozable blog">
-<meta property="og:description" content="Dozer Sandbox 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.">
+<meta property="og:title" content="Dozable 0.33 - see what your agent is doing — Dozable blog">
+<meta property="og:description" content="Dozable 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.">
 <meta property="og:url" content="https://dozable.com/blog/dozer-0-33">
 <meta property="og:image" content="https://dozable.com/og-image.png">
 <meta property="og:image:secure_url" content="https://dozable.com/og-image.png">
@@ -21,8 +21,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Dozer Sandbox 0.33 - see what your agent is doing — Dozable blog">
-<meta name="twitter:description" content="Dozer Sandbox 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.">
+<meta name="twitter:title" content="Dozable 0.33 - see what your agent is doing — Dozable blog">
+<meta name="twitter:description" content="Dozable 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.">
 <meta name="twitter:image" content="https://dozable.com/og-image.png">
 <meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta property="article:published_time" content="2026-10-11">
@@ -51,11 +51,11 @@
 <article class="prose article post">
 <p class="crumbs"><a href="./">&lsaquo; All posts</a></p>
 <header class="post-head"><p class="post-meta"><time datetime="2026-10-11">11 October 2026</time> <span class="chip">Release news</span></p>
-<h1>Dozer Sandbox 0.33 - see what your agent is doing</h1>
-<p class="post-summary">Dozer Sandbox 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.</p></header>
+<h1>Dozable 0.33 - see what your agent is doing</h1>
+<p class="post-summary">Dozable 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.</p></header>
 <p>It&#x27;s on the <a href="https://dozable.com/docs/install-upgrade-uninstall">stable channel</a> now, as 0.33.1. Here&#x27;s each change.</p>
 <h2 id="see-what-the-agent-is-doing">See what the agent is doing<a class="anchor" href="#see-what-the-agent-is-doing" aria-label="Link to this section">#</a></h2>
-<p>Claude Code and pi now tell Dozer what they&#x27;re doing: <strong>working</strong>, <strong>done</strong>, waiting for your answer, or stopped by an error. Dozer shows it in the dashboard wherever the session appears, so you can leave an agent to work and glance back when it matters.</p>
+<p>Claude Code and pi now tell Dozable what they&#x27;re doing: <strong>working</strong>, <strong>done</strong>, waiting for your answer, or stopped by an error. Dozable shows it in the dashboard wherever the session appears, so you can leave an agent to work and glance back when it matters.</p>
 <p>While the agent works, its tab shows <strong>working</strong>, and a dot beside the sandbox in the sidebar says something is going on.</p>
 <figure class="shot"><div class="frame"><img src="images/dozer-0-33/agent-working.jpg" alt="A Claude Code session at work: the tab says working, and the sandbox has a dot in the sidebar" width="1600" height="1137" loading="lazy" decoding="async"></div></figure>
 <p>When the agent stops to ask you something, such as permission to run a command, a notice appears at the top of the dashboard saying what it wants, with an <strong>Open</strong> button that takes you straight to the session. You see it on whichever page you&#x27;re on.</p>
@@ -69,9 +69,9 @@
 <ul>
 <li><strong>The handshake:</strong> a program asks the terminal whether it understands the sequence (<code>ESC ] 7501 ; ? ST</code>). If the terminal answers, the program reports its state (working, done, blocked or error, with a short message) each time it changes.</li>
 <li><strong>Inside the sandbox:</strong> every session runs under a small holder process that reads everything the program writes, whether or not anyone is watching. It answers that question, keeps the latest report, and passes the output on unchanged.</li>
-<li><strong>On your Mac:</strong> the Dozer host watches each running session&#x27;s status, and the dashboard draws it.</li>
+<li><strong>On your Mac:</strong> the Dozable host watches each running session&#x27;s status, and the dashboard draws it.</li>
 </ul>
-<p>Nothing is read from the screen or guessed: Dozer shows exactly what the agent itself reports.</p>
+<p>Nothing is read from the screen or guessed: Dozable shows exactly what the agent itself reports.</p>
 <h2 id="doz-upgrade"><code>doz upgrade</code><a class="anchor" href="#doz-upgrade" aria-label="Link to this section">#</a></h2>
 <p>One command moves you to the newest version on your channel. It asks first; <code>-y</code> skips the question.</p>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz upgrade</code></pre></figure>
@@ -83,7 +83,7 @@
 <p>Since 0.30, an agent in a sandbox could read a shared project folder but not change it, and <code>git</code> refused the folder (&quot;dubious ownership&quot;). 0.33.1 fixes it. After upgrading, a sandbox that was running, asleep or hibernated needs a <code>doz shutdown NAME</code> and then <code>doz start NAME</code>; one that was shut down picks up the fix at its next start.</p>
 <h2 id="upgrade">Upgrade<a class="anchor" href="#upgrade" aria-label="Link to this section">#</a></h2>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz upgrade</code></pre></figure>
-<p>New to Dozer Sandbox? <a href="https://dozable.com/docs/getting-started">Getting started</a> takes a few minutes.</p>
+<p>New to Dozable? <a href="https://dozable.com/docs/getting-started">Getting started</a> takes a few minutes.</p>
 </article>
 <aside class="post-sub" aria-labelledby="sub-h"><div class="post-sub-in">
 <h2 id="sub-h">Get Release news by email</h2>

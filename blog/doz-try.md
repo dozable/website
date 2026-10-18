@@ -11,7 +11,7 @@ source: "Dozable blog"
 
 *18 October 2026 · Release news, Tips and tricks*
 
-Pick a tool and Dozer makes the sandbox, starts it and puts you in it. Nothing is installed on your Mac, and nothing
+Pick a tool and Dozable makes the sandbox, starts it and puts you in it. Nothing is installed on your Mac, and nothing
 of yours is shared with it. The first try of a tool prepares its image, which takes a few minutes, once.
 
 ```sh
@@ -66,5 +66,5 @@ step into the tool's session; **Copy** puts it on your clipboard.
 
 ![A Fabric try: the guide on the right, two steps run in the session on the left](https://dozable.com/blog/images/doz-try/try-guide.jpg)
 
-`doz try` is in [Dozer Sandbox 0.35](https://dozable.com/blog/doz-v0.35). Upgrade with `doz upgrade`, then
+`doz try` is in [Dozable 0.35](https://dozable.com/blog/doz-v0.35). Upgrade with `doz upgrade`, then
 `doz try`.

@@ -1,5 +1,5 @@
 ---
-title: "Introducing Dozer Sandbox — Dozable blog"
+title: "Introducing Dozable — Dozable blog"
 description: "Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac — free and open source. Here's what it is, why it exists, and how to try it in a minute."
 date: 2026-10-11
 topics: [release-news]
@@ -7,14 +7,14 @@ url: https://dozable.com/blog/introducing-dozer-sandbox
 image: https://dozable.com/og-image.png
 source: "Dozable blog"
 ---
-# Introducing Dozer Sandbox
+# Introducing Dozable
 
 *11 October 2026 · Release news*
 
 Coding agents are at their best when you stop approving every command. They're at their most worrying then too:
 the agent can read your files, run anything, and reach any site, all with your keys in its environment.
 
-**Dozer Sandbox** gives each agent its own small Linux computer on your Mac, so you can let it work.
+**Dozable** gives each agent its own small Linux computer on your Mac, so you can let it work.
 
 ## What a sandbox is
 
@@ -44,7 +44,7 @@ an image. Then **New sandbox** and you're in. Prefer the terminal? `doz onboard`
 
 ## Free and open source
 
-Dozer Sandbox is free, and its source is on [GitHub](https://github.com/dozer-sandbox/dozer-sandbox).
+Dozable is free, and its source is on [GitHub](https://github.com/dozer-sandbox/dozer-sandbox).
 
 This blog is where news, early access and tips will appear. They're also sent by email to anyone who
 [signs up](https://dozable.com/signup) for them. Thanks for reading, and for trying it.

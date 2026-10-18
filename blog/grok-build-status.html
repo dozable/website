@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>Grok Build now tells Dozer what it&#x27;s doing — Dozable blog</title>
-<meta name="description" content="Grok Build 1.0.52 reports when it&#x27;s working, waiting for you or done, and Dozer Sandbox 0.35 shows it in the dashboard, as it does for Claude Code and pi.">
+<title>Grok Build now tells Dozable what it&#x27;s doing — Dozable blog</title>
+<meta name="description" content="Grok Build 1.0.52 reports when it&#x27;s working, waiting for you or done, and Dozable 0.35 shows it in the dashboard, as it does for Claude Code and pi.">
 <link rel="canonical" href="https://dozable.com/blog/grok-build-status">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="Grok Build now tells Dozer what it&#x27;s doing — Dozable blog">
-<meta property="og:description" content="Grok Build 1.0.52 reports when it&#x27;s working, waiting for you or done, and Dozer Sandbox 0.35 shows it in the dashboard, as it does for Claude Code and pi.">
+<meta property="og:title" content="Grok Build now tells Dozable what it&#x27;s doing — Dozable blog">
+<meta property="og:description" content="Grok Build 1.0.52 reports when it&#x27;s working, waiting for you or done, and Dozable 0.35 shows it in the dashboard, as it does for Claude Code and pi.">
 <meta property="og:url" content="https://dozable.com/blog/grok-build-status">
 <meta property="og:image" content="https://dozable.com/og-image.png">
 <meta property="og:image:secure_url" content="https://dozable.com/og-image.png">
@@ -21,8 +21,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Grok Build now tells Dozer what it&#x27;s doing — Dozable blog">
-<meta name="twitter:description" content="Grok Build 1.0.52 reports when it&#x27;s working, waiting for you or done, and Dozer Sandbox 0.35 shows it in the dashboard, as it does for Claude Code and pi.">
+<meta name="twitter:title" content="Grok Build now tells Dozable what it&#x27;s doing — Dozable blog">
+<meta name="twitter:description" content="Grok Build 1.0.52 reports when it&#x27;s working, waiting for you or done, and Dozable 0.35 shows it in the dashboard, as it does for Claude Code and pi.">
 <meta name="twitter:image" content="https://dozable.com/og-image.png">
 <meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta property="article:published_time" content="2026-10-17">
@@ -51,9 +51,9 @@
 <article class="prose article post">
 <p class="crumbs"><a href="./">&lsaquo; All posts</a></p>
 <header class="post-head"><p class="post-meta"><time datetime="2026-10-17">17 October 2026</time> <span class="chip">Tool news</span></p>
-<h1>Grok Build now tells Dozer what it&#x27;s doing</h1>
-<p class="post-summary">Grok Build 1.0.52 reports when it&#x27;s working, waiting for you or done, and Dozer Sandbox 0.35 shows it in the dashboard, as it does for Claude Code and pi.</p></header>
-<p>Grok Build 1.0.52 reports its status, and Dozer Sandbox 0.35 runs that version. Start a Grok Build sandbox and leave it to work; the dashboard shows when it&#x27;s busy, when it needs you, and when it&#x27;s finished.</p>
+<h1>Grok Build now tells Dozable what it&#x27;s doing</h1>
+<p class="post-summary">Grok Build 1.0.52 reports when it&#x27;s working, waiting for you or done, and Dozable 0.35 shows it in the dashboard, as it does for Claude Code and pi.</p></header>
+<p>Grok Build 1.0.52 reports its status, and Dozable 0.35 runs that version. Start a Grok Build sandbox and leave it to work; the dashboard shows when it&#x27;s busy, when it needs you, and when it&#x27;s finished.</p>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz try grok</code></pre></figure>
 <h2 id="what-you-see">What you see<a class="anchor" href="#what-you-see" aria-label="Link to this section">#</a></h2>
 <p>While Grok Build works, its tab says <strong>working</strong>, and a dot beside the sandbox in the sidebar says something is going on.</p>
@@ -64,9 +64,9 @@
 <figure class="shot"><div class="frame"><img src="images/grok-build-status/grok-all-sessions.jpg" alt="All sessions: Grok Build done beside other sessions" width="2560" height="1600" loading="lazy" decoding="async"></div></figure>
 <h2 id="where-it-comes-from">Where it comes from<a class="anchor" href="#where-it-comes-from" aria-label="Link to this section">#</a></h2>
 <p>xAI&#x27;s <a href="https://x.ai/changelog/build">changelog for 1.0.52</a> lists &quot;support for OSC 7501&quot;. That&#x27;s a terminal escape sequence for program status, <a href="https://mitchellh.com/writing/program-status-osc7501">proposed by Mitchell Hashimoto</a>: a program asks the terminal whether it understands the sequence, and if it does, reports its state each time it changes.</p>
-<p>Inside every sandbox, Dozer answers that question for each session and keeps the latest report, whether or not the dashboard is open. Nothing is read from the screen or guessed: Dozer shows exactly what Grok Build reports.</p>
+<p>Inside every sandbox, Dozable answers that question for each session and keeps the latest report, whether or not the dashboard is open. Nothing is read from the screen or guessed: Dozable shows exactly what Grok Build reports.</p>
 <h2 id="agents-that-report-their-status">Agents that report their status<a class="anchor" href="#agents-that-report-their-status" aria-label="Link to this section">#</a></h2>
-<p>Claude Code, pi and now Grok Build report their status. So do Factory Droid and Docker Agent, which also arrive in 0.35. When another tool adds support, Dozer turns it on in that tool&#x27;s recipe once we&#x27;ve seen it work.</p>
+<p>Claude Code, pi and now Grok Build report their status. So do Factory Droid and Docker Agent, which also arrive in 0.35. When another tool adds support, Dozable turns it on in that tool&#x27;s recipe once we&#x27;ve seen it work.</p>
 <p><a href="https://dozable.com/docs/install-upgrade-uninstall">Upgrade to 0.35</a>, then <code>doz try grok</code>.</p>
 </article>
 <aside class="post-sub" aria-labelledby="sub-h"><div class="post-sub-in">

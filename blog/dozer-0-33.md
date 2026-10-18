@@ -1,13 +1,13 @@
 ---
-title: "Dozer Sandbox 0.33 - see what your agent is doing — Dozable blog"
-description: "Dozer Sandbox 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up."
+title: "Dozable 0.33 - see what your agent is doing — Dozable blog"
+description: "Dozable 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up."
 date: 2026-10-11
 topics: [release-news]
 url: https://dozable.com/blog/dozer-0-33
 image: https://dozable.com/og-image.png
 source: "Dozable blog"
 ---
-# Dozer Sandbox 0.33 - see what your agent is doing
+# Dozable 0.33 - see what your agent is doing
 
 *11 October 2026 · Release news*
 
@@ -15,8 +15,8 @@ It's on the [stable channel](https://dozable.com/docs/install-upgrade-uninstall)
 
 ## See what the agent is doing
 
-Claude Code and pi now tell Dozer what they're doing: **working**, **done**, waiting for your answer, or stopped by an
-error. Dozer shows it in the dashboard wherever the session appears, so you can leave an agent to work and glance
+Claude Code and pi now tell Dozable what they're doing: **working**, **done**, waiting for your answer, or stopped by an
+error. Dozable shows it in the dashboard wherever the session appears, so you can leave an agent to work and glance
 back when it matters.
 
 While the agent works, its tab shows **working**, and a dot beside the sandbox in the sidebar says something is
@@ -53,9 +53,9 @@ showing, the same way programs set a window's title or colours. This one is **OS
 - **Inside the sandbox:** every session runs under a small holder process that reads everything the program writes,
   whether or not anyone is watching. It answers that question, keeps the latest report, and passes the output on
   unchanged.
-- **On your Mac:** the Dozer host watches each running session's status, and the dashboard draws it.
+- **On your Mac:** the Dozable host watches each running session's status, and the dashboard draws it.
 
-Nothing is read from the screen or guessed: Dozer shows exactly what the agent itself reports.
+Nothing is read from the screen or guessed: Dozable shows exactly what the agent itself reports.
 
 ## `doz upgrade`
 
@@ -86,4 +86,4 @@ Since 0.30, an agent in a sandbox could read a shared project folder but not cha
 doz upgrade
 ```
 
-New to Dozer Sandbox? [Getting started](https://dozable.com/docs/getting-started) takes a few minutes.
+New to Dozable? [Getting started](https://dozable.com/docs/getting-started) takes a few minutes.

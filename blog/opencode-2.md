@@ -1,13 +1,13 @@
 ---
-title: "OpenCode 2 is in Dozer Sandbox — Dozable blog"
-description: "OpenCode 2, a rebuild of the open-source coding agent around one shared background service, now runs in Dozer Sandbox beside OpenCode 1, on your own key or OpenCode Zen's free models."
+title: "OpenCode 2 is in Dozable — Dozable blog"
+description: "OpenCode 2, a rebuild of the open-source coding agent around one shared background service, now runs in Dozable beside OpenCode 1, on your own key or OpenCode Zen's free models."
 date: 2026-10-17
 topics: [tool-news]
 url: https://dozable.com/blog/opencode-2
 image: https://dozable.com/og-image.png
 source: "Dozable blog"
 ---
-# OpenCode 2 is in Dozer Sandbox
+# OpenCode 2 is in Dozable
 
 *17 October 2026 · Tool news*
 
@@ -19,7 +19,7 @@ doz try opencode        # OpenCode 2, in a throwaway sandbox
 doz try opencode@1      # OpenCode 1
 ```
 
-It needs Dozer Sandbox 0.35, now on the [stable channel](https://dozable.com/docs/install-upgrade-uninstall).
+It needs Dozable 0.35, now on the [stable channel](https://dozable.com/docs/install-upgrade-uninstall).
 
 In the dashboard, OpenCode's card in Quick try has a **Version** choice; it starts on 2. Sandboxes you already have
 stay on the version they were made with.
@@ -50,9 +50,9 @@ moved to the 2.x series, so 2 is now OpenCode's main release
 **What breaks:** plugins written for OpenCode 1 don't load in 2, and integrations built on the old server API need
 updating.
 
-## In Dozer
+## In Dozable
 
-OpenCode 2 gets what every tool in Dozer gets:
+OpenCode 2 gets what every tool in Dozable gets:
 
 - **Your key stays on your Mac.** Use a key from xAI, OpenAI, Anthropic, OpenRouter or Vercel AI Gateway; the
   sandbox only ever holds a placeholder. OpenCode Zen's free models take no key at all.
@@ -63,9 +63,9 @@ OpenCode 2 gets what every tool in Dozer gets:
   **Open** button; it shows in your browser, on this Mac only.
 
 
-Outside Dozer, OpenCode 1 users move with `opencode upgrade --major` or `/update`; since 1.19 it no longer updates
-itself ([1.19.0 release notes](https://github.com/anomalyco/opencode/releases/tag/v1.19.0)). In Dozer you choose the
-version by name instead, and the sandbox's version comes from Dozer's checked recipe.
+Outside Dozable, OpenCode 1 users move with `opencode upgrade --major` or `/update`; since 1.19 it no longer updates
+itself ([1.19.0 release notes](https://github.com/anomalyco/opencode/releases/tag/v1.19.0)). In Dozable you choose the
+version by name instead, and the sandbox's version comes from Dozable's checked recipe.
 
 ## Ways to try it
 
@@ -96,8 +96,8 @@ Version, and where OpenCode gets its model, with a list of a gateway's models to
 
 ## Why OpenCode 1 stays
 
-A major version changes what your setup depends on: here, plugins and the API. Dozer pins each tool to a version it
-has checked. `opencode` now means OpenCode 2, the version Dozer recommends; OpenCode 1 stays one word away, as
+A major version changes what your setup depends on: here, plugins and the API. Dozable pins each tool to a version it
+has checked. `opencode` now means OpenCode 2, the version Dozable recommends; OpenCode 1 stays one word away, as
 `opencode@1`, and keeps getting 1.x updates. An existing sandbox never moves to a new major version by itself.
 
-New to Dozer Sandbox? [Getting started](https://dozable.com/docs/getting-started) takes a few minutes.
+New to Dozable? [Getting started](https://dozable.com/docs/getting-started) takes a few minutes.
