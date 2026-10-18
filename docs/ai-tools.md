@@ -1,8 +1,8 @@
 ---
 title: "Other AI tools — Dozable docs"
 description: "Beside the coding agents, Dozable runs AI tools that are not coding agents: command-line tools that answer a prompt, prompt toolkits, agent frameworks."
-url: https://dozersandbox.com/docs/ai-tools
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/ai-tools
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 28
@@ -152,7 +152,7 @@ An all-in-one LLM command line: a chat REPL, a shell assistant (`-e`), roles, se
 - **Use:** the session is its REPL; one question is `aichat "a question"`, a shell command `aichat -e "list big files"`.
 - **May reach:** those providers' APIs.
 - **Its playground:** run `aichat --serve` in a session; the sandbox's **Open AIChat web** button (or
-  `doz open NAME`) opens it in your Mac's browser — see [Web ports](https://dozersandbox.com/docs/web-ports.md).
+  `doz open NAME`) opens it in your Mac's browser — see [Web ports](https://dozable.com/docs/web-ports.md).
 
 ## tgpt
 
@@ -238,7 +238,7 @@ A prompt toolkit: crowd-sourced "patterns" applied to text you pipe in.
 - **Use:** `echo "some text" | fabric "summarise this"`, `cat notes.txt | fabric -p summarize` — or the sandbox page's Guide.
 - **May reach:** those providers' APIs.
 - **Its REST API:** run `fabric --serve` in a session; the sandbox's **Open Fabric REST API** button (or `doz open NAME`)
-  opens its API reference in your Mac's browser — see [Web ports](https://dozersandbox.com/docs/web-ports.md).
+  opens its API reference in your Mac's browser — see [Web ports](https://dozable.com/docs/web-ports.md).
 
 ## Google Stitch CLI
 
@@ -257,4 +257,4 @@ call to Stitch.
   `--json` and `--dry-run`.
 - **May reach:** Stitch's API only (`stitch.googleapis.com`). It has no update check; its client header's telemetry is off.
 - **Preview:** `stitch serve -p PROJECT --port 3000` serves a project's screens; `doz ports add NAME 3000` opens them on
-  your Mac — see [Web ports](https://dozersandbox.com/docs/web-ports.md).
+  your Mac — see [Web ports](https://dozable.com/docs/web-ports.md).

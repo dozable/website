@@ -8,58 +8,58 @@ Pages have Markdown twins: add `.md` to a page URL (`/docs/` is `/docs/index.md`
 
 ## Docs
 
-- [Getting started](https://dozersandbox.com/docs/getting-started.md): Dozable runs AI coding agents, such as Claude Code, in small Linux virtual machines on your Mac.
-- [Installing, upgrading and uninstalling](https://dozersandbox.com/docs/install-upgrade-uninstall.md): doz is one command-line program. It comes with everything it needs inside it: the small Linux programs each sandbox uses, the web dashboard, and the permission macOS requires to run virtual machines.
-- [Setting up this Mac](https://dozersandbox.com/docs/setting-up.md): Setup — onboarding — is what you do once after installing: it checks your Mac, chooses and confirms what sandboxes may use as you (Access: a Claude account, GitHub, your SSH agent), explains workspace rules and lets you choose what they do, writes your settings and prepares the images your sandboxes start from.
-- [Projects](https://dozersandbox.com/docs/projects.md): A project is a folder with a doz_project.yaml file in it.
-- [Sandboxes and their lifecycle](https://dozersandbox.com/docs/sandboxes-and-lifecycle.md): A sandbox is one Linux virtual machine with its own disks.
-- [The dashboard (`doz ui`)](https://dozersandbox.com/docs/the-dashboard.md): doz ui is Dozable in your browser: every sandbox with a live terminal, its restore points and permissions, your images, accounts, disk use and settings.
-- [Terminals and sessions](https://dozersandbox.com/docs/terminals-and-sessions.md): A session is a terminal program running inside a sandbox: a shell, claude, pi, a dev server.
-- [Images and bases](https://dozersandbox.com/docs/images-and-bases.md): Every sandbox starts from an image: a prepared disk with a Linux system, a developer toolkit and, usually, an AI agent.
-- [Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md): Dozable runs three AI coding agents out of the box — Claude Code, pi and OpenAI's Codex — and gives each one the account it should use, without the secret ever entering the sandbox.
-- [What the agent can do: permissions and the network](https://dozersandbox.com/docs/permissions-and-network.md): A sandbox has no network card. Its only way out is a proxy in Dozable's host, on your Mac, which checks every connection against the sandbox's permissions — a short list of plain-language switches — and logs it.
-- [Signing in from a sandbox](https://dozersandbox.com/docs/signing-in-from-a-sandbox.md): Many command-line tools sign you in through a web browser: they open a sign-in page, you sign in, and the provider sends your browser back to the tool on http://localhost:PORT.
-- [Restore points, duplicates and templates](https://dozersandbox.com/docs/restore-points-duplicates-templates.md): Three ways to copy a sandbox's disk, each instant (they're APFS clones, sharing space until something changes).
-- [Resources and disk space](https://dozersandbox.com/docs/resources-and-disk-space.md): Dozable keeps everything in one folder, the store.
-- [Letting another agent drive Dozable](https://dozersandbox.com/docs/letting-another-agent-drive.md): So far you have run doz. But the agent you already use on your Mac — Claude Code, Codex, Cursor — can run it too: create a sandbox for a risky task, hand the work to an agent inside it, check how it's going, and tidy up afterwards.
-- [Settings reference](https://dozersandbox.com/docs/settings-reference.md): Every setting Dozable has is in one file, ~/.config/dozer-sandbox/doz.toml (under $XDG_CONFIG_HOME when that is set).
-- [Security model](https://dozersandbox.com/docs/security-model.md): Dozable's job is to let an AI agent work freely — install things, run code, make a mess — without putting your Mac, your credentials or your data at risk.
-- [Troubleshooting and FAQ](https://dozersandbox.com/docs/troubleshooting-and-faq.md): doz doctor checks everything Dozable depends on — macOS and Apple silicon, the virtualization permission, the Linux kernel, the NAT helper, disk space, the host, your Claude login and your images — and says what to do about anything that fails.
-- [GitHub as you](https://dozersandbox.com/docs/github.md): An agent on your Mac uses git and gh as you: it clones your private repositories, opens pull requests, comments on issues.
-- [The tools layer](https://dozersandbox.com/docs/the-tools-layer.md): Some settings need a tool inside the sandbox to be useful: "GitHub as you" is best with gh, SSH agent forwarding needs an ssh client and GitHub's host keys, tmux sessions need tmux.
-- [Workspace rules: `.dozignore` and `.dozreadonly`](https://dozersandbox.com/docs/workspace-rules.md): A sandbox's /workspace is your Mac folder, live. Often you want the agent to see most of it but not everything: not secrets.env, not your doz_project.yaml, not a folder of build output it would only wade through.
-- [The workspace view (`dozview`)](https://dozersandbox.com/docs/the-workspace-view.md): /workspace inside a sandbox is not your shared folder itself: it is a live view of it, served by a small Dozable program, dozview.
-- [Prompts for your agent](https://dozersandbox.com/docs/prompts-for-your-agent.md): Your Mac's own coding agent — Claude Code, Codex, Cursor — can install Dozable, set it up and run sandboxes for you.
-- [Audio sandboxes (EXPERIMENTAL)](https://dozersandbox.com/docs/audio-experimental.md): This lets a sandbox use your Mac's microphone and speakers.
-- [Codex](https://dozersandbox.com/docs/codex.md): OpenAI's Codex runs in a Dozable sandbox the way Claude Code does: ready to work, without approval prompts (the VM and its network are the boundary), told where it runs, and with its credential kept on your Mac — it never enters the sandbox.
-- [The dashboard on your other computers, tablets and phones (`doz serve`)](https://dozersandbox.com/docs/doz-serve.md): doz ui is this Mac's own dashboard: it listens on 127.0.0.1 and nothing else can reach it.
-- [Trying agents, and what Dozable supports](https://dozersandbox.com/docs/try-and-search.md): doz try takes you from nothing to talking to an agent in one command.
-- [More agents: Antigravity CLI, Grok Build, OpenCode, GitHub Copilot CLI, Qwen Code, Goose, Kilo Code CLI, Mistral Vibe, Factory Droid, Dirac, Kimi Code, Cline CLI, OpenHands CLI, Letta Code, Docker Agent, Nanocoder, mini-swe-agent, Open Interpreter, Crush, MiMo Code, CodeWhale, Maki, oh-my-pi, Tau, Gemini CLI](https://dozersandbox.com/docs/more-agents.md): Beside Claude Code, pi and Codex, Dozable runs agents from other makers.
-- [Other AI tools](https://dozersandbox.com/docs/ai-tools.md): Beside the coding agents, Dozable runs AI tools that are not coding agents: command-line tools that answer a prompt, prompt toolkits, agent frameworks.
-- [Web ports: opening a sandbox's web page on your Mac](https://dozersandbox.com/docs/web-ports.md): Some tools serve a web page from inside the sandbox: a chat playground, a workflow editor, the dev server of the app you are building.
-- [The manual — contents](https://dozersandbox.com/docs/index.md): every chapter in reading order.
+- [Getting started](https://dozable.com/docs/getting-started.md): Dozable runs AI coding agents, such as Claude Code, in small Linux virtual machines on your Mac.
+- [Installing, upgrading and uninstalling](https://dozable.com/docs/install-upgrade-uninstall.md): doz is one command-line program. It comes with everything it needs inside it: the small Linux programs each sandbox uses, the web dashboard, and the permission macOS requires to run virtual machines.
+- [Setting up this Mac](https://dozable.com/docs/setting-up.md): Setup — onboarding — is what you do once after installing: it checks your Mac, chooses and confirms what sandboxes may use as you (Access: a Claude account, GitHub, your SSH agent), explains workspace rules and lets you choose what they do, writes your settings and prepares the images your sandboxes start from.
+- [Projects](https://dozable.com/docs/projects.md): A project is a folder with a doz_project.yaml file in it.
+- [Sandboxes and their lifecycle](https://dozable.com/docs/sandboxes-and-lifecycle.md): A sandbox is one Linux virtual machine with its own disks.
+- [The dashboard (`doz ui`)](https://dozable.com/docs/the-dashboard.md): doz ui is Dozable in your browser: every sandbox with a live terminal, its restore points and permissions, your images, accounts, disk use and settings.
+- [Terminals and sessions](https://dozable.com/docs/terminals-and-sessions.md): A session is a terminal program running inside a sandbox: a shell, claude, pi, a dev server.
+- [Images and bases](https://dozable.com/docs/images-and-bases.md): Every sandbox starts from an image: a prepared disk with a Linux system, a developer toolkit and, usually, an AI agent.
+- [Agents and accounts](https://dozable.com/docs/agents-and-accounts.md): Dozable runs three AI coding agents out of the box — Claude Code, pi and OpenAI's Codex — and gives each one the account it should use, without the secret ever entering the sandbox.
+- [What the agent can do: permissions and the network](https://dozable.com/docs/permissions-and-network.md): A sandbox has no network card. Its only way out is a proxy in Dozable's host, on your Mac, which checks every connection against the sandbox's permissions — a short list of plain-language switches — and logs it.
+- [Signing in from a sandbox](https://dozable.com/docs/signing-in-from-a-sandbox.md): Many command-line tools sign you in through a web browser: they open a sign-in page, you sign in, and the provider sends your browser back to the tool on http://localhost:PORT.
+- [Restore points, duplicates and templates](https://dozable.com/docs/restore-points-duplicates-templates.md): Three ways to copy a sandbox's disk, each instant (they're APFS clones, sharing space until something changes).
+- [Resources and disk space](https://dozable.com/docs/resources-and-disk-space.md): Dozable keeps everything in one folder, the store.
+- [Letting another agent drive Dozable](https://dozable.com/docs/letting-another-agent-drive.md): So far you have run doz. But the agent you already use on your Mac — Claude Code, Codex, Cursor — can run it too: create a sandbox for a risky task, hand the work to an agent inside it, check how it's going, and tidy up afterwards.
+- [Settings reference](https://dozable.com/docs/settings-reference.md): Every setting Dozable has is in one file, ~/.config/dozer-sandbox/doz.toml (under $XDG_CONFIG_HOME when that is set).
+- [Security model](https://dozable.com/docs/security-model.md): Dozable's job is to let an AI agent work freely — install things, run code, make a mess — without putting your Mac, your credentials or your data at risk.
+- [Troubleshooting and FAQ](https://dozable.com/docs/troubleshooting-and-faq.md): doz doctor checks everything Dozable depends on — macOS and Apple silicon, the virtualization permission, the Linux kernel, the NAT helper, disk space, the host, your Claude login and your images — and says what to do about anything that fails.
+- [GitHub as you](https://dozable.com/docs/github.md): An agent on your Mac uses git and gh as you: it clones your private repositories, opens pull requests, comments on issues.
+- [The tools layer](https://dozable.com/docs/the-tools-layer.md): Some settings need a tool inside the sandbox to be useful: "GitHub as you" is best with gh, SSH agent forwarding needs an ssh client and GitHub's host keys, tmux sessions need tmux.
+- [Workspace rules: `.dozignore` and `.dozreadonly`](https://dozable.com/docs/workspace-rules.md): A sandbox's /workspace is your Mac folder, live. Often you want the agent to see most of it but not everything: not secrets.env, not your doz_project.yaml, not a folder of build output it would only wade through.
+- [The workspace view (`dozview`)](https://dozable.com/docs/the-workspace-view.md): /workspace inside a sandbox is not your shared folder itself: it is a live view of it, served by a small Dozable program, dozview.
+- [Prompts for your agent](https://dozable.com/docs/prompts-for-your-agent.md): Your Mac's own coding agent — Claude Code, Codex, Cursor — can install Dozable, set it up and run sandboxes for you.
+- [Audio sandboxes (EXPERIMENTAL)](https://dozable.com/docs/audio-experimental.md): This lets a sandbox use your Mac's microphone and speakers.
+- [Codex](https://dozable.com/docs/codex.md): OpenAI's Codex runs in a Dozable sandbox the way Claude Code does: ready to work, without approval prompts (the VM and its network are the boundary), told where it runs, and with its credential kept on your Mac — it never enters the sandbox.
+- [The dashboard on your other computers, tablets and phones (`doz serve`)](https://dozable.com/docs/doz-serve.md): doz ui is this Mac's own dashboard: it listens on 127.0.0.1 and nothing else can reach it.
+- [Trying agents, and what Dozable supports](https://dozable.com/docs/try-and-search.md): doz try takes you from nothing to talking to an agent in one command.
+- [More agents: Antigravity CLI, Grok Build, OpenCode, GitHub Copilot CLI, Qwen Code, Goose, Kilo Code CLI, Mistral Vibe, Factory Droid, Dirac, Kimi Code, Cline CLI, OpenHands CLI, Letta Code, Docker Agent, Nanocoder, mini-swe-agent, Open Interpreter, Crush, MiMo Code, CodeWhale, Maki, oh-my-pi, Tau, Gemini CLI](https://dozable.com/docs/more-agents.md): Beside Claude Code, pi and Codex, Dozable runs agents from other makers.
+- [Other AI tools](https://dozable.com/docs/ai-tools.md): Beside the coding agents, Dozable runs AI tools that are not coding agents: command-line tools that answer a prompt, prompt toolkits, agent frameworks.
+- [Web ports: opening a sandbox's web page on your Mac](https://dozable.com/docs/web-ports.md): Some tools serve a web page from inside the sandbox: a chat playground, a workflow editor, the dev server of the app you are building.
+- [The manual — contents](https://dozable.com/docs/index.md): every chapter in reading order.
 
 ## Blog
 
-- [Blog index](https://dozersandbox.com/blog/index.md): news, early access, tips and tricks.
-- [Dozer Sandbox 0.35 - doz try, and keys from any provider](https://dozersandbox.com/blog/doz-v0.35.md): Dozer Sandbox 0.35 adds doz try for any of 42 coding agents and AI tools, keys from any major provider or gateway, a choice of model, and OpenCode 2.
-- [doz try - any of 42 AI tools in one command](https://dozersandbox.com/blog/doz-try.md): doz try puts you in a throwaway sandbox with a coding agent or AI tool, its own empty folder, a network that reaches only its model and your key kept on your Mac.
-- [OpenCode 2 is in Dozer Sandbox](https://dozersandbox.com/blog/opencode-2.md): OpenCode 2, a rebuild of the open-source coding agent around one shared background service, now runs in Dozer Sandbox beside OpenCode 1, on your own key or OpenCode Zen's free models.
-- [Grok Build now tells Dozer what it's doing](https://dozersandbox.com/blog/grok-build-status.md): Grok Build 1.0.52 reports when it's working, waiting for you or done, and Dozer Sandbox 0.35 shows it in the dashboard, as it does for Claude Code and pi.
-- [Introducing Dozer Sandbox](https://dozersandbox.com/blog/introducing-dozer-sandbox.md): Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac — free and open source. Here's what it is, why it exists, and how to try it in a minute.
-- [Dozer Sandbox 0.33 - see what your agent is doing](https://dozersandbox.com/blog/dozer-0-33.md): Dozer Sandbox 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.
+- [Blog index](https://dozable.com/blog/index.md): news, early access, tips and tricks.
+- [Dozer Sandbox 0.35 - doz try, and keys from any provider](https://dozable.com/blog/doz-v0.35.md): Dozer Sandbox 0.35 adds doz try for any of 42 coding agents and AI tools, keys from any major provider or gateway, a choice of model, and OpenCode 2.
+- [doz try - any of 42 AI tools in one command](https://dozable.com/blog/doz-try.md): doz try puts you in a throwaway sandbox with a coding agent or AI tool, its own empty folder, a network that reaches only its model and your key kept on your Mac.
+- [OpenCode 2 is in Dozer Sandbox](https://dozable.com/blog/opencode-2.md): OpenCode 2, a rebuild of the open-source coding agent around one shared background service, now runs in Dozer Sandbox beside OpenCode 1, on your own key or OpenCode Zen's free models.
+- [Grok Build now tells Dozer what it's doing](https://dozable.com/blog/grok-build-status.md): Grok Build 1.0.52 reports when it's working, waiting for you or done, and Dozer Sandbox 0.35 shows it in the dashboard, as it does for Claude Code and pi.
+- [Introducing Dozer Sandbox](https://dozable.com/blog/introducing-dozer-sandbox.md): Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac — free and open source. Here's what it is, why it exists, and how to try it in a minute.
+- [Dozer Sandbox 0.33 - see what your agent is doing](https://dozable.com/blog/dozer-0-33.md): Dozer Sandbox 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.
 
 ## Site
 
-- [Home](https://dozersandbox.com/index.html.md): what Dozable is, speed, the CLI, the web UI, a comparison, install.
-- [Timeline](https://dozersandbox.com/timeline.html.md): how Dozable was built, release by release.
-- [Privacy policy](https://dozersandbox.com/privacy.md): what is collected, why, and how to turn it off.
-- [Sign up](https://dozersandbox.com/signup.md): release news, early access and tips and tricks by email.
+- [Home](https://dozable.com/index.html.md): what Dozable is, speed, the CLI, the web UI, a comparison, install.
+- [Timeline](https://dozable.com/timeline.html.md): how Dozable was built, release by release.
+- [Privacy policy](https://dozable.com/privacy.md): what is collected, why, and how to turn it off.
+- [Sign up](https://dozable.com/signup.md): release news, early access and tips and tricks by email.
 
 ## Optional
 
-- [llms-full.txt](https://dozersandbox.com/llms-full.txt): the whole manual and the privacy policy in one file.
+- [llms-full.txt](https://dozable.com/llms-full.txt): the whole manual and the privacy policy in one file.
 - [Source code](https://github.com/dozer-sandbox/dozer-sandbox): the GitHub repository (MIT licence).
 - [Releases](https://github.com/dozer-sandbox/dozer-sandbox/releases): every version, with notes.
-- [Blog feed](https://dozersandbox.com/blog/feed.xml): Atom.
-- [Sitemap](https://dozersandbox.com/sitemap.xml)
+- [Blog feed](https://dozable.com/blog/feed.xml): Atom.
+- [Sitemap](https://dozable.com/sitemap.xml)

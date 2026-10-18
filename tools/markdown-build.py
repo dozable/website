@@ -19,7 +19,7 @@ import html, json, os, re, sys
 from html.parser import HTMLParser
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE = 'https://dozersandbox.com/'
+BASE = 'https://dozable.com/'
 REPO = 'https://github.com/dozer-sandbox/dozer-sandbox'
 ROOT_PAGES = [  # (source html, twin file, canonical url)
     ('index.html', 'index.html.md', BASE),
@@ -35,7 +35,7 @@ class BuildError(Exception):
 
 def to_twin(url):
     """A site URL -> its Markdown twin; anything else unchanged."""
-    m = re.match(r'^https://dozersandbox\.com(/[^#]*)?(#.*)?$', url)
+    m = re.match(r'^%s(/[^#]*)?(#.*)?$' % re.escape(BASE.rstrip('/')), url)
     if not m:
         return url
     path, frag = m.group(1) or '/', m.group(2) or ''
@@ -360,7 +360,7 @@ def signup_twin():
         raise BuildError('signup.html: the three topic checkboxes were not found')
     lines = [intro.rstrip('\n'), '', '## How to sign up', '',
              'The sign-up form needs a browser. Choose one:', '',
-             '- Open <https://dozersandbox.com/signup> in a browser, enter an email address and tick at least one topic. '
+             '- Open <https://dozable.com/signup> in a browser, enter an email address and tick at least one topic. '
              'The same form is at the end of the home page.',
              '- Or, in Terminal: `doz signup`.', '',
              'We send a confirmation email first; nothing else is sent until you click its link. Every email has a '

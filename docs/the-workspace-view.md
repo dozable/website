@@ -1,8 +1,8 @@
 ---
 title: "The workspace view (dozview) — Dozable docs"
 description: "/workspace inside a sandbox is not your shared folder itself: it is a live view of it, served by a small Dozable program, dozview."
-url: https://dozersandbox.com/docs/the-workspace-view
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/the-workspace-view
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 21
@@ -12,7 +12,7 @@ chapter: 21
 `/workspace` inside a sandbox is not your shared folder itself: it is a live view of it, served by a small
 Dozable program, **`dozview`**. This page is what that program is, what it does, and how to look inside it.
 When the folder holds a `.dozignore` or a `.dozreadonly`, the view also applies those rules — see
-[Workspace rules](https://dozersandbox.com/docs/workspace-rules.md). Without either file it applies nothing: every file is there, as on
+[Workspace rules](https://dozable.com/docs/workspace-rules.md). Without either file it applies nothing: every file is there, as on
 your Mac.
 
 ## Why every workspace goes through it
@@ -41,7 +41,7 @@ time; after that it is about as fast as before.
 `doz create … --workspace-view off`, `workspace_view: off` in its `doz_project.yaml`, or
 `doz config set --sandbox NAME workspace.view off`. The folder is then shared directly — a little faster,
 but a program working inside `/workspace` loses its folder at every wake from hibernation and has to be
-restarted ([Restart session](https://dozersandbox.com/docs/terminals-and-sessions.md#restarting-or-ending-a-session)). A folder with a
+restarted ([Restart session](https://dozable.com/docs/terminals-and-sessions.md#restarting-or-ending-a-session)). A folder with a
 `.dozignore` or `.dozreadonly` always uses the view.
 
 **When it takes effect.** At the sandbox's next start — never under programs that are running. A sandbox
@@ -142,7 +142,7 @@ its `.state`, its `.pid` (the supervisor's) and its `.log`. The program is copie
 ## Not a security boundary
 
 Root in the sandbox can stop `dozview`, or reach the private share directly. The view keeps an agent from
-stumbling into files you listed; the virtual machine is the boundary. See [Security model](https://dozersandbox.com/docs/security-model.md).
+stumbling into files you listed; the virtual machine is the boundary. See [Security model](https://dozable.com/docs/security-model.md).
 
 ## About the program
 
@@ -150,4 +150,4 @@ A small static Linux program written in C, with no outside libraries — it spea
 itself rather than using the usual FUSE library (whose licence would complicate shipping it inside Dozable).
 The copy Dozable ships is checked to rebuild byte for byte from its source.
 
-See also: [Workspace rules](https://dozersandbox.com/docs/workspace-rules.md) · [Troubleshooting and FAQ](https://dozersandbox.com/docs/troubleshooting-and-faq.md).
+See also: [Workspace rules](https://dozable.com/docs/workspace-rules.md) · [Troubleshooting and FAQ](https://dozable.com/docs/troubleshooting-and-faq.md).

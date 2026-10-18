@@ -3,8 +3,8 @@ title: "Introducing Dozer Sandbox — Dozable blog"
 description: "Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac — free and open source. Here's what it is, why it exists, and how to try it in a minute."
 date: 2026-10-11
 topics: [release-news]
-url: https://dozersandbox.com/blog/introducing-dozer-sandbox
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/blog/introducing-dozer-sandbox
+image: https://dozable.com/og-image.png
 source: "Dozable blog"
 ---
 # Introducing Dozer Sandbox
@@ -27,7 +27,7 @@ Run Claude Code, Codex or pi in it with the permission prompts off: the VM is th
 - **Secure.** The network goes through a policy you can read, and **your API keys never go inside**: the agent sees
   a placeholder, and the real key is added on your Mac on the way out.
 
-![The dashboard while an agent works](https://dozersandbox.com/blog/images/introducing-dozer-sandbox/dashboard.jpg)
+![The dashboard while an agent works](https://dozable.com/blog/images/introducing-dozer-sandbox/dashboard.jpg)
 
 ## Try it
 
@@ -47,4 +47,4 @@ an image. Then **New sandbox** and you're in. Prefer the terminal? `doz onboard`
 Dozer Sandbox is free, and its source is on [GitHub](https://github.com/dozer-sandbox/dozer-sandbox).
 
 This blog is where news, early access and tips will appear. They're also sent by email to anyone who
-[signs up](https://dozersandbox.com/signup) for them. Thanks for reading, and for trying it.
+[signs up](https://dozable.com/signup) for them. Thanks for reading, and for trying it.

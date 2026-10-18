@@ -1,8 +1,8 @@
 ---
 title: "Prompts for your agent — Dozable docs"
 description: "Your Mac's own coding agent — Claude Code, Codex, Cursor — can install Dozable, set it up and run sandboxes for you."
-url: https://dozersandbox.com/docs/prompts-for-your-agent
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/prompts-for-your-agent
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 22
@@ -11,7 +11,7 @@ chapter: 22
 
 Your Mac's own coding agent — Claude Code, Codex, Cursor — can install Dozable, set it up and run
 sandboxes for you. This page gives you prompts to paste, in order: install, set up, brief it once, then
-three things worth using sandboxes for. [Letting another agent drive Dozable](https://dozersandbox.com/docs/letting-another-agent-drive.md)
+three things worth using sandboxes for. [Letting another agent drive Dozable](https://dozable.com/docs/letting-another-agent-drive.md)
 explains the rules underneath (`--json`, exit codes, why destructive commands need `--yes`).
 
 **Keep the decisions yours.** Every prompt below tells the agent to stop and ask before it chooses an
@@ -56,7 +56,7 @@ Preparing claude-code the first time takes several minutes (a download and a bak
 
 ## 3. Brief it once
 
-Paste the briefing from [Letting another agent drive Dozable](https://dozersandbox.com/docs/letting-another-agent-drive.md#the-briefing)
+Paste the briefing from [Letting another agent drive Dozable](https://dozable.com/docs/letting-another-agent-drive.md#the-briefing)
 into your project's `CLAUDE.md` (or `AGENTS.md`). From then on, every session in that project knows how to
 use `doz` safely, and the prompts below can stay short.
 
@@ -129,12 +129,12 @@ What the jail gives you:
 | leave a mess you can't undo | the restore point: `doz point revert jail before-agent --yes`; `doz rm jail --yes` removes everything |
 
 Root inside the sandbox is still only root inside a virtual machine — that is the boundary, not the
-agent's good behaviour. See [Security model](https://dozersandbox.com/docs/security-model.md).
+agent's good behaviour. See [Security model](https://dozable.com/docs/security-model.md).
 
 ### C. Let an agent work on a project that holds secrets
 
 Your project folder has an `.env`, credentials or customer data the sandboxed agent should never read.
-[Workspace rules](https://dozersandbox.com/docs/workspace-rules.md) keep it out of them, without moving anything.
+[Workspace rules](https://dozable.com/docs/workspace-rules.md) keep it out of them, without moving anything.
 
 > Before we use a sandbox on this project, add a `.dozignore` at the project root that keeps the agent out
 > of `.env*`, `secrets/` and `*.pem`, and a `.dozreadonly` that lets it read but not change `deploy/`.
@@ -155,7 +155,7 @@ doz run feature --detach -- claude -p "<your task>"
 
 Locked files stay visible as `----------` so the agent knows they exist and leaves them alone (the
 sandboxed agent is told so). The rules are a guard against accidents, not a security boundary — see
-[The workspace view](https://dozersandbox.com/docs/the-workspace-view.md).
+[The workspace view](https://dozable.com/docs/the-workspace-view.md).
 
 ## When something goes wrong
 
@@ -166,5 +166,5 @@ sandboxed agent is told so). The rules are a guard against accidents, not a secu
 | a site is refused | "Show me `doz net NAME --json` and the suggestion; I'll decide." |
 | the sandbox is in a state you didn't expect | "Show me `doz ls --json` and `doz inspect NAME --json`." |
 
-See also: [Letting another agent drive Dozable](https://dozersandbox.com/docs/letting-another-agent-drive.md) ·
-[Getting started](https://dozersandbox.com/docs/getting-started.md) · [Troubleshooting and FAQ](https://dozersandbox.com/docs/troubleshooting-and-faq.md).
+See also: [Letting another agent drive Dozable](https://dozable.com/docs/letting-another-agent-drive.md) ·
+[Getting started](https://dozable.com/docs/getting-started.md) · [Troubleshooting and FAQ](https://dozable.com/docs/troubleshooting-and-faq.md).

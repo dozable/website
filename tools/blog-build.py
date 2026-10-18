@@ -24,7 +24,10 @@ repository, so a draft can never be committed here. A preview copy of the site's
 import argparse, datetime, html, importlib.util, json, os, re, shutil, struct, sys, types
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE = 'https://dozersandbox.com/'
+BASE = 'https://dozable.com/'
+# The feed's <id>s are names, not links, and must never change: a reader shows a post with a new id as a new post. They
+# keep the address the blog had when the feed began (the site moved to dozable.com on 2026-10-18; that one redirects).
+ID_BASE = 'https://dozersandbox.com/'
 TOPICS = {'release-news': 'Release news', 'tool-news': 'Tool news', 'early-access': 'Early access', 'tips': 'Tips and tricks'}
 KEYS = ('title', 'date', 'topics', 'summary', 'email', 'status')
 REPO = 'https://github.com/dozer-sandbox/dozer-sandbox'
@@ -401,7 +404,7 @@ def feed(posts):
            '<feed xmlns="http://www.w3.org/2005/Atom">',
            '  <title>Dozable blog</title>',
            '  <subtitle>News, early access and tips and tricks from Dozable.</subtitle>',
-           '  <id>%sblog/</id>' % BASE,
+           '  <id>%sblog/</id>' % ID_BASE,
            '  <link rel="self" type="application/atom+xml" href="%sblog/feed.xml"/>' % BASE,
            '  <link rel="alternate" type="text/html" href="%sblog/"/>' % BASE,
            '  <updated>%s</updated>' % updated,
@@ -409,7 +412,7 @@ def feed(posts):
     for p in posts:
         f = p['fm']
         url = BASE + 'blog/' + p['slug']
-        out += ['  <entry>', '    <title>%s</title>' % x(f['title']), '    <id>%s</id>' % url,
+        out += ['  <entry>', '    <title>%s</title>' % x(f['title']), '    <id>%s</id>' % (ID_BASE + 'blog/' + p['slug']),
                 '    <link rel="alternate" type="text/html" href="%s"/>' % url,
                 '    <published>%sT00:00:00Z</published>' % f['date'],
                 '    <updated>%sT00:00:00Z</updated>' % f['date'],

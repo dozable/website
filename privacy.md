@@ -1,15 +1,15 @@
 ---
 title: "Privacy Policy — Dozable"
-description: "What Dozable and dozersandbox.com collect, why, and how to turn it off: anonymous usage statistics, optional sign-up, and the website."
-url: https://dozersandbox.com/privacy
-image: https://dozersandbox.com/og-image.png
+description: "What Dozable and dozable.com collect, why, and how to turn it off: anonymous usage statistics, optional sign-up, and the website."
+url: https://dozable.com/privacy
+image: https://dozable.com/og-image.png
 updated: 2026-10-16
 ---
 # Dozable Privacy Policy
 
 **Last updated:** 16 October 2026
 
-Dozable is made by **Roundrect Pty Ltd** (ABN 36 613 522 277), Queensland, Australia ("we", "us"). This policy explains what Dozable and dozersandbox.com collect, why, and how to turn it off.
+Dozable is made by **Roundrect Pty Ltd** (ABN 36 613 522 277), Queensland, Australia ("we", "us"). This policy explains what Dozable and dozable.com collect, why, and how to turn it off.
 
 ## In short
 
@@ -58,11 +58,11 @@ The first time an official build runs, it prints one line saying statistics are 
 
 ### 2. Sign-up (optional)
 
-If you sign up — in Dozable's setup, with `doz signup`, or on dozersandbox.com/signup — we keep your **email address**, what you asked for (** release news**, ** tool news**, ** early access**, ** tips and tricks**), and when you signed up, confirmed and (if you do) unsubscribed. We send a confirmation email first; nothing else is sent until you confirm. Every email has a one-click unsubscribe link. We never sell or share your email, and never link it to your usage statistics. The emails are the posts of our [blog](https://dozersandbox.com/blog/index.md), sent only for the topics you ticked. They contain no open or click tracking. To send each one once and to stop sending to addresses that bounce or report spam, we keep a record of which posts were sent to your address and when, and whether one bounced or was reported; this record is deleted with your sign-up.
+If you sign up — in Dozable's setup, with `doz signup`, or on dozable.com/signup — we keep your **email address**, what you asked for (** release news**, ** tool news**, ** early access**, ** tips and tricks**), and when you signed up, confirmed and (if you do) unsubscribed. We send a confirmation email first; nothing else is sent until you confirm. Every email has a one-click unsubscribe link. We never sell or share your email, and never link it to your usage statistics. The emails are the posts of our [blog](https://dozable.com/blog/index.md), sent only for the topics you ticked. They contain no open or click tracking. To send each one once and to stop sending to addresses that bounce or report spam, we keep a record of which posts were sent to your address and when, and whether one bounced or was reported; this record is deleted with your sign-up.
 
 ### 3. The website and the update feed
 
-- **dozersandbox.com** uses no analytics, advertising or tracking scripts, and sets no cookies of its own — the blog included. Our host, Cloudflare, may set a strictly necessary security cookie and keeps standard request logs under [its own privacy policy](https://www.cloudflare.com/privacypolicy/). The colour picker on the site exists only when you open it on your own computer.
+- **dozable.com** uses no analytics, advertising or tracking scripts, and sets no cookies of its own — the blog included. Our host, Cloudflare, may set a strictly necessary security cookie and keeps standard request logs under [its own privacy policy](https://www.cloudflare.com/privacypolicy/). The colour picker on the site exists only when you open it on your own computer.
 - **Update checks:** Dozable checks `updates.dozersandbox.com` for new releases at most once a day (or when you ask). That request carries Dozable's version and channel in its user agent and nothing else. It is part of keeping Dozable up to date, not the usage statistics; turn it off with `doz config set updates.mode off`.
 
 ## Where it is kept, and for how long

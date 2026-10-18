@@ -1,8 +1,8 @@
 ---
 title: "Letting another agent drive Dozable — Dozable docs"
 description: "So far you have run doz. But the agent you already use on your Mac — Claude Code, Codex, Cursor — can run it too: create a sandbox for a risky task, hand the work to an agent inside it, check how it's going, and tidy up afterwards."
-url: https://dozersandbox.com/docs/letting-another-agent-drive
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/letting-another-agent-drive
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 14

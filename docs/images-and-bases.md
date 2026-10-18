@@ -1,8 +1,8 @@
 ---
 title: "Images and bases — Dozable docs"
 description: "Every sandbox starts from an image: a prepared disk with a Linux system, a developer toolkit and, usually, an AI agent."
-url: https://dozersandbox.com/docs/images-and-bases
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/images-and-bases
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 8
@@ -16,7 +16,7 @@ it's needed and then makes each sandbox an instant copy of it.
 ## Concepts
 
 - **An image is two choices: an agent and a base.**
-  - The **agent**: **Claude Code**, **pi**, **Codex** ([Codex](https://dozersandbox.com/docs/codex.md)), or **none** (a shell only).
+  - The **agent**: **Claude Code**, **pi**, **Codex** ([Codex](https://dozable.com/docs/codex.md)), or **none** (a shell only).
   - The **base**: the Linux system underneath — one of the **recommended bases** (below), **your own
     Dockerfile**, or a **template** you saved from a sandbox.
 - **Image names** follow the pair: `<base>-<agent>`, for example `python-claude-code` or `go-pi`, and
@@ -59,7 +59,7 @@ preparation takes, and which package registries its sandboxes may reach:
 | `alpine` | Alpine 3.20 |
 
 A base's own package registry (PyPI for `python`, crates.io for `rust`, …) is part of what its
-sandboxes may reach by default. See [What the agent can do](https://dozersandbox.com/docs/permissions-and-network.md).
+sandboxes may reach by default. See [What the agent can do](https://dozable.com/docs/permissions-and-network.md).
 
 ## Choose an image — in the terminal
 
@@ -81,7 +81,7 @@ promptfoo …). Choosing one that cannot run on the base chosen (Alpine, for a t
 to its own. **Base**: **Recommended** (a card per base, with its download and time), **Dockerfile** (**Choose
 Dockerfile…** opens the Mac's file picker) or **Template**. The line under them names the image the pair makes.
 
-![Choosing agent and base](https://dozersandbox.com/docs/images/new-sandbox-base.png)
+![Choosing agent and base](https://dozable.com/docs/images/new-sandbox-base.png)
 
 ## Your own Dockerfile
 
@@ -107,7 +107,7 @@ baseline and the agent on top as usual.
   rebuild available"; `doz image bake df-…` rebuilds (the image's name is shown in `doz image ls`),
   and `doz reset NAME` moves a sandbox onto it.
 - Apple's tool keeps its own storage, shown on the Resources page (never deleted by Dozable). See
-  [Resources and disk space](https://dozersandbox.com/docs/resources-and-disk-space.md).
+  [Resources and disk space](https://dozable.com/docs/resources-and-disk-space.md).
 
 ## See and manage images
 
@@ -126,7 +126,7 @@ In the dashboard, **Images** shows the same with **Bake** or **Rebuild** on each
 under its **⋯**, each image's
 own and shared disk space as a bar, and **Lineage**, the tree.
 
-![The Images page](https://dozersandbox.com/docs/images/images.png)
+![The Images page](https://dozable.com/docs/images/images.png)
 
 ## Out-of-date images
 
@@ -148,14 +148,14 @@ Either way, **Dozable never rebuilds an image without you.** It says so:
 
 Rebuilding never touches existing sandboxes: they keep their disks. To move a sandbox onto the new
 image, `doz reset NAME` — it keeps the agent's own state (`~/.claude`, `~/.pi`) and `/workspace`, and
-drops everything else installed on its system disk (take a [template](https://dozersandbox.com/docs/restore-points-duplicates-templates.md#templates)
+drops everything else installed on its system disk (take a [template](https://dozable.com/docs/restore-points-duplicates-templates.md#templates)
 first if you want that).
 
 ## Templates
 
 A **template** is a sandbox's system disk saved as an image: set a sandbox up the way you like, then
 make new sandboxes from it. It never includes the agent's state disk (logins, history). See
-[Restore points, duplicates and templates](https://dozersandbox.com/docs/restore-points-duplicates-templates.md#templates).
+[Restore points, duplicates and templates](https://dozable.com/docs/restore-points-duplicates-templates.md#templates).
 
 ## Settings
 

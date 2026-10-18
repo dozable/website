@@ -1,8 +1,8 @@
 ---
 title: "Web ports: opening a sandbox's web page on your Mac — Dozable docs"
 description: "Some tools serve a web page from inside the sandbox: a chat playground, a workflow editor, the dev server of the app you are building."
-url: https://dozersandbox.com/docs/web-ports
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/web-ports
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 29
@@ -46,10 +46,10 @@ below 1024), Dozable picks a free one, says so (`moved`), and keeps it for next 
 - **This Mac only.** It listens on `127.0.0.1` (and `::1`), never on the network. Other programs on this Mac can reach
   it, as they can any local server — a tool with its own sign-in still asks for it.
 - **Inbound only.** It carries your browser's requests to the program in the sandbox. It does not let the sandbox
-  reach anything: what the program itself may reach is still decided by the sandbox's [network](https://dozersandbox.com/docs/permissions-and-network.md).
+  reach anything: what the program itself may reach is still decided by the sandbox's [network](https://dozable.com/docs/permissions-and-network.md).
 - **No key crosses it.** Your keys are swapped in by Dozable's proxy only on the sandbox's own outbound requests; a
   forward never touches them. A page that shows its environment shows a placeholder, which is useless anywhere else.
-- **From another device** (the dashboard through [`doz serve`](https://dozersandbox.com/docs/doz-serve.md)), `127.0.0.1` is that device, not your
+- **From another device** (the dashboard through [`doz serve`](https://dozable.com/docs/doz-serve.md)), `127.0.0.1` is that device, not your
   Mac: the button says the port is on the Mac instead of opening it there.
 
 How it works: each connection your browser makes is relayed into the sandbox by Dozable's small helper there, to the

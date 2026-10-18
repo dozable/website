@@ -1,8 +1,8 @@
 ---
 title: "The dashboard (doz ui) — Dozable docs"
 description: "doz ui is Dozable in your browser: every sandbox with a live terminal, its restore points and permissions, your images, accounts, disk use and settings."
-url: https://dozersandbox.com/docs/the-dashboard
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/the-dashboard
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 6
@@ -74,7 +74,7 @@ run, instead of the browser's error page; it comes back by itself, on the view i
 
 ## The pages
 
-![The Sandboxes page](https://dozersandbox.com/docs/images/dashboard-sandboxes.png)
+![The Sandboxes page](https://dozable.com/docs/images/dashboard-sandboxes.png)
 
 The sidebar groups the pages under four headings — **Sandboxes** (All sandboxes, each sandbox, All
 sessions), **Store** (Images, Resources), **Activity** (Operations, Activity, Metrics) and **Setup**
@@ -84,11 +84,11 @@ top shows the whole sidebar over the page.
 
 | page | what it's for |
 |---|---|
-| **All sandboxes** | Every sandbox: state, RAM held, disk, network, account. Each row has the one likely next action (**Start**, **Resume**, **Wake** or **Pause**) and **⋯** for the state's other actions; click a row to open the sandbox. **Quick add** (every default, started and opened — also the **+** beside the **Sandboxes** heading in the sidebar; see [The quickest way](https://dozersandbox.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new)) and **New sandbox** (a wizard: every choice, step by step, written to the project folder's `doz_project.yaml` — see [Projects](https://dozersandbox.com/docs/projects.md#in-the-dashboard)). Under it in the sidebar, each sandbox has its own entry that opens **its page**; its dot is filled while the sandbox holds memory (running, paused, asleep), a ring when it holds none (hibernated, shut down), a square when it failed; a second dot at the right says what its agent is doing (see [What the agent is doing](https://dozersandbox.com/docs/terminals-and-sessions.md#what-the-agent-is-doing)). |
+| **All sandboxes** | Every sandbox: state, RAM held, disk, network, account. Each row has the one likely next action (**Start**, **Resume**, **Wake** or **Pause**) and **⋯** for the state's other actions; click a row to open the sandbox. **Quick add** (every default, started and opened — also the **+** beside the **Sandboxes** heading in the sidebar; see [The quickest way](https://dozable.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new)) and **New sandbox** (a wizard: every choice, step by step, written to the project folder's `doz_project.yaml` — see [Projects](https://dozable.com/docs/projects.md#in-the-dashboard)). Under it in the sidebar, each sandbox has its own entry that opens **its page**; its dot is filled while the sandbox holds memory (running, paused, asleep), a ring when it holds none (hibernated, shut down), a square when it failed; a second dot at the right says what its agent is doing (see [What the agent is doing](https://dozable.com/docs/terminals-and-sessions.md#what-the-agent-is-doing)). |
 | **A sandbox's page** | See [A sandbox's page](#a-sandboxs-page) below. |
 | **All sessions** | A grid of live, read-only tiles: every session of every running sandbox, each with what its agent is doing. Click a tile to open it. |
 | **Images** | The images and templates, each image's agent version, what's out of date (**Rebuild** — **Remove…** is under **⋯**), disk shared and own, and the **Lineage** tree. |
-| **Resources** | Every byte Dozable uses, and deleting what can go. A strip under the total jumps to each group (with its size); a group's heading folds it. See [Resources and disk space](https://dozersandbox.com/docs/resources-and-disk-space.md). |
+| **Resources** | Every byte Dozable uses, and deleting what can go. A strip under the total jumps to each group (with its size); a group's heading folds it. See [Resources and disk space](https://dozable.com/docs/resources-and-disk-space.md). |
 | **Operations** | Every action the dashboard (or a preparation) started: live progress, time taken, result. A spinner shows while any runs, and a red dot when one failed since you last looked. |
 | **Accounts & keys** | Your Claude accounts: add, verify, make default, remove (under **⋯**), keep-alive. |
 | **Metrics** | How long each kind of action takes (count, median, p90…), filtered by image and time; download as CSV. |
@@ -99,7 +99,7 @@ top shows the whole sidebar over the page.
 
 ### A sandbox's page
 
-![A sandbox's page](https://dozersandbox.com/docs/images/sandbox-page.png)
+![A sandbox's page](https://dozable.com/docs/images/sandbox-page.png)
 
 - **The title row**: the name, its state, and labelled facts — **Image**, **RAM**, **Network** (with
   how many connections were refused; click it for the **Network** tab), **Account** — and *isolated*
@@ -170,7 +170,7 @@ when it was last connected and whether the host was running, with **Try now**; a
 the port the page expected. The page retries every second and comes back by itself when you start
 `doz ui` again (it says "doz ui restarted").
 
-![Paused while doz ui is away](https://dozersandbox.com/docs/images/dashboard-overlay.png)
+![Paused while doz ui is away](https://dozable.com/docs/images/dashboard-overlay.png)
 
 **When the page must sign in again** — after `doz ui --new-link` / `doz ui link --rotate`, after 14 days
 unused, or when you signed out — it says why and asks for a link **inside the page**: paste one from
@@ -185,7 +185,7 @@ starts a new shell (`shell-2`, `shell-3`, …) and its **▾** › **Terminal…
 or one running a command. Terminals are tabs; **Split** shows two side by side. Closing a tab only closes the
 view — the session keeps running. Each tab is titled like `1 · my-app · claude · 14:05` (the setting
 `ui.terminal_title`). Details, including the mouse, paste and the clipboard, in
-[Terminals and sessions](https://dozersandbox.com/docs/terminals-and-sessions.md#in-the-browser).
+[Terminals and sessions](https://dozable.com/docs/terminals-and-sessions.md#in-the-browser).
 
 **Open in Terminal** opens the same session in your terminal app instead, via `doz attach`.
 
@@ -221,7 +221,7 @@ dashboard can switch this off but never on.
 
 - **Loopback only**, and every page, request and terminal checks the sign-in cookie, the exact host
   and origin, and a CSRF token on every change. For the dashboard on your other computers, tablets and phones,
-  see [`doz serve`](https://dozersandbox.com/docs/doz-serve.md).
+  see [`doz serve`](https://dozable.com/docs/doz-serve.md).
 - **Terminals run in an isolated frame**: whatever a sandbox prints can never reach your dashboard
   session, its cookie or other terminals. Links in terminal output aren't clickable.
 - The dashboard alone never keeps an idle host running; an open terminal does, as `doz attach` does.

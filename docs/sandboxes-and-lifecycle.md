@@ -1,8 +1,8 @@
 ---
 title: "Sandboxes and their lifecycle — Dozable docs"
 description: "A sandbox is one Linux virtual machine with its own disks."
-url: https://dozersandbox.com/docs/sandboxes-and-lifecycle
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/sandboxes-and-lifecycle
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 5
@@ -17,7 +17,7 @@ the background **host** that runs them all.
 
 - **Name.** 1–40 characters of `a-z 0-9 -`, unique in the store.
 - **Image.** What the sandbox starts from (Claude Code, pi, a plain shell, a template…). See
-  [Images and bases](https://dozersandbox.com/docs/images-and-bases.md).
+  [Images and bases](https://dozable.com/docs/images-and-bases.md).
 - **Three kinds of storage**, each kept differently:
 
   | | what's on it | kept through |
@@ -29,7 +29,7 @@ the background **host** that runs them all.
 - **Isolated.** A sandbox with no shared folder: `/workspace` is a folder on its own disk, and nothing
   on your Mac is shared. `doz ls` shows `isolated`, and the agent is told.
 - **Sessions.** The terminal programs running inside (a shell, `claude`, `pi`). They survive pause,
-  sleep and hibernate. See [Terminals and sessions](https://dozersandbox.com/docs/terminals-and-sessions.md).
+  sleep and hibernate. See [Terminals and sessions](https://dozable.com/docs/terminals-and-sessions.md).
 - **The host.** One background `doz` process per store. It owns every running VM, the network proxy
   and the credentials. The first command that needs it starts it, and it exits when idle, so you
   normally never think about it.
@@ -104,7 +104,7 @@ One click in the dashboard, or one command, makes a sandbox with every default a
 sidebar). The sandbox is made and started at once; its page opens with the boot in a terminal, which
 then becomes the sandbox's own session. A note says what it chose.
 
-![Quick add: the new sandbox's page, its terminal live](https://dozersandbox.com/docs/images/quick-add.png)
+![Quick add: the new sandbox's page, its terminal live](https://dozable.com/docs/images/quick-add.png)
 
 **In a terminal**:
 
@@ -147,12 +147,12 @@ doz up my-app                                        # create if missing, start 
 
 | option | what it does |
 |---|---|
-| `--image` | `lab`, `claude-code`, `pi`, a base × agent image, or a template. Or `--agent` with `--base` / `--dockerfile` ([Images and bases](https://dozersandbox.com/docs/images-and-bases.md)). |
+| `--image` | `lab`, `claude-code`, `pi`, a base × agent image, or a template. Or `--agent` with `--base` / `--dockerfile` ([Images and bases](https://dozable.com/docs/images-and-bases.md)). |
 | `--workspace DIR` | Share this Mac folder at `/workspace`. Made if it doesn't exist; refused for your home folder itself, system locations and the store. |
 | `--isolated` | Share nothing (the default without `--workspace`; this says it on purpose). |
 | `--cpus` · `--memory` | Virtual CPUs (default 2) · RAM (`2G`, `512M`; default 1 GiB for lab, 2 GiB for an agent image). |
-| `--network` · `--allow` | What the agent may reach ([What the agent can do](https://dozersandbox.com/docs/permissions-and-network.md)). |
-| `--account` | Which Claude account it uses ([Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md)). |
+| `--network` · `--allow` | What the agent may reach ([What the agent can do](https://dozable.com/docs/permissions-and-network.md)). |
+| `--account` | Which Claude account it uses ([Agents and accounts](https://dozable.com/docs/agents-and-accounts.md)). |
 | `--start` | Start it straight away. |
 | `--prepare` | Prepare its image now — download and bake it once, with its progress — so the first start does not wait; the sandbox stays off. If that image is already being prepared, it joins that preparation. Ctrl-C stops watching; the preparation goes on (`doz onboard --status` follows it). |
 | `--rebuild` · `--use-current` | When the image is out of date: rebuild it first, or use it as it is. |
@@ -169,14 +169,14 @@ does all that without attaching. On an existing sandbox, create options are igno
    session. Each step is filled in from your settings; **Skip to review** keeps the rest.
 2. **Review** shows the `doz_project.yaml` it writes into the folder; **Write and create** writes it,
    makes the sandbox from it, starts it and opens it with the boot in a terminal. See
-   [Projects](https://dozersandbox.com/docs/projects.md#in-the-dashboard).
+   [Projects](https://dozable.com/docs/projects.md#in-the-dashboard).
 3. Or **One-page form** (in the wizard, top right): everything on one page, a **Shared folder** or
    **Isolated**, and no project file. **Create** makes it off; **Start** boots it: the terminal area shows
    the image's build while there is one, then tab zero, **Console** (the boot as it happens), then the
    agent's own tab once it has drawn its screen. With the setting `ui.boot_view_on_start` on, the page
    stays on Console and marks the agent's tab instead of switching to it.
 
-![New sandbox](https://dozersandbox.com/docs/images/new-sandbox.png)
+![New sandbox](https://dozable.com/docs/images/new-sandbox.png)
 
 Each sandbox has an entry under **Sandboxes** in the sidebar, with a dot in its state's colour (filled
 while it holds memory, a ring when it holds none, a square when it failed). Its page has the lifecycle
@@ -213,7 +213,7 @@ In the dashboard, a sleeping sandbox's page shows each session's saved screen, r
 select and copy from it), with "press any key to wake". Saved screens exist only while you can wake
 the sandbox: shutdown, reset and remove delete them.
 
-![A hibernated sandbox's saved screens](https://dozersandbox.com/docs/images/saved-screens.png)
+![A hibernated sandbox's saved screens](https://dozable.com/docs/images/saved-screens.png)
 
 ## Boot logs
 
@@ -229,7 +229,7 @@ doz console my-app --follow             # watch the console live as it boots
 
 In the dashboard: **⋯** › **Boot log** on the sandbox's page (it works in any state; nothing is woken).
 
-![A kept boot](https://dozersandbox.com/docs/images/boot-log.png)
+![A kept boot](https://dozable.com/docs/images/boot-log.png)
 
 ## The host
 

@@ -1,8 +1,8 @@
 ---
 title: "Getting started — Dozable docs"
 description: "Dozable runs AI coding agents, such as Claude Code, in small Linux virtual machines on your Mac."
-url: https://dozersandbox.com/docs/getting-started
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/getting-started
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 1
@@ -44,7 +44,7 @@ doz --version
 ```
 
 The install takes seconds (a prebuilt, signed `doz`) and ends with a hint: `doz onboard`. More on
-installing, upgrading and removing: [Installing, upgrading and uninstalling](https://dozersandbox.com/docs/install-upgrade-uninstall.md).
+installing, upgrading and removing: [Installing, upgrading and uninstalling](https://dozable.com/docs/install-upgrade-uninstall.md).
 
 ## Set up this Mac
 
@@ -87,9 +87,9 @@ doz ui
 The dashboard opens on the **setup wizard**: the same steps, and at the end an optional **First
 sandbox**, the **Usage statistics** switch (on unless you turn it off) and an optional **Stay in touch**.
 
-![The setup wizard's first step](https://dozersandbox.com/docs/images/wizard-welcome.png)
+![The setup wizard's first step](https://dozable.com/docs/images/wizard-welcome.png)
 
-Details: [Setting up](https://dozersandbox.com/docs/setting-up.md).
+Details: [Setting up](https://dozable.com/docs/setting-up.md).
 
 ### What you just set up
 
@@ -168,19 +168,19 @@ in your terminal.
 > `doz up` brings you straight back to it.
 
 Your terminal's title shows where you are, for example `my-app · claude · 14:05`, and goes back to
-what it was when you detach. Details: [Projects](https://dozersandbox.com/docs/projects.md) and
-[Terminals and sessions](https://dozersandbox.com/docs/terminals-and-sessions.md).
+what it was when you detach. Details: [Projects](https://dozable.com/docs/projects.md) and
+[Terminals and sessions](https://dozable.com/docs/terminals-and-sessions.md).
 
 > **No project yet?** `doz new` — or **Quick add** in the dashboard — makes a sandbox with every
 > default and puts you in it: a free name like `claude-sandbox`, and its own folder in your projects
 > folder (`~/doz-workspaces/claude-sandbox`). See
-> [The quickest way](https://dozersandbox.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new).
+> [The quickest way](https://dozable.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new).
 
 ## Talk to your agent
 
 You're now in Claude Code, inside the sandbox. Its first-run screens are done and it doesn't stop to
 ask permission for each command: inside a sandbox, the VM and its network are the boundary. (To have
-Claude ask first anyway, see `claude.permissions` in the [settings](https://dozersandbox.com/docs/settings-reference.md).)
+Claude ask first anyway, see `claude.permissions` in the [settings](https://dozable.com/docs/settings-reference.md).)
 
 Claude also knows where it runs. Ask it:
 
@@ -189,7 +189,7 @@ Claude also knows where it runs. Ask it:
 It should tell you it is in a Dozable sandbox (a Linux VM on your Mac), that `/workspace` is your
 `~/code/my-app`, that its network only reaches what you allow, and that your credentials are added
 by your Mac and never stored in the sandbox. It learns this from a short note Dozable gives it at every
-start. See [Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md).
+start. See [Agents and accounts](https://dozable.com/docs/agents-and-accounts.md).
 
 A few things work as you'd hope:
 
@@ -200,7 +200,7 @@ A few things work as you'd hope:
 - **Copying works.** When Claude copies something, it lands on your Mac's clipboard and a notice
   says so.
 - **Browser sign-ins work.** If a tool in the sandbox opens a sign-in page, it opens in your Mac's
-  browser, and the login completes. See [Signing in from a sandbox](https://dozersandbox.com/docs/signing-in-from-a-sandbox.md).
+  browser, and the login completes. See [Signing in from a sandbox](https://dozable.com/docs/signing-in-from-a-sandbox.md).
 
 ## Day to day
 
@@ -218,7 +218,7 @@ sandboxes; the dashboard (`doz ui`) shows the same thing with a live terminal fo
 
 `doz shutdown` is a real power-off: running programs end but the disk is kept. `doz reset` goes back
 to a fresh copy of the image. Neither touches your project folder or the agent's own settings and
-history. Details: [Sandboxes and their lifecycle](https://dozersandbox.com/docs/sandboxes-and-lifecycle.md).
+history. Details: [Sandboxes and their lifecycle](https://dozable.com/docs/sandboxes-and-lifecycle.md).
 
 ## When the agent needs a website
 
@@ -235,7 +235,7 @@ doz net allow my-app site:api.example.com   # one site
 
 In the dashboard, the sandbox's details show **What the agent can do** as switches, with a one-click
 suggestion when the agent was refused something. The agent can't change its own permissions; only
-you can. Details: [What the agent can do](https://dozersandbox.com/docs/permissions-and-network.md).
+you can. Details: [What the agent can do](https://dozable.com/docs/permissions-and-network.md).
 
 ## Undo with restore points
 
@@ -249,11 +249,11 @@ doz point fork my-app before-refactor try-2    # or try again in a new sandbox, 
 ```
 
 Restore points cover the sandbox's own disk. Your project folder is on your Mac, so use git for that.
-Details: [Restore points, duplicates and templates](https://dozersandbox.com/docs/restore-points-duplicates-templates.md).
+Details: [Restore points, duplicates and templates](https://dozable.com/docs/restore-points-duplicates-templates.md).
 
 ## Next steps
 
-- Something not working? `doz doctor`, then [Troubleshooting and FAQ](https://dozersandbox.com/docs/troubleshooting-and-faq.md).
-- Let the agent you already use on your Mac drive Dozable: [Letting another agent drive Dozable](https://dozersandbox.com/docs/letting-another-agent-drive.md).
-- How your Mac is kept safe: [Security model](https://dozersandbox.com/docs/security-model.md).
-- Everything else: the [manual's index](https://dozersandbox.com/docs/index.md).
+- Something not working? `doz doctor`, then [Troubleshooting and FAQ](https://dozable.com/docs/troubleshooting-and-faq.md).
+- Let the agent you already use on your Mac drive Dozable: [Letting another agent drive Dozable](https://dozable.com/docs/letting-another-agent-drive.md).
+- How your Mac is kept safe: [Security model](https://dozable.com/docs/security-model.md).
+- Everything else: the [manual's index](https://dozable.com/docs/index.md).

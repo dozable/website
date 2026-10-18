@@ -1,8 +1,8 @@
 ---
 title: "Codex — Dozable docs"
 description: "OpenAI's Codex runs in a Dozable sandbox the way Claude Code does: ready to work, without approval prompts (the VM and its network are the boundary), told where it runs, and with its credential kept on your Mac — it never enters the sandbox."
-url: https://dozersandbox.com/docs/codex
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/codex
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 24
@@ -60,7 +60,7 @@ offers only OpenAI accounts; an OpenAI key can be typed in the masked field.
   there — your own choice is kept), so there is no trust screen;
 - turns off Codex's update check (the image decides its version);
 - gives Codex the sandbox's **facts** as its developer instructions, and the **`dozer` skill** in
-  `~/.agents/skills/dozer/SKILL.md` ([Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md)). Your
+  `~/.agents/skills/dozer/SKILL.md` ([Agents and accounts](https://dozable.com/docs/agents-and-accounts.md)). Your
   `AGENTS.md` files are never touched.
 
 `codex exec`, `codex resume` and `codex fork` get the same; `codex login`, `codex mcp` and the other

@@ -1,8 +1,8 @@
 ---
 title: "Setting up this Mac — Dozable docs"
 description: "Setup — onboarding — is what you do once after installing: it checks your Mac, chooses and confirms what sandboxes may use as you (Access: a Claude account, GitHub, your SSH agent), explains workspace rules and lets you choose what they do, writes your settings and prepares the images your sandboxes start from."
-url: https://dozersandbox.com/docs/setting-up
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/setting-up
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 3
@@ -21,15 +21,15 @@ thing, and both are safe to run again.
 - **An image** is what a sandbox starts from: a prepared disk with Linux, a developer toolkit and,
   for the agent images, the agent. Preparing one downloads a base system and installs everything in a
   temporary VM — a few minutes, once. Every sandbox made from it is an instant copy. See
-  [Images and bases](https://dozersandbox.com/docs/images-and-bases.md).
+  [Images and bases](https://dozable.com/docs/images-and-bases.md).
 - **Preparation runs in the host**, not in your terminal. You can close the terminal or leave the
   wizard; it carries on. A sandbox started while its image is being prepared joins that preparation
   instead of starting another one.
 - **An account** is how a sandbox's agent pays for its AI model: your Mac's Claude Code login, a
   long-lived token, or an API key. The secret stays on your Mac; a sandbox only ever sees a stand-in.
-  See [Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md).
+  See [Agents and accounts](https://dozable.com/docs/agents-and-accounts.md).
 - **Access** is every credential a sandbox may use as you — the Claude account, **GitHub as you**
-  ([GitHub](https://dozersandbox.com/docs/github.md)) and **SSH agent forwarding**. Each is a choice of yours (GitHub and SSH are
+  ([GitHub](https://dozable.com/docs/github.md)) and **SSH agent forwarding**. Each is a choice of yours (GitHub and SSH are
   off until you choose them), and each is **confirmed live** when you choose it. A credential that
   can't be confirmed can be **skipped**: the choice is kept, marked *not confirmed*, and setup goes on.
   The choices are the defaults for new sandboxes; `doz access` and **Settings** › **Access** check
@@ -37,7 +37,7 @@ thing, and both are safe to run again.
 - **Workspace rules** are two small files you can put in a project folder: `.dozignore` (paths the agent
   must not use) and `.dozreadonly` (paths it may read but not change). Setup explains them and asks one
   question: should a `.dozignore` **lock** the paths it lists (still listed, but nothing can open them —
-  the default) or **hide** them (not there at all)? See [Workspace rules](https://dozersandbox.com/docs/workspace-rules.md).
+  the default) or **hide** them (not there at all)? See [Workspace rules](https://dozable.com/docs/workspace-rules.md).
 
 ## In the terminal
 
@@ -172,7 +172,7 @@ across the top; **✕** or **Escape** closes it, asking first once you have chos
     (`~/doz-workspaces`): each new sandbox from **Quick add**, **New sandbox** or
     `doz new` gets its own folder there. **Settings** › **Choose…** moves it.
 
-![The wizard's checks](https://dozersandbox.com/docs/images/wizard-checks.png)
+![The wizard's checks](https://dozable.com/docs/images/wizard-checks.png)
 
 You can run the wizard again at any time: **Onboarding** under **Setup** in the sidebar (with a dot beside it until
 the store is set up), or **Doctor** › **Run onboarding again**.
@@ -194,8 +194,8 @@ again**; the choices themselves are the settings `defaults.github`, `github.cred
 
 | what | where |
 |---|---|
-| Your settings | `~/.config/dozer-sandbox/doz.toml` (under `$XDG_CONFIG_HOME` if set) — see [Settings reference](https://dozersandbox.com/docs/settings-reference.md) |
-| Your agent prompt template | `agent-prompt.md` beside it — everything inside an HTML comment, so it changes nothing until you write your own text. See [Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md#the-agents-environment-facts) |
+| Your settings | `~/.config/dozer-sandbox/doz.toml` (under `$XDG_CONFIG_HOME` if set) — see [Settings reference](https://dozable.com/docs/settings-reference.md) |
+| Your agent prompt template | `agent-prompt.md` beside it — everything inside an HTML comment, so it changes nothing until you write your own text. See [Agents and accounts](https://dozable.com/docs/agents-and-accounts.md#the-agents-environment-facts) |
 | The store (images, sandboxes) | `~/Library/Application Support/dozer-sandbox` |
 | Accounts with a secret | your login keychain, `doz-claude:NAME` (tokens) or `doz-anthropic:NAME` (API keys) |
 | A GitHub token you gave | your login keychain, `doz-github` |
@@ -213,7 +213,7 @@ again**; the choices themselves are the settings `defaults.github`, `github.cred
 | `sandbox.ssh_agent` | `off` | Forward this Mac's ssh-agent into sandboxes (github.com only). |
 | `workspace.ignore_mode` | `lock` | What a `.dozignore` does to the paths it lists: `lock` or `hide`. The Workspace rules step's choice. |
 | `ui.allow_secret_entry` | `true` | The dashboard may take an API key or setup token in a masked field. `false`: it shows the `doz account add` command instead. The dashboard can turn this off, never on. |
-| `images.claude_code_version` · `images.pi_version` | `latest` | Which agent version an image is prepared with. See [Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md#agent-versions). |
+| `images.claude_code_version` · `images.pi_version` | `latest` | Which agent version an image is prepared with. See [Agents and accounts](https://dozable.com/docs/agents-and-accounts.md#agent-versions). |
 
 ## Limits and notes
 
@@ -233,4 +233,4 @@ again**; the choices themselves are the settings `defaults.github`, `github.cred
 | The wizard shows commands instead of a key field | `ui.allow_secret_entry` is off: use `doz account add NAME --api-key` in a terminal. |
 | GitHub *not confirmed: gh is not logged in* | Run `gh auth login` on the Mac, then `doz access` — or give a token: `doz access set --github-key`. |
 | SSH *not confirmed: no ssh-agent* or *no keys* | Start an agent and `ssh-add` your key on the Mac, then `doz access`. Or turn it off: `doz access set --ssh-agent off`. |
-| You want to start over | [Uninstall](https://dozersandbox.com/docs/install-upgrade-uninstall.md#uninstall), then install and onboard again. |
+| You want to start over | [Uninstall](https://dozable.com/docs/install-upgrade-uninstall.md#uninstall), then install and onboard again. |

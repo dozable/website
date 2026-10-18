@@ -1,8 +1,8 @@
 ---
 title: "More agents: Antigravity CLI, Grok Build, OpenCode, GitHub Copilot CLI, Qwen Code, Goose, Kilo Code CLI, Mistral Vibe, Factory Droid, Dirac, Kimi Code, Cline CLI, OpenHands CLI, Letta Code, Docker Agent, Nanocoder, mini-swe-agent, Open Interpreter, Crush, MiMo Code, CodeWhale, Maki, oh-my-pi, Tau, Gemini CLI — Dozable docs"
 description: "Beside Claude Code, pi and Codex, Dozable runs agents from other makers."
-url: https://dozersandbox.com/docs/more-agents
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/more-agents
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 27
@@ -11,7 +11,7 @@ chapter: 27
 
 Beside Claude Code, pi and Codex, Dozable runs agents from other makers. Each uses an **API key** — most of them of the
 provider or gateway you choose (`--provider` / `--gateway`, or the Quick try's “Where it gets its model”; `--model` picks the
-model; see [Other AI tools](https://dozersandbox.com/docs/ai-tools.md#providers-and-gateways)). The key stays on your Mac and the sandbox only ever
+model; see [Other AI tools](https://dozable.com/docs/ai-tools.md#providers-and-gateways)). The key stays on your Mac and the sandbox only ever
 gets a placeholder, which Dozable's proxy swaps for the key on the way out — and only to that provider's or gateway's
 own API.
 
@@ -45,9 +45,9 @@ doz search google        # what Dozable runs with a Google key, each with its la
 ```
 
 The first `doz try` of each asks for the key (a paste, or where you keep it: 1Password, AWS, a command — see
-[Keys from 1Password, AWS or a command](https://dozersandbox.com/docs/agents-and-accounts.md#keys-from-1password-aws-or-a-command)), prepares the
+[Keys from 1Password, AWS or a command](https://dozable.com/docs/agents-and-accounts.md#keys-from-1password-aws-or-a-command)), prepares the
 agent's image once (a minute or so) and starts it. A try is Locked: the agent reaches its model and, below, the few
-hosts its maker's program calls when it starts — nothing else. [Trying agents](https://dozersandbox.com/docs/try-and-search.md) has the rest.
+hosts its maker's program calls when it starts — nothing else. [Trying agents](https://dozable.com/docs/try-and-search.md) has the rest.
 
 ## Antigravity CLI (Google)
 
@@ -436,4 +436,4 @@ new is allowed (`make profile-agents` in the source tree; `make agent-currency` 
 `doz search`, `doz try` and the Quick try show each agent's **latest release** as your Mac last saw it — the version,
 the day it came out, how long ago, and **active** (a release in the last 3 months), **quiet** (none for 3),
 **stale** (none for 6) or **deprecated** by its maker — and its **standing**: current, or superseded by another
-agent. See [Is it current?](https://dozersandbox.com/docs/try-and-search.md#is-it-supported-doz-search).
+agent. See [Is it current?](https://dozable.com/docs/try-and-search.md#is-it-supported-doz-search).

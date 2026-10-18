@@ -3,8 +3,8 @@ title: "OpenCode 2 is in Dozer Sandbox — Dozable blog"
 description: "OpenCode 2, a rebuild of the open-source coding agent around one shared background service, now runs in Dozer Sandbox beside OpenCode 1, on your own key or OpenCode Zen's free models."
 date: 2026-10-17
 topics: [tool-news]
-url: https://dozersandbox.com/blog/opencode-2
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/blog/opencode-2
+image: https://dozable.com/og-image.png
 source: "Dozable blog"
 ---
 # OpenCode 2 is in Dozer Sandbox
@@ -19,7 +19,7 @@ doz try opencode        # OpenCode 2, in a throwaway sandbox
 doz try opencode@1      # OpenCode 1
 ```
 
-It needs Dozer Sandbox 0.35, now on the [stable channel](https://dozersandbox.com/docs/install-upgrade-uninstall.html).
+It needs Dozer Sandbox 0.35, now on the [stable channel](https://dozable.com/docs/install-upgrade-uninstall).
 
 In the dashboard, OpenCode's card in Quick try has a **Version** choice; it starts on 2. Sandboxes you already have
 stay on the version they were made with.
@@ -100,4 +100,4 @@ A major version changes what your setup depends on: here, plugins and the API. D
 has checked. `opencode` now means OpenCode 2, the version Dozer recommends; OpenCode 1 stays one word away, as
 `opencode@1`, and keeps getting 1.x updates. An existing sandbox never moves to a new major version by itself.
 
-New to Dozer Sandbox? [Getting started](https://dozersandbox.com/docs/getting-started.html) takes a few minutes.
+New to Dozer Sandbox? [Getting started](https://dozable.com/docs/getting-started) takes a few minutes.

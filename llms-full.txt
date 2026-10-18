@@ -6,7 +6,7 @@ The complete user manual (every chapter, in reading order) followed by the priva
 
 ---
 
-URL: https://dozersandbox.com/docs/getting-started
+URL: https://dozable.com/docs/getting-started
 
 # Getting started
 
@@ -45,7 +45,7 @@ doz --version
 ```
 
 The install takes seconds (a prebuilt, signed `doz`) and ends with a hint: `doz onboard`. More on
-installing, upgrading and removing: [Installing, upgrading and uninstalling](https://dozersandbox.com/docs/install-upgrade-uninstall.md).
+installing, upgrading and removing: [Installing, upgrading and uninstalling](https://dozable.com/docs/install-upgrade-uninstall.md).
 
 ## Set up this Mac
 
@@ -88,9 +88,9 @@ doz ui
 The dashboard opens on the **setup wizard**: the same steps, and at the end an optional **First
 sandbox**, the **Usage statistics** switch (on unless you turn it off) and an optional **Stay in touch**.
 
-![The setup wizard's first step](https://dozersandbox.com/docs/images/wizard-welcome.png)
+![The setup wizard's first step](https://dozable.com/docs/images/wizard-welcome.png)
 
-Details: [Setting up](https://dozersandbox.com/docs/setting-up.md).
+Details: [Setting up](https://dozable.com/docs/setting-up.md).
 
 ### What you just set up
 
@@ -169,19 +169,19 @@ in your terminal.
 > `doz up` brings you straight back to it.
 
 Your terminal's title shows where you are, for example `my-app · claude · 14:05`, and goes back to
-what it was when you detach. Details: [Projects](https://dozersandbox.com/docs/projects.md) and
-[Terminals and sessions](https://dozersandbox.com/docs/terminals-and-sessions.md).
+what it was when you detach. Details: [Projects](https://dozable.com/docs/projects.md) and
+[Terminals and sessions](https://dozable.com/docs/terminals-and-sessions.md).
 
 > **No project yet?** `doz new` — or **Quick add** in the dashboard — makes a sandbox with every
 > default and puts you in it: a free name like `claude-sandbox`, and its own folder in your projects
 > folder (`~/doz-workspaces/claude-sandbox`). See
-> [The quickest way](https://dozersandbox.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new).
+> [The quickest way](https://dozable.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new).
 
 ## Talk to your agent
 
 You're now in Claude Code, inside the sandbox. Its first-run screens are done and it doesn't stop to
 ask permission for each command: inside a sandbox, the VM and its network are the boundary. (To have
-Claude ask first anyway, see `claude.permissions` in the [settings](https://dozersandbox.com/docs/settings-reference.md).)
+Claude ask first anyway, see `claude.permissions` in the [settings](https://dozable.com/docs/settings-reference.md).)
 
 Claude also knows where it runs. Ask it:
 
@@ -190,7 +190,7 @@ Claude also knows where it runs. Ask it:
 It should tell you it is in a Dozable sandbox (a Linux VM on your Mac), that `/workspace` is your
 `~/code/my-app`, that its network only reaches what you allow, and that your credentials are added
 by your Mac and never stored in the sandbox. It learns this from a short note Dozable gives it at every
-start. See [Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md).
+start. See [Agents and accounts](https://dozable.com/docs/agents-and-accounts.md).
 
 A few things work as you'd hope:
 
@@ -201,7 +201,7 @@ A few things work as you'd hope:
 - **Copying works.** When Claude copies something, it lands on your Mac's clipboard and a notice
   says so.
 - **Browser sign-ins work.** If a tool in the sandbox opens a sign-in page, it opens in your Mac's
-  browser, and the login completes. See [Signing in from a sandbox](https://dozersandbox.com/docs/signing-in-from-a-sandbox.md).
+  browser, and the login completes. See [Signing in from a sandbox](https://dozable.com/docs/signing-in-from-a-sandbox.md).
 
 ## Day to day
 
@@ -219,7 +219,7 @@ sandboxes; the dashboard (`doz ui`) shows the same thing with a live terminal fo
 
 `doz shutdown` is a real power-off: running programs end but the disk is kept. `doz reset` goes back
 to a fresh copy of the image. Neither touches your project folder or the agent's own settings and
-history. Details: [Sandboxes and their lifecycle](https://dozersandbox.com/docs/sandboxes-and-lifecycle.md).
+history. Details: [Sandboxes and their lifecycle](https://dozable.com/docs/sandboxes-and-lifecycle.md).
 
 ## When the agent needs a website
 
@@ -236,7 +236,7 @@ doz net allow my-app site:api.example.com   # one site
 
 In the dashboard, the sandbox's details show **What the agent can do** as switches, with a one-click
 suggestion when the agent was refused something. The agent can't change its own permissions; only
-you can. Details: [What the agent can do](https://dozersandbox.com/docs/permissions-and-network.md).
+you can. Details: [What the agent can do](https://dozable.com/docs/permissions-and-network.md).
 
 ## Undo with restore points
 
@@ -250,18 +250,18 @@ doz point fork my-app before-refactor try-2    # or try again in a new sandbox, 
 ```
 
 Restore points cover the sandbox's own disk. Your project folder is on your Mac, so use git for that.
-Details: [Restore points, duplicates and templates](https://dozersandbox.com/docs/restore-points-duplicates-templates.md).
+Details: [Restore points, duplicates and templates](https://dozable.com/docs/restore-points-duplicates-templates.md).
 
 ## Next steps
 
-- Something not working? `doz doctor`, then [Troubleshooting and FAQ](https://dozersandbox.com/docs/troubleshooting-and-faq.md).
-- Let the agent you already use on your Mac drive Dozable: [Letting another agent drive Dozable](https://dozersandbox.com/docs/letting-another-agent-drive.md).
-- How your Mac is kept safe: [Security model](https://dozersandbox.com/docs/security-model.md).
-- Everything else: the [manual's index](https://dozersandbox.com/docs/index.md).
+- Something not working? `doz doctor`, then [Troubleshooting and FAQ](https://dozable.com/docs/troubleshooting-and-faq.md).
+- Let the agent you already use on your Mac drive Dozable: [Letting another agent drive Dozable](https://dozable.com/docs/letting-another-agent-drive.md).
+- How your Mac is kept safe: [Security model](https://dozable.com/docs/security-model.md).
+- Everything else: the [manual's index](https://dozable.com/docs/index.md).
 
 ---
 
-URL: https://dozersandbox.com/docs/install-upgrade-uninstall
+URL: https://dozable.com/docs/install-upgrade-uninstall
 
 # Installing, upgrading and uninstalling
 
@@ -276,7 +276,7 @@ machines. You install it with Homebrew.
   run every command except the ones that boot a VM, and `doz doctor` says so.
 - **The store** is where your sandboxes, images and restore points live:
   `~/Library/Application Support/dozer-sandbox` unless you choose another (see
-  [Settings reference](https://dozersandbox.com/docs/settings-reference.md), `store.path`). Upgrading `doz` never touches it.
+  [Settings reference](https://dozable.com/docs/settings-reference.md), `store.path`). Upgrading `doz` never touches it.
 - **The settings** live in `~/.config/dozer-sandbox/doz.toml`, beside your agent prompt template
   (`agent-prompt.md`). Upgrading never touches them either.
 - **The host** is a background `doz` process that runs your sandboxes. A running host keeps using the
@@ -294,7 +294,7 @@ doz --version
 
 Recent Homebrew loads formulas from a third-party tap only after you trust it — `brew trust` is needed
 once per Mac (without it `brew install` refuses the formula). Homebrew then adds Dozable's tap and installs
-a prebuilt, signed and notarised `doz` in seconds — no compiler is needed. It ends with a hint: run `doz onboard` ([Setting up](https://dozersandbox.com/docs/setting-up.md)).
+a prebuilt, signed and notarised `doz` in seconds — no compiler is needed. It ends with a hint: run `doz onboard` ([Setting up](https://dozable.com/docs/setting-up.md)).
 
 ### Release channels
 
@@ -375,7 +375,7 @@ nobody is attached, the old host exits by itself.
 A new version of Dozable may prepare its images differently (it may add a tool, for example). Your
 existing images are **never rebuilt without you**: Dozable says an image is out of date — in
 `doz image ls`, `doz doctor`, when you create a sandbox, and on the dashboard's Images page — and
-you rebuild it when it suits you. See [Images and bases](https://dozersandbox.com/docs/images-and-bases.md#out-of-date-images).
+you rebuild it when it suits you. See [Images and bases](https://dozable.com/docs/images-and-bases.md#out-of-date-images).
 
 ### A sandbox that slept through an upgrade
 
@@ -389,7 +389,7 @@ machine, the wake is refused rather than risk the snapshot, and says so.
 The dashboard watches the host. If a host of another version takes over, a banner says so; if the
 host is **older** than the dashboard, the banner offers **Restart host**: it asks first, hibernates
 the running sandboxes and starts the newer host (they wake when you use them). If `doz ui` itself is
-the older one, the banner asks you to restart `doz ui`. See [The dashboard](https://dozersandbox.com/docs/the-dashboard.md).
+the older one, the banner asks you to restart `doz ui`. See [The dashboard](https://dozable.com/docs/the-dashboard.md).
 
 ## Uninstall
 
@@ -443,7 +443,7 @@ Don't have a Homebrew `doz` and a source-built one on your `PATH` at the same ti
 
 ---
 
-URL: https://dozersandbox.com/docs/setting-up
+URL: https://dozable.com/docs/setting-up
 
 # Setting up this Mac
 
@@ -459,15 +459,15 @@ thing, and both are safe to run again.
 - **An image** is what a sandbox starts from: a prepared disk with Linux, a developer toolkit and,
   for the agent images, the agent. Preparing one downloads a base system and installs everything in a
   temporary VM — a few minutes, once. Every sandbox made from it is an instant copy. See
-  [Images and bases](https://dozersandbox.com/docs/images-and-bases.md).
+  [Images and bases](https://dozable.com/docs/images-and-bases.md).
 - **Preparation runs in the host**, not in your terminal. You can close the terminal or leave the
   wizard; it carries on. A sandbox started while its image is being prepared joins that preparation
   instead of starting another one.
 - **An account** is how a sandbox's agent pays for its AI model: your Mac's Claude Code login, a
   long-lived token, or an API key. The secret stays on your Mac; a sandbox only ever sees a stand-in.
-  See [Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md).
+  See [Agents and accounts](https://dozable.com/docs/agents-and-accounts.md).
 - **Access** is every credential a sandbox may use as you — the Claude account, **GitHub as you**
-  ([GitHub](https://dozersandbox.com/docs/github.md)) and **SSH agent forwarding**. Each is a choice of yours (GitHub and SSH are
+  ([GitHub](https://dozable.com/docs/github.md)) and **SSH agent forwarding**. Each is a choice of yours (GitHub and SSH are
   off until you choose them), and each is **confirmed live** when you choose it. A credential that
   can't be confirmed can be **skipped**: the choice is kept, marked *not confirmed*, and setup goes on.
   The choices are the defaults for new sandboxes; `doz access` and **Settings** › **Access** check
@@ -475,7 +475,7 @@ thing, and both are safe to run again.
 - **Workspace rules** are two small files you can put in a project folder: `.dozignore` (paths the agent
   must not use) and `.dozreadonly` (paths it may read but not change). Setup explains them and asks one
   question: should a `.dozignore` **lock** the paths it lists (still listed, but nothing can open them —
-  the default) or **hide** them (not there at all)? See [Workspace rules](https://dozersandbox.com/docs/workspace-rules.md).
+  the default) or **hide** them (not there at all)? See [Workspace rules](https://dozable.com/docs/workspace-rules.md).
 
 ## In the terminal
 
@@ -610,7 +610,7 @@ across the top; **✕** or **Escape** closes it, asking first once you have chos
     (`~/doz-workspaces`): each new sandbox from **Quick add**, **New sandbox** or
     `doz new` gets its own folder there. **Settings** › **Choose…** moves it.
 
-![The wizard's checks](https://dozersandbox.com/docs/images/wizard-checks.png)
+![The wizard's checks](https://dozable.com/docs/images/wizard-checks.png)
 
 You can run the wizard again at any time: **Onboarding** under **Setup** in the sidebar (with a dot beside it until
 the store is set up), or **Doctor** › **Run onboarding again**.
@@ -632,8 +632,8 @@ again**; the choices themselves are the settings `defaults.github`, `github.cred
 
 | what | where |
 |---|---|
-| Your settings | `~/.config/dozer-sandbox/doz.toml` (under `$XDG_CONFIG_HOME` if set) — see [Settings reference](https://dozersandbox.com/docs/settings-reference.md) |
-| Your agent prompt template | `agent-prompt.md` beside it — everything inside an HTML comment, so it changes nothing until you write your own text. See [Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md#the-agents-environment-facts) |
+| Your settings | `~/.config/dozer-sandbox/doz.toml` (under `$XDG_CONFIG_HOME` if set) — see [Settings reference](https://dozable.com/docs/settings-reference.md) |
+| Your agent prompt template | `agent-prompt.md` beside it — everything inside an HTML comment, so it changes nothing until you write your own text. See [Agents and accounts](https://dozable.com/docs/agents-and-accounts.md#the-agents-environment-facts) |
 | The store (images, sandboxes) | `~/Library/Application Support/dozer-sandbox` |
 | Accounts with a secret | your login keychain, `doz-claude:NAME` (tokens) or `doz-anthropic:NAME` (API keys) |
 | A GitHub token you gave | your login keychain, `doz-github` |
@@ -651,7 +651,7 @@ again**; the choices themselves are the settings `defaults.github`, `github.cred
 | `sandbox.ssh_agent` | `off` | Forward this Mac's ssh-agent into sandboxes (github.com only). |
 | `workspace.ignore_mode` | `lock` | What a `.dozignore` does to the paths it lists: `lock` or `hide`. The Workspace rules step's choice. |
 | `ui.allow_secret_entry` | `true` | The dashboard may take an API key or setup token in a masked field. `false`: it shows the `doz account add` command instead. The dashboard can turn this off, never on. |
-| `images.claude_code_version` · `images.pi_version` | `latest` | Which agent version an image is prepared with. See [Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md#agent-versions). |
+| `images.claude_code_version` · `images.pi_version` | `latest` | Which agent version an image is prepared with. See [Agents and accounts](https://dozable.com/docs/agents-and-accounts.md#agent-versions). |
 
 ## Limits and notes
 
@@ -671,11 +671,11 @@ again**; the choices themselves are the settings `defaults.github`, `github.cred
 | The wizard shows commands instead of a key field | `ui.allow_secret_entry` is off: use `doz account add NAME --api-key` in a terminal. |
 | GitHub *not confirmed: gh is not logged in* | Run `gh auth login` on the Mac, then `doz access` — or give a token: `doz access set --github-key`. |
 | SSH *not confirmed: no ssh-agent* or *no keys* | Start an agent and `ssh-add` your key on the Mac, then `doz access`. Or turn it off: `doz access set --ssh-agent off`. |
-| You want to start over | [Uninstall](https://dozersandbox.com/docs/install-upgrade-uninstall.md#uninstall), then install and onboard again. |
+| You want to start over | [Uninstall](https://dozable.com/docs/install-upgrade-uninstall.md#uninstall), then install and onboard again. |
 
 ---
 
-URL: https://dozersandbox.com/docs/projects
+URL: https://dozable.com/docs/projects
 
 # Projects
 
@@ -690,7 +690,7 @@ sandbox from a checkout.
 - **The folder is the workspace.** A project's sandbox always shares its own folder at `/workspace`,
   live: what the agent writes is on your Mac at once, and the other way round.
 - **The file holds choices, never secrets.** You can commit it. Credentials come from your
-  [accounts](https://dozersandbox.com/docs/agents-and-accounts.md), which stay on your Mac.
+  [accounts](https://dozable.com/docs/agents-and-accounts.md), which stay on your Mac.
 - **Some choices are made when the sandbox is made.** Its image, CPUs and memory — and a `nat` or
   `none` network — are the virtual machine's make-up. Changing them in the file affects a **new**
   sandbox only; `doz up` tells you so. Other keys apply at once or from the next session (below).
@@ -699,7 +699,7 @@ sandbox from a checkout.
   folder for each new sandbox that has none of its own — `claude-sandbox`, `claude-sandbox-2`, … —
   with no `doz_project.yaml`. Run `doz init` in one of them to make it a project. Change the folder in
   **Settings** › **Choose…** or with `doz config set defaults.projects_dir DIR`
-  ([The quickest way](https://dozersandbox.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new)).
+  ([The quickest way](https://dozable.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new)).
 
 ## Make a folder a project
 
@@ -722,7 +722,7 @@ On a terminal `doz init` walks the same steps as the dashboard's **New sandbox**
 5. **Workspace rules** — onboarding's description of `.dozignore` and `.dozreadonly`, what the folder
    already has (each rule file, how many patterns and its first lines — or *none — the folder is shared
    as is*, with how to add one), and this sandbox's choice: **Lock** or **Hide** (`ignore_mode` in the
-   file; the default is the setting `workspace.ignore_mode`). See [Workspace rules](https://dozersandbox.com/docs/workspace-rules.md);
+   file; the default is the setting `workspace.ignore_mode`). See [Workspace rules](https://dozable.com/docs/workspace-rules.md);
 6. **Permissions and network** — the network, and what the agent may do (`standard`, `locked`,
    `open`, or changes like `+web,-error-reports`);
 7. **Resources** — CPUs and memory (the disk is the image's own; it isn't set per sandbox);
@@ -791,9 +791,9 @@ Mac's folder picker). If that folder has a project file, the wizard starts from 
   from it — as `doz up` there would — starts it, sets up its tools and opens its page. A folder that
   already has a file asks first, showing what changes.
 - **One-page form** (top right) is the old single form, for an isolated sandbox with no project file.
-  **Quick add** stays the no-questions way in ([The quickest way](https://dozersandbox.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new)).
+  **Quick add** stays the no-questions way in ([The quickest way](https://dozable.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new)).
 
-![The New sandbox wizard's review](https://dozersandbox.com/docs/images/new-sandbox-wizard.png)
+![The New sandbox wizard's review](https://dozable.com/docs/images/new-sandbox-wizard.png)
 
 A project's sandbox is an ordinary sandbox there: it appears under **Sandboxes**, and its page shows
 its workspace folder.
@@ -836,15 +836,15 @@ workspace_view: on          # off: share the folder directly (programs in it los
 | `version` | `1` | — | — |
 | `name` | the sandbox: 1–40 of `a-z 0-9 -` | the folder's name | — |
 | `image` | `claude-code`, `pi`, `lab`, a base × agent image (`python-claude-code`, `go-pi`, `debian`, …) or a template | `defaults.image` | when the sandbox is made |
-| `agent` | `claude-code`, `pi`, `codex`, `antigravity`, `gemini`, `grok` (any tool `doz search` lists) or `none` — instead of `image`, with `base` or `dockerfile`; a tool's major or exact release: `opencode@1`, `opencode@2.0.28` ([A tool's major version](https://dozersandbox.com/docs/try-and-search.md#a-tools-major-version)) | `claude-code` | when made |
+| `agent` | `claude-code`, `pi`, `codex`, `antigravity`, `gemini`, `grok` (any tool `doz search` lists) or `none` — instead of `image`, with `base` or `dockerfile`; a tool's major or exact release: `opencode@1`, `opencode@2.0.28` ([A tool's major version](https://dozable.com/docs/try-and-search.md#a-tools-major-version)) | `claude-code` | when made |
 | `base` | a recommended base: `node`, `python`, `go`, `rust`, `java`, `ruby`, `dotnet`, `debian`, `ubuntu`, `alpine` | `node` | when made |
-| `dockerfile` | your own Dockerfile, relative to the folder or absolute (see [Images and bases](https://dozersandbox.com/docs/images-and-bases.md#your-own-dockerfile)) | — | when made |
+| `dockerfile` | your own Dockerfile, relative to the folder or absolute (see [Images and bases](https://dozable.com/docs/images-and-bases.md#your-own-dockerfile)) | — | when made |
 | `cpus` | 1–64 | `defaults.cpus` (2) | when made |
 | `memory` | `2G`, `512M` or MiB, 256 MiB – 256 GiB | per image (settings) | when made |
 | `network` | `agent`, `bake`, `locked`, `open`, `nat`, `none` | per image | `agent`/`bake`/`locked`/`open`: at the next `doz up`, live (unless you edited the sandbox's permissions since); `nat`/`none`: when made |
-| `permissions` | what the agent may do on a network with permissions (`agent`, `locked`, `open`): `standard`, `locked`, `open`, or changes on Standard like `+web,-error-reports` (or a list); see [What the agent can do](https://dozersandbox.com/docs/permissions-and-network.md) | `defaults.permissions` (standard) | when made (later: `doz net allow` / `doz net deny`) |
+| `permissions` | what the agent may do on a network with permissions (`agent`, `locked`, `open`): `standard`, `locked`, `open`, or changes on Standard like `+web,-error-reports` (or a list); see [What the agent can do](https://dozable.com/docs/permissions-and-network.md) | `defaults.permissions` (standard) | when made (later: `doz net allow` / `doz net deny`) |
 | `account` | `default`, `none` or an account name | follow the store's default | run `doz account use NAME ACCOUNT` |
-| `model_source` | where the model comes from: a provider or gateway the agent is offered — `anthropic`, `openai`, `xai`, `google`, `openrouter`, `vercel-ai-gateway` (which ones depends on the tool: [Other AI tools](https://dozersandbox.com/docs/ai-tools.md#providers-and-gateways)); `--provider` / `--gateway` on `doz up` win over it | the agent's own | when made |
+| `model_source` | where the model comes from: a provider or gateway the agent is offered — `anthropic`, `openai`, `xai`, `google`, `openrouter`, `vercel-ai-gateway` (which ones depends on the tool: [Other AI tools](https://dozable.com/docs/ai-tools.md#providers-and-gateways)); `--provider` / `--gateway` on `doz up` win over it | the agent's own | when made |
 | `model` | a model id of that source (`doz models --gateway openrouter`); `--model` on `doz up` wins over it | the source's default | when made |
 | `sessions` | a list of session names, or `{name, command}` — at most 16 | the image's own session | every `doz up` |
 | `agent_prompt` | text, at most 16 KiB | — | the next session |
@@ -854,7 +854,7 @@ workspace_view: on          # off: share the folder directly (programs in it los
 | `browser_bridge` | `on` or `off` | `sandbox.browser_bridge` (on) | at once |
 | `open_files` | `on` or `off` | `sandbox.open_files` (on) | at once |
 | `ssh_agent` | `on` or `off` | `sandbox.ssh_agent` (off) | at once |
-| `github` | `off`, `read` or `push` ([GitHub as you](https://dozersandbox.com/docs/github.md)) | off | when made (later: `doz net allow NAME github:as-you`) |
+| `github` | `off`, `read` or `push` ([GitHub as you](https://dozable.com/docs/github.md)) | off | when made (later: `doz net allow NAME github:as-you`) |
 | `tmux` | `true` or `false` | `sessions.tmux` (false) | the next session |
 
 The schema is closed: an unknown key, a key given twice, a wrong type or a value out of range is an
@@ -872,7 +872,7 @@ error that names the line. One YAML document, no anchors or aliases, at most 64 
 
 To remake a sandbox with new make-up, `doz rm NAME` then `doz up`. Your folder is never touched; the
 agent's history on the sandbox's state disk goes with the sandbox, so take a
-[duplicate](https://dozersandbox.com/docs/restore-points-duplicates-templates.md) with `--copy-state` first if you want to keep it.
+[duplicate](https://dozable.com/docs/restore-points-duplicates-templates.md) with `--copy-state` first if you want to keep it.
 
 ## Limits
 
@@ -894,7 +894,7 @@ agent's history on the sandbox's state disk goes with the sandbox, so take a
 
 ---
 
-URL: https://dozersandbox.com/docs/sandboxes-and-lifecycle
+URL: https://dozable.com/docs/sandboxes-and-lifecycle
 
 # Sandboxes and their lifecycle
 
@@ -906,7 +906,7 @@ the background **host** that runs them all.
 
 - **Name.** 1–40 characters of `a-z 0-9 -`, unique in the store.
 - **Image.** What the sandbox starts from (Claude Code, pi, a plain shell, a template…). See
-  [Images and bases](https://dozersandbox.com/docs/images-and-bases.md).
+  [Images and bases](https://dozable.com/docs/images-and-bases.md).
 - **Three kinds of storage**, each kept differently:
 
   | | what's on it | kept through |
@@ -918,7 +918,7 @@ the background **host** that runs them all.
 - **Isolated.** A sandbox with no shared folder: `/workspace` is a folder on its own disk, and nothing
   on your Mac is shared. `doz ls` shows `isolated`, and the agent is told.
 - **Sessions.** The terminal programs running inside (a shell, `claude`, `pi`). They survive pause,
-  sleep and hibernate. See [Terminals and sessions](https://dozersandbox.com/docs/terminals-and-sessions.md).
+  sleep and hibernate. See [Terminals and sessions](https://dozable.com/docs/terminals-and-sessions.md).
 - **The host.** One background `doz` process per store. It owns every running VM, the network proxy
   and the credentials. The first command that needs it starts it, and it exits when idle, so you
   normally never think about it.
@@ -993,7 +993,7 @@ One click in the dashboard, or one command, makes a sandbox with every default a
 sidebar). The sandbox is made and started at once; its page opens with the boot in a terminal, which
 then becomes the sandbox's own session. A note says what it chose.
 
-![Quick add: the new sandbox's page, its terminal live](https://dozersandbox.com/docs/images/quick-add.png)
+![Quick add: the new sandbox's page, its terminal live](https://dozable.com/docs/images/quick-add.png)
 
 **In a terminal**:
 
@@ -1036,12 +1036,12 @@ doz up my-app                                        # create if missing, start 
 
 | option | what it does |
 |---|---|
-| `--image` | `lab`, `claude-code`, `pi`, a base × agent image, or a template. Or `--agent` with `--base` / `--dockerfile` ([Images and bases](https://dozersandbox.com/docs/images-and-bases.md)). |
+| `--image` | `lab`, `claude-code`, `pi`, a base × agent image, or a template. Or `--agent` with `--base` / `--dockerfile` ([Images and bases](https://dozable.com/docs/images-and-bases.md)). |
 | `--workspace DIR` | Share this Mac folder at `/workspace`. Made if it doesn't exist; refused for your home folder itself, system locations and the store. |
 | `--isolated` | Share nothing (the default without `--workspace`; this says it on purpose). |
 | `--cpus` · `--memory` | Virtual CPUs (default 2) · RAM (`2G`, `512M`; default 1 GiB for lab, 2 GiB for an agent image). |
-| `--network` · `--allow` | What the agent may reach ([What the agent can do](https://dozersandbox.com/docs/permissions-and-network.md)). |
-| `--account` | Which Claude account it uses ([Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md)). |
+| `--network` · `--allow` | What the agent may reach ([What the agent can do](https://dozable.com/docs/permissions-and-network.md)). |
+| `--account` | Which Claude account it uses ([Agents and accounts](https://dozable.com/docs/agents-and-accounts.md)). |
 | `--start` | Start it straight away. |
 | `--prepare` | Prepare its image now — download and bake it once, with its progress — so the first start does not wait; the sandbox stays off. If that image is already being prepared, it joins that preparation. Ctrl-C stops watching; the preparation goes on (`doz onboard --status` follows it). |
 | `--rebuild` · `--use-current` | When the image is out of date: rebuild it first, or use it as it is. |
@@ -1058,14 +1058,14 @@ does all that without attaching. On an existing sandbox, create options are igno
    session. Each step is filled in from your settings; **Skip to review** keeps the rest.
 2. **Review** shows the `doz_project.yaml` it writes into the folder; **Write and create** writes it,
    makes the sandbox from it, starts it and opens it with the boot in a terminal. See
-   [Projects](https://dozersandbox.com/docs/projects.md#in-the-dashboard).
+   [Projects](https://dozable.com/docs/projects.md#in-the-dashboard).
 3. Or **One-page form** (in the wizard, top right): everything on one page, a **Shared folder** or
    **Isolated**, and no project file. **Create** makes it off; **Start** boots it: the terminal area shows
    the image's build while there is one, then tab zero, **Console** (the boot as it happens), then the
    agent's own tab once it has drawn its screen. With the setting `ui.boot_view_on_start` on, the page
    stays on Console and marks the agent's tab instead of switching to it.
 
-![New sandbox](https://dozersandbox.com/docs/images/new-sandbox.png)
+![New sandbox](https://dozable.com/docs/images/new-sandbox.png)
 
 Each sandbox has an entry under **Sandboxes** in the sidebar, with a dot in its state's colour (filled
 while it holds memory, a ring when it holds none, a square when it failed). Its page has the lifecycle
@@ -1102,7 +1102,7 @@ In the dashboard, a sleeping sandbox's page shows each session's saved screen, r
 select and copy from it), with "press any key to wake". Saved screens exist only while you can wake
 the sandbox: shutdown, reset and remove delete them.
 
-![A hibernated sandbox's saved screens](https://dozersandbox.com/docs/images/saved-screens.png)
+![A hibernated sandbox's saved screens](https://dozable.com/docs/images/saved-screens.png)
 
 ## Boot logs
 
@@ -1118,7 +1118,7 @@ doz console my-app --follow             # watch the console live as it boots
 
 In the dashboard: **⋯** › **Boot log** on the sandbox's page (it works in any state; nothing is woken).
 
-![A kept boot](https://dozersandbox.com/docs/images/boot-log.png)
+![A kept boot](https://dozable.com/docs/images/boot-log.png)
 
 ## The host
 
@@ -1182,7 +1182,7 @@ newer doz fixes, without a restart.
 
 ---
 
-URL: https://dozersandbox.com/docs/the-dashboard
+URL: https://dozable.com/docs/the-dashboard
 
 # The dashboard (`doz ui`)
 
@@ -1251,7 +1251,7 @@ run, instead of the browser's error page; it comes back by itself, on the view i
 
 ## The pages
 
-![The Sandboxes page](https://dozersandbox.com/docs/images/dashboard-sandboxes.png)
+![The Sandboxes page](https://dozable.com/docs/images/dashboard-sandboxes.png)
 
 The sidebar groups the pages under four headings — **Sandboxes** (All sandboxes, each sandbox, All
 sessions), **Store** (Images, Resources), **Activity** (Operations, Activity, Metrics) and **Setup**
@@ -1261,11 +1261,11 @@ top shows the whole sidebar over the page.
 
 | page | what it's for |
 |---|---|
-| **All sandboxes** | Every sandbox: state, RAM held, disk, network, account. Each row has the one likely next action (**Start**, **Resume**, **Wake** or **Pause**) and **⋯** for the state's other actions; click a row to open the sandbox. **Quick add** (every default, started and opened — also the **+** beside the **Sandboxes** heading in the sidebar; see [The quickest way](https://dozersandbox.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new)) and **New sandbox** (a wizard: every choice, step by step, written to the project folder's `doz_project.yaml` — see [Projects](https://dozersandbox.com/docs/projects.md#in-the-dashboard)). Under it in the sidebar, each sandbox has its own entry that opens **its page**; its dot is filled while the sandbox holds memory (running, paused, asleep), a ring when it holds none (hibernated, shut down), a square when it failed; a second dot at the right says what its agent is doing (see [What the agent is doing](https://dozersandbox.com/docs/terminals-and-sessions.md#what-the-agent-is-doing)). |
+| **All sandboxes** | Every sandbox: state, RAM held, disk, network, account. Each row has the one likely next action (**Start**, **Resume**, **Wake** or **Pause**) and **⋯** for the state's other actions; click a row to open the sandbox. **Quick add** (every default, started and opened — also the **+** beside the **Sandboxes** heading in the sidebar; see [The quickest way](https://dozable.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new)) and **New sandbox** (a wizard: every choice, step by step, written to the project folder's `doz_project.yaml` — see [Projects](https://dozable.com/docs/projects.md#in-the-dashboard)). Under it in the sidebar, each sandbox has its own entry that opens **its page**; its dot is filled while the sandbox holds memory (running, paused, asleep), a ring when it holds none (hibernated, shut down), a square when it failed; a second dot at the right says what its agent is doing (see [What the agent is doing](https://dozable.com/docs/terminals-and-sessions.md#what-the-agent-is-doing)). |
 | **A sandbox's page** | See [A sandbox's page](#a-sandboxs-page) below. |
 | **All sessions** | A grid of live, read-only tiles: every session of every running sandbox, each with what its agent is doing. Click a tile to open it. |
 | **Images** | The images and templates, each image's agent version, what's out of date (**Rebuild** — **Remove…** is under **⋯**), disk shared and own, and the **Lineage** tree. |
-| **Resources** | Every byte Dozable uses, and deleting what can go. A strip under the total jumps to each group (with its size); a group's heading folds it. See [Resources and disk space](https://dozersandbox.com/docs/resources-and-disk-space.md). |
+| **Resources** | Every byte Dozable uses, and deleting what can go. A strip under the total jumps to each group (with its size); a group's heading folds it. See [Resources and disk space](https://dozable.com/docs/resources-and-disk-space.md). |
 | **Operations** | Every action the dashboard (or a preparation) started: live progress, time taken, result. A spinner shows while any runs, and a red dot when one failed since you last looked. |
 | **Accounts & keys** | Your Claude accounts: add, verify, make default, remove (under **⋯**), keep-alive. |
 | **Metrics** | How long each kind of action takes (count, median, p90…), filtered by image and time; download as CSV. |
@@ -1276,7 +1276,7 @@ top shows the whole sidebar over the page.
 
 ### A sandbox's page
 
-![A sandbox's page](https://dozersandbox.com/docs/images/sandbox-page.png)
+![A sandbox's page](https://dozable.com/docs/images/sandbox-page.png)
 
 - **The title row**: the name, its state, and labelled facts — **Image**, **RAM**, **Network** (with
   how many connections were refused; click it for the **Network** tab), **Account** — and *isolated*
@@ -1347,7 +1347,7 @@ when it was last connected and whether the host was running, with **Try now**; a
 the port the page expected. The page retries every second and comes back by itself when you start
 `doz ui` again (it says "doz ui restarted").
 
-![Paused while doz ui is away](https://dozersandbox.com/docs/images/dashboard-overlay.png)
+![Paused while doz ui is away](https://dozable.com/docs/images/dashboard-overlay.png)
 
 **When the page must sign in again** — after `doz ui --new-link` / `doz ui link --rotate`, after 14 days
 unused, or when you signed out — it says why and asks for a link **inside the page**: paste one from
@@ -1362,7 +1362,7 @@ starts a new shell (`shell-2`, `shell-3`, …) and its **▾** › **Terminal…
 or one running a command. Terminals are tabs; **Split** shows two side by side. Closing a tab only closes the
 view — the session keeps running. Each tab is titled like `1 · my-app · claude · 14:05` (the setting
 `ui.terminal_title`). Details, including the mouse, paste and the clipboard, in
-[Terminals and sessions](https://dozersandbox.com/docs/terminals-and-sessions.md#in-the-browser).
+[Terminals and sessions](https://dozable.com/docs/terminals-and-sessions.md#in-the-browser).
 
 **Open in Terminal** opens the same session in your terminal app instead, via `doz attach`.
 
@@ -1398,7 +1398,7 @@ dashboard can switch this off but never on.
 
 - **Loopback only**, and every page, request and terminal checks the sign-in cookie, the exact host
   and origin, and a CSRF token on every change. For the dashboard on your other computers, tablets and phones,
-  see [`doz serve`](https://dozersandbox.com/docs/doz-serve.md).
+  see [`doz serve`](https://dozable.com/docs/doz-serve.md).
 - **Terminals run in an isolated frame**: whatever a sandbox prints can never reach your dashboard
   session, its cookie or other terminals. Links in terminal output aren't clickable.
 - The dashboard alone never keeps an idle host running; an open terminal does, as `doz attach` does.
@@ -1418,7 +1418,7 @@ dashboard can switch this off but never on.
 
 ---
 
-URL: https://dozersandbox.com/docs/terminals-and-sessions
+URL: https://dozable.com/docs/terminals-and-sessions
 
 # Terminals and sessions
 
@@ -1437,7 +1437,7 @@ sandbox sleeps or hibernates.
 - **Bridges.** A session's terminal is also how a program reaches your Mac for two things: copying to
   your clipboard, and opening a web page in your browser. Both are shown to you every time and can be
   turned off. See [the clipboard](#the-clipboard) below and
-  [Signing in from a sandbox](https://dozersandbox.com/docs/signing-in-from-a-sandbox.md).
+  [Signing in from a sandbox](https://dozable.com/docs/signing-in-from-a-sandbox.md).
 - **The agent says what it is doing.** Claude Code and pi tell Dozable when they are working, waiting
   for you or done, and the dashboard and `doz ls` show it. See
   [what the agent is doing](#what-the-agent-is-doing).
@@ -1667,7 +1667,7 @@ When a program in a session copies — Claude Code's copy, a yank in vim or tmux
 `doz attach` for three seconds (then the screen is redrawn), or a message in the corner of the
 dashboard. When the output isn't a terminal (`doz run … > file`), the notice is a line on stderr.
 
-![The clipboard notice in the dashboard](https://dozersandbox.com/docs/images/clipboard-toast.png)
+![The clipboard notice in the dashboard](https://dozable.com/docs/images/clipboard-toast.png)
 
 - **A sandbox can never read your clipboard.** A program's request to read it is dropped — it never
   even reaches your terminal app, so nothing can answer it for the sandbox — and logged once.
@@ -1705,7 +1705,7 @@ doz-open --reveal dist/app.zip          # the Finder, with that file selected (n
 Every time, your terminal (or the dashboard) says what happened: `my-app opened report.html in
 Safari`, `my-app opened src/ in the Finder`, `my-app showed app.zip in the Finder`.
 
-![The open-file notice in the dashboard](https://dozersandbox.com/docs/images/open-file-toast.png)
+![The open-file notice in the dashboard](https://dozable.com/docs/images/open-file-toast.png)
 
 What it never does:
 
@@ -1725,7 +1725,7 @@ What it never does:
 - **Only while you watch:** like the clipboard, it acts only while a terminal is attached to the
   session; at most 3 files or folders in 10 seconds per sandbox.
 
-URLs work exactly as before ([Signing in from a sandbox](https://dozersandbox.com/docs/signing-in-from-a-sandbox.md)). Turn
+URLs work exactly as before ([Signing in from a sandbox](https://dozable.com/docs/signing-in-from-a-sandbox.md)). Turn
 files off where you don't want them:
 
 ```sh
@@ -1784,7 +1784,7 @@ Limits:
 
 ---
 
-URL: https://dozersandbox.com/docs/images-and-bases
+URL: https://dozable.com/docs/images-and-bases
 
 # Images and bases
 
@@ -1795,7 +1795,7 @@ it's needed and then makes each sandbox an instant copy of it.
 ## Concepts
 
 - **An image is two choices: an agent and a base.**
-  - The **agent**: **Claude Code**, **pi**, **Codex** ([Codex](https://dozersandbox.com/docs/codex.md)), or **none** (a shell only).
+  - The **agent**: **Claude Code**, **pi**, **Codex** ([Codex](https://dozable.com/docs/codex.md)), or **none** (a shell only).
   - The **base**: the Linux system underneath — one of the **recommended bases** (below), **your own
     Dockerfile**, or a **template** you saved from a sandbox.
 - **Image names** follow the pair: `<base>-<agent>`, for example `python-claude-code` or `go-pi`, and
@@ -1838,7 +1838,7 @@ preparation takes, and which package registries its sandboxes may reach:
 | `alpine` | Alpine 3.20 |
 
 A base's own package registry (PyPI for `python`, crates.io for `rust`, …) is part of what its
-sandboxes may reach by default. See [What the agent can do](https://dozersandbox.com/docs/permissions-and-network.md).
+sandboxes may reach by default. See [What the agent can do](https://dozable.com/docs/permissions-and-network.md).
 
 ## Choose an image — in the terminal
 
@@ -1860,7 +1860,7 @@ promptfoo …). Choosing one that cannot run on the base chosen (Alpine, for a t
 to its own. **Base**: **Recommended** (a card per base, with its download and time), **Dockerfile** (**Choose
 Dockerfile…** opens the Mac's file picker) or **Template**. The line under them names the image the pair makes.
 
-![Choosing agent and base](https://dozersandbox.com/docs/images/new-sandbox-base.png)
+![Choosing agent and base](https://dozable.com/docs/images/new-sandbox-base.png)
 
 ## Your own Dockerfile
 
@@ -1886,7 +1886,7 @@ baseline and the agent on top as usual.
   rebuild available"; `doz image bake df-…` rebuilds (the image's name is shown in `doz image ls`),
   and `doz reset NAME` moves a sandbox onto it.
 - Apple's tool keeps its own storage, shown on the Resources page (never deleted by Dozable). See
-  [Resources and disk space](https://dozersandbox.com/docs/resources-and-disk-space.md).
+  [Resources and disk space](https://dozable.com/docs/resources-and-disk-space.md).
 
 ## See and manage images
 
@@ -1905,7 +1905,7 @@ In the dashboard, **Images** shows the same with **Bake** or **Rebuild** on each
 under its **⋯**, each image's
 own and shared disk space as a bar, and **Lineage**, the tree.
 
-![The Images page](https://dozersandbox.com/docs/images/images.png)
+![The Images page](https://dozable.com/docs/images/images.png)
 
 ## Out-of-date images
 
@@ -1927,14 +1927,14 @@ Either way, **Dozable never rebuilds an image without you.** It says so:
 
 Rebuilding never touches existing sandboxes: they keep their disks. To move a sandbox onto the new
 image, `doz reset NAME` — it keeps the agent's own state (`~/.claude`, `~/.pi`) and `/workspace`, and
-drops everything else installed on its system disk (take a [template](https://dozersandbox.com/docs/restore-points-duplicates-templates.md#templates)
+drops everything else installed on its system disk (take a [template](https://dozable.com/docs/restore-points-duplicates-templates.md#templates)
 first if you want that).
 
 ## Templates
 
 A **template** is a sandbox's system disk saved as an image: set a sandbox up the way you like, then
 make new sandboxes from it. It never includes the agent's state disk (logins, history). See
-[Restore points, duplicates and templates](https://dozersandbox.com/docs/restore-points-duplicates-templates.md#templates).
+[Restore points, duplicates and templates](https://dozable.com/docs/restore-points-duplicates-templates.md#templates).
 
 ## Settings
 
@@ -1965,13 +1965,13 @@ make new sandboxes from it. It never includes the agent's state disk (logins, hi
 
 ---
 
-URL: https://dozersandbox.com/docs/agents-and-accounts
+URL: https://dozable.com/docs/agents-and-accounts
 
 # Agents and accounts
 
 Dozable runs three AI coding agents out of the box — **Claude Code**, **pi** and OpenAI's **Codex** — and
 gives each one the account it should use, without the secret ever entering the sandbox. Codex has its
-own page: [Codex](https://dozersandbox.com/docs/codex.md). This page covers which
+own page: [Codex](https://dozable.com/docs/codex.md). This page covers which
 agent can use which account, how to add accounts, the agent's versions and its `sudo`, and what the
 agent is told about where it runs.
 
@@ -1995,7 +1995,7 @@ agent is told about where it runs.
   For **Codex**, OpenAI's kinds: **this Mac's Codex login** (`mac` — read-only, nothing to add; the
   default while Codex is signed in on this Mac), a **ChatGPT sign-in** (builds from source only: `doz account add NAME --chatgpt`
   — Dozable's own, in your browser; renewed by Dozable on your Mac) and an **OpenAI API key**
-  (`--openai-key`). See [Codex](https://dozersandbox.com/docs/codex.md).
+  (`--openai-key`). See [Codex](https://dozable.com/docs/codex.md).
 
 - **Which agent can use which:**
 
@@ -2047,7 +2047,7 @@ doz account add vg --provider vercel-ai-gateway   # Vercel AI Gateway: the same 
 ```
 
 Each provider has its own default (`doz account default or` makes `or` OpenRouter's). An agent or tool that can use
-several (the AI tools — see [Other AI tools](https://dozersandbox.com/docs/ai-tools.md)) talks to the provider or gateway of the account it is
+several (the AI tools — see [Other AI tools](https://dozable.com/docs/ai-tools.md)) talks to the provider or gateway of the account it is
 given: `doz try TOOL --gateway openrouter` picks OpenRouter's default key, `--account NAME` a given one. The key goes
 only to that provider's or gateway's own API — a placeholder sent anywhere else is refused.
 
@@ -2233,7 +2233,7 @@ At every session start, Dozable tells the agent where it is:
   one line on what it can show you on your Mac — a URL in your browser, a workspace document in its
   app, a workspace folder in the Finder — saying only what is on (the `dozer` skill has the details:
   types, apps, refusals); and, only when you turned it on, one line saying `git` and `gh` are signed in
-  as you on GitHub, read-only or with push ([GitHub as you](https://dozersandbox.com/docs/github.md));
+  as you on GitHub, read-only or with push ([GitHub as you](https://dozable.com/docs/github.md));
 - the **`dozer` skill** (`~/.claude/skills/dozer/SKILL.md`, pi: `~/.pi/agent/skills/dozer/SKILL.md`,
   Codex: `~/.agents/skills/dozer/SKILL.md`),
   which it reads when a question is about the machine: what persists, the network, credentials,
@@ -2286,7 +2286,7 @@ touched.
 
 ---
 
-URL: https://dozersandbox.com/docs/permissions-and-network
+URL: https://dozable.com/docs/permissions-and-network
 
 # What the agent can do: permissions and the network
 
@@ -2301,13 +2301,13 @@ switches — and logs it. You decide what the agent may reach; the agent can't c
   | permission | id | what it allows | in Standard |
   |---|---|---|---|
   | Talk to its AI model | `model` | Anthropic's API | always on |
-  | Talk to OpenAI | `model:openai` | Codex's model (`chatgpt.com`, `api.openai.com`) — [Codex](https://dozersandbox.com/docs/codex.md) | always on in a Codex sandbox; never in another agent's |
+  | Talk to OpenAI | `model:openai` | Codex's model (`chatgpt.com`, `api.openai.com`) — [Codex](https://dozable.com/docs/codex.md) | always on in a Codex sandbox; never in another agent's |
   | Sign in | `sign-in` | Claude's sign-in pages, for signing in *inside* the sandbox | off (Dozable supplies the credential) |
   | Update itself | `update` | new versions of Claude Code or pi | on |
   | Install software — system packages | `install:system` | apt / apk | on |
   | Install software — Node, Python, Go, Rust, Java, Ruby, .NET | `install:node`, `install:python`, `install:go`, `install:rust`, `install:java`, `install:ruby`, `install:dotnet` (`install` = all) | that language's package registry | your base's language |
   | Use GitHub | `github` | clone and fetch code; Claude Code's plugins | on |
-  | Use GitHub as you | `github:as-you` | git and gh signed in as you — read-only ([GitHub as you](https://dozersandbox.com/docs/github.md)) | off, in every preset |
+  | Use GitHub as you | `github:as-you` | git and gh signed in as you — read-only ([GitHub as you](https://dozable.com/docs/github.md)) | off, in every preset |
   | Push to GitHub | `github:push` | also push and change things on GitHub as you | off, in every preset |
   | Send error reports | `error-reports` | the agent reporting its own crashes to its maker | on |
   | Browse the web | `web` | any website | off — **the agent could send your code anywhere** |
@@ -2360,7 +2360,7 @@ site**). **Browse the web** asks you to confirm first. **Details: the rules and 
 host behind the switches, and **Edit policy…** edits the raw rules with a preview of exactly what
 changes.
 
-![What the agent can do](https://dozersandbox.com/docs/images/permissions.png)
+![What the agent can do](https://dozable.com/docs/images/permissions.png)
 
 New sandbox shows the same switches (preset from the base you chose), and the **Settings** page
 edits `defaults.permissions` with them.
@@ -2407,11 +2407,11 @@ Your own rules win over a permission's hosts. A host your rules can't allow does
 - **Browse the web** and **Open** let the agent send your code and data anywhere. Prefer a
   `site:HOST` for what the agent really needs.
 - **A Dockerfile build runs outside this policy** (in Apple's builder); the sandbox made from it
-  doesn't. See [Images and bases](https://dozersandbox.com/docs/images-and-bases.md#your-own-dockerfile).
+  doesn't. See [Images and bases](https://dozable.com/docs/images-and-bases.md#your-own-dockerfile).
 - IPv4 only; HTTP/2 isn't passed through on the hosts whose traffic the proxy inspects; UDP is refused
   (programs fall back to TCP).
 - There are no general port forwards from your Mac into a sandbox. The one exception is a sign-in's
-  callback, briefly — see [Signing in from a sandbox](https://dozersandbox.com/docs/signing-in-from-a-sandbox.md).
+  callback, briefly — see [Signing in from a sandbox](https://dozable.com/docs/signing-in-from-a-sandbox.md).
 - A sandbox made with an older version of Dozable keeps its rules; `doz net NAME` shows them as the
   permissions they amount to, and its first permission change stores them as permissions (anything
   no permission covers stays as your own site rules).
@@ -2428,7 +2428,7 @@ Your own rules win over a permission's hosts. A host your rules can't allow does
 
 ---
 
-URL: https://dozersandbox.com/docs/signing-in-from-a-sandbox
+URL: https://dozable.com/docs/signing-in-from-a-sandbox
 
 # Signing in from a sandbox
 
@@ -2438,7 +2438,7 @@ browser and its `localhost` isn't your Mac's — so Dozable bridges both: the pa
 browser**, and the redirect at the end finds its way back **into the sandbox**.
 
 You rarely need this for Claude itself — Dozable supplies Claude's credential already (see
-[Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md)). It's for everything else an agent may sign in to:
+[Agents and accounts](https://dozable.com/docs/agents-and-accounts.md)). It's for everything else an agent may sign in to:
 a cloud CLI, a SaaS tool's CLI, an MCP server's OAuth.
 
 ## Concepts
@@ -2449,7 +2449,7 @@ a cloud CLI, a SaaS tool's CLI, an MCP server's OAuth.
   `my-app opened https://example.com/docs in your browser`. Nothing is printed into the session itself
   — the agent's screen stays exactly as it drew it; when an address is refused, the program that asked
   hears why (its error output and exit status). (Given a document in `/workspace` instead of an address, the same program opens that file
-  on your Mac — see [Opening workspace files on your Mac](https://dozersandbox.com/docs/terminals-and-sessions.md#opening-workspace-files-on-your-mac).)
+  on your Mac — see [Opening workspace files on your Mac](https://dozable.com/docs/terminals-and-sessions.md#opening-workspace-files-on-your-mac).)
 - **The sign-in callback.** When the address asks the provider to send the browser back to the
   sandbox's `localhost:PORT` (its `redirect_uri`), Dozable first opens your Mac's `localhost:PORT` and
   forwards it into the sandbox, then opens the page. The notice says
@@ -2472,7 +2472,7 @@ a cloud CLI, a SaaS tool's CLI, an MCP server's OAuth.
 4. Sign in as usual. The browser's last redirect reaches the tool in the sandbox; the tool says it's
    signed in. The forward closes a few seconds later.
 
-![The browser-open notice](https://dozersandbox.com/docs/images/browser-open-toast.png)
+![The browser-open notice](https://dozable.com/docs/images/browser-open-toast.png)
 
 Programs that open a page without a sign-in (documentation, a report) just open in your browser.
 
@@ -2504,8 +2504,8 @@ The sign-in page opens on **your Mac**, outside the sandbox, so it doesn't need 
 tool inside may need to reach the provider's API afterwards: allow it as a site
 (`doz net allow my-app site:api.example.com`). For Claude's own sign-in pages there is a **Sign in**
 permission (off in Standard); with the default key policy a sign-in inside a sandbox that uses a
-token or API key is refused on purpose. See [What the agent can do](https://dozersandbox.com/docs/permissions-and-network.md)
-and [Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md#a-credential-the-agent-brings-itself).
+token or API key is refused on purpose. See [What the agent can do](https://dozable.com/docs/permissions-and-network.md)
+and [Agents and accounts](https://dozable.com/docs/agents-and-accounts.md#a-credential-the-agent-brings-itself).
 
 ## Settings
 
@@ -2536,7 +2536,7 @@ and [Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md#a
 
 ---
 
-URL: https://dozersandbox.com/docs/restore-points-duplicates-templates
+URL: https://dozable.com/docs/restore-points-duplicates-templates
 
 # Restore points, duplicates and templates
 
@@ -2647,7 +2647,7 @@ would free. The dashboard's **Images** › **Lineage** draws the same tree.
 
 ---
 
-URL: https://dozersandbox.com/docs/resources-and-disk-space
+URL: https://dozable.com/docs/resources-and-disk-space
 
 # Resources and disk space
 
@@ -2679,7 +2679,7 @@ doz resources --json
 The groups: **Sandboxes** (each one's system disk, state disk, sleep snapshot, restore points, saved
 screens and boot logs), **Images & templates**, **Caches** (the download cache, base disks, the boot
 disk, kernels, preparation leftovers, and the **tools layer** — `gh`, downloaded once for sandboxes with
-GitHub as you; see [The tools layer](https://dozersandbox.com/docs/the-tools-layer.md)), **Logs & metrics**, **Stray files**, Dozable's own records — and
+GitHub as you; see [The tools layer](https://dozable.com/docs/the-tools-layer.md)), **Logs & metrics**, **Stray files**, Dozable's own records — and
 **Outside the store**: your settings file, keychain entries by name, the `doz` program, project
 folders and Apple's `container` storage. Those outside rows are shown, never deleted here.
 
@@ -2718,7 +2718,7 @@ sandbox's parts to **its page**, accounts to **Accounts & keys**.
 
 The page measures when you open it, on **Refresh**, and when an operation ends.
 
-![The Resources page](https://dozersandbox.com/docs/images/resources.png)
+![The Resources page](https://dozable.com/docs/images/resources.png)
 
 ## Memory, CPUs, traffic and kernels
 
@@ -2753,7 +2753,7 @@ with Apple's `container` command.
 
 ---
 
-URL: https://dozersandbox.com/docs/letting-another-agent-drive
+URL: https://dozable.com/docs/letting-another-agent-drive
 
 # Letting another agent drive Dozable
 
@@ -2869,7 +2869,7 @@ You can watch it all in the dashboard (`doz ui`): the sandbox appears under **Sa
 
 ---
 
-URL: https://dozersandbox.com/docs/settings-reference
+URL: https://dozable.com/docs/settings-reference
 
 # Settings reference
 
@@ -2929,7 +2929,7 @@ or in its `doz_project.yaml` (`clipboard:`, `browser_bridge:`, `open_files:`, `s
 
 "Use GitHub as you" is a permission, not a setting: `doz net allow NAME github:as-you` (and
 `github:push`), `doz create --github read|push`, `github:` in `doz_project.yaml` — see
-[GitHub as you](https://dozersandbox.com/docs/github.md).
+[GitHub as you](https://dozable.com/docs/github.md).
 
 ## About the file
 
@@ -3577,7 +3577,7 @@ This table is generated from `doz config show` and checked against it on every b
 
 ---
 
-URL: https://dozersandbox.com/docs/security-model
+URL: https://dozable.com/docs/security-model
 
 # Security model
 
@@ -3601,7 +3601,7 @@ folder you chose to share at `/workspace`. An isolated sandbox shares nothing at
 
 A proxied sandbox (the default for every image) has no network interface. Its only way out is Dozable's
 proxy, in the host on your Mac, which checks every connection — DNS included — against the sandbox's
-[permissions](https://dozersandbox.com/docs/permissions-and-network.md), and logs it (host, verdict, bytes; never contents).
+[permissions](https://dozable.com/docs/permissions-and-network.md), and logs it (host, verdict, bytes; never contents).
 
 - The agent can't change its own permissions, and root inside the VM can't get around them: there is
   no route out but the proxy.
@@ -3618,17 +3618,17 @@ out. Inside the sandbox the agent sees a placeholder (`doz_cred_…`), so there'
 - a secret is never written into the VM, never a command-line argument, never in a log, an event or an
   error message;
 - your Mac login's refresh token is never read — only the short-lived access token;
-- a credential the agent brings itself is flagged or refused (the [key policy](https://dozersandbox.com/docs/agents-and-accounts.md#a-credential-the-agent-brings-itself));
+- a credential the agent brings itself is flagged or refused (the [key policy](https://dozable.com/docs/agents-and-accounts.md#a-credential-the-agent-brings-itself));
 - accounts are stored in your login keychain, and the dashboard never shows a secret.
 
-**Codex's ChatGPT plan** works the same way ([Codex](https://dozersandbox.com/docs/codex.md)): Dozable's own ChatGPT sign-in is kept in
+**Codex's ChatGPT plan** works the same way ([Codex](https://dozable.com/docs/codex.md)): Dozable's own ChatGPT sign-in is kept in
 your login keychain; the sandbox's `~/.codex/auth.json` holds placeholders (and the sign-in's details
 without their signature); the proxy puts the access token into requests to `chatgpt.com` only, and
 renews it on your Mac — Codex's own renewal request is answered by the proxy, never sent on. Your
 Mac's own Codex login (`~/.codex`) is never read or changed.
 
 **Your GitHub login** works the same way, and only when you choose it — for new sandboxes in setup's
-Access step, or for one sandbox ([GitHub as you](https://dozersandbox.com/docs/github.md)):
+Access step, or for one sandbox ([GitHub as you](https://dozable.com/docs/github.md)):
 
 - the token (your Mac's `gh` login, read when used and kept in the proxy's memory a few minutes, or a
   token you gave the sandbox) never enters the VM, the store or a log — the sandbox's `GH_TOKEN` and
@@ -3682,7 +3682,7 @@ the agent install what it needs. Turn it off with `sandbox.agent_sudo` if you pr
   **Choose…** opens your Mac's own folder picker, and the folder you pick there is what is saved
   (never a folder inside the store, never `/`).
 - A dashboard link is a key: don't paste it anywhere.
-- `doz serve` (the dashboard for your other devices — [its page](https://dozersandbox.com/docs/doz-serve.md)) is a separate process you
+- `doz serve` (the dashboard for your other devices — [its page](https://dozable.com/docs/doz-serve.md)) is a separate process you
   start yourself. A browser needs an invite to get in (a link, a code or a QR code — one browser each, five
   minutes) and stays in until you remove it; every request's host and origin are checked against this Mac's names
   and addresses (or your proxy's address, only from a proxy you named in `serve.trusted_proxies`); keys and
@@ -3708,7 +3708,7 @@ The agent is told about all three, including that you see a notice every time.
 
 **Web ports** are not a bridge the sandbox uses: you choose them (a tool's declared port, or `doz ports add`). A
 forward lets your Mac's browser reach a program inside the sandbox, on `127.0.0.1` only and only while the sandbox
-runs; it never lets the sandbox reach anything, and no key crosses it — see [Web ports](https://dozersandbox.com/docs/web-ports.md).
+runs; it never lets the sandbox reach anything, and no key crosses it — see [Web ports](https://dozable.com/docs/web-ports.md).
 
 One limit of the files bridge, stated plainly: the file is checked and then handed to macOS to open,
 so an agent racing that moment (a few milliseconds) could swap in another file from your shared
@@ -3719,7 +3719,7 @@ fully resolved path.
 
 - **Dockerfile builds** run in Apple's `container` builder, **outside Dozable's network policy**: their
   `RUN` steps reach the internet directly. Only build Dockerfiles you trust. See
-  [Images and bases](https://dozersandbox.com/docs/images-and-bases.md#your-own-dockerfile).
+  [Images and bases](https://dozable.com/docs/images-and-bases.md#your-own-dockerfile).
 - **Image preparation** runs in a temporary VM with the `bake` permissions (package registries only),
   logged like any sandbox.
 - **Keep-alive**, when you turn it on, runs your Mac's own `claude` once near expiry.
@@ -3731,14 +3731,14 @@ fully resolved path.
   host, command argument, account or key. Off with `doz config set telemetry.send_anonymous_usage_stats
   false`, `DO_NOT_TRACK=1`, or `--no-send-anonymous-usage-stats`; `doz telemetry show` prints exactly what
   would be sent. Builds from the open-source repository send nothing. See
-  [Usage statistics and sign-up](https://dozersandbox.com/docs/getting-started.md#usage-statistics-and-sign-up).
+  [Usage statistics and sign-up](https://dozable.com/docs/getting-started.md#usage-statistics-and-sign-up).
 - **The sign-up**, only if you sign up: your email and what you ticked.
 - **The update check**: Dozable's version and channel, at most once a day (`updates.mode off` stops it).
 - **Your agent's own traffic**, through the proxy, to what you allow.
 
 ## What Dozable can't protect
 
-- **Your shared folder.** It's the agent's to change. Commit often. [Workspace rules](https://dozersandbox.com/docs/workspace-rules.md)
+- **Your shared folder.** It's the agent's to change. Commit often. [Workspace rules](https://dozable.com/docs/workspace-rules.md)
   (`.dozignore`, `.dozreadonly`) keep an agent from stumbling into files there, but they are a convenience,
   not a boundary: root in the sandbox can get around them. A secret that must not reach a sandbox does
   not belong in the folder it shares.
@@ -3746,7 +3746,7 @@ fully resolved path.
 - **What you paste or open.** Read clipboard, browser and file notices, and don't run what an agent put
   on your clipboard without looking.
 - **Another agent driving `doz` on your Mac** has your permissions: brief it to leave permissions and
-  deletion to you ([Letting another agent drive Dozable](https://dozersandbox.com/docs/letting-another-agent-drive.md)).
+  deletion to you ([Letting another agent drive Dozable](https://dozable.com/docs/letting-another-agent-drive.md)).
 - **Secrets you put on a sandbox's disk yourself** travel with its restore points and templates.
 
 ## Settings
@@ -3768,7 +3768,7 @@ fully resolved path.
 
 ---
 
-URL: https://dozersandbox.com/docs/troubleshooting-and-faq
+URL: https://dozable.com/docs/troubleshooting-and-faq
 
 # Troubleshooting and FAQ
 
@@ -3848,8 +3848,8 @@ Add `-v` to any command to see every step it takes.
 | The dashboard is paused under an overlay | `doz ui` stopped: start it again and the page reconnects. |
 | Open in Terminal does nothing | Make a terminal app the handler for `.command` files (Finder › Get Info › Open with › Change All…). |
 | A copy didn't reach the clipboard | Look at the notice (off, too big, too many); `doz config show --sandbox NAME`. |
-| A sign-in page didn't open | Is a terminal attached? Is `sandbox.browser_bridge` on? See [Signing in from a sandbox](https://dozersandbox.com/docs/signing-in-from-a-sandbox.md#troubleshooting). |
-| A workspace file didn't open on the Mac | Read the notice (and the program's own message): outside `/workspace`, not a document type, executable, an app not in `bridges.open_apps`, an isolated sandbox, or `sandbox.open_files` off. See [Opening workspace files](https://dozersandbox.com/docs/terminals-and-sessions.md#opening-workspace-files-on-your-mac). |
+| A sign-in page didn't open | Is a terminal attached? Is `sandbox.browser_bridge` on? See [Signing in from a sandbox](https://dozable.com/docs/signing-in-from-a-sandbox.md#troubleshooting). |
+| A workspace file didn't open on the Mac | Read the notice (and the program's own message): outside `/workspace`, not a document type, executable, an app not in `bridges.open_apps`, an isolated sandbox, or `sandbox.open_files` off. See [Opening workspace files](https://dozable.com/docs/terminals-and-sessions.md#opening-workspace-files-on-your-mac). |
 
 ### Images and disk space
 
@@ -3863,8 +3863,8 @@ Add `-v` to any command to see every step it takes.
 
 | symptom | what to do |
 |---|---|
-| Codex: `turn/start failed: invalid cwd: No such file or directory` after a wake; a shell's `ls .` says `No such file or directory` | The program's folder was cut off by a wake from hibernation — a sandbox still on the plain share (`workspace.view` off, or started before 0.30.0). Restart the session: `doz sessions restart NAME SESSION` (the conversation continues), or **⋯ › Restart session** on its tab. From its next start the sandbox uses [the workspace view](https://dozersandbox.com/docs/the-workspace-view.md) and this does not happen again. |
-| The agent gets "Permission denied" writing `/workspace`, or git says "detected dubious ownership" | The sandbox runs a workspace view from before Dozable 0.33.1, under which the sandbox's user could not write the shared folder. `doz shutdown NAME` and `doz start NAME` give it the current view (a wake keeps the old one). Another user than the sandbox's own cannot write through the view — see [Who can write](https://dozersandbox.com/docs/the-workspace-view.md#who-can-write). |
+| Codex: `turn/start failed: invalid cwd: No such file or directory` after a wake; a shell's `ls .` says `No such file or directory` | The program's folder was cut off by a wake from hibernation — a sandbox still on the plain share (`workspace.view` off, or started before 0.30.0). Restart the session: `doz sessions restart NAME SESSION` (the conversation continues), or **⋯ › Restart session** on its tab. From its next start the sandbox uses [the workspace view](https://dozable.com/docs/the-workspace-view.md) and this does not happen again. |
+| The agent gets "Permission denied" writing `/workspace`, or git says "detected dubious ownership" | The sandbox runs a workspace view from before Dozable 0.33.1, under which the sandbox's user could not write the shared folder. `doz shutdown NAME` and `doz start NAME` give it the current view (a wake keeps the old one). Another user than the sandbox's own cannot write through the view — see [Who can write](https://dozable.com/docs/the-workspace-view.md#who-can-write). |
 | `doz doctor` warns "workspace view" | The live view of `/workspace` could not start, so the folder is shared directly. `doz console NAME --steps` shows why; `doz shutdown NAME` and `doz start NAME` try again. |
 | A program is stuck | `doz sessions restart NAME SESSION`, or `doz sessions end NAME SESSION`. |
 
@@ -3911,7 +3911,7 @@ exit with the program's own code (`125` when `doz` itself failed).
 
 ---
 
-URL: https://dozersandbox.com/docs/github
+URL: https://dozable.com/docs/github
 
 # GitHub as you
 
@@ -3948,7 +3948,7 @@ set --github read`), or for one sandbox — and **read-only** until you also all
 - **Your identity** — your `user.name` and `user.email` from the Mac's global git config are copied
   into the sandbox's git config (they're not secrets), so the agent's commits are yours. They're gone
   when you turn the permission off.
-- **`gh` is installed for you** — part of the [tools layer](https://dozersandbox.com/docs/the-tools-layer.md): while GitHub as you is
+- **`gh` is installed for you** — part of the [tools layer](https://dozable.com/docs/the-tools-layer.md): while GitHub as you is
   on, Dozable copies the GitHub CLI into the sandbox (downloaded once to your Mac, a pinned version whose
   sha256 is checked; on any base, without the sandbox's network). It is removed when you turn the
   permission off.
@@ -3971,7 +3971,7 @@ or `doz tools NAME --apply`.
 
 ## For every new sandbox: the Access step
 
-Setup's **Access** step ([Setting up](https://dozersandbox.com/docs/setting-up.md)) asks once — *Off*, *Read-only* or *Read and
+Setup's **Access** step ([Setting up](https://dozable.com/docs/setting-up.md)) asks once — *Off*, *Read-only* or *Read and
 push*, from this Mac's `gh` login or a token you paste — and **confirms it with the real token**: one
 `GET https://api.github.com/user` through the same proxy leg the sandboxes use.
 
@@ -4003,7 +4003,7 @@ token you paste is kept in your login keychain as `doz-github`; a sandbox's own 
 In the dashboard: the sandbox's **Permissions** → **Use GitHub as you** (and **Push to GitHub** under
 it). Each asks first.
 
-![The GitHub switches in a sandbox's permissions](https://dozersandbox.com/docs/images/github-permissions.png)
+![The GitHub switches in a sandbox's permissions](https://dozable.com/docs/images/github-permissions.png)
 
 From the command line:
 
@@ -4051,7 +4051,7 @@ over SSH. You're told the first time it's used. Your Mac needs a running ssh-age
 (`ssh-add -l` on the Mac). For every new sandbox: the Access step, or `doz access set --ssh-agent on`
 — it's confirmed by asking your agent for its keys ("the ssh-agent has 2 keys").
 
-The [tools layer](https://dozersandbox.com/docs/the-tools-layer.md) makes SSH work on any base:
+The [tools layer](https://dozable.com/docs/the-tools-layer.md) makes SSH work on any base:
 
 - an **ssh client** is installed (`openssh-client`, with `apt` or `apk` through the proxy) when the image
   has none;
@@ -4092,11 +4092,11 @@ host keys are in place.
 | `github.credentials` | `gh` | Where your GitHub login comes from: `gh`, `key` or `off`. |
 | `sandbox.ssh_agent` | `off` | Forward your Mac's ssh-agent (github.com:22 only). Per sandbox too. |
 
-See also: [The tools layer](https://dozersandbox.com/docs/the-tools-layer.md), [What the agent can do](https://dozersandbox.com/docs/permissions-and-network.md), [Security model](https://dozersandbox.com/docs/security-model.md).
+See also: [The tools layer](https://dozable.com/docs/the-tools-layer.md), [What the agent can do](https://dozable.com/docs/permissions-and-network.md), [Security model](https://dozable.com/docs/security-model.md).
 
 ---
 
-URL: https://dozersandbox.com/docs/the-tools-layer
+URL: https://dozable.com/docs/the-tools-layer
 
 # The tools layer
 
@@ -4172,12 +4172,12 @@ safe: it is downloaded again the next time a sandbox needs it).
 - Images are never rebuilt for the layer, and preparing an image never runs it: what an image holds stays
   exactly its recipe.
 
-See also: [GitHub as you](https://dozersandbox.com/docs/github.md), [Terminals and sessions](https://dozersandbox.com/docs/terminals-and-sessions.md),
-[Resources and disk space](https://dozersandbox.com/docs/resources-and-disk-space.md).
+See also: [GitHub as you](https://dozable.com/docs/github.md), [Terminals and sessions](https://dozable.com/docs/terminals-and-sessions.md),
+[Resources and disk space](https://dozable.com/docs/resources-and-disk-space.md).
 
 ---
 
-URL: https://dozersandbox.com/docs/workspace-rules
+URL: https://dozable.com/docs/workspace-rules
 
 # Workspace rules: `.dozignore` and `.dozreadonly`
 
@@ -4193,12 +4193,12 @@ wade through. Two files at the root of the shared folder say so:
 
 Your Mac is never touched: you keep editing every file as before, and the sandbox sees your changes. With
 neither file, every file is there as it is on your Mac (the folder still goes through
-[the workspace view](https://dozersandbox.com/docs/the-workspace-view.md), which keeps programs in it working across a wake).
+[the workspace view](https://dozable.com/docs/the-workspace-view.md), which keeps programs in it working across a wake).
 
 > **A convenience, not a security boundary.** The rules keep an agent from stumbling into files. Root in
 > the sandbox — and the agent has `sudo` by default — can get around them. Anything that must not reach
 > the sandbox at all belongs outside the shared folder (or in an isolated sandbox); see the
-> [Security model](https://dozersandbox.com/docs/security-model.md).
+> [Security model](https://dozable.com/docs/security-model.md).
 
 ## The syntax: Docker's `.dockerignore`
 
@@ -4331,7 +4331,7 @@ it is looked up — so a file created later, on either side, is covered at once.
 metadata-heavy work: walking a tree of 2,000 files for the first time takes about 0.1 s more, reading
 everything about 1.8× as long as without rules; once looked at, it is close to the plain share — and
 hiding a big folder often makes a whole-tree walk faster than before. Without a rule file none of this
-runs. [The workspace view](https://dozersandbox.com/docs/the-workspace-view.md) has the details.
+runs. [The workspace view](https://dozable.com/docs/the-workspace-view.md) has the details.
 
 ## Troubleshooting
 
@@ -4343,19 +4343,19 @@ runs. [The workspace view](https://dozersandbox.com/docs/the-workspace-view.md) 
 | `/workspace` is empty in the sandbox | the view could not start; `doz ignore show NAME` says so — the next wake or start tries again |
 | the rules seem to apply only part of the time | a long-running shell inside a folder from before the rules existed: `cd /workspace` again |
 
-See also: [Projects](https://dozersandbox.com/docs/projects.md) · [Settings reference](https://dozersandbox.com/docs/settings-reference.md) ·
-[Security model](https://dozersandbox.com/docs/security-model.md).
+See also: [Projects](https://dozable.com/docs/projects.md) · [Settings reference](https://dozable.com/docs/settings-reference.md) ·
+[Security model](https://dozable.com/docs/security-model.md).
 
 ---
 
-URL: https://dozersandbox.com/docs/the-workspace-view
+URL: https://dozable.com/docs/the-workspace-view
 
 # The workspace view (`dozview`)
 
 `/workspace` inside a sandbox is not your shared folder itself: it is a live view of it, served by a small
 Dozable program, **`dozview`**. This page is what that program is, what it does, and how to look inside it.
 When the folder holds a `.dozignore` or a `.dozreadonly`, the view also applies those rules — see
-[Workspace rules](https://dozersandbox.com/docs/workspace-rules.md). Without either file it applies nothing: every file is there, as on
+[Workspace rules](https://dozable.com/docs/workspace-rules.md). Without either file it applies nothing: every file is there, as on
 your Mac.
 
 ## Why every workspace goes through it
@@ -4384,7 +4384,7 @@ time; after that it is about as fast as before.
 `doz create … --workspace-view off`, `workspace_view: off` in its `doz_project.yaml`, or
 `doz config set --sandbox NAME workspace.view off`. The folder is then shared directly — a little faster,
 but a program working inside `/workspace` loses its folder at every wake from hibernation and has to be
-restarted ([Restart session](https://dozersandbox.com/docs/terminals-and-sessions.md#restarting-or-ending-a-session)). A folder with a
+restarted ([Restart session](https://dozable.com/docs/terminals-and-sessions.md#restarting-or-ending-a-session)). A folder with a
 `.dozignore` or `.dozreadonly` always uses the view.
 
 **When it takes effect.** At the sandbox's next start — never under programs that are running. A sandbox
@@ -4485,7 +4485,7 @@ its `.state`, its `.pid` (the supervisor's) and its `.log`. The program is copie
 ## Not a security boundary
 
 Root in the sandbox can stop `dozview`, or reach the private share directly. The view keeps an agent from
-stumbling into files you listed; the virtual machine is the boundary. See [Security model](https://dozersandbox.com/docs/security-model.md).
+stumbling into files you listed; the virtual machine is the boundary. See [Security model](https://dozable.com/docs/security-model.md).
 
 ## About the program
 
@@ -4493,17 +4493,17 @@ A small static Linux program written in C, with no outside libraries — it spea
 itself rather than using the usual FUSE library (whose licence would complicate shipping it inside Dozable).
 The copy Dozable ships is checked to rebuild byte for byte from its source.
 
-See also: [Workspace rules](https://dozersandbox.com/docs/workspace-rules.md) · [Troubleshooting and FAQ](https://dozersandbox.com/docs/troubleshooting-and-faq.md).
+See also: [Workspace rules](https://dozable.com/docs/workspace-rules.md) · [Troubleshooting and FAQ](https://dozable.com/docs/troubleshooting-and-faq.md).
 
 ---
 
-URL: https://dozersandbox.com/docs/prompts-for-your-agent
+URL: https://dozable.com/docs/prompts-for-your-agent
 
 # Prompts for your agent
 
 Your Mac's own coding agent — Claude Code, Codex, Cursor — can install Dozable, set it up and run
 sandboxes for you. This page gives you prompts to paste, in order: install, set up, brief it once, then
-three things worth using sandboxes for. [Letting another agent drive Dozable](https://dozersandbox.com/docs/letting-another-agent-drive.md)
+three things worth using sandboxes for. [Letting another agent drive Dozable](https://dozable.com/docs/letting-another-agent-drive.md)
 explains the rules underneath (`--json`, exit codes, why destructive commands need `--yes`).
 
 **Keep the decisions yours.** Every prompt below tells the agent to stop and ask before it chooses an
@@ -4548,7 +4548,7 @@ Preparing claude-code the first time takes several minutes (a download and a bak
 
 ## 3. Brief it once
 
-Paste the briefing from [Letting another agent drive Dozable](https://dozersandbox.com/docs/letting-another-agent-drive.md#the-briefing)
+Paste the briefing from [Letting another agent drive Dozable](https://dozable.com/docs/letting-another-agent-drive.md#the-briefing)
 into your project's `CLAUDE.md` (or `AGENTS.md`). From then on, every session in that project knows how to
 use `doz` safely, and the prompts below can stay short.
 
@@ -4621,12 +4621,12 @@ What the jail gives you:
 | leave a mess you can't undo | the restore point: `doz point revert jail before-agent --yes`; `doz rm jail --yes` removes everything |
 
 Root inside the sandbox is still only root inside a virtual machine — that is the boundary, not the
-agent's good behaviour. See [Security model](https://dozersandbox.com/docs/security-model.md).
+agent's good behaviour. See [Security model](https://dozable.com/docs/security-model.md).
 
 ### C. Let an agent work on a project that holds secrets
 
 Your project folder has an `.env`, credentials or customer data the sandboxed agent should never read.
-[Workspace rules](https://dozersandbox.com/docs/workspace-rules.md) keep it out of them, without moving anything.
+[Workspace rules](https://dozable.com/docs/workspace-rules.md) keep it out of them, without moving anything.
 
 > Before we use a sandbox on this project, add a `.dozignore` at the project root that keeps the agent out
 > of `.env*`, `secrets/` and `*.pem`, and a `.dozreadonly` that lets it read but not change `deploy/`.
@@ -4647,7 +4647,7 @@ doz run feature --detach -- claude -p "<your task>"
 
 Locked files stay visible as `----------` so the agent knows they exist and leaves them alone (the
 sandboxed agent is told so). The rules are a guard against accidents, not a security boundary — see
-[The workspace view](https://dozersandbox.com/docs/the-workspace-view.md).
+[The workspace view](https://dozable.com/docs/the-workspace-view.md).
 
 ## When something goes wrong
 
@@ -4658,12 +4658,12 @@ sandboxed agent is told so). The rules are a guard against accidents, not a secu
 | a site is refused | "Show me `doz net NAME --json` and the suggestion; I'll decide." |
 | the sandbox is in a state you didn't expect | "Show me `doz ls --json` and `doz inspect NAME --json`." |
 
-See also: [Letting another agent drive Dozable](https://dozersandbox.com/docs/letting-another-agent-drive.md) ·
-[Getting started](https://dozersandbox.com/docs/getting-started.md) · [Troubleshooting and FAQ](https://dozersandbox.com/docs/troubleshooting-and-faq.md).
+See also: [Letting another agent drive Dozable](https://dozable.com/docs/letting-another-agent-drive.md) ·
+[Getting started](https://dozable.com/docs/getting-started.md) · [Troubleshooting and FAQ](https://dozable.com/docs/troubleshooting-and-faq.md).
 
 ---
 
-URL: https://dozersandbox.com/docs/audio-experimental
+URL: https://dozable.com/docs/audio-experimental
 
 # Audio sandboxes (EXPERIMENTAL)
 
@@ -4694,7 +4694,7 @@ build plus that list, kept with Dozable's source.
 
 ## Inside the sandbox
 
-The tools layer ([The tools layer](https://dozersandbox.com/docs/the-tools-layer.md)) sets an audio sandbox up at every start and wake:
+The tools layer ([The tools layer](https://dozable.com/docs/the-tools-layer.md)) sets an audio sandbox up at every start and wake:
 ALSA's tools (`aplay`, `arecord`), an `/etc/asound.conf` that makes the sound card ALSA's default (one program
 at a time can play, and one can record — a second gets "Device or resource busy"), and a temporary `doz-sound`
 command:
@@ -4732,7 +4732,7 @@ If a recording gets no sound, `doz-sound` stops within a few seconds and says so
 
 ---
 
-URL: https://dozersandbox.com/docs/codex
+URL: https://dozable.com/docs/codex
 
 # Codex
 
@@ -4787,7 +4787,7 @@ offers only OpenAI accounts; an OpenAI key can be typed in the masked field.
   there — your own choice is kept), so there is no trust screen;
 - turns off Codex's update check (the image decides its version);
 - gives Codex the sandbox's **facts** as its developer instructions, and the **`dozer` skill** in
-  `~/.agents/skills/dozer/SKILL.md` ([Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md)). Your
+  `~/.agents/skills/dozer/SKILL.md` ([Agents and accounts](https://dozable.com/docs/agents-and-accounts.md)). Your
   `AGENTS.md` files are never touched.
 
 `codex exec`, `codex resume` and `codex fork` get the same; `codex login`, `codex mcp` and the other
@@ -4892,7 +4892,7 @@ the codex image (or `doz onboard --openai-account chatgpt|openai-key|later`).
 
 ---
 
-URL: https://dozersandbox.com/docs/doz-serve
+URL: https://dozable.com/docs/doz-serve
 
 # The dashboard on your other computers, tablets and phones (`doz serve`)
 
@@ -5124,11 +5124,11 @@ rules.
 | `serve.trusted_proxies` | — | your proxy's addresses or networks |
 | `serve.advertise` | true | announce with Bonjour |
 
-All of them apply when `doz serve` starts again. See the [Settings reference](https://dozersandbox.com/docs/settings-reference.md).
+All of them apply when `doz serve` starts again. See the [Settings reference](https://dozable.com/docs/settings-reference.md).
 
 ---
 
-URL: https://dozersandbox.com/docs/try-and-search
+URL: https://dozable.com/docs/try-and-search
 
 # Trying agents, and what Dozable supports
 
@@ -5155,7 +5155,7 @@ A try is a throwaway sandbox with safe defaults:
   `~/doz-workspaces` unless you set another) and shares it at `/workspace`, so what the agent makes is on
   your Mac. It is never one of your folders: a folder of that name that holds anything is skipped (the try is named
   `try-<agent>-2`). `--isolated` shares no folder at all (`doz get try-grok /workspace/FILE` copies a file out —
-  see [Terminals and sessions](https://dozersandbox.com/docs/terminals-and-sessions.md)); `--workspace DIR` uses a folder you choose.
+  see [Terminals and sessions](https://dozable.com/docs/terminals-and-sessions.md)); `--workspace DIR` uses a folder you choose.
 - **Your Mac's clipboard and its apps**, as in any sandbox: what the agent copies reaches your Mac's clipboard (also
   from agents that copy with `xclip`, `xsel` or `wl-copy`), and it can open a file it made, or a link, on your Mac.
   The try's first line says so:
@@ -5175,7 +5175,7 @@ recipe:
 
 1. **Paste a key** (hidden) — kept in your Mac's login keychain; the sandbox only ever gets a placeholder.
 2. **A key you keep in 1Password, AWS Secrets Manager or a program** — `op://…`, `aws:arn:…`, or a command; read on
-   your Mac when needed, never stored (see [Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md)).
+   your Mac when needed, never stored (see [Agents and accounts](https://dozable.com/docs/agents-and-accounts.md)).
 3. **Signing in inside the agent** — offered only where that sign-in can work in a sandbox, and labelled: the sign-in
    lives in that sandbox, and deleting the try deletes it. (Grok Build's own sign-in uses hosts Dozable keeps out, so
    it is shown, not offered.)
@@ -5352,7 +5352,7 @@ doz create my-app --agent opencode@1      # the same in new, create and up — a
 ## One set of choices
 
 `doz new`, `doz create`, `doz up` and `doz try` take the same choice options, named after the keys of
-[`doz_project.yaml`](https://dozersandbox.com/docs/projects.md):
+[`doz_project.yaml`](https://dozable.com/docs/projects.md):
 
 | option | what it chooses |
 |---|---|
@@ -5390,13 +5390,13 @@ and anything in the way, with the fix. `--json` gives the same plan as data. Loo
 
 ---
 
-URL: https://dozersandbox.com/docs/more-agents
+URL: https://dozable.com/docs/more-agents
 
 # More agents: Antigravity CLI, Grok Build, OpenCode, GitHub Copilot CLI, Qwen Code, Goose, Kilo Code CLI, Mistral Vibe, Factory Droid, Dirac, Kimi Code, Cline CLI, OpenHands CLI, Letta Code, Docker Agent, Nanocoder, mini-swe-agent, Open Interpreter, Crush, MiMo Code, CodeWhale, Maki, oh-my-pi, Tau, Gemini CLI
 
 Beside Claude Code, pi and Codex, Dozable runs agents from other makers. Each uses an **API key** — most of them of the
 provider or gateway you choose (`--provider` / `--gateway`, or the Quick try's “Where it gets its model”; `--model` picks the
-model; see [Other AI tools](https://dozersandbox.com/docs/ai-tools.md#providers-and-gateways)). The key stays on your Mac and the sandbox only ever
+model; see [Other AI tools](https://dozable.com/docs/ai-tools.md#providers-and-gateways)). The key stays on your Mac and the sandbox only ever
 gets a placeholder, which Dozable's proxy swaps for the key on the way out — and only to that provider's or gateway's
 own API.
 
@@ -5430,9 +5430,9 @@ doz search google        # what Dozable runs with a Google key, each with its la
 ```
 
 The first `doz try` of each asks for the key (a paste, or where you keep it: 1Password, AWS, a command — see
-[Keys from 1Password, AWS or a command](https://dozersandbox.com/docs/agents-and-accounts.md#keys-from-1password-aws-or-a-command)), prepares the
+[Keys from 1Password, AWS or a command](https://dozable.com/docs/agents-and-accounts.md#keys-from-1password-aws-or-a-command)), prepares the
 agent's image once (a minute or so) and starts it. A try is Locked: the agent reaches its model and, below, the few
-hosts its maker's program calls when it starts — nothing else. [Trying agents](https://dozersandbox.com/docs/try-and-search.md) has the rest.
+hosts its maker's program calls when it starts — nothing else. [Trying agents](https://dozable.com/docs/try-and-search.md) has the rest.
 
 ## Antigravity CLI (Google)
 
@@ -5821,11 +5821,11 @@ new is allowed (`make profile-agents` in the source tree; `make agent-currency` 
 `doz search`, `doz try` and the Quick try show each agent's **latest release** as your Mac last saw it — the version,
 the day it came out, how long ago, and **active** (a release in the last 3 months), **quiet** (none for 3),
 **stale** (none for 6) or **deprecated** by its maker — and its **standing**: current, or superseded by another
-agent. See [Is it current?](https://dozersandbox.com/docs/try-and-search.md#is-it-supported-doz-search).
+agent. See [Is it current?](https://dozable.com/docs/try-and-search.md#is-it-supported-doz-search).
 
 ---
 
-URL: https://dozersandbox.com/docs/ai-tools
+URL: https://dozable.com/docs/ai-tools
 
 # Other AI tools
 
@@ -5972,7 +5972,7 @@ An all-in-one LLM command line: a chat REPL, a shell assistant (`-e`), roles, se
 - **Use:** the session is its REPL; one question is `aichat "a question"`, a shell command `aichat -e "list big files"`.
 - **May reach:** those providers' APIs.
 - **Its playground:** run `aichat --serve` in a session; the sandbox's **Open AIChat web** button (or
-  `doz open NAME`) opens it in your Mac's browser — see [Web ports](https://dozersandbox.com/docs/web-ports.md).
+  `doz open NAME`) opens it in your Mac's browser — see [Web ports](https://dozable.com/docs/web-ports.md).
 
 ## tgpt
 
@@ -6058,7 +6058,7 @@ A prompt toolkit: crowd-sourced "patterns" applied to text you pipe in.
 - **Use:** `echo "some text" | fabric "summarise this"`, `cat notes.txt | fabric -p summarize` — or the sandbox page's Guide.
 - **May reach:** those providers' APIs.
 - **Its REST API:** run `fabric --serve` in a session; the sandbox's **Open Fabric REST API** button (or `doz open NAME`)
-  opens its API reference in your Mac's browser — see [Web ports](https://dozersandbox.com/docs/web-ports.md).
+  opens its API reference in your Mac's browser — see [Web ports](https://dozable.com/docs/web-ports.md).
 
 ## Google Stitch CLI
 
@@ -6077,11 +6077,11 @@ call to Stitch.
   `--json` and `--dry-run`.
 - **May reach:** Stitch's API only (`stitch.googleapis.com`). It has no update check; its client header's telemetry is off.
 - **Preview:** `stitch serve -p PROJECT --port 3000` serves a project's screens; `doz ports add NAME 3000` opens them on
-  your Mac — see [Web ports](https://dozersandbox.com/docs/web-ports.md).
+  your Mac — see [Web ports](https://dozable.com/docs/web-ports.md).
 
 ---
 
-URL: https://dozersandbox.com/docs/web-ports
+URL: https://dozable.com/docs/web-ports
 
 # Web ports: opening a sandbox's web page on your Mac
 
@@ -6122,10 +6122,10 @@ below 1024), Dozable picks a free one, says so (`moved`), and keeps it for next 
 - **This Mac only.** It listens on `127.0.0.1` (and `::1`), never on the network. Other programs on this Mac can reach
   it, as they can any local server — a tool with its own sign-in still asks for it.
 - **Inbound only.** It carries your browser's requests to the program in the sandbox. It does not let the sandbox
-  reach anything: what the program itself may reach is still decided by the sandbox's [network](https://dozersandbox.com/docs/permissions-and-network.md).
+  reach anything: what the program itself may reach is still decided by the sandbox's [network](https://dozable.com/docs/permissions-and-network.md).
 - **No key crosses it.** Your keys are swapped in by Dozable's proxy only on the sandbox's own outbound requests; a
   forward never touches them. A page that shows its environment shows a placeholder, which is useless anywhere else.
-- **From another device** (the dashboard through [`doz serve`](https://dozersandbox.com/docs/doz-serve.md)), `127.0.0.1` is that device, not your
+- **From another device** (the dashboard through [`doz serve`](https://dozable.com/docs/doz-serve.md)), `127.0.0.1` is that device, not your
   Mac: the button says the port is on the Mac instead of opening it there.
 
 How it works: each connection your browser makes is relayed into the sandbox by Dozable's small helper there, to the
@@ -6133,13 +6133,13 @@ program's own `localhost`. A program that listens on `127.0.0.1` or `0.0.0.0` in
 
 ---
 
-URL: https://dozersandbox.com/privacy
+URL: https://dozable.com/privacy
 
 # Dozable Privacy Policy
 
 **Last updated:** 16 October 2026
 
-Dozable is made by **Roundrect Pty Ltd** (ABN 36 613 522 277), Queensland, Australia ("we", "us"). This policy explains what Dozable and dozersandbox.com collect, why, and how to turn it off.
+Dozable is made by **Roundrect Pty Ltd** (ABN 36 613 522 277), Queensland, Australia ("we", "us"). This policy explains what Dozable and dozable.com collect, why, and how to turn it off.
 
 ## In short
 
@@ -6188,11 +6188,11 @@ The first time an official build runs, it prints one line saying statistics are 
 
 ### 2. Sign-up (optional)
 
-If you sign up — in Dozable's setup, with `doz signup`, or on dozersandbox.com/signup — we keep your **email address**, what you asked for (** release news**, ** tool news**, ** early access**, ** tips and tricks**), and when you signed up, confirmed and (if you do) unsubscribed. We send a confirmation email first; nothing else is sent until you confirm. Every email has a one-click unsubscribe link. We never sell or share your email, and never link it to your usage statistics. The emails are the posts of our [blog](https://dozersandbox.com/blog/index.md), sent only for the topics you ticked. They contain no open or click tracking. To send each one once and to stop sending to addresses that bounce or report spam, we keep a record of which posts were sent to your address and when, and whether one bounced or was reported; this record is deleted with your sign-up.
+If you sign up — in Dozable's setup, with `doz signup`, or on dozable.com/signup — we keep your **email address**, what you asked for (** release news**, ** tool news**, ** early access**, ** tips and tricks**), and when you signed up, confirmed and (if you do) unsubscribed. We send a confirmation email first; nothing else is sent until you confirm. Every email has a one-click unsubscribe link. We never sell or share your email, and never link it to your usage statistics. The emails are the posts of our [blog](https://dozable.com/blog/index.md), sent only for the topics you ticked. They contain no open or click tracking. To send each one once and to stop sending to addresses that bounce or report spam, we keep a record of which posts were sent to your address and when, and whether one bounced or was reported; this record is deleted with your sign-up.
 
 ### 3. The website and the update feed
 
-- **dozersandbox.com** uses no analytics, advertising or tracking scripts, and sets no cookies of its own — the blog included. Our host, Cloudflare, may set a strictly necessary security cookie and keeps standard request logs under [its own privacy policy](https://www.cloudflare.com/privacypolicy/). The colour picker on the site exists only when you open it on your own computer.
+- **dozable.com** uses no analytics, advertising or tracking scripts, and sets no cookies of its own — the blog included. Our host, Cloudflare, may set a strictly necessary security cookie and keeps standard request logs under [its own privacy policy](https://www.cloudflare.com/privacypolicy/). The colour picker on the site exists only when you open it on your own computer.
 - **Update checks:** Dozable checks `updates.dozersandbox.com` for new releases at most once a day (or when you ask). That request carries Dozable's version and channel in its user agent and nothing else. It is part of keeping Dozable up to date, not the usage statistics; turn it off with `doz config set updates.mode off`.
 
 ## Where it is kept, and for how long

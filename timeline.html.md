@@ -1,8 +1,8 @@
 ---
 title: "Dozable timeline — from a probe to a public release"
 description: "How Dozable grew from a sleep-and-wake experiment into fast, resumable, secure Linux sandboxes for AI coding agents on your Mac, in about two weeks."
-url: https://dozersandbox.com/timeline.html
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/timeline.html
+image: https://dozable.com/og-image.png
 ---
 # From one experiment to a product, in two weeks.
 
@@ -12,12 +12,12 @@ Dozable gives every coding agent its own small Linux computer on your Mac — on
 - **0.3 s** to wake from disk, programs still running
 - **0** API keys inside a sandbox
 - **100** sandboxes on one MacBook Air
-- [The engine](https://dozersandbox.com/timeline.html#engine)
-- [The command line](https://dozersandbox.com/timeline.html#cli)
-- [The dashboard](https://dozersandbox.com/timeline.html#dashboard)
-- [Agents & credentials](https://dozersandbox.com/timeline.html#agents)
-- [Workspace & sessions](https://dozersandbox.com/timeline.html#workspace)
-- [Going public](https://dozersandbox.com/timeline.html#public)
+- [The engine](https://dozable.com/timeline.html#engine)
+- [The command line](https://dozable.com/timeline.html#cli)
+- [The dashboard](https://dozable.com/timeline.html#dashboard)
+- [Agents & credentials](https://dozable.com/timeline.html#agents)
+- [Workspace & sessions](https://dozable.com/timeline.html#workspace)
+- [Going public](https://dozable.com/timeline.html#public)
 
 Era I · 25–27 Sep 2026
 

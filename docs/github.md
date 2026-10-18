@@ -1,8 +1,8 @@
 ---
 title: "GitHub as you — Dozable docs"
 description: "An agent on your Mac uses git and gh as you: it clones your private repositories, opens pull requests, comments on issues."
-url: https://dozersandbox.com/docs/github
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/github
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 18
@@ -42,7 +42,7 @@ set --github read`), or for one sandbox — and **read-only** until you also all
 - **Your identity** — your `user.name` and `user.email` from the Mac's global git config are copied
   into the sandbox's git config (they're not secrets), so the agent's commits are yours. They're gone
   when you turn the permission off.
-- **`gh` is installed for you** — part of the [tools layer](https://dozersandbox.com/docs/the-tools-layer.md): while GitHub as you is
+- **`gh` is installed for you** — part of the [tools layer](https://dozable.com/docs/the-tools-layer.md): while GitHub as you is
   on, Dozable copies the GitHub CLI into the sandbox (downloaded once to your Mac, a pinned version whose
   sha256 is checked; on any base, without the sandbox's network). It is removed when you turn the
   permission off.
@@ -65,7 +65,7 @@ or `doz tools NAME --apply`.
 
 ## For every new sandbox: the Access step
 
-Setup's **Access** step ([Setting up](https://dozersandbox.com/docs/setting-up.md)) asks once — *Off*, *Read-only* or *Read and
+Setup's **Access** step ([Setting up](https://dozable.com/docs/setting-up.md)) asks once — *Off*, *Read-only* or *Read and
 push*, from this Mac's `gh` login or a token you paste — and **confirms it with the real token**: one
 `GET https://api.github.com/user` through the same proxy leg the sandboxes use.
 
@@ -97,7 +97,7 @@ token you paste is kept in your login keychain as `doz-github`; a sandbox's own 
 In the dashboard: the sandbox's **Permissions** → **Use GitHub as you** (and **Push to GitHub** under
 it). Each asks first.
 
-![The GitHub switches in a sandbox's permissions](https://dozersandbox.com/docs/images/github-permissions.png)
+![The GitHub switches in a sandbox's permissions](https://dozable.com/docs/images/github-permissions.png)
 
 From the command line:
 
@@ -145,7 +145,7 @@ over SSH. You're told the first time it's used. Your Mac needs a running ssh-age
 (`ssh-add -l` on the Mac). For every new sandbox: the Access step, or `doz access set --ssh-agent on`
 — it's confirmed by asking your agent for its keys ("the ssh-agent has 2 keys").
 
-The [tools layer](https://dozersandbox.com/docs/the-tools-layer.md) makes SSH work on any base:
+The [tools layer](https://dozable.com/docs/the-tools-layer.md) makes SSH work on any base:
 
 - an **ssh client** is installed (`openssh-client`, with `apt` or `apk` through the proxy) when the image
   has none;
@@ -186,4 +186,4 @@ host keys are in place.
 | `github.credentials` | `gh` | Where your GitHub login comes from: `gh`, `key` or `off`. |
 | `sandbox.ssh_agent` | `off` | Forward your Mac's ssh-agent (github.com:22 only). Per sandbox too. |
 
-See also: [The tools layer](https://dozersandbox.com/docs/the-tools-layer.md), [What the agent can do](https://dozersandbox.com/docs/permissions-and-network.md), [Security model](https://dozersandbox.com/docs/security-model.md).
+See also: [The tools layer](https://dozable.com/docs/the-tools-layer.md), [What the agent can do](https://dozable.com/docs/permissions-and-network.md), [Security model](https://dozable.com/docs/security-model.md).

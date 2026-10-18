@@ -22,7 +22,7 @@ SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(SITE, 'docs')
 TEMPLATE = os.path.join(SITE, 'tools', 'docs-template.html')
 DIAGRAMS = os.path.join(SITE, 'tools', 'docs-diagrams')
-BASE_URL = 'https://dozersandbox.com/docs/'
+BASE_URL = 'https://dozable.com/docs/'
 REPO = 'https://github.com/dozer-sandbox/dozer-sandbox'
 INDEX_DESCRIPTION = ('The user manual for Dozable: install, set up, and run AI coding agents in fast, resumable '
                      'Linux sandboxes on your Mac, with the doz command or its dashboard.')
@@ -807,7 +807,7 @@ class Build:
         fm = ['---', 'title: %s' % json.dumps(title + ' — Dozable docs' if page is not self.readme else
                                               'The Dozable manual — Dozable docs', ensure_ascii=False),
               'description: %s' % json.dumps(description, ensure_ascii=False),
-              'url: %s' % url, 'image: https://dozersandbox.com/og-image.png', 'source: "Dozable manual"',
+              'url: %s' % url, 'image: https://dozable.com/og-image.png', 'source: "Dozable manual"',
               'updated: %s' % self.date]
         fm += ['%s: %s' % (k, v) for k, v in extra.items()] + ['---', '']
         body, fence, comment = [], None, False
@@ -912,7 +912,7 @@ class Build:
     def sitemap(self, pages):
         path = os.path.join(SITE, 'sitemap.xml')
         s = open(path, encoding='utf-8').read()
-        s = re.sub(r'  <url><loc>https://dozersandbox\.com/docs/[^<]*</loc>.*?</url>\n', '', s)
+        s = re.sub(r'  <url><loc>https://(?:dozersandbox|dozable)\.com/docs/[^<]*</loc>.*?</url>\n', '', s)
         urls = ''.join('  <url><loc>%s%s</loc><lastmod>%s</lastmod></url>\n'
                        % (BASE_URL, '' if n == './' else n, self.date)
                        for n in ['./'] + [p.href for p in self.chapters])
@@ -1035,7 +1035,7 @@ def crawl():
             refs += [(f, r) for r in re.findall(r'\s(?:href|src)="([^"]+)"', s)]
     n = 0
     for f, r in refs:
-        if re.match(r'^https://dozersandbox\.com/docs/[^"#?]*\.html', r):
+        if re.match(r'^https://(?:dozersandbox|dozable)\.com/docs/[^"#?]*\.html', r):
             raise BuildError('docs/%s: a docs link ending .html (docs URLs are clean, /docs/<slug>): %s' % (f, r))
         if re.match(r'^(https?:|mailto:)', r):
             continue

@@ -1,8 +1,8 @@
 ---
 title: "Installing, upgrading and uninstalling — Dozable docs"
 description: "doz is one command-line program. It comes with everything it needs inside it: the small Linux programs each sandbox uses, the web dashboard, and the permission macOS requires to run virtual machines."
-url: https://dozersandbox.com/docs/install-upgrade-uninstall
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/install-upgrade-uninstall
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 2
@@ -20,7 +20,7 @@ machines. You install it with Homebrew.
   run every command except the ones that boot a VM, and `doz doctor` says so.
 - **The store** is where your sandboxes, images and restore points live:
   `~/Library/Application Support/dozer-sandbox` unless you choose another (see
-  [Settings reference](https://dozersandbox.com/docs/settings-reference.md), `store.path`). Upgrading `doz` never touches it.
+  [Settings reference](https://dozable.com/docs/settings-reference.md), `store.path`). Upgrading `doz` never touches it.
 - **The settings** live in `~/.config/dozer-sandbox/doz.toml`, beside your agent prompt template
   (`agent-prompt.md`). Upgrading never touches them either.
 - **The host** is a background `doz` process that runs your sandboxes. A running host keeps using the
@@ -38,7 +38,7 @@ doz --version
 
 Recent Homebrew loads formulas from a third-party tap only after you trust it — `brew trust` is needed
 once per Mac (without it `brew install` refuses the formula). Homebrew then adds Dozable's tap and installs
-a prebuilt, signed and notarised `doz` in seconds — no compiler is needed. It ends with a hint: run `doz onboard` ([Setting up](https://dozersandbox.com/docs/setting-up.md)).
+a prebuilt, signed and notarised `doz` in seconds — no compiler is needed. It ends with a hint: run `doz onboard` ([Setting up](https://dozable.com/docs/setting-up.md)).
 
 ### Release channels
 
@@ -119,7 +119,7 @@ nobody is attached, the old host exits by itself.
 A new version of Dozable may prepare its images differently (it may add a tool, for example). Your
 existing images are **never rebuilt without you**: Dozable says an image is out of date — in
 `doz image ls`, `doz doctor`, when you create a sandbox, and on the dashboard's Images page — and
-you rebuild it when it suits you. See [Images and bases](https://dozersandbox.com/docs/images-and-bases.md#out-of-date-images).
+you rebuild it when it suits you. See [Images and bases](https://dozable.com/docs/images-and-bases.md#out-of-date-images).
 
 ### A sandbox that slept through an upgrade
 
@@ -133,7 +133,7 @@ machine, the wake is refused rather than risk the snapshot, and says so.
 The dashboard watches the host. If a host of another version takes over, a banner says so; if the
 host is **older** than the dashboard, the banner offers **Restart host**: it asks first, hibernates
 the running sandboxes and starts the newer host (they wake when you use them). If `doz ui` itself is
-the older one, the banner asks you to restart `doz ui`. See [The dashboard](https://dozersandbox.com/docs/the-dashboard.md).
+the older one, the banner asks you to restart `doz ui`. See [The dashboard](https://dozable.com/docs/the-dashboard.md).
 
 ## Uninstall
 

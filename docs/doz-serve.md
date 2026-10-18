@@ -1,8 +1,8 @@
 ---
 title: "The dashboard on your other computers, tablets and phones (doz serve) — Dozable docs"
 description: "doz ui is this Mac's own dashboard: it listens on 127.0.0.1 and nothing else can reach it."
-url: https://dozersandbox.com/docs/doz-serve
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/doz-serve
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 25
@@ -237,4 +237,4 @@ rules.
 | `serve.trusted_proxies` | — | your proxy's addresses or networks |
 | `serve.advertise` | true | announce with Bonjour |
 
-All of them apply when `doz serve` starts again. See the [Settings reference](https://dozersandbox.com/docs/settings-reference.md).
+All of them apply when `doz serve` starts again. See the [Settings reference](https://dozable.com/docs/settings-reference.md).

@@ -3,48 +3,48 @@
   <title>Dozable blog</title>
   <subtitle>News, early access and tips and tricks from Dozable.</subtitle>
   <id>https://dozersandbox.com/blog/</id>
-  <link rel="self" type="application/atom+xml" href="https://dozersandbox.com/blog/feed.xml"/>
-  <link rel="alternate" type="text/html" href="https://dozersandbox.com/blog/"/>
+  <link rel="self" type="application/atom+xml" href="https://dozable.com/blog/feed.xml"/>
+  <link rel="alternate" type="text/html" href="https://dozable.com/blog/"/>
   <updated>2026-10-18T00:00:00Z</updated>
-  <author><name>Dozable</name><uri>https://dozersandbox.com/</uri></author>
+  <author><name>Dozable</name><uri>https://dozable.com/</uri></author>
   <entry>
     <title>Dozer Sandbox 0.35 - doz try, and keys from any provider</title>
     <id>https://dozersandbox.com/blog/doz-v0.35</id>
-    <link rel="alternate" type="text/html" href="https://dozersandbox.com/blog/doz-v0.35"/>
+    <link rel="alternate" type="text/html" href="https://dozable.com/blog/doz-v0.35"/>
     <published>2026-10-18T00:00:00Z</published>
     <updated>2026-10-18T00:00:00Z</updated>
     <summary>Dozer Sandbox 0.35 adds doz try for any of 42 coding agents and AI tools, keys from any major provider or gateway, a choice of model, and OpenCode 2.</summary>
     <category term="release-news" label="Release news"/>
-    <content type="html">&lt;p&gt;It&amp;#x27;s on the &lt;a href="https://dozersandbox.com/docs/install-upgrade-uninstall.html"&gt;stable channel&lt;/a&gt; now, as 0.35.1. It includes everything from 0.34, which went straight from canary to this release.&lt;/p&gt;
-&lt;h2 id="doz-try"&gt;doz try&lt;a class="anchor" href="https://dozersandbox.com/blog/doz-v0.35#doz-try" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;One command puts you in a throwaway sandbox with any of 42 coding agents and AI tools: its own empty folder, a network that reaches only its model, and your key kept on your Mac. &lt;a href="https://dozersandbox.com/blog/doz-try"&gt;doz try has its own post&lt;/a&gt;.&lt;/p&gt;
+    <content type="html">&lt;p&gt;It&amp;#x27;s on the &lt;a href="https://dozable.com/docs/install-upgrade-uninstall"&gt;stable channel&lt;/a&gt; now, as 0.35.1. It includes everything from 0.34, which went straight from canary to this release.&lt;/p&gt;
+&lt;h2 id="doz-try"&gt;doz try&lt;a class="anchor" href="https://dozable.com/blog/doz-v0.35#doz-try" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;One command puts you in a throwaway sandbox with any of 42 coding agents and AI tools: its own empty folder, a network that reaches only its model, and your key kept on your Mac. &lt;a href="https://dozable.com/blog/doz-try"&gt;doz try has its own post&lt;/a&gt;.&lt;/p&gt;
 &lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;doz try opencode&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-&lt;h2 id="keys-from-any-provider-and-a-choice-of-model"&gt;Keys from any provider, and a choice of model&lt;a class="anchor" href="https://dozersandbox.com/blog/doz-v0.35#keys-from-any-provider-and-a-choice-of-model" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="keys-from-any-provider-and-a-choice-of-model"&gt;Keys from any provider, and a choice of model&lt;a class="anchor" href="https://dozable.com/blog/doz-v0.35#keys-from-any-provider-and-a-choice-of-model" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Use a key from OpenAI, Anthropic, Google or xAI, or one key for many models through OpenRouter or Vercel AI Gateway. Dozer can also read a key from 1Password, AWS Secrets Manager or a command each time it&amp;#x27;s needed. A try&amp;#x27;s setup and New Sandbox let you pick the model from the gateway&amp;#x27;s own list, and &lt;code&gt;doz models&lt;/code&gt; lists them.&lt;/p&gt;
 &lt;p&gt;The &lt;strong&gt;Accounts &amp;amp; keys&lt;/strong&gt; page groups keys by provider, with the tools each one serves. A key that stopped working comes first, with what the provider said and how to fix it.&lt;/p&gt;
-&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozersandbox.com/blog/images/doz-v0.35/accounts-keys.jpg" alt="Accounts &amp;amp; keys: keys grouped by provider, a refused key first" width="2560" height="1600" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
-&lt;h2 id="tools"&gt;Tools&lt;a class="anchor" href="https://dozersandbox.com/blog/doz-v0.35#tools" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/doz-v0.35/accounts-keys.jpg" alt="Accounts &amp;amp; keys: keys grouped by provider, a refused key first" width="2560" height="1600" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;h2 id="tools"&gt;Tools&lt;a class="anchor" href="https://dozable.com/blog/doz-v0.35#tools" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="https://dozersandbox.com/blog/opencode-2"&gt;OpenCode 2&lt;/a&gt; is the &lt;code&gt;opencode&lt;/code&gt; Dozer recommends; OpenCode 1 stays as &lt;code&gt;opencode@1&lt;/code&gt;. Its free OpenCode Zen models need no key.&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://dozersandbox.com/blog/grok-build-status"&gt;Grok Build&lt;/a&gt;, Factory Droid and Docker Agent report working and done in the dashboard.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://dozable.com/blog/opencode-2"&gt;OpenCode 2&lt;/a&gt; is the &lt;code&gt;opencode&lt;/code&gt; Dozer recommends; OpenCode 1 stays as &lt;code&gt;opencode@1&lt;/code&gt;. Its free OpenCode Zen models need no key.&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://dozable.com/blog/grok-build-status"&gt;Grok Build&lt;/a&gt;, Factory Droid and Docker Agent report working and done in the dashboard.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id="also-new"&gt;Also new&lt;a class="anchor" href="https://dozersandbox.com/blog/doz-v0.35#also-new" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="also-new"&gt;Also new&lt;a class="anchor" href="https://dozable.com/blog/doz-v0.35#also-new" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;doz search aider&lt;/code&gt; says whether Dozer runs a tool, and how, or why not yet.&lt;/li&gt;
 &lt;li&gt;A sandbox&amp;#x27;s web page opens in your Mac&amp;#x27;s browser: the sandbox&amp;#x27;s &lt;strong&gt;Open&lt;/strong&gt; button, or &lt;code&gt;doz open&lt;/code&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id="fixed"&gt;Fixed&lt;a class="anchor" href="https://dozersandbox.com/blog/doz-v0.35#fixed" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="fixed"&gt;Fixed&lt;a class="anchor" href="https://dozable.com/blog/doz-v0.35#fixed" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Icons in the dashboard no longer blink every few seconds.&lt;/li&gt;
 &lt;li&gt;A key its provider refuses shows as refused, instead of a green &amp;quot;ok&amp;quot;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id="upgrade"&gt;Upgrade&lt;a class="anchor" href="https://dozersandbox.com/blog/doz-v0.35#upgrade" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="upgrade"&gt;Upgrade&lt;a class="anchor" href="https://dozable.com/blog/doz-v0.35#upgrade" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;doz upgrade&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content>
   </entry>
   <entry>
     <title>doz try - any of 42 AI tools in one command</title>
     <id>https://dozersandbox.com/blog/doz-try</id>
-    <link rel="alternate" type="text/html" href="https://dozersandbox.com/blog/doz-try"/>
+    <link rel="alternate" type="text/html" href="https://dozable.com/blog/doz-try"/>
     <published>2026-10-18T00:00:00Z</published>
     <updated>2026-10-18T00:00:00Z</updated>
     <summary>doz try puts you in a throwaway sandbox with a coding agent or AI tool, its own empty folder, a network that reaches only its model and your key kept on your Mac.</summary>
@@ -54,8 +54,8 @@
 &lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;doz try                 &lt;span class="c"&gt;# the list: coding agents, then AI tools, and which are ready&lt;/span&gt;
 doz try opencode        &lt;span class="c"&gt;# OpenCode, in a throwaway sandbox&lt;/span&gt;
 doz try fabric --rm     &lt;span class="c"&gt;# delete it when you leave&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozersandbox.com/blog/images/doz-try/try-terminal.jpg" alt="doz try lists the coding agents and AI tools, and which have a key ready" width="2560" height="1600" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
-&lt;h2 id="what-a-try-gets"&gt;What a try gets&lt;a class="anchor" href="https://dozersandbox.com/blog/doz-try#what-a-try-gets" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/doz-try/try-terminal.jpg" alt="doz try lists the coding agents and AI tools, and which have a key ready" width="2560" height="1600" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;h2 id="what-a-try-gets"&gt;What a try gets&lt;a class="anchor" href="https://dozable.com/blog/doz-try#what-a-try-gets" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;A new empty folder&lt;/strong&gt; under your projects folder, shared at &lt;code&gt;/workspace&lt;/code&gt;, so what the tool makes is on your Mac. Never one of yours.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;A network that reaches its model and nothing else.&lt;/strong&gt; Every other host is refused and logged.&lt;/li&gt;
@@ -64,23 +64,23 @@ doz try fabric --rm     &lt;span class="c"&gt;# delete it when you leave&lt;/spa
 &lt;p&gt;&lt;code&gt;--dry-run&lt;/code&gt; shows all of it before anything is made: the version, every host it can reach, the folder and the key.&lt;/p&gt;
 &lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;doz try grok --dry-run&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;When you leave, it asks whether to sleep it, delete it or keep it running. Deleting it removes its folder too, and asks first if the tool left files there.&lt;/p&gt;
-&lt;h2 id="42-tools"&gt;42 tools&lt;a class="anchor" href="https://dozersandbox.com/blog/doz-try#42-tools" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Claude Code, Codex and pi, plus Gemini CLI, Grok Build, OpenCode, GitHub Copilot CLI, Goose, Qwen Code, Cline, OpenHands, Crush and more coding agents. And AI tools such as Fabric, llm, AIChat, ShellGPT, promptfoo and Google Stitch. The &lt;a href="https://dozersandbox.com/docs/more-agents.html"&gt;manual&lt;/a&gt; lists them all, with what each needs.&lt;/p&gt;
-&lt;h2 id="choose-the-model"&gt;Choose the model&lt;a class="anchor" href="https://dozersandbox.com/blog/doz-try#choose-the-model" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="42-tools"&gt;42 tools&lt;a class="anchor" href="https://dozable.com/blog/doz-try#42-tools" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Claude Code, Codex and pi, plus Gemini CLI, Grok Build, OpenCode, GitHub Copilot CLI, Goose, Qwen Code, Cline, OpenHands, Crush and more coding agents. And AI tools such as Fabric, llm, AIChat, ShellGPT, promptfoo and Google Stitch. The &lt;a href="https://dozable.com/docs/more-agents"&gt;manual&lt;/a&gt; lists them all, with what each needs.&lt;/p&gt;
+&lt;h2 id="choose-the-model"&gt;Choose the model&lt;a class="anchor" href="https://dozable.com/blog/doz-try#choose-the-model" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Use a key from OpenAI, Anthropic, Google or xAI, or one key for many models through OpenRouter or Vercel AI Gateway. OpenCode can also use OpenCode Zen&amp;#x27;s free models, with no key at all.&lt;/p&gt;
 &lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;doz try opencode --gateway openrouter --model anthropic/claude-sonnet-4.6
 doz try opencode --provider opencode-zen&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-&lt;h2 id="in-the-dashboard"&gt;In the dashboard&lt;a class="anchor" href="https://dozersandbox.com/blog/doz-try#in-the-dashboard" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="in-the-dashboard"&gt;In the dashboard&lt;a class="anchor" href="https://dozable.com/blog/doz-try#in-the-dashboard" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Try → Quick try&lt;/strong&gt; shows the same tools as cards. Search, or filter by kind and category, and &lt;strong&gt;Try now&lt;/strong&gt; opens its setup: where it gets its model, your key and the folder.&lt;/p&gt;
-&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozersandbox.com/blog/images/doz-try/quick-try.jpg" alt="Quick try: coding agents and AI tools, with filters and each tool&amp;#x27;s readiness" width="2560" height="1600" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/doz-try/quick-try.jpg" alt="Quick try: coding agents and AI tools, with filters and each tool&amp;#x27;s readiness" width="2560" height="1600" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
 &lt;p&gt;Each try opens on its &lt;strong&gt;Guide&lt;/strong&gt;: what the tool is, the facts of this try, and its first commands. &lt;strong&gt;Run&lt;/strong&gt; types a step into the tool&amp;#x27;s session; &lt;strong&gt;Copy&lt;/strong&gt; puts it on your clipboard.&lt;/p&gt;
-&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozersandbox.com/blog/images/doz-try/try-guide.jpg" alt="A Fabric try: the guide on the right, two steps run in the session on the left" width="2560" height="1600" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;code&gt;doz try&lt;/code&gt; is in &lt;a href="https://dozersandbox.com/blog/doz-v0.35"&gt;Dozer Sandbox 0.35&lt;/a&gt;. Upgrade with &lt;code&gt;doz upgrade&lt;/code&gt;, then &lt;code&gt;doz try&lt;/code&gt;.&lt;/p&gt;</content>
+&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/doz-try/try-guide.jpg" alt="A Fabric try: the guide on the right, two steps run in the session on the left" width="2560" height="1600" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;code&gt;doz try&lt;/code&gt; is in &lt;a href="https://dozable.com/blog/doz-v0.35"&gt;Dozer Sandbox 0.35&lt;/a&gt;. Upgrade with &lt;code&gt;doz upgrade&lt;/code&gt;, then &lt;code&gt;doz try&lt;/code&gt;.&lt;/p&gt;</content>
   </entry>
   <entry>
     <title>OpenCode 2 is in Dozer Sandbox</title>
     <id>https://dozersandbox.com/blog/opencode-2</id>
-    <link rel="alternate" type="text/html" href="https://dozersandbox.com/blog/opencode-2"/>
+    <link rel="alternate" type="text/html" href="https://dozable.com/blog/opencode-2"/>
     <published>2026-10-17T00:00:00Z</published>
     <updated>2026-10-17T00:00:00Z</updated>
     <summary>OpenCode 2, a rebuild of the open-source coding agent around one shared background service, now runs in Dozer Sandbox beside OpenCode 1, on your own key or OpenCode Zen's free models.</summary>
@@ -88,9 +88,9 @@ doz try opencode --provider opencode-zen&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
     <content type="html">&lt;p&gt;OpenCode 2 is out, and you can try it in a sandbox with one command. OpenCode 1 stays available, so a project that depends on it keeps working.&lt;/p&gt;
 &lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;doz try opencode        &lt;span class="c"&gt;# OpenCode 2, in a throwaway sandbox&lt;/span&gt;
 doz try opencode@1      &lt;span class="c"&gt;# OpenCode 1&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-&lt;p&gt;It needs Dozer Sandbox 0.35, now on the &lt;a href="https://dozersandbox.com/docs/install-upgrade-uninstall.html"&gt;stable channel&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;It needs Dozer Sandbox 0.35, now on the &lt;a href="https://dozable.com/docs/install-upgrade-uninstall"&gt;stable channel&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;In the dashboard, OpenCode&amp;#x27;s card in Quick try has a &lt;strong&gt;Version&lt;/strong&gt; choice; it starts on 2. Sandboxes you already have stay on the version they were made with.&lt;/p&gt;
-&lt;h2 id="whats-new-in-opencode-2"&gt;What&amp;#x27;s new in OpenCode 2&lt;a class="anchor" href="https://dozersandbox.com/blog/opencode-2#whats-new-in-opencode-2" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="whats-new-in-opencode-2"&gt;What&amp;#x27;s new in OpenCode 2&lt;a class="anchor" href="https://dozable.com/blog/opencode-2#whats-new-in-opencode-2" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Anomaly, the company behind OpenCode, announced 2.0 on 12 October as &amp;quot;a major overhaul&amp;quot; (&lt;a href="https://anoma.ly/notes/opencode-2-0/"&gt;their post&lt;/a&gt;), about three months after its public beta. Its changelog has moved to the 2.x series, so 2 is now OpenCode&amp;#x27;s main release (&lt;a href="https://thenewstack.io/opencode-2-shared-service/"&gt;The New Stack&lt;/a&gt; has a good account of the release).&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;One service, several interfaces.&lt;/strong&gt; OpenCode now starts a single background service. The terminal interface, the web app and the desktop app all talk to it, so you can start a session in the terminal and continue it in the browser. Your own scripts can find and use the same service.&lt;/li&gt;
@@ -100,7 +100,7 @@ doz try opencode@1      &lt;span class="c"&gt;# OpenCode 1&lt;/span&gt;&lt;/code
 &lt;li&gt;&lt;strong&gt;Plugins.&lt;/strong&gt; More than 80 of its own features are now plugins, terminal-interface plugins are stable, and plugins hot-reload, so OpenCode can write a plugin and use it in the same session (&lt;a href="https://anoma.ly/notes/opencode-reloaded/"&gt;how they rebuilt it&lt;/a&gt;).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;strong&gt;What breaks:&lt;/strong&gt; plugins written for OpenCode 1 don&amp;#x27;t load in 2, and integrations built on the old server API need updating.&lt;/p&gt;
-&lt;h2 id="in-dozer"&gt;In Dozer&lt;a class="anchor" href="https://dozersandbox.com/blog/opencode-2#in-dozer" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="in-dozer"&gt;In Dozer&lt;a class="anchor" href="https://dozable.com/blog/opencode-2#in-dozer" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;OpenCode 2 gets what every tool in Dozer gets:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Your key stays on your Mac.&lt;/strong&gt; Use a key from xAI, OpenAI, Anthropic, OpenRouter or Vercel AI Gateway; the sandbox only ever holds a placeholder. OpenCode Zen&amp;#x27;s free models take no key at all.&lt;/li&gt;
@@ -109,7 +109,7 @@ doz try opencode@1      &lt;span class="c"&gt;# OpenCode 1&lt;/span&gt;&lt;/code
 &lt;li&gt;&lt;strong&gt;Its web app on your Mac:&lt;/strong&gt; run &lt;code&gt;opencode pair&lt;/code&gt; in the sandbox and open the link it prints, or use the sandbox&amp;#x27;s &lt;strong&gt;Open&lt;/strong&gt; button; it shows in your browser, on this Mac only.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Outside Dozer, OpenCode 1 users move with &lt;code&gt;opencode upgrade --major&lt;/code&gt; or &lt;code&gt;/update&lt;/code&gt;; since 1.19 it no longer updates itself (&lt;a href="https://github.com/anomalyco/opencode/releases/tag/v1.19.0"&gt;1.19.0 release notes&lt;/a&gt;). In Dozer you choose the version by name instead, and the sandbox&amp;#x27;s version comes from Dozer&amp;#x27;s checked recipe.&lt;/p&gt;
-&lt;h2 id="ways-to-try-it"&gt;Ways to try it&lt;a class="anchor" href="https://dozersandbox.com/blog/opencode-2#ways-to-try-it" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="ways-to-try-it"&gt;Ways to try it&lt;a class="anchor" href="https://dozable.com/blog/opencode-2#ways-to-try-it" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;OpenCode Zen&amp;#x27;s free models need no account and no key. The picker and &lt;code&gt;doz models --provider opencode-zen&lt;/code&gt; show each model&amp;#x27;s data terms; some may use what you send to improve their models.&lt;/p&gt;
 &lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;doz try opencode --provider opencode-zen          &lt;span class="c"&gt;# Big Pickle, free, no key&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;Or your own key from xAI, OpenAI or Anthropic, or one key for many models through OpenRouter or Vercel AI Gateway:&lt;/p&gt;
@@ -122,82 +122,82 @@ doz try opencode --gateway vercel-ai-gateway      &lt;span class="c"&gt;# throug
 doz try opencode@2.0.29                           &lt;span class="c"&gt;# exactly this release&lt;/span&gt;
 doz try opencode --rm                             &lt;span class="c"&gt;# delete it when you leave&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;No key for that provider yet? The try asks for one, once, or add it first with &lt;code&gt;doz account add openrouter --provider openrouter&lt;/code&gt;. Add &lt;code&gt;--dry-run&lt;/code&gt; to any of these to see what it would make and what it can reach, without making anything. In the dashboard, &lt;strong&gt;Try → Quick try → OpenCode&lt;/strong&gt; has the same choices: the Version, and where OpenCode gets its model, with a list of a gateway&amp;#x27;s models to search.&lt;/p&gt;
-&lt;h2 id="why-opencode-1-stays"&gt;Why OpenCode 1 stays&lt;a class="anchor" href="https://dozersandbox.com/blog/opencode-2#why-opencode-1-stays" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="why-opencode-1-stays"&gt;Why OpenCode 1 stays&lt;a class="anchor" href="https://dozable.com/blog/opencode-2#why-opencode-1-stays" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;A major version changes what your setup depends on: here, plugins and the API. Dozer pins each tool to a version it has checked. &lt;code&gt;opencode&lt;/code&gt; now means OpenCode 2, the version Dozer recommends; OpenCode 1 stays one word away, as &lt;code&gt;opencode@1&lt;/code&gt;, and keeps getting 1.x updates. An existing sandbox never moves to a new major version by itself.&lt;/p&gt;
-&lt;p&gt;New to Dozer Sandbox? &lt;a href="https://dozersandbox.com/docs/getting-started.html"&gt;Getting started&lt;/a&gt; takes a few minutes.&lt;/p&gt;</content>
+&lt;p&gt;New to Dozer Sandbox? &lt;a href="https://dozable.com/docs/getting-started"&gt;Getting started&lt;/a&gt; takes a few minutes.&lt;/p&gt;</content>
   </entry>
   <entry>
     <title>Grok Build now tells Dozer what it's doing</title>
     <id>https://dozersandbox.com/blog/grok-build-status</id>
-    <link rel="alternate" type="text/html" href="https://dozersandbox.com/blog/grok-build-status"/>
+    <link rel="alternate" type="text/html" href="https://dozable.com/blog/grok-build-status"/>
     <published>2026-10-17T00:00:00Z</published>
     <updated>2026-10-17T00:00:00Z</updated>
     <summary>Grok Build 1.0.52 reports when it's working, waiting for you or done, and Dozer Sandbox 0.35 shows it in the dashboard, as it does for Claude Code and pi.</summary>
     <category term="tool-news" label="Tool news"/>
     <content type="html">&lt;p&gt;Grok Build 1.0.52 reports its status, and Dozer Sandbox 0.35 runs that version. Start a Grok Build sandbox and leave it to work; the dashboard shows when it&amp;#x27;s busy, when it needs you, and when it&amp;#x27;s finished.&lt;/p&gt;
 &lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;doz try grok&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-&lt;h2 id="what-you-see"&gt;What you see&lt;a class="anchor" href="https://dozersandbox.com/blog/grok-build-status#what-you-see" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="what-you-see"&gt;What you see&lt;a class="anchor" href="https://dozable.com/blog/grok-build-status#what-you-see" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;While Grok Build works, its tab says &lt;strong&gt;working&lt;/strong&gt;, and a dot beside the sandbox in the sidebar says something is going on.&lt;/p&gt;
-&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozersandbox.com/blog/images/grok-build-status/grok-working.jpg" alt="A Grok Build session at work: the tab says working" width="2560" height="1600" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/grok-build-status/grok-working.jpg" alt="A Grok Build session at work: the tab says working" width="2560" height="1600" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
 &lt;p&gt;When it stops to ask you something, such as permission to run a command, a notice at the top of the dashboard says so, with an &lt;strong&gt;Open&lt;/strong&gt; button that takes you straight to the session, whichever page you&amp;#x27;re on.&lt;/p&gt;
-&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozersandbox.com/blog/images/grok-build-status/grok-needs-permission.jpg" alt="Grok Build asking permission to run a command: the notice names it, and the tab says needs permission" width="2560" height="1600" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/grok-build-status/grok-needs-permission.jpg" alt="Grok Build asking permission to run a command: the notice names it, and the tab says needs permission" width="2560" height="1600" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
 &lt;p&gt;When it finishes, the tab says &lt;strong&gt;done&lt;/strong&gt;. &lt;strong&gt;All sessions&lt;/strong&gt; shows the same on every tile, so with several agents running you can see which one is still busy and which is waiting for you.&lt;/p&gt;
-&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozersandbox.com/blog/images/grok-build-status/grok-all-sessions.jpg" alt="All sessions: Grok Build done beside other sessions" width="2560" height="1600" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
-&lt;h2 id="where-it-comes-from"&gt;Where it comes from&lt;a class="anchor" href="https://dozersandbox.com/blog/grok-build-status#where-it-comes-from" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/grok-build-status/grok-all-sessions.jpg" alt="All sessions: Grok Build done beside other sessions" width="2560" height="1600" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;h2 id="where-it-comes-from"&gt;Where it comes from&lt;a class="anchor" href="https://dozable.com/blog/grok-build-status#where-it-comes-from" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;xAI&amp;#x27;s &lt;a href="https://x.ai/changelog/build"&gt;changelog for 1.0.52&lt;/a&gt; lists &amp;quot;support for OSC 7501&amp;quot;. That&amp;#x27;s a terminal escape sequence for program status, &lt;a href="https://mitchellh.com/writing/program-status-osc7501"&gt;proposed by Mitchell Hashimoto&lt;/a&gt;: a program asks the terminal whether it understands the sequence, and if it does, reports its state each time it changes.&lt;/p&gt;
 &lt;p&gt;Inside every sandbox, Dozer answers that question for each session and keeps the latest report, whether or not the dashboard is open. Nothing is read from the screen or guessed: Dozer shows exactly what Grok Build reports.&lt;/p&gt;
-&lt;h2 id="agents-that-report-their-status"&gt;Agents that report their status&lt;a class="anchor" href="https://dozersandbox.com/blog/grok-build-status#agents-that-report-their-status" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="agents-that-report-their-status"&gt;Agents that report their status&lt;a class="anchor" href="https://dozable.com/blog/grok-build-status#agents-that-report-their-status" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Claude Code, pi and now Grok Build report their status. So do Factory Droid and Docker Agent, which also arrive in 0.35. When another tool adds support, Dozer turns it on in that tool&amp;#x27;s recipe once we&amp;#x27;ve seen it work.&lt;/p&gt;
-&lt;p&gt;&lt;a href="https://dozersandbox.com/docs/install-upgrade-uninstall.html"&gt;Upgrade to 0.35&lt;/a&gt;, then &lt;code&gt;doz try grok&lt;/code&gt;.&lt;/p&gt;</content>
+&lt;p&gt;&lt;a href="https://dozable.com/docs/install-upgrade-uninstall"&gt;Upgrade to 0.35&lt;/a&gt;, then &lt;code&gt;doz try grok&lt;/code&gt;.&lt;/p&gt;</content>
   </entry>
   <entry>
     <title>Introducing Dozer Sandbox</title>
     <id>https://dozersandbox.com/blog/introducing-dozer-sandbox</id>
-    <link rel="alternate" type="text/html" href="https://dozersandbox.com/blog/introducing-dozer-sandbox"/>
+    <link rel="alternate" type="text/html" href="https://dozable.com/blog/introducing-dozer-sandbox"/>
     <published>2026-10-11T00:00:00Z</published>
     <updated>2026-10-11T00:00:00Z</updated>
     <summary>Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac — free and open source. Here's what it is, why it exists, and how to try it in a minute.</summary>
     <category term="release-news" label="Release news"/>
     <content type="html">&lt;p&gt;Coding agents are at their best when you stop approving every command. They&amp;#x27;re at their most worrying then too: the agent can read your files, run anything, and reach any site, all with your keys in its environment.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Dozer Sandbox&lt;/strong&gt; gives each agent its own small Linux computer on your Mac, so you can let it work.&lt;/p&gt;
-&lt;h2 id="what-a-sandbox-is"&gt;What a sandbox is&lt;a class="anchor" href="https://dozersandbox.com/blog/introducing-dozer-sandbox#what-a-sandbox-is" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="what-a-sandbox-is"&gt;What a sandbox is&lt;a class="anchor" href="https://dozable.com/blog/introducing-dozer-sandbox#what-a-sandbox-is" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Each sandbox is a small Linux virtual machine with one project folder from your Mac inside it, at &lt;code&gt;/workspace&lt;/code&gt;. Run Claude Code, Codex or pi in it with the permission prompts off: the VM is the boundary.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Fast.&lt;/strong&gt; A sandbox starts in about a third of a second and pauses in a millisecond.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Resumable.&lt;/strong&gt; Put it to sleep and it gives its memory back. Wake it and every program is still running where you left it, mid-sentence.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Secure.&lt;/strong&gt; The network goes through a policy you can read, and &lt;strong&gt;your API keys never go inside&lt;/strong&gt;: the agent sees a placeholder, and the real key is added on your Mac on the way out.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozersandbox.com/blog/images/introducing-dozer-sandbox/dashboard.jpg" alt="The dashboard while an agent works" width="1280" height="860" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
-&lt;h2 id="try-it"&gt;Try it&lt;a class="anchor" href="https://dozersandbox.com/blog/introducing-dozer-sandbox#try-it" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/introducing-dozer-sandbox/dashboard.jpg" alt="The dashboard while an agent works" width="1280" height="860" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;h2 id="try-it"&gt;Try it&lt;a class="anchor" href="https://dozable.com/blog/introducing-dozer-sandbox#try-it" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;You need a Mac with Apple silicon and macOS 26 or later, and Homebrew.&lt;/p&gt;
 &lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;brew trust --tap dozer-sandbox/tap
 brew install dozer-sandbox/tap/doz
 doz ui&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;The dashboard opens on a short setup wizard: it checks your Mac, asks how your agent should sign in, and prepares an image. Then &lt;strong&gt;New sandbox&lt;/strong&gt; and you&amp;#x27;re in. Prefer the terminal? &lt;code&gt;doz onboard&lt;/code&gt;, then &lt;code&gt;doz up&lt;/code&gt; in a project folder.&lt;/p&gt;
-&lt;h2 id="free-and-open-source"&gt;Free and open source&lt;a class="anchor" href="https://dozersandbox.com/blog/introducing-dozer-sandbox#free-and-open-source" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="free-and-open-source"&gt;Free and open source&lt;a class="anchor" href="https://dozable.com/blog/introducing-dozer-sandbox#free-and-open-source" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Dozer Sandbox is free, and its source is on &lt;a href="https://github.com/dozer-sandbox/dozer-sandbox"&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;This blog is where news, early access and tips will appear. They&amp;#x27;re also sent by email to anyone who &lt;a href="https://dozersandbox.com/signup"&gt;signs up&lt;/a&gt; for them. Thanks for reading, and for trying it.&lt;/p&gt;</content>
+&lt;p&gt;This blog is where news, early access and tips will appear. They&amp;#x27;re also sent by email to anyone who &lt;a href="https://dozable.com/signup"&gt;signs up&lt;/a&gt; for them. Thanks for reading, and for trying it.&lt;/p&gt;</content>
   </entry>
   <entry>
     <title>Dozer Sandbox 0.33 - see what your agent is doing</title>
     <id>https://dozersandbox.com/blog/dozer-0-33</id>
-    <link rel="alternate" type="text/html" href="https://dozersandbox.com/blog/dozer-0-33"/>
+    <link rel="alternate" type="text/html" href="https://dozable.com/blog/dozer-0-33"/>
     <published>2026-10-11T00:00:00Z</published>
     <updated>2026-10-11T00:00:00Z</updated>
     <summary>Dozer Sandbox 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.</summary>
     <category term="release-news" label="Release news"/>
-    <content type="html">&lt;p&gt;It&amp;#x27;s on the &lt;a href="https://dozersandbox.com/docs/install-upgrade-uninstall.html"&gt;stable channel&lt;/a&gt; now, as 0.33.1. Here&amp;#x27;s each change.&lt;/p&gt;
-&lt;h2 id="see-what-the-agent-is-doing"&gt;See what the agent is doing&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#see-what-the-agent-is-doing" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+    <content type="html">&lt;p&gt;It&amp;#x27;s on the &lt;a href="https://dozable.com/docs/install-upgrade-uninstall"&gt;stable channel&lt;/a&gt; now, as 0.33.1. Here&amp;#x27;s each change.&lt;/p&gt;
+&lt;h2 id="see-what-the-agent-is-doing"&gt;See what the agent is doing&lt;a class="anchor" href="https://dozable.com/blog/dozer-0-33#see-what-the-agent-is-doing" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Claude Code and pi now tell Dozer what they&amp;#x27;re doing: &lt;strong&gt;working&lt;/strong&gt;, &lt;strong&gt;done&lt;/strong&gt;, waiting for your answer, or stopped by an error. Dozer shows it in the dashboard wherever the session appears, so you can leave an agent to work and glance back when it matters.&lt;/p&gt;
 &lt;p&gt;While the agent works, its tab shows &lt;strong&gt;working&lt;/strong&gt;, and a dot beside the sandbox in the sidebar says something is going on.&lt;/p&gt;
-&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozersandbox.com/blog/images/dozer-0-33/agent-working.jpg" alt="A Claude Code session at work: the tab says working, and the sandbox has a dot in the sidebar" width="1600" height="1137" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/dozer-0-33/agent-working.jpg" alt="A Claude Code session at work: the tab says working, and the sandbox has a dot in the sidebar" width="1600" height="1137" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
 &lt;p&gt;When the agent stops to ask you something, such as permission to run a command, a notice appears at the top of the dashboard saying what it wants, with an &lt;strong&gt;Open&lt;/strong&gt; button that takes you straight to the session. You see it on whichever page you&amp;#x27;re on.&lt;/p&gt;
-&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozersandbox.com/blog/images/dozer-0-33/agent-needs-permission.jpg" alt="Claude Code asking to run the tests: the notice at the top names the command, and the tab says needs permission" width="1600" height="1308" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/dozer-0-33/agent-needs-permission.jpg" alt="Claude Code asking to run the tests: the notice at the top names the command, and the tab says needs permission" width="1600" height="1308" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
 &lt;p&gt;When it finishes, the tab says &lt;strong&gt;done&lt;/strong&gt; and the notice tells you so. The same status shows on every tile in &lt;strong&gt;All sessions&lt;/strong&gt;, so with several sandboxes running you can see at a glance which agent is still busy and which is waiting for you.&lt;/p&gt;
-&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozersandbox.com/blog/images/dozer-0-33/agent-done.jpg" alt="Claude Code has finished: the notice says done, and so does the tab" width="1600" height="1025" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
-&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozersandbox.com/blog/images/dozer-0-33/all-sessions-status.jpg" alt="All sessions: the Claude Code tile says done, beside a plain shell" width="1500" height="680" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/dozer-0-33/agent-done.jpg" alt="Claude Code has finished: the notice says done, and so does the tab" width="1600" height="1025" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/dozer-0-33/all-sessions-status.jpg" alt="All sessions: the Claude Code tile says done, beside a plain shell" width="1500" height="680" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
 &lt;p&gt;The status shows while the dashboard is open (&lt;code&gt;doz ui&lt;/code&gt;). Claude Code needs version 2.1.295 or later, and pi 1.1.0 or later.&lt;/p&gt;
-&lt;h3 id="how-it-works"&gt;How it works&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#how-it-works" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id="how-it-works"&gt;How it works&lt;a class="anchor" href="https://dozable.com/blog/dozer-0-33#how-it-works" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;It uses a terminal escape sequence: bytes mixed into a program&amp;#x27;s output that the terminal acts on instead of showing, the same way programs set a window&amp;#x27;s title or colours. This one is &lt;strong&gt;OSC 7501&lt;/strong&gt;, for program status (&lt;a href="https://mitchellh.com/writing/program-status-osc7501"&gt;Mitchell Hashimoto&amp;#x27;s write-up&lt;/a&gt;).&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;The handshake:&lt;/strong&gt; a program asks the terminal whether it understands the sequence (&lt;code&gt;ESC ] 7501 ; ? ST&lt;/code&gt;). If the terminal answers, the program reports its state (working, done, blocked or error, with a short message) each time it changes.&lt;/li&gt;
@@ -205,17 +205,17 @@ doz ui&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;li&gt;&lt;strong&gt;On your Mac:&lt;/strong&gt; the Dozer host watches each running session&amp;#x27;s status, and the dashboard draws it.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Nothing is read from the screen or guessed: Dozer shows exactly what the agent itself reports.&lt;/p&gt;
-&lt;h2 id="doz-upgrade"&gt;&lt;code&gt;doz upgrade&lt;/code&gt;&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#doz-upgrade" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="doz-upgrade"&gt;&lt;code&gt;doz upgrade&lt;/code&gt;&lt;a class="anchor" href="https://dozable.com/blog/dozer-0-33#doz-upgrade" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;One command moves you to the newest version on your channel. It asks first; &lt;code&gt;-y&lt;/code&gt; skips the question.&lt;/p&gt;
 &lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;doz upgrade&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-&lt;h2 id="the-dashboard-in-the-background"&gt;The dashboard in the background&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#the-dashboard-in-the-background" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="the-dashboard-in-the-background"&gt;The dashboard in the background&lt;a class="anchor" href="https://dozable.com/blog/dozer-0-33#the-dashboard-in-the-background" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;doz ui --detach&lt;/code&gt; runs the dashboard without holding a terminal, and &lt;code&gt;doz ui stop&lt;/code&gt; stops it from any terminal.&lt;/p&gt;
-&lt;h2 id="staying-in-touch"&gt;Staying in touch&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#staying-in-touch" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="staying-in-touch"&gt;Staying in touch&lt;a class="anchor" href="https://dozable.com/blog/dozer-0-33#staying-in-touch" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Setup now ends with an optional sign-up for release news, early access, and tips and tricks, by email. Skip it, or sign up later with &lt;code&gt;doz signup&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id="fixed-in-0331-the-agent-can-write-your-workspace-again"&gt;Fixed in 0.33.1: the agent can write your workspace again&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#fixed-in-0331-the-agent-can-write-your-workspace-again" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="fixed-in-0331-the-agent-can-write-your-workspace-again"&gt;Fixed in 0.33.1: the agent can write your workspace again&lt;a class="anchor" href="https://dozable.com/blog/dozer-0-33#fixed-in-0331-the-agent-can-write-your-workspace-again" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Since 0.30, an agent in a sandbox could read a shared project folder but not change it, and &lt;code&gt;git&lt;/code&gt; refused the folder (&amp;quot;dubious ownership&amp;quot;). 0.33.1 fixes it. After upgrading, a sandbox that was running, asleep or hibernated needs a &lt;code&gt;doz shutdown NAME&lt;/code&gt; and then &lt;code&gt;doz start NAME&lt;/code&gt;; one that was shut down picks up the fix at its next start.&lt;/p&gt;
-&lt;h2 id="upgrade"&gt;Upgrade&lt;a class="anchor" href="https://dozersandbox.com/blog/dozer-0-33#upgrade" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="upgrade"&gt;Upgrade&lt;a class="anchor" href="https://dozable.com/blog/dozer-0-33#upgrade" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;doz upgrade&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-&lt;p&gt;New to Dozer Sandbox? &lt;a href="https://dozersandbox.com/docs/getting-started.html"&gt;Getting started&lt;/a&gt; takes a few minutes.&lt;/p&gt;</content>
+&lt;p&gt;New to Dozer Sandbox? &lt;a href="https://dozable.com/docs/getting-started"&gt;Getting started&lt;/a&gt; takes a few minutes.&lt;/p&gt;</content>
   </entry>
 </feed>

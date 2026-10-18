@@ -1,8 +1,8 @@
 ---
 title: "What the agent can do: permissions and the network — Dozable docs"
 description: "A sandbox has no network card. Its only way out is a proxy in Dozable's host, on your Mac, which checks every connection against the sandbox's permissions — a short list of plain-language switches — and logs it."
-url: https://dozersandbox.com/docs/permissions-and-network
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/permissions-and-network
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 10
@@ -20,13 +20,13 @@ switches — and logs it. You decide what the agent may reach; the agent can't c
   | permission | id | what it allows | in Standard |
   |---|---|---|---|
   | Talk to its AI model | `model` | Anthropic's API | always on |
-  | Talk to OpenAI | `model:openai` | Codex's model (`chatgpt.com`, `api.openai.com`) — [Codex](https://dozersandbox.com/docs/codex.md) | always on in a Codex sandbox; never in another agent's |
+  | Talk to OpenAI | `model:openai` | Codex's model (`chatgpt.com`, `api.openai.com`) — [Codex](https://dozable.com/docs/codex.md) | always on in a Codex sandbox; never in another agent's |
   | Sign in | `sign-in` | Claude's sign-in pages, for signing in *inside* the sandbox | off (Dozable supplies the credential) |
   | Update itself | `update` | new versions of Claude Code or pi | on |
   | Install software — system packages | `install:system` | apt / apk | on |
   | Install software — Node, Python, Go, Rust, Java, Ruby, .NET | `install:node`, `install:python`, `install:go`, `install:rust`, `install:java`, `install:ruby`, `install:dotnet` (`install` = all) | that language's package registry | your base's language |
   | Use GitHub | `github` | clone and fetch code; Claude Code's plugins | on |
-  | Use GitHub as you | `github:as-you` | git and gh signed in as you — read-only ([GitHub as you](https://dozersandbox.com/docs/github.md)) | off, in every preset |
+  | Use GitHub as you | `github:as-you` | git and gh signed in as you — read-only ([GitHub as you](https://dozable.com/docs/github.md)) | off, in every preset |
   | Push to GitHub | `github:push` | also push and change things on GitHub as you | off, in every preset |
   | Send error reports | `error-reports` | the agent reporting its own crashes to its maker | on |
   | Browse the web | `web` | any website | off — **the agent could send your code anywhere** |
@@ -79,7 +79,7 @@ site**). **Browse the web** asks you to confirm first. **Details: the rules and 
 host behind the switches, and **Edit policy…** edits the raw rules with a preview of exactly what
 changes.
 
-![What the agent can do](https://dozersandbox.com/docs/images/permissions.png)
+![What the agent can do](https://dozable.com/docs/images/permissions.png)
 
 New sandbox shows the same switches (preset from the base you chose), and the **Settings** page
 edits `defaults.permissions` with them.
@@ -126,11 +126,11 @@ Your own rules win over a permission's hosts. A host your rules can't allow does
 - **Browse the web** and **Open** let the agent send your code and data anywhere. Prefer a
   `site:HOST` for what the agent really needs.
 - **A Dockerfile build runs outside this policy** (in Apple's builder); the sandbox made from it
-  doesn't. See [Images and bases](https://dozersandbox.com/docs/images-and-bases.md#your-own-dockerfile).
+  doesn't. See [Images and bases](https://dozable.com/docs/images-and-bases.md#your-own-dockerfile).
 - IPv4 only; HTTP/2 isn't passed through on the hosts whose traffic the proxy inspects; UDP is refused
   (programs fall back to TCP).
 - There are no general port forwards from your Mac into a sandbox. The one exception is a sign-in's
-  callback, briefly — see [Signing in from a sandbox](https://dozersandbox.com/docs/signing-in-from-a-sandbox.md).
+  callback, briefly — see [Signing in from a sandbox](https://dozable.com/docs/signing-in-from-a-sandbox.md).
 - A sandbox made with an older version of Dozable keeps its rules; `doz net NAME` shows them as the
   permissions they amount to, and its first permission change stores them as permissions (anything
   no permission covers stays as your own site rules).

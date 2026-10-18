@@ -1,8 +1,8 @@
 ---
 title: "Terminals and sessions — Dozable docs"
 description: "A session is a terminal program running inside a sandbox: a shell, claude, pi, a dev server."
-url: https://dozersandbox.com/docs/terminals-and-sessions
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/terminals-and-sessions
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 7
@@ -24,7 +24,7 @@ sandbox sleeps or hibernates.
 - **Bridges.** A session's terminal is also how a program reaches your Mac for two things: copying to
   your clipboard, and opening a web page in your browser. Both are shown to you every time and can be
   turned off. See [the clipboard](#the-clipboard) below and
-  [Signing in from a sandbox](https://dozersandbox.com/docs/signing-in-from-a-sandbox.md).
+  [Signing in from a sandbox](https://dozable.com/docs/signing-in-from-a-sandbox.md).
 - **The agent says what it is doing.** Claude Code and pi tell Dozable when they are working, waiting
   for you or done, and the dashboard and `doz ls` show it. See
   [what the agent is doing](#what-the-agent-is-doing).
@@ -254,7 +254,7 @@ When a program in a session copies — Claude Code's copy, a yank in vim or tmux
 `doz attach` for three seconds (then the screen is redrawn), or a message in the corner of the
 dashboard. When the output isn't a terminal (`doz run … > file`), the notice is a line on stderr.
 
-![The clipboard notice in the dashboard](https://dozersandbox.com/docs/images/clipboard-toast.png)
+![The clipboard notice in the dashboard](https://dozable.com/docs/images/clipboard-toast.png)
 
 - **A sandbox can never read your clipboard.** A program's request to read it is dropped — it never
   even reaches your terminal app, so nothing can answer it for the sandbox — and logged once.
@@ -292,7 +292,7 @@ doz-open --reveal dist/app.zip          # the Finder, with that file selected (n
 Every time, your terminal (or the dashboard) says what happened: `my-app opened report.html in
 Safari`, `my-app opened src/ in the Finder`, `my-app showed app.zip in the Finder`.
 
-![The open-file notice in the dashboard](https://dozersandbox.com/docs/images/open-file-toast.png)
+![The open-file notice in the dashboard](https://dozable.com/docs/images/open-file-toast.png)
 
 What it never does:
 
@@ -312,7 +312,7 @@ What it never does:
 - **Only while you watch:** like the clipboard, it acts only while a terminal is attached to the
   session; at most 3 files or folders in 10 seconds per sandbox.
 
-URLs work exactly as before ([Signing in from a sandbox](https://dozersandbox.com/docs/signing-in-from-a-sandbox.md)). Turn
+URLs work exactly as before ([Signing in from a sandbox](https://dozable.com/docs/signing-in-from-a-sandbox.md)). Turn
 files off where you don't want them:
 
 ```sh

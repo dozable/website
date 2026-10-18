@@ -1,8 +1,8 @@
 ---
 title: "Trying agents, and what Dozable supports — Dozable docs"
 description: "doz try takes you from nothing to talking to an agent in one command."
-url: https://dozersandbox.com/docs/try-and-search
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/try-and-search
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 26
@@ -32,7 +32,7 @@ A try is a throwaway sandbox with safe defaults:
   `~/doz-workspaces` unless you set another) and shares it at `/workspace`, so what the agent makes is on
   your Mac. It is never one of your folders: a folder of that name that holds anything is skipped (the try is named
   `try-<agent>-2`). `--isolated` shares no folder at all (`doz get try-grok /workspace/FILE` copies a file out —
-  see [Terminals and sessions](https://dozersandbox.com/docs/terminals-and-sessions.md)); `--workspace DIR` uses a folder you choose.
+  see [Terminals and sessions](https://dozable.com/docs/terminals-and-sessions.md)); `--workspace DIR` uses a folder you choose.
 - **Your Mac's clipboard and its apps**, as in any sandbox: what the agent copies reaches your Mac's clipboard (also
   from agents that copy with `xclip`, `xsel` or `wl-copy`), and it can open a file it made, or a link, on your Mac.
   The try's first line says so:
@@ -52,7 +52,7 @@ recipe:
 
 1. **Paste a key** (hidden) — kept in your Mac's login keychain; the sandbox only ever gets a placeholder.
 2. **A key you keep in 1Password, AWS Secrets Manager or a program** — `op://…`, `aws:arn:…`, or a command; read on
-   your Mac when needed, never stored (see [Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md)).
+   your Mac when needed, never stored (see [Agents and accounts](https://dozable.com/docs/agents-and-accounts.md)).
 3. **Signing in inside the agent** — offered only where that sign-in can work in a sandbox, and labelled: the sign-in
    lives in that sandbox, and deleting the try deletes it. (Grok Build's own sign-in uses hosts Dozable keeps out, so
    it is shown, not offered.)
@@ -229,7 +229,7 @@ doz create my-app --agent opencode@1      # the same in new, create and up — a
 ## One set of choices
 
 `doz new`, `doz create`, `doz up` and `doz try` take the same choice options, named after the keys of
-[`doz_project.yaml`](https://dozersandbox.com/docs/projects.md):
+[`doz_project.yaml`](https://dozable.com/docs/projects.md):
 
 | option | what it chooses |
 |---|---|

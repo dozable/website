@@ -1,8 +1,8 @@
 ---
 title: "Agents and accounts — Dozable docs"
 description: "Dozable runs three AI coding agents out of the box — Claude Code, pi and OpenAI's Codex — and gives each one the account it should use, without the secret ever entering the sandbox."
-url: https://dozersandbox.com/docs/agents-and-accounts
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/agents-and-accounts
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 9
@@ -11,7 +11,7 @@ chapter: 9
 
 Dozable runs three AI coding agents out of the box — **Claude Code**, **pi** and OpenAI's **Codex** — and
 gives each one the account it should use, without the secret ever entering the sandbox. Codex has its
-own page: [Codex](https://dozersandbox.com/docs/codex.md). This page covers which
+own page: [Codex](https://dozable.com/docs/codex.md). This page covers which
 agent can use which account, how to add accounts, the agent's versions and its `sudo`, and what the
 agent is told about where it runs.
 
@@ -35,7 +35,7 @@ agent is told about where it runs.
   For **Codex**, OpenAI's kinds: **this Mac's Codex login** (`mac` — read-only, nothing to add; the
   default while Codex is signed in on this Mac), a **ChatGPT sign-in** (builds from source only: `doz account add NAME --chatgpt`
   — Dozable's own, in your browser; renewed by Dozable on your Mac) and an **OpenAI API key**
-  (`--openai-key`). See [Codex](https://dozersandbox.com/docs/codex.md).
+  (`--openai-key`). See [Codex](https://dozable.com/docs/codex.md).
 
 - **Which agent can use which:**
 
@@ -87,7 +87,7 @@ doz account add vg --provider vercel-ai-gateway   # Vercel AI Gateway: the same 
 ```
 
 Each provider has its own default (`doz account default or` makes `or` OpenRouter's). An agent or tool that can use
-several (the AI tools — see [Other AI tools](https://dozersandbox.com/docs/ai-tools.md)) talks to the provider or gateway of the account it is
+several (the AI tools — see [Other AI tools](https://dozable.com/docs/ai-tools.md)) talks to the provider or gateway of the account it is
 given: `doz try TOOL --gateway openrouter` picks OpenRouter's default key, `--account NAME` a given one. The key goes
 only to that provider's or gateway's own API — a placeholder sent anywhere else is refused.
 
@@ -273,7 +273,7 @@ At every session start, Dozable tells the agent where it is:
   one line on what it can show you on your Mac — a URL in your browser, a workspace document in its
   app, a workspace folder in the Finder — saying only what is on (the `dozer` skill has the details:
   types, apps, refusals); and, only when you turned it on, one line saying `git` and `gh` are signed in
-  as you on GitHub, read-only or with push ([GitHub as you](https://dozersandbox.com/docs/github.md));
+  as you on GitHub, read-only or with push ([GitHub as you](https://dozable.com/docs/github.md));
 - the **`dozer` skill** (`~/.claude/skills/dozer/SKILL.md`, pi: `~/.pi/agent/skills/dozer/SKILL.md`,
   Codex: `~/.agents/skills/dozer/SKILL.md`),
   which it reads when a question is about the machine: what persists, the network, credentials,

@@ -1,4 +1,4 @@
-# Docs design guide (dozersandbox.com/docs)
+# Docs design guide (dozable.com/docs)
 
 The rules for the user manual rendered as HTML pages on the site. `DESIGN.html` is the same guide as a living
 specimen, built with `docs/docs.css` (a draft that sits on top of `site.css` and uses its tokens). This file is

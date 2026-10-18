@@ -1,8 +1,8 @@
 ---
 title: "Settings reference — Dozable docs"
 description: "Every setting Dozable has is in one file, ~/.config/dozer-sandbox/doz.toml (under $XDG_CONFIG_HOME when that is set)."
-url: https://dozersandbox.com/docs/settings-reference
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/settings-reference
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 15
@@ -65,7 +65,7 @@ or in its `doz_project.yaml` (`clipboard:`, `browser_bridge:`, `open_files:`, `s
 
 "Use GitHub as you" is a permission, not a setting: `doz net allow NAME github:as-you` (and
 `github:push`), `doz create --github read|push`, `github:` in `doz_project.yaml` — see
-[GitHub as you](https://dozersandbox.com/docs/github.md).
+[GitHub as you](https://dozable.com/docs/github.md).
 
 ## About the file
 

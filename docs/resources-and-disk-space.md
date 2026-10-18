@@ -1,8 +1,8 @@
 ---
 title: "Resources and disk space — Dozable docs"
 description: "Dozable keeps everything in one folder, the store."
-url: https://dozersandbox.com/docs/resources-and-disk-space
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/resources-and-disk-space
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 13
@@ -37,7 +37,7 @@ doz resources --json
 The groups: **Sandboxes** (each one's system disk, state disk, sleep snapshot, restore points, saved
 screens and boot logs), **Images & templates**, **Caches** (the download cache, base disks, the boot
 disk, kernels, preparation leftovers, and the **tools layer** — `gh`, downloaded once for sandboxes with
-GitHub as you; see [The tools layer](https://dozersandbox.com/docs/the-tools-layer.md)), **Logs & metrics**, **Stray files**, Dozable's own records — and
+GitHub as you; see [The tools layer](https://dozable.com/docs/the-tools-layer.md)), **Logs & metrics**, **Stray files**, Dozable's own records — and
 **Outside the store**: your settings file, keychain entries by name, the `doz` program, project
 folders and Apple's `container` storage. Those outside rows are shown, never deleted here.
 
@@ -76,7 +76,7 @@ sandbox's parts to **its page**, accounts to **Accounts & keys**.
 
 The page measures when you open it, on **Refresh**, and when an operation ends.
 
-![The Resources page](https://dozersandbox.com/docs/images/resources.png)
+![The Resources page](https://dozable.com/docs/images/resources.png)
 
 ## Memory, CPUs, traffic and kernels
 

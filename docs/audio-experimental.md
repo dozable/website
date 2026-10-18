@@ -1,8 +1,8 @@
 ---
 title: "Audio sandboxes (EXPERIMENTAL) — Dozable docs"
 description: "This lets a sandbox use your Mac's microphone and speakers."
-url: https://dozersandbox.com/docs/audio-experimental
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/audio-experimental
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 23
@@ -36,7 +36,7 @@ build plus that list, kept with Dozable's source.
 
 ## Inside the sandbox
 
-The tools layer ([The tools layer](https://dozersandbox.com/docs/the-tools-layer.md)) sets an audio sandbox up at every start and wake:
+The tools layer ([The tools layer](https://dozable.com/docs/the-tools-layer.md)) sets an audio sandbox up at every start and wake:
 ALSA's tools (`aplay`, `arecord`), an `/etc/asound.conf` that makes the sound card ALSA's default (one program
 at a time can play, and one can record — a second gets "Device or resource busy"), and a temporary `doz-sound`
 command:

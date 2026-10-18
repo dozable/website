@@ -1,8 +1,8 @@
 ---
 title: "Signing in from a sandbox — Dozable docs"
 description: "Many command-line tools sign you in through a web browser: they open a sign-in page, you sign in, and the provider sends your browser back to the tool on http://localhost:PORT."
-url: https://dozersandbox.com/docs/signing-in-from-a-sandbox
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/signing-in-from-a-sandbox
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 11
@@ -15,7 +15,7 @@ browser and its `localhost` isn't your Mac's — so Dozable bridges both: the pa
 browser**, and the redirect at the end finds its way back **into the sandbox**.
 
 You rarely need this for Claude itself — Dozable supplies Claude's credential already (see
-[Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md)). It's for everything else an agent may sign in to:
+[Agents and accounts](https://dozable.com/docs/agents-and-accounts.md)). It's for everything else an agent may sign in to:
 a cloud CLI, a SaaS tool's CLI, an MCP server's OAuth.
 
 ## Concepts
@@ -26,7 +26,7 @@ a cloud CLI, a SaaS tool's CLI, an MCP server's OAuth.
   `my-app opened https://example.com/docs in your browser`. Nothing is printed into the session itself
   — the agent's screen stays exactly as it drew it; when an address is refused, the program that asked
   hears why (its error output and exit status). (Given a document in `/workspace` instead of an address, the same program opens that file
-  on your Mac — see [Opening workspace files on your Mac](https://dozersandbox.com/docs/terminals-and-sessions.md#opening-workspace-files-on-your-mac).)
+  on your Mac — see [Opening workspace files on your Mac](https://dozable.com/docs/terminals-and-sessions.md#opening-workspace-files-on-your-mac).)
 - **The sign-in callback.** When the address asks the provider to send the browser back to the
   sandbox's `localhost:PORT` (its `redirect_uri`), Dozable first opens your Mac's `localhost:PORT` and
   forwards it into the sandbox, then opens the page. The notice says
@@ -49,7 +49,7 @@ a cloud CLI, a SaaS tool's CLI, an MCP server's OAuth.
 4. Sign in as usual. The browser's last redirect reaches the tool in the sandbox; the tool says it's
    signed in. The forward closes a few seconds later.
 
-![The browser-open notice](https://dozersandbox.com/docs/images/browser-open-toast.png)
+![The browser-open notice](https://dozable.com/docs/images/browser-open-toast.png)
 
 Programs that open a page without a sign-in (documentation, a report) just open in your browser.
 
@@ -81,8 +81,8 @@ The sign-in page opens on **your Mac**, outside the sandbox, so it doesn't need 
 tool inside may need to reach the provider's API afterwards: allow it as a site
 (`doz net allow my-app site:api.example.com`). For Claude's own sign-in pages there is a **Sign in**
 permission (off in Standard); with the default key policy a sign-in inside a sandbox that uses a
-token or API key is refused on purpose. See [What the agent can do](https://dozersandbox.com/docs/permissions-and-network.md)
-and [Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md#a-credential-the-agent-brings-itself).
+token or API key is refused on purpose. See [What the agent can do](https://dozable.com/docs/permissions-and-network.md)
+and [Agents and accounts](https://dozable.com/docs/agents-and-accounts.md#a-credential-the-agent-brings-itself).
 
 ## Settings
 

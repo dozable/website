@@ -1,8 +1,8 @@
 ---
 title: "The tools layer — Dozable docs"
 description: "Some settings need a tool inside the sandbox to be useful: \"GitHub as you\" is best with gh, SSH agent forwarding needs an ssh client and GitHub's host keys, tmux sessions need tmux."
-url: https://dozersandbox.com/docs/the-tools-layer
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/the-tools-layer
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 19
@@ -81,5 +81,5 @@ safe: it is downloaded again the next time a sandbox needs it).
 - Images are never rebuilt for the layer, and preparing an image never runs it: what an image holds stays
   exactly its recipe.
 
-See also: [GitHub as you](https://dozersandbox.com/docs/github.md), [Terminals and sessions](https://dozersandbox.com/docs/terminals-and-sessions.md),
-[Resources and disk space](https://dozersandbox.com/docs/resources-and-disk-space.md).
+See also: [GitHub as you](https://dozable.com/docs/github.md), [Terminals and sessions](https://dozable.com/docs/terminals-and-sessions.md),
+[Resources and disk space](https://dozable.com/docs/resources-and-disk-space.md).

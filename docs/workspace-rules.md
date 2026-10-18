@@ -1,8 +1,8 @@
 ---
 title: "Workspace rules: .dozignore and .dozreadonly — Dozable docs"
 description: "A sandbox's /workspace is your Mac folder, live. Often you want the agent to see most of it but not everything: not secrets.env, not your doz_project.yaml, not a folder of build output it would only wade through."
-url: https://dozersandbox.com/docs/workspace-rules
-image: https://dozersandbox.com/og-image.png
+url: https://dozable.com/docs/workspace-rules
+image: https://dozable.com/og-image.png
 source: "Dozable manual"
 updated: 2026-10-18
 chapter: 20
@@ -21,12 +21,12 @@ wade through. Two files at the root of the shared folder say so:
 
 Your Mac is never touched: you keep editing every file as before, and the sandbox sees your changes. With
 neither file, every file is there as it is on your Mac (the folder still goes through
-[the workspace view](https://dozersandbox.com/docs/the-workspace-view.md), which keeps programs in it working across a wake).
+[the workspace view](https://dozable.com/docs/the-workspace-view.md), which keeps programs in it working across a wake).
 
 > **A convenience, not a security boundary.** The rules keep an agent from stumbling into files. Root in
 > the sandbox — and the agent has `sudo` by default — can get around them. Anything that must not reach
 > the sandbox at all belongs outside the shared folder (or in an isolated sandbox); see the
-> [Security model](https://dozersandbox.com/docs/security-model.md).
+> [Security model](https://dozable.com/docs/security-model.md).
 
 ## The syntax: Docker's `.dockerignore`
 
@@ -159,7 +159,7 @@ it is looked up — so a file created later, on either side, is covered at once.
 metadata-heavy work: walking a tree of 2,000 files for the first time takes about 0.1 s more, reading
 everything about 1.8× as long as without rules; once looked at, it is close to the plain share — and
 hiding a big folder often makes a whole-tree walk faster than before. Without a rule file none of this
-runs. [The workspace view](https://dozersandbox.com/docs/the-workspace-view.md) has the details.
+runs. [The workspace view](https://dozable.com/docs/the-workspace-view.md) has the details.
 
 ## Troubleshooting
 
@@ -171,5 +171,5 @@ runs. [The workspace view](https://dozersandbox.com/docs/the-workspace-view.md) 
 | `/workspace` is empty in the sandbox | the view could not start; `doz ignore show NAME` says so — the next wake or start tries again |
 | the rules seem to apply only part of the time | a long-running shell inside a folder from before the rules existed: `cd /workspace` again |
 
-See also: [Projects](https://dozersandbox.com/docs/projects.md) · [Settings reference](https://dozersandbox.com/docs/settings-reference.md) ·
-[Security model](https://dozersandbox.com/docs/security-model.md).
+See also: [Projects](https://dozable.com/docs/projects.md) · [Settings reference](https://dozable.com/docs/settings-reference.md) ·
+[Security model](https://dozable.com/docs/security-model.md).
