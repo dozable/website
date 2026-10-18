@@ -4,7 +4,7 @@ description: "Three ways to copy a sandbox's disk, each instant (they're APFS cl
 url: https://dozable.com/docs/restore-points-duplicates-templates
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 12
 ---
 # Restore points, duplicates and templates

@@ -4,7 +4,7 @@ description: "Dozable runs AI coding agents, such as Claude Code, in small Linux
 url: https://dozable.com/docs/getting-started
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 1
 ---
 # Getting started
@@ -38,8 +38,8 @@ Most of that is a one-off download that you can leave running in the background.
 With [Homebrew](https://brew.sh):
 
 ```sh
-brew trust --tap dozer-sandbox/tap   # once per Mac: Homebrew loads a third-party tap's formulas only once trusted
-brew install dozer-sandbox/tap/doz
+brew trust --tap dozable/tap   # once per Mac: Homebrew loads a third-party tap's formulas only once trusted
+brew install dozable/tap/doz
 doz --version
 ```
 
@@ -139,7 +139,7 @@ one-click unsubscribe, and your email is never linked to the statistics.
 
 **Builds from the open-source repository send nothing.** The statistics and sign-up code is part of the
 official builds only and is not open source; this repository holds the list of what may be sent and
-every switch. The full policy: [dozersandbox.com/privacy](https://dozersandbox.com/privacy).
+every switch. The full policy: [dozable.com/privacy](https://dozable.com/privacy).
 
 ## Your first project
 

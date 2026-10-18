@@ -30,6 +30,10 @@ BASE = 'https://dozable.com/'
 ID_BASE = 'https://dozersandbox.com/'
 TOPICS = {'release-news': 'Release news', 'tool-news': 'Tool news', 'early-access': 'Early access', 'tips': 'Tips and tricks'}
 KEYS = ('title', 'date', 'topics', 'summary', 'email', 'status')
+# `formerly: SLUG` — the post's earlier address (it was renamed). Its feed <id> keeps that slug, so a reader does not
+# show the post again, and the old address may go without --retire. A redirect rule on the dozable.com zone (Cloudflare)
+# sends the old /blog/SLUG, /blog/SLUG.md and /blog/images/SLUG/… to the new ones: add one with each rename.
+OPTIONAL_KEYS = ('formerly',)
 REPO = 'https://github.com/dozer-sandbox/dozer-sandbox'
 
 _spec = importlib.util.spec_from_file_location('docs_build', os.path.join(SITE, 'tools', 'docs-build.py'))
@@ -63,8 +67,8 @@ def parse_front(path, name):
         if not m:
             fail('%s:%d' % (name, i + 1), 'not a "key: value" line: %r' % raw)
         key, val = m.group(1), m.group(2)
-        if key not in KEYS:
-            fail('%s:%d' % (name, i + 1), 'unknown front matter key %r (allowed: %s)' % (key, ', '.join(KEYS)))
+        if key not in KEYS + OPTIONAL_KEYS:
+            fail('%s:%d' % (name, i + 1), 'unknown front matter key %r (allowed: %s)' % (key, ', '.join(KEYS + OPTIONAL_KEYS)))
         if key in fm:
             fail('%s:%d' % (name, i + 1), 'duplicate key %r' % key)
         if key in ('topics', 'email', 'status', 'date'):
@@ -76,6 +80,8 @@ def parse_front(path, name):
         if key not in fm:
             fail(name, 'missing front matter key %r' % key)
     f = {k: v[0] for k, v in fm.items()}
+    if 'formerly' in f and not re.match(r'^[a-z0-9][a-z0-9.-]*$', f['formerly']):
+        fail('%s:%d' % (name, fm['formerly'][1]), 'formerly must be a slug (lower case, digits, hyphens), got %r' % f['formerly'])
     if not f['title'] or not f['summary']:
         fail(name, 'title and summary must not be empty')
     try:
@@ -412,7 +418,7 @@ def feed(posts):
     for p in posts:
         f = p['fm']
         url = BASE + 'blog/' + p['slug']
-        out += ['  <entry>', '    <title>%s</title>' % x(f['title']), '    <id>%s</id>' % (ID_BASE + 'blog/' + p['slug']),
+        out += ['  <entry>', '    <title>%s</title>' % x(f['title']), '    <id>%s</id>' % (ID_BASE + 'blog/' + f.get('formerly', p['slug'])),
                 '    <link rel="alternate" type="text/html" href="%s"/>' % url,
                 '    <published>%sT00:00:00Z</published>' % f['date'],
                 '    <updated>%sT00:00:00Z</updated>' % f['date'],
@@ -473,9 +479,12 @@ def check_addresses(posts, live, replace, retire):
     """A published address is permanent: it never vanishes and never starts serving another post, unless asked
     (--retire SLUG, --replace SLUG). A post is the same post while its date is the same."""
     building = {p['slug']: p['fm']['date'] for p in posts}
+    renamed = {p['fm']['formerly'] for p in posts if 'formerly' in p['fm']}
+    for slug in sorted(renamed & set(building)):
+        fail('blog/' + slug, 'a post\'s former address is another post\'s slug — it redirects to the renamed post')
     for slug, date in sorted(live.items()):
         if slug not in building:
-            if slug not in retire:
+            if slug not in retire and slug not in renamed:
                 fail('blog/' + slug, 'a published post would disappear (its folder was removed or renamed): '
                      '%sblog/%s — keep its slug, or run with --retire %s' % (BASE, slug, slug))
         elif building[slug] != date and slug not in replace:

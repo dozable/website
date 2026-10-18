@@ -4,7 +4,7 @@ description: "Every sandbox starts from an image: a prepared disk with a Linux s
 url: https://dozable.com/docs/images-and-bases
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 8
 ---
 # Images and bases

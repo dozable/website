@@ -4,7 +4,7 @@ description: "Dozable keeps everything in one folder, the store."
 url: https://dozable.com/docs/resources-and-disk-space
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 13
 ---
 # Resources and disk space

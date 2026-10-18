@@ -4,7 +4,7 @@ description: "Some settings need a tool inside the sandbox to be useful: \"GitHu
 url: https://dozable.com/docs/the-tools-layer
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 19
 ---
 # The tools layer

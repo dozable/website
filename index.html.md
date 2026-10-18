@@ -11,12 +11,12 @@ Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac — you
 Alpha Stable v0.32.0 [Version history →](https://github.com/dozer-sandbox/dozer-sandbox/releases)
 
 ```
-brew trust --tap dozer-sandbox/tap && brew install dozer-sandbox/tap/doz && doz ui
+brew trust --tap dozable/tap && brew install dozable/tap/doz && doz ui
 ```
 
 Apple silicon Mac · macOS 26 or later · [Homebrew](https://brew.sh)
 
-![Line drawing of a bulldozer asleep, with Zs rising](https://dozable.com/dozer-sleeping.jpg)
+![Line drawing of a bulldozer asleep, with Zs rising](https://dozable.com/dozable-sleeping.jpg)
 
 ## Built for sandboxing AI agents. Everything happens in milliseconds.
 
@@ -278,12 +278,12 @@ Claude Code, Codex and pi run ready to work, told where they run, with their cre
 
 [Prompts to paste for each, in the manual.](https://dozable.com/docs/prompts-for-your-agent.md)
 
-## brew install dozer-sandbox/tap/doz
+## brew install dozable/tap/doz
 
 ```
 # once per Mac: Homebrew loads a third-party tap only once trusted
-brew trust --tap dozer-sandbox/tap
-brew install dozer-sandbox/tap/doz
+brew trust --tap dozable/tap
+brew install dozable/tap/doz
 # opens the dashboard; a new install starts on its setup wizard
 doz ui
 ```

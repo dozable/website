@@ -6,14 +6,14 @@
 <meta name="color-scheme" content="light">
 <title>Introducing Dozable — Dozable blog</title>
 <meta name="description" content="Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac — free and open source. Here&#x27;s what it is, why it exists, and how to try it in a minute.">
-<link rel="canonical" href="https://dozable.com/blog/introducing-dozer-sandbox">
+<link rel="canonical" href="https://dozable.com/blog/introducing-dozable">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="Introducing Dozable — Dozable blog">
 <meta property="og:description" content="Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac — free and open source. Here&#x27;s what it is, why it exists, and how to try it in a minute.">
-<meta property="og:url" content="https://dozable.com/blog/introducing-dozer-sandbox">
+<meta property="og:url" content="https://dozable.com/blog/introducing-dozable">
 <meta property="og:image" content="https://dozable.com/og-image.png">
 <meta property="og:image:secure_url" content="https://dozable.com/og-image.png">
 <meta property="og:image:type" content="image/png">
@@ -27,7 +27,7 @@
 <meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta property="article:published_time" content="2026-10-11">
 <meta property="article:tag" content="Release news">
-<link rel="alternate" type="text/markdown" href="https://dozable.com/blog/introducing-dozer-sandbox.md">
+<link rel="alternate" type="text/markdown" href="https://dozable.com/blog/introducing-dozable.md">
 <link rel="alternate" type="application/atom+xml" title="Dozable blog" href="feed.xml">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
@@ -62,11 +62,11 @@
 <li><strong>Resumable.</strong> Put it to sleep and it gives its memory back. Wake it and every program is still running where you left it, mid-sentence.</li>
 <li><strong>Secure.</strong> The network goes through a policy you can read, and <strong>your API keys never go inside</strong>: the agent sees a placeholder, and the real key is added on your Mac on the way out.</li>
 </ul>
-<figure class="shot"><div class="frame"><img src="images/introducing-dozer-sandbox/dashboard.jpg" alt="The dashboard while an agent works" width="1280" height="860" loading="lazy" decoding="async"></div></figure>
+<figure class="shot"><div class="frame"><img src="images/introducing-dozable/dashboard.jpg" alt="The dashboard while an agent works" width="1280" height="860" loading="lazy" decoding="async"></div></figure>
 <h2 id="try-it">Try it<a class="anchor" href="#try-it" aria-label="Link to this section">#</a></h2>
 <p>You need a Mac with Apple silicon and macOS 26 or later, and Homebrew.</p>
-<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>brew trust --tap dozer-sandbox/tap
-brew install dozer-sandbox/tap/doz
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>brew trust --tap dozable/tap
+brew install dozable/tap/doz
 doz ui</code></pre></figure>
 <p>The dashboard opens on a short setup wizard: it checks your Mac, asks how your agent should sign in, and prepares an image. Then <strong>New sandbox</strong> and you&#x27;re in. Prefer the terminal? <code>doz onboard</code>, then <code>doz up</code> in a project folder.</p>
 <h2 id="free-and-open-source">Free and open source<a class="anchor" href="#free-and-open-source" aria-label="Link to this section">#</a></h2>

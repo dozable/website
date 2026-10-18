@@ -4,7 +4,7 @@ description: "A sandbox's /workspace is your Mac folder, live. Often you want th
 url: https://dozable.com/docs/workspace-rules
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 20
 ---
 # Workspace rules: `.dozignore` and `.dozreadonly`

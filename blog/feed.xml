@@ -153,51 +153,51 @@ doz try opencode --rm                             &lt;span class="c"&gt;# delete
   <entry>
     <title>Introducing Dozable</title>
     <id>https://dozersandbox.com/blog/introducing-dozer-sandbox</id>
-    <link rel="alternate" type="text/html" href="https://dozable.com/blog/introducing-dozer-sandbox"/>
+    <link rel="alternate" type="text/html" href="https://dozable.com/blog/introducing-dozable"/>
     <published>2026-10-11T00:00:00Z</published>
     <updated>2026-10-11T00:00:00Z</updated>
     <summary>Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac — free and open source. Here's what it is, why it exists, and how to try it in a minute.</summary>
     <category term="release-news" label="Release news"/>
     <content type="html">&lt;p&gt;Coding agents are at their best when you stop approving every command. They&amp;#x27;re at their most worrying then too: the agent can read your files, run anything, and reach any site, all with your keys in its environment.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Dozable&lt;/strong&gt; gives each agent its own small Linux computer on your Mac, so you can let it work.&lt;/p&gt;
-&lt;h2 id="what-a-sandbox-is"&gt;What a sandbox is&lt;a class="anchor" href="https://dozable.com/blog/introducing-dozer-sandbox#what-a-sandbox-is" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="what-a-sandbox-is"&gt;What a sandbox is&lt;a class="anchor" href="https://dozable.com/blog/introducing-dozable#what-a-sandbox-is" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Each sandbox is a small Linux virtual machine with one project folder from your Mac inside it, at &lt;code&gt;/workspace&lt;/code&gt;. Run Claude Code, Codex or pi in it with the permission prompts off: the VM is the boundary.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Fast.&lt;/strong&gt; A sandbox starts in about a third of a second and pauses in a millisecond.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Resumable.&lt;/strong&gt; Put it to sleep and it gives its memory back. Wake it and every program is still running where you left it, mid-sentence.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Secure.&lt;/strong&gt; The network goes through a policy you can read, and &lt;strong&gt;your API keys never go inside&lt;/strong&gt;: the agent sees a placeholder, and the real key is added on your Mac on the way out.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/introducing-dozer-sandbox/dashboard.jpg" alt="The dashboard while an agent works" width="1280" height="860" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
-&lt;h2 id="try-it"&gt;Try it&lt;a class="anchor" href="https://dozable.com/blog/introducing-dozer-sandbox#try-it" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/introducing-dozable/dashboard.jpg" alt="The dashboard while an agent works" width="1280" height="860" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;h2 id="try-it"&gt;Try it&lt;a class="anchor" href="https://dozable.com/blog/introducing-dozable#try-it" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;You need a Mac with Apple silicon and macOS 26 or later, and Homebrew.&lt;/p&gt;
-&lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;brew trust --tap dozer-sandbox/tap
-brew install dozer-sandbox/tap/doz
+&lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;brew trust --tap dozable/tap
+brew install dozable/tap/doz
 doz ui&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;The dashboard opens on a short setup wizard: it checks your Mac, asks how your agent should sign in, and prepares an image. Then &lt;strong&gt;New sandbox&lt;/strong&gt; and you&amp;#x27;re in. Prefer the terminal? &lt;code&gt;doz onboard&lt;/code&gt;, then &lt;code&gt;doz up&lt;/code&gt; in a project folder.&lt;/p&gt;
-&lt;h2 id="free-and-open-source"&gt;Free and open source&lt;a class="anchor" href="https://dozable.com/blog/introducing-dozer-sandbox#free-and-open-source" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="free-and-open-source"&gt;Free and open source&lt;a class="anchor" href="https://dozable.com/blog/introducing-dozable#free-and-open-source" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Dozable is free, and its source is on &lt;a href="https://github.com/dozer-sandbox/dozer-sandbox"&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;This blog is where news, early access and tips will appear. They&amp;#x27;re also sent by email to anyone who &lt;a href="https://dozable.com/signup"&gt;signs up&lt;/a&gt; for them. Thanks for reading, and for trying it.&lt;/p&gt;</content>
   </entry>
   <entry>
     <title>Dozable 0.33 - see what your agent is doing</title>
     <id>https://dozersandbox.com/blog/dozer-0-33</id>
-    <link rel="alternate" type="text/html" href="https://dozable.com/blog/dozer-0-33"/>
+    <link rel="alternate" type="text/html" href="https://dozable.com/blog/dozable-0-33"/>
     <published>2026-10-11T00:00:00Z</published>
     <updated>2026-10-11T00:00:00Z</updated>
     <summary>Dozable 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.</summary>
     <category term="release-news" label="Release news"/>
     <content type="html">&lt;p&gt;It&amp;#x27;s on the &lt;a href="https://dozable.com/docs/install-upgrade-uninstall"&gt;stable channel&lt;/a&gt; now, as 0.33.1. Here&amp;#x27;s each change.&lt;/p&gt;
-&lt;h2 id="see-what-the-agent-is-doing"&gt;See what the agent is doing&lt;a class="anchor" href="https://dozable.com/blog/dozer-0-33#see-what-the-agent-is-doing" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="see-what-the-agent-is-doing"&gt;See what the agent is doing&lt;a class="anchor" href="https://dozable.com/blog/dozable-0-33#see-what-the-agent-is-doing" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Claude Code and pi now tell Dozable what they&amp;#x27;re doing: &lt;strong&gt;working&lt;/strong&gt;, &lt;strong&gt;done&lt;/strong&gt;, waiting for your answer, or stopped by an error. Dozable shows it in the dashboard wherever the session appears, so you can leave an agent to work and glance back when it matters.&lt;/p&gt;
 &lt;p&gt;While the agent works, its tab shows &lt;strong&gt;working&lt;/strong&gt;, and a dot beside the sandbox in the sidebar says something is going on.&lt;/p&gt;
-&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/dozer-0-33/agent-working.jpg" alt="A Claude Code session at work: the tab says working, and the sandbox has a dot in the sidebar" width="1600" height="1137" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/dozable-0-33/agent-working.jpg" alt="A Claude Code session at work: the tab says working, and the sandbox has a dot in the sidebar" width="1600" height="1137" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
 &lt;p&gt;When the agent stops to ask you something, such as permission to run a command, a notice appears at the top of the dashboard saying what it wants, with an &lt;strong&gt;Open&lt;/strong&gt; button that takes you straight to the session. You see it on whichever page you&amp;#x27;re on.&lt;/p&gt;
-&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/dozer-0-33/agent-needs-permission.jpg" alt="Claude Code asking to run the tests: the notice at the top names the command, and the tab says needs permission" width="1600" height="1308" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/dozable-0-33/agent-needs-permission.jpg" alt="Claude Code asking to run the tests: the notice at the top names the command, and the tab says needs permission" width="1600" height="1308" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
 &lt;p&gt;When it finishes, the tab says &lt;strong&gt;done&lt;/strong&gt; and the notice tells you so. The same status shows on every tile in &lt;strong&gt;All sessions&lt;/strong&gt;, so with several sandboxes running you can see at a glance which agent is still busy and which is waiting for you.&lt;/p&gt;
-&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/dozer-0-33/agent-done.jpg" alt="Claude Code has finished: the notice says done, and so does the tab" width="1600" height="1025" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
-&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/dozer-0-33/all-sessions-status.jpg" alt="All sessions: the Claude Code tile says done, beside a plain shell" width="1500" height="680" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/dozable-0-33/agent-done.jpg" alt="Claude Code has finished: the notice says done, and so does the tab" width="1600" height="1025" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
+&lt;figure class="shot"&gt;&lt;div class="frame"&gt;&lt;img src="https://dozable.com/blog/images/dozable-0-33/all-sessions-status.jpg" alt="All sessions: the Claude Code tile says done, beside a plain shell" width="1500" height="680" loading="lazy" decoding="async"&gt;&lt;/div&gt;&lt;/figure&gt;
 &lt;p&gt;The status shows while the dashboard is open (&lt;code&gt;doz ui&lt;/code&gt;). Claude Code needs version 2.1.295 or later, and pi 1.1.0 or later.&lt;/p&gt;
-&lt;h3 id="how-it-works"&gt;How it works&lt;a class="anchor" href="https://dozable.com/blog/dozer-0-33#how-it-works" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id="how-it-works"&gt;How it works&lt;a class="anchor" href="https://dozable.com/blog/dozable-0-33#how-it-works" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h3&gt;
 &lt;p&gt;It uses a terminal escape sequence: bytes mixed into a program&amp;#x27;s output that the terminal acts on instead of showing, the same way programs set a window&amp;#x27;s title or colours. This one is &lt;strong&gt;OSC 7501&lt;/strong&gt;, for program status (&lt;a href="https://mitchellh.com/writing/program-status-osc7501"&gt;Mitchell Hashimoto&amp;#x27;s write-up&lt;/a&gt;).&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;The handshake:&lt;/strong&gt; a program asks the terminal whether it understands the sequence (&lt;code&gt;ESC ] 7501 ; ? ST&lt;/code&gt;). If the terminal answers, the program reports its state (working, done, blocked or error, with a short message) each time it changes.&lt;/li&gt;
@@ -205,16 +205,16 @@ doz ui&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;li&gt;&lt;strong&gt;On your Mac:&lt;/strong&gt; the Dozable host watches each running session&amp;#x27;s status, and the dashboard draws it.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Nothing is read from the screen or guessed: Dozable shows exactly what the agent itself reports.&lt;/p&gt;
-&lt;h2 id="doz-upgrade"&gt;&lt;code&gt;doz upgrade&lt;/code&gt;&lt;a class="anchor" href="https://dozable.com/blog/dozer-0-33#doz-upgrade" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="doz-upgrade"&gt;&lt;code&gt;doz upgrade&lt;/code&gt;&lt;a class="anchor" href="https://dozable.com/blog/dozable-0-33#doz-upgrade" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;One command moves you to the newest version on your channel. It asks first; &lt;code&gt;-y&lt;/code&gt; skips the question.&lt;/p&gt;
 &lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;doz upgrade&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-&lt;h2 id="the-dashboard-in-the-background"&gt;The dashboard in the background&lt;a class="anchor" href="https://dozable.com/blog/dozer-0-33#the-dashboard-in-the-background" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="the-dashboard-in-the-background"&gt;The dashboard in the background&lt;a class="anchor" href="https://dozable.com/blog/dozable-0-33#the-dashboard-in-the-background" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;doz ui --detach&lt;/code&gt; runs the dashboard without holding a terminal, and &lt;code&gt;doz ui stop&lt;/code&gt; stops it from any terminal.&lt;/p&gt;
-&lt;h2 id="staying-in-touch"&gt;Staying in touch&lt;a class="anchor" href="https://dozable.com/blog/dozer-0-33#staying-in-touch" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="staying-in-touch"&gt;Staying in touch&lt;a class="anchor" href="https://dozable.com/blog/dozable-0-33#staying-in-touch" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Setup now ends with an optional sign-up for release news, early access, and tips and tricks, by email. Skip it, or sign up later with &lt;code&gt;doz signup&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id="fixed-in-0331-the-agent-can-write-your-workspace-again"&gt;Fixed in 0.33.1: the agent can write your workspace again&lt;a class="anchor" href="https://dozable.com/blog/dozer-0-33#fixed-in-0331-the-agent-can-write-your-workspace-again" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="fixed-in-0331-the-agent-can-write-your-workspace-again"&gt;Fixed in 0.33.1: the agent can write your workspace again&lt;a class="anchor" href="https://dozable.com/blog/dozable-0-33#fixed-in-0331-the-agent-can-write-your-workspace-again" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;p&gt;Since 0.30, an agent in a sandbox could read a shared project folder but not change it, and &lt;code&gt;git&lt;/code&gt; refused the folder (&amp;quot;dubious ownership&amp;quot;). 0.33.1 fixes it. After upgrading, a sandbox that was running, asleep or hibernated needs a &lt;code&gt;doz shutdown NAME&lt;/code&gt; and then &lt;code&gt;doz start NAME&lt;/code&gt;; one that was shut down picks up the fix at its next start.&lt;/p&gt;
-&lt;h2 id="upgrade"&gt;Upgrade&lt;a class="anchor" href="https://dozable.com/blog/dozer-0-33#upgrade" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="upgrade"&gt;Upgrade&lt;a class="anchor" href="https://dozable.com/blog/dozable-0-33#upgrade" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
 &lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;doz upgrade&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;New to Dozable? &lt;a href="https://dozable.com/docs/getting-started"&gt;Getting started&lt;/a&gt; takes a few minutes.&lt;/p&gt;</content>
   </entry>

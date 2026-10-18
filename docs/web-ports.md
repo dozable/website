@@ -4,7 +4,7 @@ description: "Some tools serve a web page from inside the sandbox: a chat playgr
 url: https://dozable.com/docs/web-ports
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 29
 ---
 # Web ports: opening a sandbox's web page on your Mac

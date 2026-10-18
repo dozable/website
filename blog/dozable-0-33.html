@@ -6,14 +6,14 @@
 <meta name="color-scheme" content="light">
 <title>Dozable 0.33 - see what your agent is doing — Dozable blog</title>
 <meta name="description" content="Dozable 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.">
-<link rel="canonical" href="https://dozable.com/blog/dozer-0-33">
+<link rel="canonical" href="https://dozable.com/blog/dozable-0-33">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="Dozable 0.33 - see what your agent is doing — Dozable blog">
 <meta property="og:description" content="Dozable 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up.">
-<meta property="og:url" content="https://dozable.com/blog/dozer-0-33">
+<meta property="og:url" content="https://dozable.com/blog/dozable-0-33">
 <meta property="og:image" content="https://dozable.com/og-image.png">
 <meta property="og:image:secure_url" content="https://dozable.com/og-image.png">
 <meta property="og:image:type" content="image/png">
@@ -27,7 +27,7 @@
 <meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta property="article:published_time" content="2026-10-11">
 <meta property="article:tag" content="Release news">
-<link rel="alternate" type="text/markdown" href="https://dozable.com/blog/dozer-0-33.md">
+<link rel="alternate" type="text/markdown" href="https://dozable.com/blog/dozable-0-33.md">
 <link rel="alternate" type="application/atom+xml" title="Dozable blog" href="feed.xml">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
@@ -57,12 +57,12 @@
 <h2 id="see-what-the-agent-is-doing">See what the agent is doing<a class="anchor" href="#see-what-the-agent-is-doing" aria-label="Link to this section">#</a></h2>
 <p>Claude Code and pi now tell Dozable what they&#x27;re doing: <strong>working</strong>, <strong>done</strong>, waiting for your answer, or stopped by an error. Dozable shows it in the dashboard wherever the session appears, so you can leave an agent to work and glance back when it matters.</p>
 <p>While the agent works, its tab shows <strong>working</strong>, and a dot beside the sandbox in the sidebar says something is going on.</p>
-<figure class="shot"><div class="frame"><img src="images/dozer-0-33/agent-working.jpg" alt="A Claude Code session at work: the tab says working, and the sandbox has a dot in the sidebar" width="1600" height="1137" loading="lazy" decoding="async"></div></figure>
+<figure class="shot"><div class="frame"><img src="images/dozable-0-33/agent-working.jpg" alt="A Claude Code session at work: the tab says working, and the sandbox has a dot in the sidebar" width="1600" height="1137" loading="lazy" decoding="async"></div></figure>
 <p>When the agent stops to ask you something, such as permission to run a command, a notice appears at the top of the dashboard saying what it wants, with an <strong>Open</strong> button that takes you straight to the session. You see it on whichever page you&#x27;re on.</p>
-<figure class="shot"><div class="frame"><img src="images/dozer-0-33/agent-needs-permission.jpg" alt="Claude Code asking to run the tests: the notice at the top names the command, and the tab says needs permission" width="1600" height="1308" loading="lazy" decoding="async"></div></figure>
+<figure class="shot"><div class="frame"><img src="images/dozable-0-33/agent-needs-permission.jpg" alt="Claude Code asking to run the tests: the notice at the top names the command, and the tab says needs permission" width="1600" height="1308" loading="lazy" decoding="async"></div></figure>
 <p>When it finishes, the tab says <strong>done</strong> and the notice tells you so. The same status shows on every tile in <strong>All sessions</strong>, so with several sandboxes running you can see at a glance which agent is still busy and which is waiting for you.</p>
-<figure class="shot"><div class="frame"><img src="images/dozer-0-33/agent-done.jpg" alt="Claude Code has finished: the notice says done, and so does the tab" width="1600" height="1025" loading="lazy" decoding="async"></div></figure>
-<figure class="shot"><div class="frame"><img src="images/dozer-0-33/all-sessions-status.jpg" alt="All sessions: the Claude Code tile says done, beside a plain shell" width="1500" height="680" loading="lazy" decoding="async"></div></figure>
+<figure class="shot"><div class="frame"><img src="images/dozable-0-33/agent-done.jpg" alt="Claude Code has finished: the notice says done, and so does the tab" width="1600" height="1025" loading="lazy" decoding="async"></div></figure>
+<figure class="shot"><div class="frame"><img src="images/dozable-0-33/all-sessions-status.jpg" alt="All sessions: the Claude Code tile says done, beside a plain shell" width="1500" height="680" loading="lazy" decoding="async"></div></figure>
 <p>The status shows while the dashboard is open (<code>doz ui</code>). Claude Code needs version 2.1.295 or later, and pi 1.1.0 or later.</p>
 <h3 id="how-it-works">How it works<a class="anchor" href="#how-it-works" aria-label="Link to this section">#</a></h3>
 <p>It uses a terminal escape sequence: bytes mixed into a program&#x27;s output that the terminal acts on instead of showing, the same way programs set a window&#x27;s title or colours. This one is <strong>OSC 7501</strong>, for program status (<a href="https://mitchellh.com/writing/program-status-osc7501">Mitchell Hashimoto&#x27;s write-up</a>).</p>

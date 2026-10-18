@@ -4,7 +4,7 @@ description: "So far you have run doz. But the agent you already use on your Mac
 url: https://dozable.com/docs/letting-another-agent-drive
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 14
 ---
 # Letting another agent drive Dozable

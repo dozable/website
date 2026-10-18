@@ -4,7 +4,7 @@ description: "OpenAI's Codex runs in a Dozable sandbox the way Claude Code does:
 url: https://dozable.com/docs/codex
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 24
 ---
 # Codex

@@ -4,7 +4,7 @@ description: "Your Mac's own coding agent — Claude Code, Codex, Cursor — can
 url: https://dozable.com/docs/prompts-for-your-agent
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 22
 ---
 # Prompts for your agent
@@ -29,8 +29,8 @@ Paste:
 What it will run:
 
 ```sh
-brew trust --tap dozer-sandbox/tap
-brew install dozer-sandbox/tap/doz
+brew trust --tap dozable/tap
+brew install dozable/tap/doz
 doz --version
 doz doctor --json
 ```

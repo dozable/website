@@ -4,7 +4,7 @@ description: "doz ui is Dozable in your browser: every sandbox with a live termi
 url: https://dozable.com/docs/the-dashboard
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 6
 ---
 # The dashboard (`doz ui`)

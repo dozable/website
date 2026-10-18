@@ -4,7 +4,7 @@ description: "An agent on your Mac uses git and gh as you: it clones your privat
 url: https://dozable.com/docs/github
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 18
 ---
 # GitHub as you

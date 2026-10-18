@@ -4,7 +4,7 @@ description: "Setup — onboarding — is what you do once after installing: it 
 url: https://dozable.com/docs/setting-up
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 3
 ---
 # Setting up this Mac

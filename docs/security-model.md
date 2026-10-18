@@ -4,7 +4,7 @@ description: "Dozable's job is to let an AI agent work freely — install things
 url: https://dozable.com/docs/security-model
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 16
 ---
 # Security model

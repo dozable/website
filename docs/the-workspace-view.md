@@ -4,7 +4,7 @@ description: "/workspace inside a sandbox is not your shared folder itself: it i
 url: https://dozable.com/docs/the-workspace-view
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 21
 ---
 # The workspace view (`dozview`)

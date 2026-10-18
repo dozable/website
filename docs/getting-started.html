@@ -145,8 +145,8 @@
 </ul>
 <h2 id="install">Install<a class="anchor" href="#install" aria-label="Link to this section">#</a></h2>
 <p>With <a href="https://brew.sh">Homebrew</a>:</p>
-<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>brew trust --tap dozer-sandbox/tap   <span class="c"># once per Mac: Homebrew loads a third-party tap&#x27;s formulas only once trusted</span>
-brew install dozer-sandbox/tap/doz
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>brew trust --tap dozable/tap   <span class="c"># once per Mac: Homebrew loads a third-party tap&#x27;s formulas only once trusted</span>
+brew install dozable/tap/doz
 doz --version</code></pre></figure>
 <p>The install takes seconds (a prebuilt, signed <code>doz</code>) and ends with a hint: <code>doz onboard</code>. More on installing, upgrading and removing: <a href="install-upgrade-uninstall">Installing, upgrading and uninstalling</a>.</p>
 <h2 id="set-up-this-mac">Set up this Mac<a class="anchor" href="#set-up-this-mac" aria-label="Link to this section">#</a></h2>
@@ -184,7 +184,7 @@ DO_NOT_TRACK=1 doz ls                                   <span class="c"># off wh
 doz ls --no-send-anonymous-usage-stats                  <span class="c"># off for one command</span>
 doz telemetry reset                                     <span class="c"># a new random install id</span></code></pre></figure>
 <p><strong>Signing up is optional</strong>: <code>doz signup</code> (or the setup&#x27;s <em>Stay in touch</em>) asks for an email and what you want — release news, tool news (new and updated tools you can try), early access, tips and tricks. A confirmation email comes first; every email has a one-click unsubscribe, and your email is never linked to the statistics.</p>
-<p><strong>Builds from the open-source repository send nothing.</strong> The statistics and sign-up code is part of the official builds only and is not open source; this repository holds the list of what may be sent and every switch. The full policy: <a href="https://dozersandbox.com/privacy">dozersandbox.com/privacy</a>.</p>
+<p><strong>Builds from the open-source repository send nothing.</strong> The statistics and sign-up code is part of the official builds only and is not open source; this repository holds the list of what may be sent and every switch. The full policy: <a href="https://dozable.com/privacy">dozable.com/privacy</a>.</p>
 <h2 id="your-first-project">Your first project<a class="anchor" href="#your-first-project" aria-label="Link to this section">#</a></h2>
 <p>A sandbox works on one project folder, shared into it at <code>/workspace</code>: the agent&#x27;s changes appear on your Mac at once, and your editor sees them live.</p>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>cd ~/code/my-app

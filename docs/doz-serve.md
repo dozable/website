@@ -4,7 +4,7 @@ description: "doz ui is this Mac's own dashboard: it listens on 127.0.0.1 and no
 url: https://dozable.com/docs/doz-serve
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 25
 ---
 # The dashboard on your other computers, tablets and phones (`doz serve`)

@@ -4,7 +4,7 @@ description: "Dozable runs three AI coding agents out of the box — Claude Code
 url: https://dozable.com/docs/agents-and-accounts
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 9
 ---
 # Agents and accounts

@@ -4,7 +4,7 @@ description: "doz doctor checks everything Dozable depends on — macOS and Appl
 url: https://dozable.com/docs/troubleshooting-and-faq
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 17
 ---
 # Troubleshooting and FAQ

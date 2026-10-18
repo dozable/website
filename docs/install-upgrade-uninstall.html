@@ -143,16 +143,17 @@
 </ul>
 <h2 id="install">Install<a class="anchor" href="#install" aria-label="Link to this section">#</a></h2>
 <p>You need a Mac with Apple silicon and macOS 26 or later.</p>
-<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>brew trust --tap dozer-sandbox/tap   <span class="c"># once per Mac: Homebrew loads a third-party tap&#x27;s formulas only once trusted</span>
-brew install dozer-sandbox/tap/doz
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>brew trust --tap dozable/tap   <span class="c"># once per Mac: Homebrew loads a third-party tap&#x27;s formulas only once trusted</span>
+brew install dozable/tap/doz
 doz --version</code></pre></figure>
 <p>Recent Homebrew loads formulas from a third-party tap only after you trust it — <code>brew trust</code> is needed once per Mac (without it <code>brew install</code> refuses the formula). Homebrew then adds Dozable&#x27;s tap and installs a prebuilt, signed and notarised <code>doz</code> in seconds — no compiler is needed. It ends with a hint: run <code>doz onboard</code> (<a href="setting-up">Setting up</a>).</p>
+<p>The tap used to be called <code>dozer-sandbox/tap</code>. If you installed from it, nothing changes: it still gets every update, and <code>doz upgrade</code> uses it.</p>
 <h3 id="release-channels">Release channels<a class="anchor" href="#release-channels" aria-label="Link to this section">#</a></h3>
 <p>There is one formula per release channel; they install the same <code>doz</code> command, so you have one at a time:</p>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Release channels"><table>
 <thead><tr><th scope="col">formula</th><th scope="col">channel</th><th scope="col">what you get</th></tr></thead>
 <tbody>
-<tr><td><code>dozer-sandbox/tap/doz</code></td><td>stable</td><td>releases</td></tr><tr><td><code>dozer-sandbox/tap/doz-beta</code></td><td>beta</td><td>beta builds first, and every release</td></tr><tr><td><code>dozer-sandbox/tap/doz-canary</code></td><td>canary</td><td>every build, first</td></tr>
+<tr><td><code>dozable/tap/doz</code></td><td>stable</td><td>releases</td></tr><tr><td><code>dozable/tap/doz-beta</code></td><td>beta</td><td>beta builds first, and every release</td></tr><tr><td><code>dozable/tap/doz-canary</code></td><td>canary</td><td>every build, first</td></tr>
 </tbody></table></div>
 <p><code>doz upgrade --channel beta</code> switches: it asks, then Homebrew uninstalls one formula and installs the other. Your store, sandboxes and settings are not Homebrew&#x27;s and stay. doz never installs an older build — switching to a channel whose newest build is older than yours waits until that channel catches up.</p>
 <h3 id="without-homebrew">Without Homebrew<a class="anchor" href="#without-homebrew" aria-label="Link to this section">#</a></h3>
@@ -210,7 +211,7 @@ brew uninstall doz</code></pre></figure>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Troubleshooting"><table>
 <thead><tr><th scope="col">symptom</th><th scope="col">what to do</th></tr></thead>
 <tbody>
-<tr><td><code>brew install</code> says another doz formula is installed</td><td>One channel at a time: <code>doz upgrade --channel …</code> switches (or <code>brew uninstall</code> the other first).</td></tr><tr><td>&quot;the update feed was ignored&quot; / &quot;do not verify&quot;</td><td>Nothing is installed from it; doz keeps working. If it persists, check your network isn&#x27;t rewriting <code>updates.dozersandbox.com</code>.</td></tr><tr><td><code>doz: command not found</code></td><td><code>brew list doz</code>, then open a new terminal window.</td></tr><tr><td>&quot;this host&#x27;s program … is gone — an upgrade removed it&quot;</td><td><code>doz host stop</code>, then run your command again.</td></tr><tr><td>&quot;cannot boot a VM&quot; or a message about the entitlement</td><td><code>doz doctor</code>. Reinstall: <code>brew reinstall doz</code>.</td></tr><tr><td>Start over from nothing</td><td><code>doz uninstall</code>, <code>brew uninstall doz</code>, then <code>brew trust --tap dozer-sandbox/tap</code>, <code>brew install dozer-sandbox/tap/doz</code> and <code>doz onboard</code>.</td></tr>
+<tr><td><code>brew install</code> says another doz formula is installed</td><td>One channel at a time: <code>doz upgrade --channel …</code> switches (or <code>brew uninstall</code> the other first).</td></tr><tr><td>&quot;the update feed was ignored&quot; / &quot;do not verify&quot;</td><td>Nothing is installed from it; doz keeps working. If it persists, check your network isn&#x27;t rewriting <code>updates.dozersandbox.com</code>.</td></tr><tr><td><code>doz: command not found</code></td><td><code>brew list doz</code>, then open a new terminal window.</td></tr><tr><td>&quot;this host&#x27;s program … is gone — an upgrade removed it&quot;</td><td><code>doz host stop</code>, then run your command again.</td></tr><tr><td>&quot;cannot boot a VM&quot; or a message about the entitlement</td><td><code>doz doctor</code>. Reinstall: <code>brew reinstall doz</code>.</td></tr><tr><td>Start over from nothing</td><td><code>doz uninstall</code>, <code>brew uninstall doz</code>, then <code>brew trust --tap dozable/tap</code>, <code>brew install dozable/tap/doz</code> and <code>doz onboard</code>.</td></tr>
 </tbody></table></div>
 <!-- /manual text -->
 </div>

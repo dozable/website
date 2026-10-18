@@ -4,7 +4,7 @@ description: "The user manual for Dozable: install, set up, and run AI coding ag
 url: https://dozable.com/docs/
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 ---
 # The Dozable manual
 

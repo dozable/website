@@ -3,7 +3,7 @@ title: "Introducing Dozable — Dozable blog"
 description: "Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac — free and open source. Here's what it is, why it exists, and how to try it in a minute."
 date: 2026-10-11
 topics: [release-news]
-url: https://dozable.com/blog/introducing-dozer-sandbox
+url: https://dozable.com/blog/introducing-dozable
 image: https://dozable.com/og-image.png
 source: "Dozable blog"
 ---
@@ -27,15 +27,15 @@ Run Claude Code, Codex or pi in it with the permission prompts off: the VM is th
 - **Secure.** The network goes through a policy you can read, and **your API keys never go inside**: the agent sees
   a placeholder, and the real key is added on your Mac on the way out.
 
-![The dashboard while an agent works](https://dozable.com/blog/images/introducing-dozer-sandbox/dashboard.jpg)
+![The dashboard while an agent works](https://dozable.com/blog/images/introducing-dozable/dashboard.jpg)
 
 ## Try it
 
 You need a Mac with Apple silicon and macOS 26 or later, and Homebrew.
 
 ```sh
-brew trust --tap dozer-sandbox/tap
-brew install dozer-sandbox/tap/doz
+brew trust --tap dozable/tap
+brew install dozable/tap/doz
 doz ui
 ```
 

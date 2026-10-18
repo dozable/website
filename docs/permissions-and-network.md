@@ -4,7 +4,7 @@ description: "A sandbox has no network card. Its only way out is a proxy in Doza
 url: https://dozable.com/docs/permissions-and-network
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 10
 ---
 # What the agent can do: permissions and the network

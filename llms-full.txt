@@ -39,8 +39,8 @@ Most of that is a one-off download that you can leave running in the background.
 With [Homebrew](https://brew.sh):
 
 ```sh
-brew trust --tap dozer-sandbox/tap   # once per Mac: Homebrew loads a third-party tap's formulas only once trusted
-brew install dozer-sandbox/tap/doz
+brew trust --tap dozable/tap   # once per Mac: Homebrew loads a third-party tap's formulas only once trusted
+brew install dozable/tap/doz
 doz --version
 ```
 
@@ -140,7 +140,7 @@ one-click unsubscribe, and your email is never linked to the statistics.
 
 **Builds from the open-source repository send nothing.** The statistics and sign-up code is part of the
 official builds only and is not open source; this repository holds the list of what may be sent and
-every switch. The full policy: [dozersandbox.com/privacy](https://dozersandbox.com/privacy).
+every switch. The full policy: [dozable.com/privacy](https://dozable.com/privacy).
 
 ## Your first project
 
@@ -287,8 +287,8 @@ machines. You install it with Homebrew.
 You need a Mac with Apple silicon and macOS 26 or later.
 
 ```sh
-brew trust --tap dozer-sandbox/tap   # once per Mac: Homebrew loads a third-party tap's formulas only once trusted
-brew install dozer-sandbox/tap/doz
+brew trust --tap dozable/tap   # once per Mac: Homebrew loads a third-party tap's formulas only once trusted
+brew install dozable/tap/doz
 doz --version
 ```
 
@@ -296,15 +296,18 @@ Recent Homebrew loads formulas from a third-party tap only after you trust it �
 once per Mac (without it `brew install` refuses the formula). Homebrew then adds Dozable's tap and installs
 a prebuilt, signed and notarised `doz` in seconds — no compiler is needed. It ends with a hint: run `doz onboard` ([Setting up](https://dozable.com/docs/setting-up.md)).
 
+The tap used to be called `dozer-sandbox/tap`. If you installed from it, nothing changes: it still gets every
+update, and `doz upgrade` uses it.
+
 ### Release channels
 
 There is one formula per release channel; they install the same `doz` command, so you have one at a time:
 
 | formula | channel | what you get |
 |---|---|---|
-| `dozer-sandbox/tap/doz` | stable | releases |
-| `dozer-sandbox/tap/doz-beta` | beta | beta builds first, and every release |
-| `dozer-sandbox/tap/doz-canary` | canary | every build, first |
+| `dozable/tap/doz` | stable | releases |
+| `dozable/tap/doz-beta` | beta | beta builds first, and every release |
+| `dozable/tap/doz-canary` | canary | every build, first |
 
 `doz upgrade --channel beta` switches: it asks, then Homebrew uninstalls one formula and installs the other.
 Your store, sandboxes and settings are not Homebrew's and stay. doz never installs an older build — switching
@@ -439,7 +442,7 @@ Don't have a Homebrew `doz` and a source-built one on your `PATH` at the same ti
 | `doz: command not found` | `brew list doz`, then open a new terminal window. |
 | "this host's program … is gone — an upgrade removed it" | `doz host stop`, then run your command again. |
 | "cannot boot a VM" or a message about the entitlement | `doz doctor`. Reinstall: `brew reinstall doz`. |
-| Start over from nothing | `doz uninstall`, `brew uninstall doz`, then `brew trust --tap dozer-sandbox/tap`, `brew install dozer-sandbox/tap/doz` and `doz onboard`. |
+| Start over from nothing | `doz uninstall`, `brew uninstall doz`, then `brew trust --tap dozable/tap`, `brew install dozable/tap/doz` and `doz onboard`. |
 
 ---
 
@@ -3130,7 +3133,7 @@ This table is generated from `doz config show` and checked against it on every b
 | `defaults.cpus` | `2` | integer 1–64 | new sandboxes | `doz create --cpus` | CPUs of a new sandbox. |
 | `defaults.nat_subnet` | `""` | IPv4 subnet, a.b.c.d/nn ("" = a free one) | new sandboxes | `$DOZ_SUBNET`, `doz create --subnet` | The vmnet subnet of a new --network nat sandbox. |
 | `defaults.image` | `lab` | lab \| claude-code \| pi \| codex, or an agent or tool's id (doz try lists them) | new sandboxes | `doz create --image` | The image of a new sandbox when none is named (doz up NAME, doz init, the UI's New sandbox). doz onboard writes the one you chose. |
-| `defaults.projects_dir` | `~/doz-workspaces` | path ("" = automatic) | new sandboxes | — | The base folder of new sandboxes' workspaces (a Mac that already has `~/dozer-sandbox-workspaces` keeps using it until you set this): the web UI's New sandbox and Quick add, and doz new, share <projects_dir>/<sandbox name> (created when missing, like any workspace). doz create is isolated unless --workspace; doz init uses the folder it runs in. In the web UI, Settings › Choose… sets it with the Mac's folder picker. |
+| `defaults.projects_dir` | `~/doz-workspaces` | path ("" = automatic) | new sandboxes | — | The base folder of new sandboxes' workspaces: the web UI's New sandbox and Quick add, and doz new, share <projects_dir>/<sandbox name> (created when missing, like any workspace). doz create is isolated unless --workspace; doz init uses the folder it runs in. In the web UI, Settings › Choose… sets it with the Mac's folder picker. |
 | `defaults.account` | `mac` | mac \| none | a store that hasn't chosen | — | The Anthropic account of a store that has not chosen one: mac (this Mac's Claude Code login) or none. doz account default decides for a store once it has. |
 | `defaults.permissions` | `standard` | standard \| locked \| open, or permissions like +web,-error-reports (doz net permissions) | new sandboxes | `doz create --allow / --network` | What a new sandbox's agent may do (its network, as permissions — doz net permissions): standard (talk to its AI model, update itself, install system packages and its base's language packages, use GitHub, send error reports), locked (its AI model only), open (everything, the web included), or standard with changes like +web,-error-reports. Stored by name: a Dozable update that adds a host to a permission reaches every sandbox that has it. |
 | `defaults.github` | `off` | off \| read \| push | new sandboxes | `doz create --github off\|read\|push` | "Use GitHub as you" for new sandboxes: off, read (git and gh signed in as you on GitHub, read-only) or push (also push and make changes) — the Access step's choice (doz access set --github). A sandbox can differ: doz create --github, github: in doz_project.yaml, or its permissions later (doz net allow\|deny NAME github:as-you). Proxied sandboxes only. |
@@ -4521,8 +4524,8 @@ Paste:
 What it will run:
 
 ```sh
-brew trust --tap dozer-sandbox/tap
-brew install dozer-sandbox/tap/doz
+brew trust --tap dozable/tap
+brew install dozable/tap/doz
 doz --version
 doz doctor --json
 ```

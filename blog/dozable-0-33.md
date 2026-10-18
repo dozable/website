@@ -3,7 +3,7 @@ title: "Dozable 0.33 - see what your agent is doing — Dozable blog"
 description: "Dozable 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up."
 date: 2026-10-11
 topics: [release-news]
-url: https://dozable.com/blog/dozer-0-33
+url: https://dozable.com/blog/dozable-0-33
 image: https://dozable.com/og-image.png
 source: "Dozable blog"
 ---
@@ -22,21 +22,21 @@ back when it matters.
 While the agent works, its tab shows **working**, and a dot beside the sandbox in the sidebar says something is
 going on.
 
-![A Claude Code session at work: the tab says working, and the sandbox has a dot in the sidebar](https://dozable.com/blog/images/dozer-0-33/agent-working.jpg)
+![A Claude Code session at work: the tab says working, and the sandbox has a dot in the sidebar](https://dozable.com/blog/images/dozable-0-33/agent-working.jpg)
 
 When the agent stops to ask you something, such as permission to run a command, a notice appears at the top of the
 dashboard saying what it wants, with an **Open** button that takes you straight to the session. You see it on
 whichever page you're on.
 
-![Claude Code asking to run the tests: the notice at the top names the command, and the tab says needs permission](https://dozable.com/blog/images/dozer-0-33/agent-needs-permission.jpg)
+![Claude Code asking to run the tests: the notice at the top names the command, and the tab says needs permission](https://dozable.com/blog/images/dozable-0-33/agent-needs-permission.jpg)
 
 When it finishes, the tab says **done** and the notice tells you so. The same status shows on every tile in
 **All sessions**, so with several sandboxes running you can see at a glance which agent is still busy and which is
 waiting for you.
 
-![Claude Code has finished: the notice says done, and so does the tab](https://dozable.com/blog/images/dozer-0-33/agent-done.jpg)
+![Claude Code has finished: the notice says done, and so does the tab](https://dozable.com/blog/images/dozable-0-33/agent-done.jpg)
 
-![All sessions: the Claude Code tile says done, beside a plain shell](https://dozable.com/blog/images/dozer-0-33/all-sessions-status.jpg)
+![All sessions: the Claude Code tile says done, beside a plain shell](https://dozable.com/blog/images/dozable-0-33/all-sessions-status.jpg)
 
 The status shows while the dashboard is open (`doz ui`). Claude Code needs version 2.1.295 or later, and pi 1.1.0 or
 later.

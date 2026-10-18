@@ -4,7 +4,7 @@ description: "doz try takes you from nothing to talking to an agent in one comma
 url: https://dozable.com/docs/try-and-search
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-18
+updated: 2026-10-19
 chapter: 26
 ---
 # Trying agents, and what Dozable supports

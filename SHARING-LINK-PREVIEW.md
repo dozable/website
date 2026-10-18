@@ -39,7 +39,7 @@ page by `tools/docs-build.py`) — change the template and rebuild, never the ge
 - Its source is `og/og-image.html`, rendered with headless Chrome at 1200×630 (always a scratch profile:
   `--user-data-dir=<a temp dir> --no-first-run --no-default-browser-check --disable-component-update`). After editing
   the source or the first line, re-render both files and keep them under ~200 KB.
-- `apple-touch-icon.png` — 180×180, the dozer on white, made from `dozer-sleeping.jpg`.
+- `apple-touch-icon.png` — 180×180, the dozer on white, made from `dozable-sleeping.jpg`.
 
 ## Checking it
 
