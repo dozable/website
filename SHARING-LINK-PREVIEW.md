@@ -20,8 +20,8 @@ Every page — `index.html`, `timeline.html`, `docs/index.html` and every chapte
 
 - `<link rel="canonical">`, `<meta name="description">` (the page's own)
 - `og:type` — `website` (home, timeline) or `article` (docs)
-- `og:site_name` (Dozer Sandbox), `og:locale` (en_US)
-- `og:title`, `og:description` — the page's own (a docs chapter: "Terminals and sessions — Dozer Sandbox docs")
+- `og:site_name` (Dozable), `og:locale` (en_US)
+- `og:title`, `og:description` — the page's own (a docs chapter: "Terminals and sessions — Dozable docs")
 - `og:url` — equal to the canonical URL
 - `og:image` = `og:image:secure_url` = `https://dozersandbox.com/og-image.png`, `og:image:type` (image/png),
   `og:image:width` 1200, `og:image:height` 630, `og:image:alt`
@@ -33,7 +33,7 @@ page by `tools/docs-build.py`) — change the template and rebuild, never the ge
 
 ## The picture
 
-- `og-image.png` — 1200×630: the sleeping dozer (black line art) on white, "Dozer Sandbox" and the first line ("Fast,
+- `og-image.png` — 1200×630: the sleeping dozer (black line art) on white, "Dozable" and the first line ("Fast,
   resumable, secure Linux sandboxes for AI coding agents on your Mac — your API keys never go inside."), a yellow
   (#ffd60a) bar and a `dozersandbox.com` pill. `og-image.jpg` is a JPEG copy kept for platforms that prefer it.
 - Its source is `og/og-image.html`, rendered with headless Chrome at 1200×630 (always a scratch profile:

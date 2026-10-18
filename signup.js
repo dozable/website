@@ -1,4 +1,4 @@
-/* Sign-up form: posts {email, interests, source} to the Dozer Worker and shows the answer in place.
+/* Sign-up form: posts {email, interests, source} to the Dozable Worker and shows the answer in place.
    Everything shown is fixed text set with textContent; the address is never put back into the page. */
 (function () {
   'use strict';

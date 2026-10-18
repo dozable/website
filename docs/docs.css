@@ -1,4 +1,4 @@
-/* Dozer Sandbox docs (/docs/…): loads AFTER ../site.css and reuses its tokens (--accent, --tint, --tint-soft, --ink-2,
+/* Dozable docs (/docs/…): loads AFTER ../site.css and reuses its tokens (--accent, --tint, --tint-soft, --ink-2,
    --hair, --font, --mono, --navh). Nothing here may introduce a colour other than black, white, greys and the accent.
    DRAFT from DESIGN.md. The page body carries class="docs". */
 .docs { --measure: 70ch; --side: 264px; --toc: 224px; --shadow: 0 4px 0 #000; --grey: #555; }

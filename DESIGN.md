@@ -26,7 +26,7 @@ the rules in words; where they differ, `DESIGN.html` and `docs/docs.css` are the
   - Under 860px: one column with 16px gutters. The sidebar becomes a `<details class="chapters">` button
     ("Chapters", a pill with a +/-), closed by default. No JavaScript. On wide screens the same element is shown
     open via `::details-content`; a browser without it simply keeps the button.
-- **Sidebar**: chapters grouped as the manual's README does (Start here, Install and set up, Using Dozer, Files
+- **Sidebar**: chapters grouped as the manual's README does (Start here, Install and set up, Using Dozable, Files
   and tools, Looking after sandboxes, Reference, Experimental). Group names are 12px small caps. The current
   chapter: `--tint` background, bold, a 3px black bar on its left, `aria-current="page"`. Hover: `--tint-soft`.
 - **On this page**: all `h2`/`h3`, grey with a hairline rail; the section in view is black, bold with a 3px bar
@@ -105,11 +105,12 @@ accent stays `#ffd60a` (the picker is local to the home page and not loaded in t
 
 ## 6. URLs and structure
 
-- `/docs/` = contents page (`docs/index.html`). Chapters: `/docs/<slug>.html`, where slug = the Markdown file name
-  **without the number prefix and extension**: `07-terminals-and-sessions.md` -> `/docs/terminals-and-sessions.html`.
+- `/docs/` = contents page (`docs/index.html`). Chapters: `/docs/<slug>` (clean, no `.html`, like the blog; the file is `docs/<slug>.html`), where slug = the Markdown file name
+  **without the number prefix and extension**: `07-terminals-and-sessions.md` -> `/docs/terminals-and-sessions`. Links between pages are relative and clean
+  (`href="setting-up"`, `href="./"`); `docs-build.py` refuses a docs link ending `.html`.
   Numbers stay out of URLs so chapters can be renumbered; the number is shown as "Chapter 7" and derived from the
-  file name. (Same `.html` style as `timeline.html`.)
-- Link rewriting (done by the converter): `NN-slug.md#x` -> `slug.html#x`; `README.md` -> `./`; `images/x.png` ->
+  file name.
+- Link rewriting (done by the converter): `NN-slug.md#x` -> `slug#x`; `README.md` -> `./`; `images/x.png` ->
   `images/x.png` (copied to `docs/images/`); links leaving the manual (`../CLI-USER-GUIDE.md`) -> absolute GitHub
   URLs. An unresolvable link or fragment fails the build.
 - `tools/stamp.sh` must fingerprint `docs.css` (and `docs.js`) in every page under `docs/` (`?v=<hash>`; pages
@@ -154,7 +155,7 @@ rewrite `Accept: text/markdown` requests to the twins (GitHub Pages cannot do co
 
 | Page | Twin | Made by |
 |---|---|---|
-| `docs/<page>.html`, `docs/` | `docs/<page>.html.md`, `docs/index.html.md` | `docs-build.py`: the manual's own Markdown, links and images made absolute |
+| `docs/<page>.html` (at `/docs/<page>`), `docs/` | `docs/<page>.md`, `docs/index.md` | `docs-build.py`: the manual's own Markdown, links and images made absolute |
 | `blog/<slug>`, `blog/` | `blog/<slug>.md`, `blog/index.md` | `blog-build.py`: the post's Markdown (published posts only) |
 | `/`, `timeline.html`, `/privacy`, `/signup` | `index.html.md`, `timeline.html.md`, `privacy.md`, `signup.md` | `markdown-build.py`: a converter over the published HTML |
 | | `llms.txt`, `llms-full.txt` | `markdown-build.py` (the index for agents; the whole manual and the privacy policy) |

@@ -1,4 +1,4 @@
-/* Dozer Sandbox v3: black on white, plus ONE accent colour (--accent) and tints of it.
+/* Dozable v3: black on white, plus ONE accent colour (--accent) and tints of it.
    The accent is set here and can be changed live by site.js (the colour picker). */
 :root {
   --accent: #ffd60a;
