@@ -9,6 +9,7 @@ source: "Dozable blog"
 
 News, early access and tips and tricks. Every post is also sent by email to the people who asked for that kind of news. [Atom feed](https://dozable.com/blog/feed.xml) · [Sign up](https://dozable.com/signup.md)
 
+- [Dozer Sandbox is now Dozable](https://dozable.com/blog/dozable.md) — 19 October 2026 — Release news: Dozer Sandbox has a new name, Dozable, in 0.36.1; the doz command, your sandboxes, your settings and how you upgrade all stay as they are.
 - [Dozable 0.35 - doz try, and keys from any provider](https://dozable.com/blog/doz-v0.35.md) — 18 October 2026 — Release news: Dozable 0.35 adds doz try for any of 42 coding agents and AI tools, keys from any major provider or gateway, a choice of model, and OpenCode 2.
 - [doz try - any of 42 AI tools in one command](https://dozable.com/blog/doz-try.md) — 18 October 2026 — Release news, Tips and tricks: doz try puts you in a throwaway sandbox with a coding agent or AI tool, its own empty folder, a network that reaches only its model and your key kept on your Mac.
 - [OpenCode 2 is in Dozable](https://dozable.com/blog/opencode-2.md) — 17 October 2026 — Tool news: OpenCode 2, a rebuild of the open-source coding agent around one shared background service, now runs in Dozable beside OpenCode 1, on your own key or OpenCode Zen's free models.
