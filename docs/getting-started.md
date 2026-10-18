@@ -173,7 +173,7 @@ what it was when you detach. Details: [Projects](https://dozersandbox.com/docs/p
 
 > **No project yet?** `doz new` — or **Quick add** in the dashboard — makes a sandbox with every
 > default and puts you in it: a free name like `claude-sandbox`, and its own folder in your projects
-> folder (`~/dozer-sandbox-workspaces/claude-sandbox`). See
+> folder (`~/doz-workspaces/claude-sandbox`). See
 > [The quickest way](https://dozersandbox.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new).
 
 ## Talk to your agent

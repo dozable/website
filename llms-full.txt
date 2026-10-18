@@ -174,7 +174,7 @@ what it was when you detach. Details: [Projects](https://dozersandbox.com/docs/p
 
 > **No project yet?** `doz new` — or **Quick add** in the dashboard — makes a sandbox with every
 > default and puts you in it: a free name like `claude-sandbox`, and its own folder in your projects
-> folder (`~/dozer-sandbox-workspaces/claude-sandbox`). See
+> folder (`~/doz-workspaces/claude-sandbox`). See
 > [The quickest way](https://dozersandbox.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new).
 
 ## Talk to your agent
@@ -600,14 +600,14 @@ across the top; **✕** or **Escape** closes it, asking first once you have chos
    the dashboard meanwhile (the preparation shows under **Operations**); **Cancel preparation** stops
    it.
 7. **First sandbox** (optional) — pick the agent; it suggests a name (`claude-sandbox`) and a project
-   folder (`~/dozer-sandbox-workspaces/claude-sandbox`, made if it doesn't exist).
+   folder (`~/doz-workspaces/claude-sandbox`, made if it doesn't exist).
    **Choose…** opens the Mac's own folder picker. Or pick **Isolated** to share no folder.
 8. **Usage statistics** (official builds) — the same text as in the terminal and one switch, **Send
    anonymous usage statistics**, on. **Next** saves it only if you changed it. When `DO_NOT_TRACK` or
    the environment decides, the switch is shown read-only with the reason.
 9. **Stay in touch** (optional, official builds) — an email and what you'd like; **Skip** moves on.
 10. **Done** — what was written where, and your **projects folder**
-    (`~/dozer-sandbox-workspaces`): each new sandbox from **Quick add**, **New sandbox** or
+    (`~/doz-workspaces`): each new sandbox from **Quick add**, **New sandbox** or
     `doz new` gets its own folder there. **Settings** › **Choose…** moves it.
 
 ![The wizard's checks](https://dozersandbox.com/docs/images/wizard-checks.png)
@@ -644,7 +644,7 @@ again**; the choices themselves are the settings `defaults.github`, `github.cred
 | key | default | what it does |
 |---|---|---|
 | `defaults.image` | `lab` | The image `doz up NAME`, `doz init` and the dashboard's New sandbox use when you don't name one. Onboarding sets it to the image you chose. |
-| `defaults.projects_dir` | `~/dozer-sandbox-workspaces` | Your projects folder: Quick add, `doz new` and New sandbox make each new sandbox's folder in it. `doz onboard` says where it is; the dashboard's **Settings** › **Choose…** or `doz config set defaults.projects_dir DIR` moves it. |
+| `defaults.projects_dir` | `~/doz-workspaces` | Your projects folder: Quick add, `doz new` and New sandbox make each new sandbox's folder in it. `doz onboard` says where it is; the dashboard's **Settings** › **Choose…** or `doz config set defaults.projects_dir DIR` moves it. |
 | `defaults.account` | `mac` | The account of a store that hasn't chosen one. `doz account default` decides for a store once it has. |
 | `defaults.github` | `off` | "GitHub as you" for new sandboxes: `off`, `read` or `push`. The Access step's choice. |
 | `github.credentials` | `gh` | Where the GitHub token comes from: `gh` (this Mac's login), `key` (a token you gave), `off`. |
@@ -695,7 +695,7 @@ sandbox from a checkout.
   `none` network — are the virtual machine's make-up. Changing them in the file affects a **new**
   sandbox only; `doz up` tells you so. Other keys apply at once or from the next session (below).
 - **Your projects folder is not a project.** The setting `defaults.projects_dir`
-  (`~/dozer-sandbox-workspaces`) is where **Quick add**, **New sandbox** and `doz new` make a
+  (`~/doz-workspaces`; a Mac that already has `~/dozer-sandbox-workspaces` keeps using that one) is where **Quick add**, **New sandbox** and `doz new` make a
   folder for each new sandbox that has none of its own — `claude-sandbox`, `claude-sandbox-2`, … —
   with no `doz_project.yaml`. Run `doz init` in one of them to make it a project. Change the folder in
   **Settings** › **Choose…** or with `doz config set defaults.projects_dir DIR`
@@ -985,8 +985,8 @@ One click in the dashboard, or one command, makes a sandbox with every default a
 - the name is the image's — `claude-sandbox`, `pi-sandbox`, `lab-sandbox` — or the next free one
   (`claude-sandbox-2`, …) when a sandbox has that name, or its folder already has something in it;
 - its workspace is a folder of its own in your **projects folder**, the setting
-  `defaults.projects_dir` (`~/dozer-sandbox-workspaces` unless you change it):
-  `~/dozer-sandbox-workspaces/claude-sandbox`, made for it;
+  `defaults.projects_dir` (`~/doz-workspaces` unless you change it):
+  `~/doz-workspaces/claude-sandbox`, made for it;
 - the account and what the agent can do are the defaults.
 
 **In the dashboard**, **Sandboxes** › **Quick add** (or the **+** beside **Sandboxes** in the
@@ -1001,7 +1001,7 @@ then becomes the sandbox's own session. A note says what it chose.
 doz new
 ```
 
-It prints what it chose — `claude-sandbox-2 · claude-code · ~/dozer-sandbox-workspaces/claude-sandbox-2`
+It prints what it chose — `claude-sandbox-2 · claude-code · ~/doz-workspaces/claude-sandbox-2`
 — then creates it, starts it and attaches you to its session (**Ctrl-]** twice detaches; it keeps
 running). Each option changes just that one thing:
 
@@ -1155,7 +1155,7 @@ newer doz fixes, without a restart.
 |---|---|---|
 | `defaults.cpus` | `2` | CPUs of a new sandbox (`--cpus`). |
 | `images.lab.memory_mib` · `images.claude-code.memory_mib` · `images.pi.memory_mib` | `1024` · `2048` · `2048` | Memory of a new sandbox of each image (`--memory`); other images follow the one they're based on. |
-| `defaults.projects_dir` | `~/dozer-sandbox-workspaces` | Your projects folder: where Quick add, `doz new` and the dashboard's New sandbox make a new sandbox's own folder (`<projects_dir>/NAME`). **Settings** › **Choose…** picks it. |
+| `defaults.projects_dir` | `~/doz-workspaces` | Your projects folder: where Quick add, `doz new` and the dashboard's New sandbox make a new sandbox's own folder (`<projects_dir>/NAME`). **Settings** › **Choose…** picks it. |
 | `sandbox.timezone` | `mac` | `mac` (follow this Mac) or a zone like `Australia/Sydney`. Applies at each start or wake. |
 | `host.idle_timeout_minutes` | `5` | Minutes with nothing running before the host exits; `0` = never (`$DOZ_HOST_IDLE`). |
 | `host.screen_capture_minutes` | `5` | How often a running sandbox's changed screens are saved; `0` = only at pause, sleep and hibernate. |
@@ -3130,7 +3130,7 @@ This table is generated from `doz config show` and checked against it on every b
 | `defaults.cpus` | `2` | integer 1–64 | new sandboxes | `doz create --cpus` | CPUs of a new sandbox. |
 | `defaults.nat_subnet` | `""` | IPv4 subnet, a.b.c.d/nn ("" = a free one) | new sandboxes | `$DOZ_SUBNET`, `doz create --subnet` | The vmnet subnet of a new --network nat sandbox. |
 | `defaults.image` | `lab` | lab \| claude-code \| pi \| codex, or an agent or tool's id (doz try lists them) | new sandboxes | `doz create --image` | The image of a new sandbox when none is named (doz up NAME, doz init, the UI's New sandbox). doz onboard writes the one you chose. |
-| `defaults.projects_dir` | `~/dozer-sandbox-workspaces` | path ("" = automatic) | new sandboxes | — | The base folder of new sandboxes' workspaces: the web UI's New sandbox and Quick add, and doz new, share <projects_dir>/<sandbox name> (created when missing, like any workspace). doz create is isolated unless --workspace; doz init uses the folder it runs in. In the web UI, Settings › Choose… sets it with the Mac's folder picker. |
+| `defaults.projects_dir` | `~/doz-workspaces` | path ("" = automatic) | new sandboxes | — | The base folder of new sandboxes' workspaces (a Mac that already has `~/dozer-sandbox-workspaces` keeps using it until you set this): the web UI's New sandbox and Quick add, and doz new, share <projects_dir>/<sandbox name> (created when missing, like any workspace). doz create is isolated unless --workspace; doz init uses the folder it runs in. In the web UI, Settings › Choose… sets it with the Mac's folder picker. |
 | `defaults.account` | `mac` | mac \| none | a store that hasn't chosen | — | The Anthropic account of a store that has not chosen one: mac (this Mac's Claude Code login) or none. doz account default decides for a store once it has. |
 | `defaults.permissions` | `standard` | standard \| locked \| open, or permissions like +web,-error-reports (doz net permissions) | new sandboxes | `doz create --allow / --network` | What a new sandbox's agent may do (its network, as permissions — doz net permissions): standard (talk to its AI model, update itself, install system packages and its base's language packages, use GitHub, send error reports), locked (its AI model only), open (everything, the web included), or standard with changes like +web,-error-reports. Stored by name: a Dozable update that adds a host to a permission reaches every sandbox that has it. |
 | `defaults.github` | `off` | off \| read \| push | new sandboxes | `doz create --github off\|read\|push` | "Use GitHub as you" for new sandboxes: off, read (git and gh signed in as you on GitHub, read-only) or push (also push and make changes) — the Access step's choice (doz access set --github). A sandbox can differ: doz create --github, github: in doz_project.yaml, or its permissions later (doz net allow\|deny NAME github:as-you). Proxied sandboxes only. |
@@ -5152,7 +5152,7 @@ doz try grok -d                    # make and start it, but don't attach (it is 
 A try is a throwaway sandbox with safe defaults:
 
 - **A new empty folder of its own** — Dozable makes `try-<agent>` in your projects folder (`defaults.projects_dir`,
-  `~/dozer-sandbox-workspaces` unless you set another) and shares it at `/workspace`, so what the agent makes is on
+  `~/doz-workspaces` unless you set another) and shares it at `/workspace`, so what the agent makes is on
   your Mac. It is never one of your folders: a folder of that name that holds anything is skipped (the try is named
   `try-<agent>-2`). `--isolated` shares no folder at all (`doz get try-grok /workspace/FILE` copies a file out —
   see [Terminals and sessions](https://dozersandbox.com/docs/terminals-and-sessions.md)); `--workspace DIR` uses a folder you choose.
@@ -5161,7 +5161,7 @@ A try is a throwaway sandbox with safe defaults:
   The try's first line says so:
 
   ```
-  try-grok · Debian · Grok Build · a new empty folder ~/dozer-sandbox-workspaces/try-grok (not one of yours), at
+  try-grok · Debian · Grok Build · a new empty folder ~/doz-workspaces/try-grok (not one of yours), at
   /workspace · copy to your Mac's clipboard: on · open files on your Mac: on · open links in your Mac's browser: on
   ```
 - **Locked, plus the agent's own model** — it can talk to its AI model and nothing else. `--permissions standard`
