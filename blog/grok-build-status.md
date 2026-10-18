@@ -1,11 +1,11 @@
 ---
-title: "Grok Build now tells Dozer what it's doing — Dozer Sandbox blog"
+title: "Grok Build now tells Dozer what it's doing — Dozable blog"
 description: "Grok Build 1.0.52 reports when it's working, waiting for you or done, and Dozer Sandbox 0.35 shows it in the dashboard, as it does for Claude Code and pi."
 date: 2026-10-17
 topics: [tool-news]
 url: https://dozersandbox.com/blog/grok-build-status
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox blog"
+source: "Dozable blog"
 ---
 # Grok Build now tells Dozer what it's doing
 

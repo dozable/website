@@ -1,10 +1,10 @@
 ---
-title: "Projects — Dozer Sandbox docs"
+title: "Projects — Dozable docs"
 description: "A project is a folder with a doz_project.yaml file in it."
-url: https://dozersandbox.com/docs/projects.html
+url: https://dozersandbox.com/docs/projects
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox manual"
-updated: 2026-10-12
+source: "Dozable manual"
+updated: 2026-10-18
 chapter: 4
 ---
 # Projects
@@ -20,7 +20,7 @@ sandbox from a checkout.
 - **The folder is the workspace.** A project's sandbox always shares its own folder at `/workspace`,
   live: what the agent writes is on your Mac at once, and the other way round.
 - **The file holds choices, never secrets.** You can commit it. Credentials come from your
-  [accounts](https://dozersandbox.com/docs/agents-and-accounts.html.md), which stay on your Mac.
+  [accounts](https://dozersandbox.com/docs/agents-and-accounts.md), which stay on your Mac.
 - **Some choices are made when the sandbox is made.** Its image, CPUs and memory — and a `nat` or
   `none` network — are the virtual machine's make-up. Changing them in the file affects a **new**
   sandbox only; `doz up` tells you so. Other keys apply at once or from the next session (below).
@@ -29,7 +29,7 @@ sandbox from a checkout.
   folder for each new sandbox that has none of its own — `claude-sandbox`, `claude-sandbox-2`, … —
   with no `doz_project.yaml`. Run `doz init` in one of them to make it a project. Change the folder in
   **Settings** › **Choose…** or with `doz config set defaults.projects_dir DIR`
-  ([The quickest way](https://dozersandbox.com/docs/sandboxes-and-lifecycle.html.md#the-quickest-way-quick-add-and-doz-new)).
+  ([The quickest way](https://dozersandbox.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new)).
 
 ## Make a folder a project
 
@@ -52,7 +52,7 @@ On a terminal `doz init` walks the same steps as the dashboard's **New sandbox**
 5. **Workspace rules** — onboarding's description of `.dozignore` and `.dozreadonly`, what the folder
    already has (each rule file, how many patterns and its first lines — or *none — the folder is shared
    as is*, with how to add one), and this sandbox's choice: **Lock** or **Hide** (`ignore_mode` in the
-   file; the default is the setting `workspace.ignore_mode`). See [Workspace rules](https://dozersandbox.com/docs/workspace-rules.html.md);
+   file; the default is the setting `workspace.ignore_mode`). See [Workspace rules](https://dozersandbox.com/docs/workspace-rules.md);
 6. **Permissions and network** — the network, and what the agent may do (`standard`, `locked`,
    `open`, or changes like `+web,-error-reports`);
 7. **Resources** — CPUs and memory (the disk is the image's own; it isn't set per sandbox);
@@ -121,7 +121,7 @@ Mac's folder picker). If that folder has a project file, the wizard starts from 
   from it — as `doz up` there would — starts it, sets up its tools and opens its page. A folder that
   already has a file asks first, showing what changes.
 - **One-page form** (top right) is the old single form, for an isolated sandbox with no project file.
-  **Quick add** stays the no-questions way in ([The quickest way](https://dozersandbox.com/docs/sandboxes-and-lifecycle.html.md#the-quickest-way-quick-add-and-doz-new)).
+  **Quick add** stays the no-questions way in ([The quickest way](https://dozersandbox.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new)).
 
 ![The New sandbox wizard's review](https://dozersandbox.com/docs/images/new-sandbox-wizard.png)
 
@@ -142,6 +142,8 @@ memory: 4G
 network: agent              # agent, bake, locked, open, nat, none
 permissions: "+web"         # standard, locked, open, or changes on Standard
 account: default            # default, none, or an account name
+model_source: openrouter    # where the model comes from: a provider or gateway the agent is offered (doz models)
+model: anthropic/claude-sonnet-4.6   # a model id of that source
 sessions:                   # what doz up starts; the first is attached
   - claude                  #   the image's own session
   - name: server            #   a session of your own
@@ -164,14 +166,16 @@ workspace_view: on          # off: share the folder directly (programs in it los
 | `version` | `1` | — | — |
 | `name` | the sandbox: 1–40 of `a-z 0-9 -` | the folder's name | — |
 | `image` | `claude-code`, `pi`, `lab`, a base × agent image (`python-claude-code`, `go-pi`, `debian`, …) or a template | `defaults.image` | when the sandbox is made |
-| `agent` | `claude-code`, `pi` or `none` — instead of `image`, with `base` or `dockerfile` | `claude-code` | when made |
+| `agent` | `claude-code`, `pi`, `codex`, `antigravity`, `gemini`, `grok` (any tool `doz search` lists) or `none` — instead of `image`, with `base` or `dockerfile`; a tool's major or exact release: `opencode@1`, `opencode@2.0.28` ([A tool's major version](https://dozersandbox.com/docs/try-and-search.md#a-tools-major-version)) | `claude-code` | when made |
 | `base` | a recommended base: `node`, `python`, `go`, `rust`, `java`, `ruby`, `dotnet`, `debian`, `ubuntu`, `alpine` | `node` | when made |
-| `dockerfile` | your own Dockerfile, relative to the folder or absolute (see [Images and bases](https://dozersandbox.com/docs/images-and-bases.html.md#your-own-dockerfile)) | — | when made |
+| `dockerfile` | your own Dockerfile, relative to the folder or absolute (see [Images and bases](https://dozersandbox.com/docs/images-and-bases.md#your-own-dockerfile)) | — | when made |
 | `cpus` | 1–64 | `defaults.cpus` (2) | when made |
 | `memory` | `2G`, `512M` or MiB, 256 MiB – 256 GiB | per image (settings) | when made |
 | `network` | `agent`, `bake`, `locked`, `open`, `nat`, `none` | per image | `agent`/`bake`/`locked`/`open`: at the next `doz up`, live (unless you edited the sandbox's permissions since); `nat`/`none`: when made |
-| `permissions` | what the agent may do on a network with permissions (`agent`, `locked`, `open`): `standard`, `locked`, `open`, or changes on Standard like `+web,-error-reports` (or a list); see [What the agent can do](https://dozersandbox.com/docs/permissions-and-network.html.md) | `defaults.permissions` (standard) | when made (later: `doz net allow` / `doz net deny`) |
+| `permissions` | what the agent may do on a network with permissions (`agent`, `locked`, `open`): `standard`, `locked`, `open`, or changes on Standard like `+web,-error-reports` (or a list); see [What the agent can do](https://dozersandbox.com/docs/permissions-and-network.md) | `defaults.permissions` (standard) | when made (later: `doz net allow` / `doz net deny`) |
 | `account` | `default`, `none` or an account name | follow the store's default | run `doz account use NAME ACCOUNT` |
+| `model_source` | where the model comes from: a provider or gateway the agent is offered — `anthropic`, `openai`, `xai`, `google`, `openrouter`, `vercel-ai-gateway` (which ones depends on the tool: [Other AI tools](https://dozersandbox.com/docs/ai-tools.md#providers-and-gateways)); `--provider` / `--gateway` on `doz up` win over it | the agent's own | when made |
+| `model` | a model id of that source (`doz models --gateway openrouter`); `--model` on `doz up` wins over it | the source's default | when made |
 | `sessions` | a list of session names, or `{name, command}` — at most 16 | the image's own session | every `doz up` |
 | `agent_prompt` | text, at most 16 KiB | — | the next session |
 | `agent_prompt_mode` | `append` or `replace` | `append` | the next session |
@@ -180,7 +184,7 @@ workspace_view: on          # off: share the folder directly (programs in it los
 | `browser_bridge` | `on` or `off` | `sandbox.browser_bridge` (on) | at once |
 | `open_files` | `on` or `off` | `sandbox.open_files` (on) | at once |
 | `ssh_agent` | `on` or `off` | `sandbox.ssh_agent` (off) | at once |
-| `github` | `off`, `read` or `push` ([GitHub as you](https://dozersandbox.com/docs/github.html.md)) | off | when made (later: `doz net allow NAME github:as-you`) |
+| `github` | `off`, `read` or `push` ([GitHub as you](https://dozersandbox.com/docs/github.md)) | off | when made (later: `doz net allow NAME github:as-you`) |
 | `tmux` | `true` or `false` | `sessions.tmux` (false) | the next session |
 
 The schema is closed: an unknown key, a key given twice, a wrong type or a value out of range is an
@@ -198,7 +202,7 @@ error that names the line. One YAML document, no anchors or aliases, at most 64 
 
 To remake a sandbox with new make-up, `doz rm NAME` then `doz up`. Your folder is never touched; the
 agent's history on the sandbox's state disk goes with the sandbox, so take a
-[duplicate](https://dozersandbox.com/docs/restore-points-duplicates-templates.html.md) with `--copy-state` first if you want to keep it.
+[duplicate](https://dozersandbox.com/docs/restore-points-duplicates-templates.md) with `--copy-state` first if you want to keep it.
 
 ## Limits
 

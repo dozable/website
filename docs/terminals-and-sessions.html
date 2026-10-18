@@ -4,33 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>Terminals and sessions — Dozer Sandbox docs</title>
+<title>Terminals and sessions — Dozable docs</title>
 <meta name="description" content="A session is a terminal program running inside a sandbox: a shell, claude, pi, a dev server.">
-<link rel="canonical" href="https://dozersandbox.com/docs/terminals-and-sessions.html">
-<link rel="alternate" type="text/markdown" href="https://dozersandbox.com/docs/terminals-and-sessions.html.md">
+<link rel="canonical" href="https://dozersandbox.com/docs/terminals-and-sessions">
+<link rel="alternate" type="text/markdown" href="https://dozersandbox.com/docs/terminals-and-sessions.md">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="Dozer Sandbox">
+<meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="Terminals and sessions — Dozer Sandbox docs">
+<meta property="og:title" content="Terminals and sessions — Dozable docs">
 <meta property="og:description" content="A session is a terminal program running inside a sandbox: a shell, claude, pi, a dev server.">
-<meta property="og:url" content="https://dozersandbox.com/docs/terminals-and-sessions.html">
+<meta property="og:url" content="https://dozersandbox.com/docs/terminals-and-sessions">
 <meta property="og:image" content="https://dozersandbox.com/og-image.png">
 <meta property="og:image:secure_url" content="https://dozersandbox.com/og-image.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="The Dozer Sandbox sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
+<meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Terminals and sessions — Dozer Sandbox docs">
+<meta name="twitter:title" content="Terminals and sessions — Dozable docs">
 <meta name="twitter:description" content="A session is a terminal program running inside a sandbox: a shell, claude, pi, a dev server.">
 <meta name="twitter:image" content="https://dozersandbox.com/og-image.png">
-<meta name="twitter:image:alt" content="The Dozer Sandbox sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
+<meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="stylesheet" href="../site.css?v=e177d3e7">
+<link rel="stylesheet" href="../site.css?v=3c6a0f06">
 <script src="../nav.js?v=4f745b91"></script>
-<link rel="stylesheet" href="docs.css?v=8123e1f9">
+<link rel="stylesheet" href="docs.css?v=4bcad37f">
 <script defer src="docs.js?v=a2a39b76"></script>
 </head>
 <body class="docs">
@@ -38,7 +38,7 @@
 <a class="skip" href="#main">Skip to the article</a>
 <header class="nav"><div class="nav-in">
   
-  <a class="nav-name" href="../">Dozer Sandbox</a>
+  <a class="nav-name" href="../">Dozable</a>
   <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel" aria-label="Menu"><svg class="bars" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <nav id="nav-panel" aria-label="Site"><a href="../#speed">Speed</a><a href="../#cli">CLI</a><a href="../#tour">Web UI</a><a href="../#compare">Compare</a><a href="../#security">Security</a><a href="../#uses">Use cases</a><a href="../#features">Features</a><a href="../timeline.html">Timeline</a><a href="../blog/">Blog</a><a href="./" aria-current="page">Docs</a><a class="nav-extra" href="https://github.com/dozer-sandbox/dozer-sandbox">GitHub</a></nav>
   <a class="nav-gh" href="https://github.com/dozer-sandbox/dozer-sandbox" aria-label="Source code on GitHub" title="Source code on GitHub"><svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg></a>
@@ -52,43 +52,47 @@
   <summary>Chapters</summary>
   <nav class="chapters-body" aria-label="Chapters">
 <h2>Start here</h2><ol>
-<li><a href="getting-started.html">Getting started</a></li>
-<li><a href="sandboxes-and-lifecycle.html">Sandboxes and their lifecycle</a></li>
-<li><a href="terminals-and-sessions.html" aria-current="page">Terminals and sessions</a></li>
-<li><a href="permissions-and-network.html">What the agent can do</a></li>
+<li><a href="getting-started">Getting started</a></li>
+<li><a href="sandboxes-and-lifecycle">Sandboxes and their lifecycle</a></li>
+<li><a href="terminals-and-sessions" aria-current="page">Terminals and sessions</a></li>
+<li><a href="permissions-and-network">What the agent can do</a></li>
 </ol>
 <h2>Install and set up</h2><ol>
-<li><a href="install-upgrade-uninstall.html">Install, upgrade, uninstall</a></li>
-<li><a href="setting-up.html">Setting up this Mac</a></li>
-<li><a href="projects.html">Projects</a></li>
+<li><a href="install-upgrade-uninstall">Install, upgrade, uninstall</a></li>
+<li><a href="setting-up">Setting up this Mac</a></li>
+<li><a href="projects">Projects</a></li>
 </ol>
-<h2>Using Dozer</h2><ol>
-<li><a href="the-dashboard.html">The dashboard</a></li>
-<li><a href="doz-serve.html">The dashboard on other devices</a></li>
-<li><a href="images-and-bases.html">Images and bases</a></li>
-<li><a href="agents-and-accounts.html">Agents and accounts</a></li>
-<li><a href="codex.html">Codex</a></li>
-<li><a href="signing-in-from-a-sandbox.html">Signing in from a sandbox</a></li>
-<li><a href="github.html">GitHub as you</a></li>
+<h2>Using Dozable</h2><ol>
+<li><a href="the-dashboard">The dashboard</a></li>
+<li><a href="doz-serve">The dashboard on other devices</a></li>
+<li><a href="images-and-bases">Images and bases</a></li>
+<li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="try-and-search">Trying agents</a></li>
+<li><a href="more-agents">More agents</a></li>
+<li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="codex">Codex</a></li>
+<li><a href="web-ports">Web ports</a></li>
+<li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
+<li><a href="github">GitHub as you</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
-<li><a href="the-tools-layer.html">The tools layer</a></li>
-<li><a href="workspace-rules.html">Workspace rules</a></li>
-<li><a href="the-workspace-view.html">The workspace view</a></li>
-<li><a href="prompts-for-your-agent.html">Prompts for your agent</a></li>
+<li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="workspace-rules">Workspace rules</a></li>
+<li><a href="the-workspace-view">The workspace view</a></li>
+<li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
 </ol>
 <h2>Looking after sandboxes</h2><ol>
-<li><a href="restore-points-duplicates-templates.html">Restore points, duplicates, templates</a></li>
-<li><a href="resources-and-disk-space.html">Resources and disk space</a></li>
-<li><a href="letting-another-agent-drive.html">Letting another agent drive</a></li>
+<li><a href="restore-points-duplicates-templates">Restore points, duplicates, templates</a></li>
+<li><a href="resources-and-disk-space">Resources and disk space</a></li>
+<li><a href="letting-another-agent-drive">Letting another agent drive</a></li>
 </ol>
 <h2>Reference</h2><ol>
-<li><a href="settings-reference.html">Settings reference</a></li>
-<li><a href="security-model.html">Security model</a></li>
-<li><a href="troubleshooting-and-faq.html">Troubleshooting and FAQ</a></li>
+<li><a href="settings-reference">Settings reference</a></li>
+<li><a href="security-model">Security model</a></li>
+<li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental.html">Audio sandboxes</a></li>
+<li><a href="audio-experimental">Audio sandboxes</a></li>
 </ol>
   </nav>
 </details>
@@ -107,6 +111,7 @@
 </li>
 <li><a href="#in-the-terminal">In the terminal</a>
 <ol>
+<li><a href="#copying-files-in-and-out-doz-get-doz-put-doz-cp">Copying files in and out: <code>doz get</code>, <code>doz put</code>, <code>doz cp</code></a></li>
 <li><a href="#restarting-or-ending-a-session">Restarting or ending a session</a></li>
 <li><a href="#leaving-the-ctrl--menu">Leaving: the Ctrl-] menu</a></li>
 <li><a href="#your-terminals-title">Your terminal&#x27;s title</a></li>
@@ -136,11 +141,11 @@
 <li><strong>The image&#x27;s own session</strong> is called <code>claude</code>, <code>pi</code> or <code>shell</code> (a login shell) depending on the image. <code>doz up</code> and <code>doz attach NAME</code> use it.</li>
 <li><strong>Several people or windows can view one session.</strong> What&#x27;s typed in either shows in both.</li>
 <li><strong>The screen is kept inside the sandbox</strong>, so attaching from anywhere shows the current screen at once, redrawn for your window&#x27;s size.</li>
-<li><strong>Bridges.</strong> A session&#x27;s terminal is also how a program reaches your Mac for two things: copying to your clipboard, and opening a web page in your browser. Both are shown to you every time and can be turned off. See <a href="#the-clipboard">the clipboard</a> below and <a href="signing-in-from-a-sandbox.html">Signing in from a sandbox</a>.</li>
-<li><strong>The agent says what it is doing.</strong> Claude Code and pi tell Dozer when they are working, waiting for you or done, and the dashboard and <code>doz ls</code> show it. See <a href="#what-the-agent-is-doing">what the agent is doing</a>.</li>
+<li><strong>Bridges.</strong> A session&#x27;s terminal is also how a program reaches your Mac for two things: copying to your clipboard, and opening a web page in your browser. Both are shown to you every time and can be turned off. See <a href="#the-clipboard">the clipboard</a> below and <a href="signing-in-from-a-sandbox">Signing in from a sandbox</a>.</li>
+<li><strong>The agent says what it is doing.</strong> Claude Code and pi tell Dozable when they are working, waiting for you or done, and the dashboard and <code>doz ls</code> show it. See <a href="#what-the-agent-is-doing">what the agent is doing</a>.</li>
 </ul>
 <h2 id="in-the-terminal">In the terminal<a class="anchor" href="#in-the-terminal" aria-label="Link to this section">#</a></h2>
-<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz attach my-app                 <span class="c"># the sandbox&#x27;s own session</span>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz attach my-app                 <span class="c"># the sandbox&#x27;s own session (opened first when it is not running)</span>
 doz attach my-app server          <span class="c"># a session by name</span>
 doz run my-app -- htop            <span class="c"># a NEW session running a program, attached</span>
 doz run my-app -d --session worker -- bash -lc &#x27;make watch&#x27;    <span class="c"># start one in the background</span>
@@ -154,10 +159,24 @@ doz exec my-app -- ls /workspace  <span class="c"># a one-off command: no termin
 <li>A paused or sleeping sandbox is woken first; a sandbox that is off is started by <code>run</code> and <code>exec</code> (<code>--no-wake</code> and <code>--no-start</code> refuse instead).</li>
 <li>A program the sandbox does not have is said plainly — &quot;<code>sudo</code> is not installed in this sandbox&#x27;s image (not on its PATH)&quot; — and <code>doz</code> exits <code>125</code>. There is no <code>sudo</code> in the lab; it isn&#x27;t needed there: <code>exec</code> already runs as root unless <code>--user</code> names another user.</li>
 </ul>
+<h3 id="copying-files-in-and-out-doz-get-doz-put-doz-cp">Copying files in and out: <code>doz get</code>, <code>doz put</code>, <code>doz cp</code><a class="anchor" href="#copying-files-in-and-out-doz-get-doz-put-doz-cp" aria-label="Link to this section">#</a></h3>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz get my-app report.md                  <span class="c"># out of the sandbox, into the current folder (a path relative to /workspace)</span>
+doz get my-app /workspace/site ./backup/  <span class="c"># a folder, whole, into ./backup/site</span>
+doz get my-app out.csv results.csv        <span class="c"># a new name</span>
+doz put my-app ./data                     <span class="c"># into the sandbox: /workspace/data</span>
+doz put my-app notes.md /tmp/n.md         <span class="c"># somewhere else, under a new name</span>
+doz cp my-app:/workspace/report.md .      <span class="c"># the Docker spelling: NAME:PATH on one side (NAME: alone is /workspace)</span></code></pre></figure>
+<ul>
+<li>They work in every sandbox, <strong>an isolated one included</strong> — the way files come out of a try made with <code>--isolated</code>. A sleeping sandbox is woken and one that is off is started, as for <code>exec</code> (<code>--no-wake</code>, <code>--no-start</code> refuse instead).</li>
+<li>Into an existing folder the item keeps its name; otherwise the last part of the destination is its new name. <strong>What is already there is not replaced</strong> unless <code>--force</code> (a file replaces a file; a folder is merged into a folder, files of the same name replaced — never a folder over a file).</li>
+<li>File modes are kept (an executable stays executable). On your Mac the files are yours; in the sandbox they belong to the image&#x27;s user — or to root where that user cannot write (it says so).</li>
+<li><strong>Only what you named is written.</strong> On the Mac the copy is unpacked in a temporary folder beside the destination, checked, then moved into place; nothing is ever written into Dozable&#x27;s own store. A folder holding a link that points outside it is not copied, either way (the copy says which link).</li>
+<li>A large copy shows its progress; <code>--json</code> gives the result as data.</li>
+</ul>
 <h3 id="restarting-or-ending-a-session">Restarting or ending a session<a class="anchor" href="#restarting-or-ending-a-session" aria-label="Link to this section">#</a></h3>
 <p><code>doz sessions restart NAME SESSION</code> ends the session&#x27;s program and starts <strong>the same program again</strong>, in the same session, folder and user — the screen you are attached to comes back with it. For the sandbox&#x27;s own agent session it <strong>continues the conversation</strong>: Claude Code with <code>--continue</code>, Codex with <code>resume --last</code>, pi with <code>--continue</code> — only the turn in progress is lost. <code>--fresh</code> starts a new conversation instead. Use it when a program is stuck, or after a wake left it in a broken state.</p>
 <p><code>doz sessions end NAME SESSION</code> only ends it. Both hang the program up the way closing its terminal does, then terminate it, then kill it if they must; anything attached sees it end. Both ask first on a terminal (<code>--yes</code> does not), need the sandbox <strong>running</strong> (they never wake it). <code>restart</code> then attaches when you run it in a terminal; from a script (stdin or stdout not a terminal), with <code>--json</code> or with <code>-d</code> it restarts the session and returns (<code>--json</code> answers with the result) — <code>--attach</code> attaches even without a terminal.</p>
-<p>What a restart runs is what the session was opened with, as Dozer recorded it then; variables given with <code>-e</code> are not kept (it says so), and a session opened by an older doz cannot be restarted — end it and <code>doz run</code> it again.</p>
+<p>What a restart runs is what the session was opened with, as Dozable recorded it then; variables given with <code>-e</code> are not kept (it says so), and a session opened by an older doz cannot be restarted — end it and <code>doz run</code> it again.</p>
 <h3 id="leaving-the-ctrl--menu">Leaving: the Ctrl-] menu<a class="anchor" href="#leaving-the-ctrl--menu" aria-label="Link to this section">#</a></h3>
 <p>Press <kbd>Ctrl</kbd>-<kbd>]</kbd> in an attached session. One line appears over the bottom row:</p>
 <figure class="code"><figcaption data-gen><span>text</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (text)"><code> doz: d detach · n next · p prev · s sessions · Esc back</code></pre></figure>
@@ -170,10 +189,10 @@ doz exec my-app -- ls /workspace  <span class="c"># a one-off command: no termin
 <p><code>--detach-key ctrl-x</code> picks another key; <code>--detach-key none</code> has none (close the terminal to leave).</p>
 <p>On the way out your terminal is put back exactly as it was — mouse, paste and keyboard modes — and the last line names the shortest command that comes back: <code>doz up</code> in the project folder, <code>doz attach NAME</code> for the sandbox&#x27;s own session, or <code>doz attach NAME SESSION</code>.</p>
 <h3 id="your-terminals-title">Your terminal&#x27;s title<a class="anchor" href="#your-terminals-title" aria-label="Link to this section">#</a></h3>
-<p>While you&#x27;re attached, <code>doz attach</code> sets your terminal window&#x27;s (or tab&#x27;s) title, by default to <code>sandbox · session · time</code>, for example <code>my-app · claude · 14:05</code>, refreshed each minute. When you leave, the title you had comes back (iTerm2, Ghostty, kitty and xterm keep a title stack; Terminal.app keeps Dozer&#x27;s until something else sets one). Change it with the setting <code>ui.terminal_title</code>, using <code>{sandbox}</code> <code>{session}</code> <code>{image}</code> <code>{time}</code> <code>{phase}</code>:</p>
+<p>While you&#x27;re attached, <code>doz attach</code> sets your terminal window&#x27;s (or tab&#x27;s) title, by default to <code>sandbox · session · time</code>, for example <code>my-app · claude · 14:05</code>, refreshed each minute. When you leave, the title you had comes back (iTerm2, Ghostty, kitty and xterm keep a title stack; Terminal.app keeps Dozable&#x27;s until something else sets one). Change it with the setting <code>ui.terminal_title</code>, using <code>{sandbox}</code> <code>{session}</code> <code>{image}</code> <code>{time}</code> <code>{phase}</code>:</p>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz config set ui.terminal_title &quot;{image}:{session} ({phase})&quot;
 doz config set ui.terminal_title &quot;&quot;          <span class="c"># leave the title to the program in the session</span></code></pre></figure>
-<p>While Dozer sets the title, a program&#x27;s own title (Claude Code sets one) isn&#x27;t shown.</p>
+<p>While Dozable sets the title, a program&#x27;s own title (Claude Code sets one) isn&#x27;t shown.</p>
 <h3 id="when-the-sandbox-sleeps">When the sandbox sleeps<a class="anchor" href="#when-the-sandbox-sleeps" aria-label="Link to this section">#</a></h3>
 <p>If the sandbox hibernates while you&#x27;re attached, the terminal waits and reattaches by itself when it wakes. With <code>--no-wake</code>, <code>attach</code> waits for a sleeping sandbox instead of waking it.</p>
 <h2 id="in-the-browser">In the browser<a class="anchor" href="#in-the-browser" aria-label="Link to this section">#</a></h2>
@@ -191,7 +210,7 @@ doz config set ui.terminal_title &quot;&quot;          <span class="c"># leave t
 <p><strong>The mouse</strong> works as in a native terminal. A program that tracks the mouse (Claude Code does, and tmux) gets the wheel, clicks and drags. Hold <kbd>Shift</kbd> to select text instead, or to scroll the pane. A program that doesn&#x27;t track the mouse gets nothing: the wheel scrolls the pane&#x27;s own scrollback.</p>
 <p><strong>Paste</strong> is filtered: control characters that could run commands become spaces. A multi-line paste into a program that didn&#x27;t ask for bracketed paste, or one over 64 KiB, asks first; over 1 MiB is refused. <kbd>Cmd</kbd>-<kbd>C</kbd> copies a selection, <kbd>Cmd</kbd>-<kbd>V</kbd> pastes; other Cmd shortcuts belong to the browser (Cmd-W closes the tab — the session runs on).</p>
 <h2 id="what-the-agent-is-doing">What the agent is doing<a class="anchor" href="#what-the-agent-is-doing" aria-label="Link to this section">#</a></h2>
-<p>Claude Code and pi say what they are doing — <strong>working</strong>, <strong>blocked</strong> (waiting for you), <strong>done</strong>, or stopped with an <strong>error</strong> — and Dozer shows it, whether or not a terminal is attached:</p>
+<p>Claude Code and pi say what they are doing — <strong>working</strong>, <strong>blocked</strong> (waiting for you), <strong>done</strong>, or stopped with an <strong>error</strong> — and Dozable shows it, whether or not a terminal is attached:</p>
 <ul>
 <li><strong>The dashboard</strong>: a chip on each session&#x27;s tab, on its tile in <strong>All sessions</strong> and on its row in the <strong>Sessions</strong> tab (with the agent&#x27;s own one-line message under it); a dot beside the sandbox in the sidebar for its most urgent session (blocked, then error, working, done).</li>
 <li><strong>A notice</strong> at the top of every dashboard page when an agent finishes, gets blocked or fails — it names the sandbox and the session and says what it waits for: &quot;needs permission&quot;, &quot;has a question&quot; or &quot;needs sign-in&quot;. <strong>Open</strong> goes to the session; the notice goes when you dismiss it, or by itself once the agent is working again.</li>
@@ -206,12 +225,12 @@ shell    88   120×36  0        running  —                          bash -l</c
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: What the agent is doing"><table>
 <thead><tr><th scope="col">agent</th><th scope="col">reports its status</th></tr></thead>
 <tbody>
-<tr><td>Claude Code</td><td>2.1.295 and later (images install the newest by default)</td></tr><tr><td>pi</td><td>1.1.0 and later</td></tr><tr><td>Codex</td><td>no — its sessions show nothing, and everything else works as usual</td></tr>
+<tr><td>Claude Code</td><td>2.1.295 and later (images install the newest by default)</td></tr><tr><td>pi</td><td>1.1.0 and later</td></tr><tr><td>Grok Build</td><td>1.0.52 and later (the version Dozable installs)</td></tr><tr><td>Codex</td><td>no — its sessions show nothing, and everything else works as usual</td></tr><tr><td>OpenCode</td><td>no (checked with 1.19.0)</td></tr><tr><td>GitHub Copilot CLI</td><td>no (checked with 1.0.96)</td></tr><tr><td>Qwen Code</td><td>no (checked with 0.25.1)</td></tr><tr><td>Goose</td><td>no (checked with 1.54.0)</td></tr><tr><td>Kilo Code CLI</td><td>no (checked with 7.8.8)</td></tr><tr><td>Mistral Vibe</td><td>no (checked with 2.26.1)</td></tr><tr><td>Factory Droid</td><td>0.240.1 (the version Dozable installs)</td></tr><tr><td>Dirac</td><td>no (checked with 0.5.20)</td></tr><tr><td>Kimi Code</td><td>no (checked with 2.1.1)</td></tr><tr><td>Cline CLI</td><td>no (checked with 3.0.71)</td></tr><tr><td>OpenHands CLI</td><td>no (checked with 1.16.0)</td></tr><tr><td>Letta Code</td><td>no (checked with 0.34.13)</td></tr><tr><td>Docker Agent</td><td>1.150.0 (the version Dozable installs)</td></tr><tr><td>Nanocoder</td><td>no (checked with 1.31.0)</td></tr><tr><td>mini-swe-agent</td><td>no (checked with 2.4.6)</td></tr><tr><td>Open Interpreter</td><td>no (checked with 0.0.56)</td></tr><tr><td>Crush</td><td>partly (0.98.1 reports idle and working, never done; not used yet)</td></tr><tr><td>MiMo Code</td><td>no (checked with 0.1.15)</td></tr><tr><td>CodeWhale</td><td>no (checked with 0.10.1)</td></tr><tr><td>Maki</td><td>no (checked with 0.6.3)</td></tr><tr><td>oh-my-pi</td><td>partly (18.10.4 reports idle, never working or done; not used yet)</td></tr><tr><td>Tau</td><td>no (checked with 0.4.7)</td></tr>
 </tbody></table></div>
-<p>How it works: a program reports its state with a terminal escape sequence (the <em>program status</em> protocol, OSC 7501) — but only after the terminal answers that it understands it. Dozer&#x27;s session keeper inside the sandbox answers and keeps the latest report of each session, so the status is there while you are detached, and after a sleep or a hibernation the agent carries on reporting. The sequence itself still reaches your terminal unchanged when you are attached. A session&#x27;s status ends with its program, except <strong>done</strong> and <strong>error</strong>, which stay until the session starts something new or the sandbox shuts down.</p>
+<p>How it works: a program reports its state with a terminal escape sequence (the <em>program status</em> protocol, OSC 7501) — but only after the terminal answers that it understands it. Dozable&#x27;s session keeper inside the sandbox answers and keeps the latest report of each session, so the status is there while you are detached, and after a sleep or a hibernation the agent carries on reporting. The sequence itself still reaches your terminal unchanged when you are attached. A session&#x27;s status ends with its program, except <strong>done</strong> and <strong>error</strong>, which stay until the session starts something new or the sandbox shuts down.</p>
 <p>Limits:</p>
 <ul>
-<li>the agent&#x27;s message is its own text, shown as plain text and never written to Dozer&#x27;s log;</li>
+<li>the agent&#x27;s message is its own text, shown as plain text and never written to Dozable&#x27;s log;</li>
 <li>tmux does not pass the status through, so a session running inside tmux shows none;</li>
 <li>a session started before an update keeps the session keeper it started with and shows no status until it is restarted (<code>doz sessions restart NAME SESSION</code>).</li>
 </ul>
@@ -248,19 +267,19 @@ doz-open --reveal dist/app.zip          <span class="c"># the Finder, with that 
 <li><strong>An isolated sandbox</strong> has nothing of yours to open, and says so.</li>
 <li><strong>Only while you watch:</strong> like the clipboard, it acts only while a terminal is attached to the session; at most 3 files or folders in 10 seconds per sandbox.</li>
 </ul>
-<p>URLs work exactly as before (<a href="signing-in-from-a-sandbox.html">Signing in from a sandbox</a>). Turn files off where you don&#x27;t want them:</p>
+<p>URLs work exactly as before (<a href="signing-in-from-a-sandbox">Signing in from a sandbox</a>). Turn files off where you don&#x27;t want them:</p>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz config set --sandbox my-app sandbox.open_files off   <span class="c"># this sandbox (at once)</span>
 doz config set sandbox.open_files off                    <span class="c"># every sandbox without its own choice</span>
 doz create my-app --open-files off …                     <span class="c"># from the start (or open_files: off in doz_project.yaml)</span></code></pre></figure>
 <h2 id="tmux-inside-a-session">tmux inside a session<a class="anchor" href="#tmux-inside-a-session" aria-label="Link to this section">#</a></h2>
 <p>Off by default. Turn it on for every sandbox (<code>doz config set sessions.tmux true</code>) or for one (<code>doz create --tmux</code>, <code>tmux: true</code> in <code>doz_project.yaml</code>, or <code>doz config set --sandbox NAME sessions.tmux true</code>), and each <strong>new</strong> session runs its program inside tmux: windows, panes, copy mode, its status bar and its prefix key, <kbd>Ctrl</kbd>-<kbd>b</kbd>.</p>
-<p>tmux runs <em>inside</em> Dozer&#x27;s own session keeper, so everything else still works: <code>doz attach</code> and Ctrl-], sleep and wake (tmux and its programs are where they were), saved screens (tmux&#x27;s screen, status bar included), browser terminals, and the clipboard and browser bridges. Each session has a tmux server of its own, and reopening a session finds a program tmux still holds.</p>
+<p>tmux runs <em>inside</em> Dozable&#x27;s own session keeper, so everything else still works: <code>doz attach</code> and Ctrl-], sleep and wake (tmux and its programs are where they were), saved screens (tmux&#x27;s screen, status bar included), browser terminals, and the clipboard and browser bridges. Each session has a tmux server of its own, and reopening a session finds a program tmux still holds.</p>
 <p>Limits:</p>
 <ul>
 <li>tmux takes <kbd>Ctrl</kbd>-<kbd>b</kbd> and the mouse (in the browser, Shift+drag still selects text);</li>
 <li>the kitty keyboard protocol and xterm&#x27;s modifyOtherKeys don&#x27;t fully pass through tmux, so a program that relies on them (Claude Code&#x27;s richer key handling) sees less;</li>
 <li>the session&#x27;s exit code is tmux&#x27;s (0), not the program&#x27;s;</li>
-<li>tmux must be in the image. The built-in images have it; on an image an older version of Dozer prepared, the session runs without tmux and says how to get it (rebuild the image, then <code>doz reset</code>).</li>
+<li>tmux must be in the image. The built-in images have it; on an image an older version of Dozable prepared, the session runs without tmux and says how to get it (rebuild the image, then <code>doz reset</code>).</li>
 </ul>
 <h2 id="settings">Settings<a class="anchor" href="#settings" aria-label="Link to this section">#</a></h2>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Settings"><table>
@@ -272,15 +291,15 @@ doz create my-app --open-files off …                     <span class="c"># fro
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Troubleshooting"><table>
 <thead><tr><th scope="col">symptom</th><th scope="col">what to do</th></tr></thead>
 <tbody>
-<tr><td>Ctrl-] seems to do nothing</td><td>Look at the bottom row: the menu is there. Press Ctrl-] again (or <code>d</code>) to detach.</td></tr><tr><td>After detaching, moving the mouse types odd characters</td><td>Shouldn&#x27;t happen — Dozer turns the program&#x27;s mouse mode off on the way out. If a crash left it on, run <code>reset</code> in your terminal.</td></tr><tr><td>The title didn&#x27;t come back (Terminal.app)</td><td>Terminal.app has no title stack; the next program that sets a title replaces it.</td></tr><tr><td>A copy didn&#x27;t reach the clipboard</td><td>Check the notice: off, too large or too many. <code>doz config show --sandbox NAME</code>.</td></tr><tr><td>Keys like Shift+Enter don&#x27;t work in Claude Code under tmux</td><td>A tmux limit (see above); turn tmux off for that sandbox.</td></tr><tr><td>A browser terminal won&#x27;t type Chinese, Japanese or Korean</td><td>Its input-method support is incomplete; use <strong>Open in Terminal</strong>.</td></tr>
+<tr><td>Ctrl-] seems to do nothing</td><td>Look at the bottom row: the menu is there. Press Ctrl-] again (or <code>d</code>) to detach.</td></tr><tr><td>After detaching, moving the mouse types odd characters</td><td>Shouldn&#x27;t happen — Dozable turns the program&#x27;s mouse mode off on the way out. If a crash left it on, run <code>reset</code> in your terminal.</td></tr><tr><td>The title didn&#x27;t come back (Terminal.app)</td><td>Terminal.app has no title stack; the next program that sets a title replaces it.</td></tr><tr><td>A copy didn&#x27;t reach the clipboard</td><td>Check the notice: off, too large or too many. <code>doz config show --sandbox NAME</code>.</td></tr><tr><td>Keys like Shift+Enter don&#x27;t work in Claude Code under tmux</td><td>A tmux limit (see above); turn tmux off for that sandbox.</td></tr><tr><td>A browser terminal won&#x27;t type Chinese, Japanese or Korean</td><td>Its input-method support is incomplete; use <strong>Open in Terminal</strong>.</td></tr>
 </tbody></table></div>
 <!-- /manual text -->
 </div>
 <ul class="pager">
-<li class="prev"><a href="the-dashboard.html" rel="prev"><small>&larr; Previous</small><b>The dashboard (<code>doz ui</code>)</b></a></li>
-<li class="next"><a href="images-and-bases.html" rel="next"><small>Next &rarr;</small><b>Images and bases</b></a></li>
+<li class="prev"><a href="the-dashboard" rel="prev"><small>&larr; Previous</small><b>The dashboard (<code>doz ui</code>)</b></a></li>
+<li class="next"><a href="images-and-bases" rel="next"><small>Next &rarr;</small><b>Images and bases</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozer-sandbox/dozer-sandbox/blob/main/docs/manual/07-terminals-and-sessions.md">Edit this page on GitHub</a> &middot; Chapter 7 of 25</p>
+<p class="edit"><a href="https://github.com/dozer-sandbox/dozer-sandbox/blob/main/docs/manual/07-terminals-and-sessions.md">Edit this page on GitHub</a> &middot; Chapter 7 of 29</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">
@@ -290,6 +309,7 @@ doz create my-app --open-files off …                     <span class="c"># fro
 </li>
 <li><a href="#in-the-terminal">In the terminal</a>
 <ol>
+<li><a href="#copying-files-in-and-out-doz-get-doz-put-doz-cp">Copying files in and out: <code>doz get</code>, <code>doz put</code>, <code>doz cp</code></a></li>
 <li><a href="#restarting-or-ending-a-session">Restarting or ending a session</a></li>
 <li><a href="#leaving-the-ctrl--menu">Leaving: the Ctrl-] menu</a></li>
 <li><a href="#your-terminals-title">Your terminal&#x27;s title</a></li>

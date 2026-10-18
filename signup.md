@@ -1,6 +1,6 @@
 ---
-title: "Sign up — Dozer Sandbox"
-description: "Release news, early access and tips and tricks from Dozer Sandbox. Email only — confirm by email, unsubscribe in one click."
+title: "Sign up — Dozable"
+description: "Release news, early access and tips and tricks from Dozable. Email only — confirm by email, unsubscribe in one click."
 url: https://dozersandbox.com/signup
 image: https://dozersandbox.com/og-image.png
 ---
@@ -20,6 +20,6 @@ We send a confirmation email first; nothing else is sent until you click its lin
 ## Topics
 
 - **Release news** (`release-news`) — New versions and what changed.
-- **Tool news** (`tool-news`) — New and updated tools you can try in Dozer.
+- **Tool news** (`tool-news`) — New and updated tools you can try in Dozable.
 - **Early access** (`early-access`) — Try beta and canary builds before they are released.
-- **Tips and tricks** (`tips`) — Ways to get more out of Dozer, now and then.
+- **Tips and tricks** (`tips`) — Ways to get more out of Dozable, now and then.

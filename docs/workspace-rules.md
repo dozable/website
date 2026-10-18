@@ -1,10 +1,10 @@
 ---
-title: "Workspace rules: .dozignore and .dozreadonly — Dozer Sandbox docs"
+title: "Workspace rules: .dozignore and .dozreadonly — Dozable docs"
 description: "A sandbox's /workspace is your Mac folder, live. Often you want the agent to see most of it but not everything: not secrets.env, not your doz_project.yaml, not a folder of build output it would only wade through."
-url: https://dozersandbox.com/docs/workspace-rules.html
+url: https://dozersandbox.com/docs/workspace-rules
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox manual"
-updated: 2026-10-12
+source: "Dozable manual"
+updated: 2026-10-18
 chapter: 20
 ---
 # Workspace rules: `.dozignore` and `.dozreadonly`
@@ -21,12 +21,12 @@ wade through. Two files at the root of the shared folder say so:
 
 Your Mac is never touched: you keep editing every file as before, and the sandbox sees your changes. With
 neither file, every file is there as it is on your Mac (the folder still goes through
-[the workspace view](https://dozersandbox.com/docs/the-workspace-view.html.md), which keeps programs in it working across a wake).
+[the workspace view](https://dozersandbox.com/docs/the-workspace-view.md), which keeps programs in it working across a wake).
 
 > **A convenience, not a security boundary.** The rules keep an agent from stumbling into files. Root in
 > the sandbox — and the agent has `sudo` by default — can get around them. Anything that must not reach
 > the sandbox at all belongs outside the shared folder (or in an isolated sandbox); see the
-> [Security model](https://dozersandbox.com/docs/security-model.html.md).
+> [Security model](https://dozersandbox.com/docs/security-model.md).
 
 ## The syntax: Docker's `.dockerignore`
 
@@ -154,12 +154,12 @@ nothing.
 ## How it works
 
 When the folder holds a rule file, the share is mounted privately inside the sandbox and `/workspace` is a
-small filtering view of it, served by Dozer's own program in the sandbox. That view decides each name as
+small filtering view of it, served by Dozable's own program in the sandbox. That view decides each name as
 it is looked up — so a file created later, on either side, is covered at once. It costs a little on
 metadata-heavy work: walking a tree of 2,000 files for the first time takes about 0.1 s more, reading
 everything about 1.8× as long as without rules; once looked at, it is close to the plain share — and
 hiding a big folder often makes a whole-tree walk faster than before. Without a rule file none of this
-runs. [The workspace view](https://dozersandbox.com/docs/the-workspace-view.html.md) has the details.
+runs. [The workspace view](https://dozersandbox.com/docs/the-workspace-view.md) has the details.
 
 ## Troubleshooting
 
@@ -171,5 +171,5 @@ runs. [The workspace view](https://dozersandbox.com/docs/the-workspace-view.html
 | `/workspace` is empty in the sandbox | the view could not start; `doz ignore show NAME` says so — the next wake or start tries again |
 | the rules seem to apply only part of the time | a long-running shell inside a folder from before the rules existed: `cd /workspace` again |
 
-See also: [Projects](https://dozersandbox.com/docs/projects.html.md) · [Settings reference](https://dozersandbox.com/docs/settings-reference.html.md) ·
-[Security model](https://dozersandbox.com/docs/security-model.html.md).
+See also: [Projects](https://dozersandbox.com/docs/projects.md) · [Settings reference](https://dozersandbox.com/docs/settings-reference.md) ·
+[Security model](https://dozersandbox.com/docs/security-model.md).

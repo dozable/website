@@ -1,22 +1,22 @@
 ---
-title: "Images and bases — Dozer Sandbox docs"
+title: "Images and bases — Dozable docs"
 description: "Every sandbox starts from an image: a prepared disk with a Linux system, a developer toolkit and, usually, an AI agent."
-url: https://dozersandbox.com/docs/images-and-bases.html
+url: https://dozersandbox.com/docs/images-and-bases
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox manual"
-updated: 2026-10-12
+source: "Dozable manual"
+updated: 2026-10-18
 chapter: 8
 ---
 # Images and bases
 
 Every sandbox starts from an **image**: a prepared disk with a Linux system, a developer toolkit and,
-usually, an AI agent. You choose an image when you create a sandbox; Dozer prepares it the first time
+usually, an AI agent. You choose an image when you create a sandbox; Dozable prepares it the first time
 it's needed and then makes each sandbox an instant copy of it.
 
 ## Concepts
 
 - **An image is two choices: an agent and a base.**
-  - The **agent**: **Claude Code**, **pi**, **Codex** ([Codex](https://dozersandbox.com/docs/codex.html.md)), or **none** (a shell only).
+  - The **agent**: **Claude Code**, **pi**, **Codex** ([Codex](https://dozersandbox.com/docs/codex.md)), or **none** (a shell only).
   - The **base**: the Linux system underneath — one of the **recommended bases** (below), **your own
     Dockerfile**, or a **template** you saved from a sandbox.
 - **Image names** follow the pair: `<base>-<agent>`, for example `python-claude-code` or `go-pi`, and
@@ -29,7 +29,7 @@ it's needed and then makes each sandbox an instant copy of it.
   | `codex` | Node.js | Codex (new — on other bases `<base>-codex`) |
   | `lab` | Alpine | none (bash and a few tools) |
 
-- **The developer baseline.** On every base, Dozer adds the tools agents expect: git, curl, jq,
+- **The developer baseline.** On every base, Dozable adds the tools agents expect: git, curl, jq,
   ripgrep (`rg`), fd, python3, less, vim, ssh, sudo, tmux and the package lists, so the agent can
   install more with `sudo apt-get install` (or `apk add` on Alpine). Claude Code on a base without
   Node is its standalone build; pi on a base without Node gets its own Node; Codex is its official
@@ -59,7 +59,7 @@ preparation takes, and which package registries its sandboxes may reach:
 | `alpine` | Alpine 3.20 |
 
 A base's own package registry (PyPI for `python`, crates.io for `rust`, …) is part of what its
-sandboxes may reach by default. See [What the agent can do](https://dozersandbox.com/docs/permissions-and-network.html.md).
+sandboxes may reach by default. See [What the agent can do](https://dozersandbox.com/docs/permissions-and-network.md).
 
 ## Choose an image — in the terminal
 
@@ -75,16 +75,18 @@ doz create tpl-copy --image my-template                                 # a temp
 
 ## Choose an image — in the dashboard
 
-**New sandbox** shows two rows: **Agent** (Claude Code · pi · none) and **Base** — **Recommended**
-(a card per base, with its download and time), **Dockerfile** (**Choose Dockerfile…** opens the Mac's
-file picker) or **Template**. The line under them names the image the pair makes.
+**New sandbox** shows two rows: **Agent** and **Base**. The agent is chosen in two steps: **Coding agents**,
+**AI tools** or **No agent**, then one of that section's (Claude Code, pi, Codex, Grok Build … · Fabric, llm,
+promptfoo …). Choosing one that cannot run on the base chosen (Alpine, for a tool built for glibc only) moves the base
+to its own. **Base**: **Recommended** (a card per base, with its download and time), **Dockerfile** (**Choose
+Dockerfile…** opens the Mac's file picker) or **Template**. The line under them names the image the pair makes.
 
 ![Choosing agent and base](https://dozersandbox.com/docs/images/new-sandbox-base.png)
 
 ## Your own Dockerfile
 
 Use a Dockerfile when a recommended base isn't close enough — your company's image, extra system
-libraries, a pinned toolchain. Dozer builds it with **Apple's `container` tool**, then adds its
+libraries, a pinned toolchain. Dozable builds it with **Apple's `container` tool**, then adds its
 baseline and the agent on top as usual.
 
 - **Apple's tool is optional**, installed and started only when you ask:
@@ -96,21 +98,21 @@ baseline and the agent on top as usual.
   ```
 
   In the dashboard, choosing **Dockerfile** shows the same state, with **Install Apple's container
-  tool…** or **Start its services** when needed. Dozer never uses `sudo` for it.
-- **The build runs outside Dozer's network policy.** The Dockerfile's `RUN` steps run in Apple's
-  builder and reach the internet directly, without Dozer's proxy or permissions. Only build
+  tool…** or **Start its services** when needed. Dozable never uses `sudo` for it.
+- **The build runs outside Dozable's network policy.** The Dockerfile's `RUN` steps run in Apple's
+  builder and reach the internet directly, without Dozable's proxy or permissions. Only build
   Dockerfiles you trust. The sandbox made from the image is under your permissions as usual.
 - The Dockerfile's folder is the build context, and the sandbox's workspace unless you give one.
-- An unchanged Dockerfile prepares again in seconds. When it changes, Dozer says "Dockerfile changed —
+- An unchanged Dockerfile prepares again in seconds. When it changes, Dozable says "Dockerfile changed —
   rebuild available"; `doz image bake df-…` rebuilds (the image's name is shown in `doz image ls`),
   and `doz reset NAME` moves a sandbox onto it.
-- Apple's tool keeps its own storage, shown on the Resources page (never deleted by Dozer). See
-  [Resources and disk space](https://dozersandbox.com/docs/resources-and-disk-space.html.md).
+- Apple's tool keeps its own storage, shown on the Resources page (never deleted by Dozable). See
+  [Resources and disk space](https://dozersandbox.com/docs/resources-and-disk-space.md).
 
 ## See and manage images
 
 Each image's **STATUS** (also on the Images page, and `status` in `--json`) is one of: **up to date**,
-**update available** (a newer agent release), **older recipe** (an older Dozer prepared it), **not
+**update available** (a newer agent release), **older recipe** (an older Dozable prepared it), **not
 prepared** (it's prepared the first time it's needed) or **preparing**.
 
 ```sh
@@ -129,8 +131,8 @@ own and shared disk space as a bar, and **Lineage**, the tree.
 ## Out-of-date images
 
 An image can fall behind in two ways: a **newer agent release** exists, or it was prepared by an
-**older version of Dozer** whose recipe lacked something (a tool the baseline gained, for example).
-Either way, **Dozer never rebuilds an image without you.** It says so:
+**older version of Dozable** whose recipe lacked something (a tool the baseline gained, for example).
+Either way, **Dozable never rebuilds an image without you.** It says so:
 
 - `doz image ls` — a STATUS column (`update available`, `older recipe`) and a line such as
   `pi: prepared by an older doz — this doz's image adds: sudo, apt-utils, tmux, package lists`;
@@ -146,14 +148,14 @@ Either way, **Dozer never rebuilds an image without you.** It says so:
 
 Rebuilding never touches existing sandboxes: they keep their disks. To move a sandbox onto the new
 image, `doz reset NAME` — it keeps the agent's own state (`~/.claude`, `~/.pi`) and `/workspace`, and
-drops everything else installed on its system disk (take a [template](https://dozersandbox.com/docs/restore-points-duplicates-templates.html.md#templates)
+drops everything else installed on its system disk (take a [template](https://dozersandbox.com/docs/restore-points-duplicates-templates.md#templates)
 first if you want that).
 
 ## Templates
 
 A **template** is a sandbox's system disk saved as an image: set a sandbox up the way you like, then
 make new sandboxes from it. It never includes the agent's state disk (logins, history). See
-[Restore points, duplicates and templates](https://dozersandbox.com/docs/restore-points-duplicates-templates.html.md#templates).
+[Restore points, duplicates and templates](https://dozersandbox.com/docs/restore-points-duplicates-templates.md#templates).
 
 ## Settings
 

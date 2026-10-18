@@ -1,9 +1,9 @@
 ---
-title: "Blog — Dozer Sandbox"
-description: "News, early access and tips and tricks from Dozer Sandbox. Also sent by email to anyone who signs up."
+title: "Blog — Dozable"
+description: "News, early access and tips and tricks from Dozable. Also sent by email to anyone who signs up."
 url: https://dozersandbox.com/blog/
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox blog"
+source: "Dozable blog"
 ---
 # Blog
 

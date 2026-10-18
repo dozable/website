@@ -1,18 +1,18 @@
 ---
-title: "The workspace view (dozview) — Dozer Sandbox docs"
-description: "/workspace inside a sandbox is not your shared folder itself: it is a live view of it, served by a small Dozer program, dozview."
-url: https://dozersandbox.com/docs/the-workspace-view.html
+title: "The workspace view (dozview) — Dozable docs"
+description: "/workspace inside a sandbox is not your shared folder itself: it is a live view of it, served by a small Dozable program, dozview."
+url: https://dozersandbox.com/docs/the-workspace-view
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox manual"
-updated: 2026-10-12
+source: "Dozable manual"
+updated: 2026-10-18
 chapter: 21
 ---
 # The workspace view (`dozview`)
 
 `/workspace` inside a sandbox is not your shared folder itself: it is a live view of it, served by a small
-Dozer program, **`dozview`**. This page is what that program is, what it does, and how to look inside it.
+Dozable program, **`dozview`**. This page is what that program is, what it does, and how to look inside it.
 When the folder holds a `.dozignore` or a `.dozreadonly`, the view also applies those rules — see
-[Workspace rules](https://dozersandbox.com/docs/workspace-rules.html.md). Without either file it applies nothing: every file is there, as on
+[Workspace rules](https://dozersandbox.com/docs/workspace-rules.md). Without either file it applies nothing: every file is there, as on
 your Mac.
 
 ## Why every workspace goes through it
@@ -41,7 +41,7 @@ time; after that it is about as fast as before.
 `doz create … --workspace-view off`, `workspace_view: off` in its `doz_project.yaml`, or
 `doz config set --sandbox NAME workspace.view off`. The folder is then shared directly — a little faster,
 but a program working inside `/workspace` loses its folder at every wake from hibernation and has to be
-restarted ([Restart session](https://dozersandbox.com/docs/terminals-and-sessions.html.md#restarting-or-ending-a-session)). A folder with a
+restarted ([Restart session](https://dozersandbox.com/docs/terminals-and-sessions.md#restarting-or-ending-a-session)). A folder with a
 `.dozignore` or `.dozreadonly` always uses the view.
 
 **When it takes effect.** At the sandbox's next start — never under programs that are running. A sandbox
@@ -65,7 +65,7 @@ Any **other** user inside the sandbox (for example `node`, or `doz exec --user N
 not write it through the view. With `workspace.view` off the plain share lets every user in the sandbox
 write, as your Mac account.
 
-**Sandboxes started before Dozer 0.33.1** run an older view, under which the agent could not write
+**Sandboxes started before Dozable 0.33.1** run an older view, under which the agent could not write
 `/workspace` at all: "Permission denied", and git refused the repository ("detected dubious ownership").
 Sleeping and waking such a sandbox keeps the old view (the wake says so); shut it down and start it again
 (`doz shutdown NAME` then `doz start NAME`) and it gets the new one.
@@ -108,7 +108,7 @@ a request in flight at that moment is lost.
 ## Sleep, hibernate and wake
 
 `dozview` is an ordinary process in the sandbox, so pause, sleep and hibernate keep it, with its rules.
-After a hibernation the share underneath must be connected again: on wake, Dozer re-mounts the private
+After a hibernation the share underneath must be connected again: on wake, Dozable re-mounts the private
 share and signals `dozview` to reconnect, in the same step. Three safeguards make that safe:
 
 1. It never re-reads the rules over a broken connection — it keeps the last rules.
@@ -131,10 +131,10 @@ plain share's speed. With rules, hiding a big folder often makes a whole-tree wa
 | the rules, the mode and whether the view is running | `doz ignore show NAME` |
 | which line decides a path | `doz ignore check NAME PATH` |
 | the processes | `doz exec NAME -- ps` |
-| the mode, case setting and owner Dozer gave it | `doz exec NAME -- sh -c 'cat /run/doz/view/*.conf'` |
+| the mode, case setting and owner Dozable gave it | `doz exec NAME -- sh -c 'cat /run/doz/view/*.conf'` |
 | its log (rule reloads, reconnects, worker restarts, lines that did not parse) | `doz exec NAME -- sh -c 'tail /run/doz/view/*.log'` |
 
-Its files are in `/run/doz/view/`: the `.conf` Dozer writes (the mode, whether matching ignores case, and the
+Its files are in `/run/doz/view/`: the `.conf` Dozable writes (the mode, whether matching ignores case, and the
 user the files are shown as belonging to),
 its `.state`, its `.pid` (the supervisor's) and its `.log`. The program is copied into the sandbox at
 `/usr/local/lib/doz/bin/dozview` — it never runs from your shared folder.
@@ -142,12 +142,12 @@ its `.state`, its `.pid` (the supervisor's) and its `.log`. The program is copie
 ## Not a security boundary
 
 Root in the sandbox can stop `dozview`, or reach the private share directly. The view keeps an agent from
-stumbling into files you listed; the virtual machine is the boundary. See [Security model](https://dozersandbox.com/docs/security-model.html.md).
+stumbling into files you listed; the virtual machine is the boundary. See [Security model](https://dozersandbox.com/docs/security-model.md).
 
 ## About the program
 
 A small static Linux program written in C, with no outside libraries — it speaks the kernel's FUSE protocol
-itself rather than using the usual FUSE library (whose licence would complicate shipping it inside Dozer).
-The copy Dozer ships is checked to rebuild byte for byte from its source.
+itself rather than using the usual FUSE library (whose licence would complicate shipping it inside Dozable).
+The copy Dozable ships is checked to rebuild byte for byte from its source.
 
-See also: [Workspace rules](https://dozersandbox.com/docs/workspace-rules.html.md) · [Troubleshooting and FAQ](https://dozersandbox.com/docs/troubleshooting-and-faq.html.md).
+See also: [Workspace rules](https://dozersandbox.com/docs/workspace-rules.md) · [Troubleshooting and FAQ](https://dozersandbox.com/docs/troubleshooting-and-faq.md).

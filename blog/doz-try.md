@@ -1,11 +1,11 @@
 ---
-title: "doz try - any of 42 AI tools in one command — Dozer Sandbox blog"
+title: "doz try - any of 42 AI tools in one command — Dozable blog"
 description: "doz try puts you in a throwaway sandbox with a coding agent or AI tool, its own empty folder, a network that reaches only its model and your key kept on your Mac."
 date: 2026-10-18
 topics: [release-news, tips]
 url: https://dozersandbox.com/blog/doz-try
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox blog"
+source: "Dozable blog"
 ---
 # doz try - any of 42 AI tools in one command
 

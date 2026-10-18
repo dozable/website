@@ -1,10 +1,10 @@
 ---
-title: "Restore points, duplicates and templates — Dozer Sandbox docs"
+title: "Restore points, duplicates and templates — Dozable docs"
 description: "Three ways to copy a sandbox's disk, each instant (they're APFS clones, sharing space until something changes)."
-url: https://dozersandbox.com/docs/restore-points-duplicates-templates.html
+url: https://dozersandbox.com/docs/restore-points-duplicates-templates
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox manual"
-updated: 2026-10-12
+source: "Dozable manual"
+updated: 2026-10-18
 chapter: 12
 ---
 # Restore points, duplicates and templates
@@ -42,7 +42,7 @@ doz point rm my-app before-refactor
 
 **In the dashboard:** a sandbox's details › **Points** has **Take a restore point…**, and per point
 **Revert**, and under its **⋯** **Fork…**, **Save as template…**, **Duplicate…** and **Delete…** (revert
-and delete ask you to type the name).
+and delete ask you to tick a box first).
 
 ## Duplicates
 

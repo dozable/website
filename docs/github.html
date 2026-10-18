@@ -4,33 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>GitHub as you — Dozer Sandbox docs</title>
+<title>GitHub as you — Dozable docs</title>
 <meta name="description" content="An agent on your Mac uses git and gh as you: it clones your private repositories, opens pull requests, comments on issues.">
-<link rel="canonical" href="https://dozersandbox.com/docs/github.html">
-<link rel="alternate" type="text/markdown" href="https://dozersandbox.com/docs/github.html.md">
+<link rel="canonical" href="https://dozersandbox.com/docs/github">
+<link rel="alternate" type="text/markdown" href="https://dozersandbox.com/docs/github.md">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="Dozer Sandbox">
+<meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="GitHub as you — Dozer Sandbox docs">
+<meta property="og:title" content="GitHub as you — Dozable docs">
 <meta property="og:description" content="An agent on your Mac uses git and gh as you: it clones your private repositories, opens pull requests, comments on issues.">
-<meta property="og:url" content="https://dozersandbox.com/docs/github.html">
+<meta property="og:url" content="https://dozersandbox.com/docs/github">
 <meta property="og:image" content="https://dozersandbox.com/og-image.png">
 <meta property="og:image:secure_url" content="https://dozersandbox.com/og-image.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="The Dozer Sandbox sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
+<meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="GitHub as you — Dozer Sandbox docs">
+<meta name="twitter:title" content="GitHub as you — Dozable docs">
 <meta name="twitter:description" content="An agent on your Mac uses git and gh as you: it clones your private repositories, opens pull requests, comments on issues.">
 <meta name="twitter:image" content="https://dozersandbox.com/og-image.png">
-<meta name="twitter:image:alt" content="The Dozer Sandbox sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
+<meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="stylesheet" href="../site.css?v=e177d3e7">
+<link rel="stylesheet" href="../site.css?v=3c6a0f06">
 <script src="../nav.js?v=4f745b91"></script>
-<link rel="stylesheet" href="docs.css?v=8123e1f9">
+<link rel="stylesheet" href="docs.css?v=4bcad37f">
 <script defer src="docs.js?v=a2a39b76"></script>
 </head>
 <body class="docs">
@@ -38,7 +38,7 @@
 <a class="skip" href="#main">Skip to the article</a>
 <header class="nav"><div class="nav-in">
   
-  <a class="nav-name" href="../">Dozer Sandbox</a>
+  <a class="nav-name" href="../">Dozable</a>
   <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel" aria-label="Menu"><svg class="bars" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <nav id="nav-panel" aria-label="Site"><a href="../#speed">Speed</a><a href="../#cli">CLI</a><a href="../#tour">Web UI</a><a href="../#compare">Compare</a><a href="../#security">Security</a><a href="../#uses">Use cases</a><a href="../#features">Features</a><a href="../timeline.html">Timeline</a><a href="../blog/">Blog</a><a href="./" aria-current="page">Docs</a><a class="nav-extra" href="https://github.com/dozer-sandbox/dozer-sandbox">GitHub</a></nav>
   <a class="nav-gh" href="https://github.com/dozer-sandbox/dozer-sandbox" aria-label="Source code on GitHub" title="Source code on GitHub"><svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg></a>
@@ -52,43 +52,47 @@
   <summary>Chapters</summary>
   <nav class="chapters-body" aria-label="Chapters">
 <h2>Start here</h2><ol>
-<li><a href="getting-started.html">Getting started</a></li>
-<li><a href="sandboxes-and-lifecycle.html">Sandboxes and their lifecycle</a></li>
-<li><a href="terminals-and-sessions.html">Terminals and sessions</a></li>
-<li><a href="permissions-and-network.html">What the agent can do</a></li>
+<li><a href="getting-started">Getting started</a></li>
+<li><a href="sandboxes-and-lifecycle">Sandboxes and their lifecycle</a></li>
+<li><a href="terminals-and-sessions">Terminals and sessions</a></li>
+<li><a href="permissions-and-network">What the agent can do</a></li>
 </ol>
 <h2>Install and set up</h2><ol>
-<li><a href="install-upgrade-uninstall.html">Install, upgrade, uninstall</a></li>
-<li><a href="setting-up.html">Setting up this Mac</a></li>
-<li><a href="projects.html">Projects</a></li>
+<li><a href="install-upgrade-uninstall">Install, upgrade, uninstall</a></li>
+<li><a href="setting-up">Setting up this Mac</a></li>
+<li><a href="projects">Projects</a></li>
 </ol>
-<h2>Using Dozer</h2><ol>
-<li><a href="the-dashboard.html">The dashboard</a></li>
-<li><a href="doz-serve.html">The dashboard on other devices</a></li>
-<li><a href="images-and-bases.html">Images and bases</a></li>
-<li><a href="agents-and-accounts.html">Agents and accounts</a></li>
-<li><a href="codex.html">Codex</a></li>
-<li><a href="signing-in-from-a-sandbox.html">Signing in from a sandbox</a></li>
-<li><a href="github.html" aria-current="page">GitHub as you</a></li>
+<h2>Using Dozable</h2><ol>
+<li><a href="the-dashboard">The dashboard</a></li>
+<li><a href="doz-serve">The dashboard on other devices</a></li>
+<li><a href="images-and-bases">Images and bases</a></li>
+<li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="try-and-search">Trying agents</a></li>
+<li><a href="more-agents">More agents</a></li>
+<li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="codex">Codex</a></li>
+<li><a href="web-ports">Web ports</a></li>
+<li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
+<li><a href="github" aria-current="page">GitHub as you</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
-<li><a href="the-tools-layer.html">The tools layer</a></li>
-<li><a href="workspace-rules.html">Workspace rules</a></li>
-<li><a href="the-workspace-view.html">The workspace view</a></li>
-<li><a href="prompts-for-your-agent.html">Prompts for your agent</a></li>
+<li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="workspace-rules">Workspace rules</a></li>
+<li><a href="the-workspace-view">The workspace view</a></li>
+<li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
 </ol>
 <h2>Looking after sandboxes</h2><ol>
-<li><a href="restore-points-duplicates-templates.html">Restore points, duplicates, templates</a></li>
-<li><a href="resources-and-disk-space.html">Resources and disk space</a></li>
-<li><a href="letting-another-agent-drive.html">Letting another agent drive</a></li>
+<li><a href="restore-points-duplicates-templates">Restore points, duplicates, templates</a></li>
+<li><a href="resources-and-disk-space">Resources and disk space</a></li>
+<li><a href="letting-another-agent-drive">Letting another agent drive</a></li>
 </ol>
 <h2>Reference</h2><ol>
-<li><a href="settings-reference.html">Settings reference</a></li>
-<li><a href="security-model.html">Security model</a></li>
-<li><a href="troubleshooting-and-faq.html">Troubleshooting and FAQ</a></li>
+<li><a href="settings-reference">Settings reference</a></li>
+<li><a href="security-model">Security model</a></li>
+<li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental.html">Audio sandboxes</a></li>
+<li><a href="audio-experimental">Audio sandboxes</a></li>
 </ol>
   </nav>
 </details>
@@ -125,7 +129,7 @@
 </details>
 <div class="prose">
 <!-- manual text -->
-<p>An agent on your Mac uses <code>git</code> and <code>gh</code> as you: it clones your private repositories, opens pull requests, comments on issues. An agent in a sandbox can do the same — <strong>without your token ever entering the sandbox</strong>. Dozer&#x27;s proxy, on your Mac, puts your login into each request on its way to GitHub, the same way it supplies the agent&#x27;s AI credential.</p>
+<p>An agent on your Mac uses <code>git</code> and <code>gh</code> as you: it clones your private repositories, opens pull requests, comments on issues. An agent in a sandbox can do the same — <strong>without your token ever entering the sandbox</strong>. Dozable&#x27;s proxy, on your Mac, puts your login into each request on its way to GitHub, the same way it supplies the agent&#x27;s AI credential.</p>
 <p>It&#x27;s <strong>off</strong> until you choose it — for every new sandbox (the setup&#x27;s <strong>Access</strong> step, or <code>doz access set --github read</code>), or for one sandbox — and <strong>read-only</strong> until you also allow pushing.</p>
 <h2 id="concepts">Concepts<a class="anchor" href="#concepts" aria-label="Link to this section">#</a></h2>
 <ul>
@@ -139,7 +143,7 @@
 <li><code>off</code>: never, even with the permission on.</li>
 </ul></li>
 <li><strong>Your identity</strong> — your <code>user.name</code> and <code>user.email</code> from the Mac&#x27;s global git config are copied into the sandbox&#x27;s git config (they&#x27;re not secrets), so the agent&#x27;s commits are yours. They&#x27;re gone when you turn the permission off.</li>
-<li><strong><code>gh</code> is installed for you</strong> — part of the <a href="the-tools-layer.html">tools layer</a>: while GitHub as you is on, Dozer copies the GitHub CLI into the sandbox (downloaded once to your Mac, a pinned version whose sha256 is checked; on any base, without the sandbox&#x27;s network). It is removed when you turn the permission off.</li>
+<li><strong><code>gh</code> is installed for you</strong> — part of the <a href="the-tools-layer">tools layer</a>: while GitHub as you is on, Dozable copies the GitHub CLI into the sandbox (downloaded once to your Mac, a pinned version whose sha256 is checked; on any base, without the sandbox&#x27;s network). It is removed when you turn the permission off.</li>
 </ul>
 <h2 id="gh-in-the-sandbox">gh in the sandbox<a class="anchor" href="#gh-in-the-sandbox" aria-label="Link to this section">#</a></h2>
 <p><code>gh</code> needs no login of its own: it reads <code>GH_TOKEN</code>, the placeholder, and the proxy does the rest.</p>
@@ -149,7 +153,7 @@ gh pr list
 gh issue view 12        <span class="c"># reads work; creating or commenting needs Push to GitHub</span></code></pre></figure>
 <p>Its git protocol is HTTPS (the default), so <code>gh repo clone</code> uses the same login as <code>git</code>. The first start shows <code>tools: gh 2.102.0 — for GitHub as you</code>; <code>doz tools NAME</code> shows it later. If it could not be set up (an offline Mac on the first use), the start goes on without it and the next start or wake tries again — or <code>doz tools NAME --apply</code>.</p>
 <h2 id="for-every-new-sandbox-the-access-step">For every new sandbox: the Access step<a class="anchor" href="#for-every-new-sandbox-the-access-step" aria-label="Link to this section">#</a></h2>
-<p>Setup&#x27;s <strong>Access</strong> step (<a href="setting-up.html">Setting up</a>) asks once — <em>Off</em>, <em>Read-only</em> or <em>Read and push</em>, from this Mac&#x27;s <code>gh</code> login or a token you paste — and <strong>confirms it with the real token</strong>: one <code>GET https://api.github.com/user</code> through the same proxy leg the sandboxes use.</p>
+<p>Setup&#x27;s <strong>Access</strong> step (<a href="setting-up">Setting up</a>) asks once — <em>Off</em>, <em>Read-only</em> or <em>Read and push</em>, from this Mac&#x27;s <code>gh</code> login or a token you paste — and <strong>confirms it with the real token</strong>: one <code>GET https://api.github.com/user</code> through the same proxy leg the sandboxes use.</p>
 <figure class="code"><figcaption data-gen><span>text</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (text)"><code>✓ GitHub as you   read (gh login)  confirmed — signed in as you — scopes: repo, read:org (from this Mac&#x27;s gh login)
 ✓ GitHub as you   read (a key)     confirmed — signed in as you — it can see 3 repositories (from your key)
 ✗ GitHub as you   push (gh login)  not confirmed — this Mac&#x27;s gh is not logged in to github.com — run gh auth login on the Mac</code></pre></figure>
@@ -177,19 +181,19 @@ doz key set my-app --github &lt; token.txt     <span class="c"># this sandbox&#x
 doz key rm my-app --github</code></pre></figure>
 <p>A sandbox&#x27;s own token given on stdin is held in the host&#x27;s memory — give it again after the host restarts, or keep it in the keychain. A sandbox&#x27;s own token wins over the default one and over <code>gh</code> whatever the setting says (unless it&#x27;s <code>off</code>).</p>
 <h2 id="ssh-optional">SSH (optional)<a class="anchor" href="#ssh-optional" aria-label="Link to this section">#</a></h2>
-<p>SSH is encrypted end to end, so the proxy can&#x27;t put a login into it. Instead, Dozer can forward your Mac&#x27;s <strong>ssh-agent</strong> into the sandbox: <code>ssh</code> and git over SSH there can ask your agent to sign, but your keys never leave the Mac. The sandbox may only list your agent&#x27;s keys and ask for signatures — adding, removing or locking keys is refused before it reaches your agent.</p>
+<p>SSH is encrypted end to end, so the proxy can&#x27;t put a login into it. Instead, Dozable can forward your Mac&#x27;s <strong>ssh-agent</strong> into the sandbox: <code>ssh</code> and git over SSH there can ask your agent to sign, but your keys never leave the Mac. The sandbox may only list your agent&#x27;s keys and ask for signatures — adding, removing or locking keys is refused before it reaches your agent.</p>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz config set --sandbox my-app sandbox.ssh_agent on    <span class="c"># or doz create --ssh-agent on, ssh_agent: on in doz_project.yaml</span>
 doz config set --sandbox my-app sandbox.ssh_agent off</code></pre></figure>
 <p>While it&#x27;s on, sessions get <code>SSH_AUTH_SOCK</code>, and the network allows <code>github.com:22</code> — nothing else over SSH. You&#x27;re told the first time it&#x27;s used. Your Mac needs a running ssh-agent with a key in it (<code>ssh-add -l</code> on the Mac). For every new sandbox: the Access step, or <code>doz access set --ssh-agent on</code> — it&#x27;s confirmed by asking your agent for its keys (&quot;the ssh-agent has 2 keys&quot;).</p>
-<p>The <a href="the-tools-layer.html">tools layer</a> makes SSH work on any base:</p>
+<p>The <a href="the-tools-layer">tools layer</a> makes SSH work on any base:</p>
 <ul>
 <li>an <strong>ssh client</strong> is installed (<code>openssh-client</code>, with <code>apt</code> or <code>apk</code> through the proxy) when the image has none;</li>
-<li><strong>github.com&#x27;s host keys</strong> — the ones GitHub publishes, built into Dozer — are written to <code>/etc/ssh/ssh_known_hosts</code>, so the first <code>ssh -T git@github.com</code> or <code>git clone git@github.com:…</code> never asks &quot;Are you sure you want to continue connecting?&quot; and never trusts a key it was handed. Both go again when forwarding is turned off (the keys file keeps anything else in it).</li>
+<li><strong>github.com&#x27;s host keys</strong> — the ones GitHub publishes, built into Dozable — are written to <code>/etc/ssh/ssh_known_hosts</code>, so the first <code>ssh -T git@github.com</code> or <code>git clone git@github.com:…</code> never asks &quot;Are you sure you want to continue connecting?&quot; and never trusts a key it was handed. Both go again when forwarding is turned off (the keys file keeps anything else in it).</li>
 </ul>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>ssh -T git@github.com     <span class="c"># Hi you! You&#x27;ve successfully authenticated…</span>
 git clone git@github.com:OWNER/REPO.git</code></pre></figure>
 <h2 id="what-the-agent-is-told">What the agent is told<a class="anchor" href="#what-the-agent-is-told" aria-label="Link to this section">#</a></h2>
-<p>One line in its facts — that <code>git</code> and <code>gh</code> are signed in as you, read-only or with push, and to use HTTPS remotes (and SSH, when the agent is forwarded) — and the details in its <code>dozer</code> skill. The line says when <code>gh</code> was installed by Dozer (or, if it could not be, why), and that the ssh client and github.com&#x27;s host keys are in place.</p>
+<p>One line in its facts — that <code>git</code> and <code>gh</code> are signed in as you, read-only or with push, and to use HTTPS remotes (and SSH, when the agent is forwarded) — and the details in its <code>dozer</code> skill. The line says when <code>gh</code> was installed by Dozable (or, if it could not be, why), and that the ssh client and github.com&#x27;s host keys are in place.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="anchor" href="#troubleshooting" aria-label="Link to this section">#</a></h2>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Troubleshooting"><table>
 <thead><tr><th scope="col">symptom</th><th scope="col">what to do</th></tr></thead>
@@ -202,14 +206,14 @@ git clone git@github.com:OWNER/REPO.git</code></pre></figure>
 <tbody>
 <tr><td><code>defaults.github</code></td><td><code>off</code></td><td>&quot;GitHub as you&quot; for new sandboxes: <code>off</code>, <code>read</code> or <code>push</code> (the Access step).</td></tr><tr><td><code>github.credentials</code></td><td><code>gh</code></td><td>Where your GitHub login comes from: <code>gh</code>, <code>key</code> or <code>off</code>.</td></tr><tr><td><code>sandbox.ssh_agent</code></td><td><code>off</code></td><td>Forward your Mac&#x27;s ssh-agent (github.com:22 only). Per sandbox too.</td></tr>
 </tbody></table></div>
-<p>See also: <a href="the-tools-layer.html">The tools layer</a>, <a href="permissions-and-network.html">What the agent can do</a>, <a href="security-model.html">Security model</a>.</p>
+<p>See also: <a href="the-tools-layer">The tools layer</a>, <a href="permissions-and-network">What the agent can do</a>, <a href="security-model">Security model</a>.</p>
 <!-- /manual text -->
 </div>
 <ul class="pager">
-<li class="prev"><a href="troubleshooting-and-faq.html" rel="prev"><small>&larr; Previous</small><b>Troubleshooting and FAQ</b></a></li>
-<li class="next"><a href="the-tools-layer.html" rel="next"><small>Next &rarr;</small><b>The tools layer</b></a></li>
+<li class="prev"><a href="troubleshooting-and-faq" rel="prev"><small>&larr; Previous</small><b>Troubleshooting and FAQ</b></a></li>
+<li class="next"><a href="the-tools-layer" rel="next"><small>Next &rarr;</small><b>The tools layer</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozer-sandbox/dozer-sandbox/blob/main/docs/manual/18-github.md">Edit this page on GitHub</a> &middot; Chapter 18 of 25</p>
+<p class="edit"><a href="https://github.com/dozer-sandbox/dozer-sandbox/blob/main/docs/manual/18-github.md">Edit this page on GitHub</a> &middot; Chapter 18 of 29</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">

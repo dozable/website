@@ -1,11 +1,11 @@
 ---
-title: "Introducing Dozer Sandbox — Dozer Sandbox blog"
+title: "Introducing Dozer Sandbox — Dozable blog"
 description: "Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac — free and open source. Here's what it is, why it exists, and how to try it in a minute."
 date: 2026-10-11
 topics: [release-news]
 url: https://dozersandbox.com/blog/introducing-dozer-sandbox
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox blog"
+source: "Dozable blog"
 ---
 # Introducing Dozer Sandbox
 

@@ -1,15 +1,15 @@
 ---
-title: "What the agent can do: permissions and the network — Dozer Sandbox docs"
-description: "A sandbox has no network card. Its only way out is a proxy in Dozer's host, on your Mac, which checks every connection against the sandbox's permissions — a short list of plain-language switches — and logs it."
-url: https://dozersandbox.com/docs/permissions-and-network.html
+title: "What the agent can do: permissions and the network — Dozable docs"
+description: "A sandbox has no network card. Its only way out is a proxy in Dozable's host, on your Mac, which checks every connection against the sandbox's permissions — a short list of plain-language switches — and logs it."
+url: https://dozersandbox.com/docs/permissions-and-network
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox manual"
-updated: 2026-10-12
+source: "Dozable manual"
+updated: 2026-10-18
 chapter: 10
 ---
 # What the agent can do: permissions and the network
 
-A sandbox has **no network card**. Its only way out is a proxy in Dozer's host, on your Mac, which
+A sandbox has **no network card**. Its only way out is a proxy in Dozable's host, on your Mac, which
 checks every connection against the sandbox's **permissions** — a short list of plain-language
 switches — and logs it. You decide what the agent may reach; the agent can't change it.
 
@@ -20,25 +20,25 @@ switches — and logs it. You decide what the agent may reach; the agent can't c
   | permission | id | what it allows | in Standard |
   |---|---|---|---|
   | Talk to its AI model | `model` | Anthropic's API | always on |
-  | Talk to OpenAI | `model:openai` | Codex's model (`chatgpt.com`, `api.openai.com`) — [Codex](https://dozersandbox.com/docs/codex.html.md) | always on in a Codex sandbox; never in another agent's |
-  | Sign in | `sign-in` | Claude's sign-in pages, for signing in *inside* the sandbox | off (Dozer supplies the credential) |
+  | Talk to OpenAI | `model:openai` | Codex's model (`chatgpt.com`, `api.openai.com`) — [Codex](https://dozersandbox.com/docs/codex.md) | always on in a Codex sandbox; never in another agent's |
+  | Sign in | `sign-in` | Claude's sign-in pages, for signing in *inside* the sandbox | off (Dozable supplies the credential) |
   | Update itself | `update` | new versions of Claude Code or pi | on |
   | Install software — system packages | `install:system` | apt / apk | on |
   | Install software — Node, Python, Go, Rust, Java, Ruby, .NET | `install:node`, `install:python`, `install:go`, `install:rust`, `install:java`, `install:ruby`, `install:dotnet` (`install` = all) | that language's package registry | your base's language |
   | Use GitHub | `github` | clone and fetch code; Claude Code's plugins | on |
-  | Use GitHub as you | `github:as-you` | git and gh signed in as you — read-only ([GitHub as you](https://dozersandbox.com/docs/github.html.md)) | off, in every preset |
+  | Use GitHub as you | `github:as-you` | git and gh signed in as you — read-only ([GitHub as you](https://dozersandbox.com/docs/github.md)) | off, in every preset |
   | Push to GitHub | `github:push` | also push and change things on GitHub as you | off, in every preset |
   | Send error reports | `error-reports` | the agent reporting its own crashes to its maker | on |
   | Browse the web | `web` | any website | off — **the agent could send your code anywhere** |
   | Sites you allow | `site:HOST` | one host (`api.example.com`, or `*.example.com`) | none |
 
-  `doz net permissions` lists every permission with the exact hosts behind it in your version of Dozer.
+  `doz net permissions` lists every permission with the exact hosts behind it in your version of Dozable.
 - **Presets:** **Locked** (its AI model only), **Standard**, **Open** (everything, still logged). Your
   GitHub login is never part of a preset — not even Open: it's switched on by name, and a preset you
   choose later keeps it as it was.
   New sandboxes get the setting `defaults.permissions` (`standard`).
 - **Stored by name.** A sandbox remembers "Update itself", not a list of hosts, so when a new version
-  of Dozer adds a host to a permission, every sandbox that has it gets it.
+  of Dozable adds a host to a permission, every sandbox that has it gets it.
 - **Live.** A change applies to the sandbox's next connection — no restart — and is kept for its
   next start.
 - **Everything is logged:** host, verdict, rule, bytes. Never the contents.
@@ -126,12 +126,12 @@ Your own rules win over a permission's hosts. A host your rules can't allow does
 - **Browse the web** and **Open** let the agent send your code and data anywhere. Prefer a
   `site:HOST` for what the agent really needs.
 - **A Dockerfile build runs outside this policy** (in Apple's builder); the sandbox made from it
-  doesn't. See [Images and bases](https://dozersandbox.com/docs/images-and-bases.html.md#your-own-dockerfile).
+  doesn't. See [Images and bases](https://dozersandbox.com/docs/images-and-bases.md#your-own-dockerfile).
 - IPv4 only; HTTP/2 isn't passed through on the hosts whose traffic the proxy inspects; UDP is refused
   (programs fall back to TCP).
 - There are no general port forwards from your Mac into a sandbox. The one exception is a sign-in's
-  callback, briefly — see [Signing in from a sandbox](https://dozersandbox.com/docs/signing-in-from-a-sandbox.html.md).
-- A sandbox made with an older version of Dozer keeps its rules; `doz net NAME` shows them as the
+  callback, briefly — see [Signing in from a sandbox](https://dozersandbox.com/docs/signing-in-from-a-sandbox.md).
+- A sandbox made with an older version of Dozable keeps its rules; `doz net NAME` shows them as the
   permissions they amount to, and its first permission change stores them as permissions (anything
   no permission covers stays as your own site rules).
 

@@ -1,12 +1,12 @@
 ---
-title: "Dozer Sandbox timeline — from a probe to a public release"
-description: "How Dozer Sandbox grew from a sleep-and-wake experiment into fast, resumable, secure Linux sandboxes for AI coding agents on your Mac, in about two weeks."
+title: "Dozable timeline — from a probe to a public release"
+description: "How Dozable grew from a sleep-and-wake experiment into fast, resumable, secure Linux sandboxes for AI coding agents on your Mac, in about two weeks."
 url: https://dozersandbox.com/timeline.html
 image: https://dozersandbox.com/og-image.png
 ---
 # From one experiment to a product, in two weeks.
 
-Dozer Sandbox gives every coding agent its own small Linux computer on your Mac — one that pauses in a millisecond, hibernates to disk and wakes with everything still running. This is how it was built.
+Dozable gives every coding agent its own small Linux computer on your Mac — one that pauses in a millisecond, hibernates to disk and wakes with everything still running. This is how it was built.
 
 - **1 ms** to pause a sandbox
 - **0.3 s** to wake from disk, programs still running
@@ -103,7 +103,7 @@ v0.6.0
 
 ### Your Claude subscription, no API key
 
-Sandboxes use this Mac's own Claude Code login. The token never enters the VM, and Dozer never touches the refresh token, so your Mac stays signed in.
+Sandboxes use this Mac's own Claude Code login. The token never enters the VM, and Dozable never touches the refresh token, so your Mac stays signed in.
 
 **27 Sep**
 
@@ -169,7 +169,7 @@ v0.13.0
 
 ### Resources
 
-Every byte Dozer uses, including what clones share, and a way to give space back that previews exactly what goes before anything is deleted.
+Every byte Dozable uses, including what clones share, and a way to give space back that previews exactly what goes before anything is deleted.
 
 **2 Oct**
 
@@ -305,8 +305,8 @@ The first public release.
 
 v0.31.0
 
-### Dozer Sandbox, for everyone
+### Dozable, for everyone
 
-Signed and notarised, with a signed update feed and three channels — stable, beta and canary. Dozer tells you when there's a new release, or updates itself if you ask it to.
+Signed and notarised, with a signed update feed and three channels — stable, beta and canary. Dozable tells you when there's a new release, or updates itself if you ask it to.
 
 `brew install dozer-sandbox/tap/doz`

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """tools/markdown-build.py — the Markdown twins of the root pages, and /llms.txt and /llms-full.txt.
 
-Every page of the site has a Markdown twin at its URL + .md, for agents (llms.txt convention; a Cloudflare rule can serve
+Every page of the site has a Markdown twin at its URL + .md (a page whose URL ends .html keeps it: timeline.html.md;
+the contents pages are index.md, the home page index.html.md), for agents (llms.txt convention; a Cloudflare rule can serve
 them to `Accept: text/markdown`). This tool writes the ones docs-build.py and blog-build.py do not:
 
   index.html.md      the home page            timeline.html.md   the timeline
@@ -40,6 +41,10 @@ def to_twin(url):
     path, frag = m.group(1) or '/', m.group(2) or ''
     if path == '/':
         path = '/index.html.md'
+    elif path == '/docs/':
+        path = '/docs/index.md'
+    elif path.startswith('/docs/'):          # clean URLs: /docs/<slug> -> /docs/<slug>.md (a stray .html is tolerated)
+        path = re.sub(r'\.html$', '', path) + '.md'
     elif path.endswith('/'):
         path = path + ('index.md' if path.startswith('/blog/') else 'index.html.md')
     elif path.endswith('.html'):
@@ -414,11 +419,11 @@ def chapter_title(body):
 def llms(root):
     docs = []
     for f in sorted(os.listdir(os.path.join(SITE, 'docs'))):
-        if f.endswith('.html.md') and f != 'index.html.md':
+        if f.endswith('.md') and f != 'index.md':
             fm, body = parse_front(read('docs/' + f))
             docs.append((int(fm['chapter']), f, fm, body))
     docs.sort(key=lambda d: d[0])
-    index_fm, _ = parse_front(read('docs/index.html.md'))
+    index_fm, _ = parse_front(read('docs/index.md'))
     posts = []
     for f in sorted(os.listdir(os.path.join(SITE, 'blog'))) if os.path.isdir(os.path.join(SITE, 'blog')) else []:
         if f.endswith('.md') and f != 'index.md':
@@ -428,17 +433,17 @@ def llms(root):
     home = read('index.html')
     lede = re.search(r'<p class="lede[^"]*">(.*?)</p>', home, re.S)
     summary = html.unescape(re.sub(r'<[^>]+>', '', lede.group(1))).strip() if lede else ''
-    L = ['# Dozer Sandbox', '', '> %s' % summary, '', index_fm['description'], '',
-         'Pages have Markdown twins: add `.md` to a page URL (docs pages: `.html.md`).', '', '## Docs', '']
+    L = ['# Dozable', '', '> %s' % summary, '', index_fm['description'], '',
+         'Pages have Markdown twins: add `.md` to a page URL (`/docs/` is `/docs/index.md`; the home page is `/index.html.md`).', '', '## Docs', '']
     for _, f, fm, body in docs:
         L.append('- [%s](%sdocs/%s): %s' % (chapter_title(body), BASE, f, fm['description']))
-    L += ['- [The manual — contents](%sdocs/index.html.md): every chapter in reading order.' % BASE, '', '## Blog', '',
+    L += ['- [The manual — contents](%sdocs/index.md): every chapter in reading order.' % BASE, '', '## Blog', '',
           '- [Blog index](%sblog/index.md): news, early access, tips and tricks.' % BASE]
     for _, f, fm in posts:
-        L.append('- [%s](%sblog/%s): %s' % (fm['title'].replace(' — Dozer Sandbox blog', ''), BASE, f, fm['description']))
+        L.append('- [%s](%sblog/%s): %s' % (fm['title'].replace(' — Dozable blog', ''), BASE, f, fm['description']))
     L += ['', '## Site', '',
-          '- [Home](%sindex.html.md): what Dozer Sandbox is, speed, the CLI, the web UI, a comparison, install.' % BASE,
-          '- [Timeline](%stimeline.html.md): how Dozer Sandbox was built, release by release.' % BASE,
+          '- [Home](%sindex.html.md): what Dozable is, speed, the CLI, the web UI, a comparison, install.' % BASE,
+          '- [Timeline](%stimeline.html.md): how Dozable was built, release by release.' % BASE,
           '- [Privacy policy](%sprivacy.md): what is collected, why, and how to turn it off.' % BASE,
           '- [Sign up](%ssignup.md): release news, early access and tips and tricks by email.' % BASE, '',
           '## Optional', '',
@@ -447,7 +452,7 @@ def llms(root):
           '- [Releases](%s/releases): every version, with notes.' % REPO,
           '- [Blog feed](%sblog/feed.xml): Atom.' % BASE, '- [Sitemap](%ssitemap.xml)' % BASE]
     write('llms.txt', '\n'.join(L) + '\n')
-    F = ['# Dozer Sandbox — the manual and privacy policy', '', '> %s' % summary, '',
+    F = ['# Dozable — the manual and privacy policy', '', '> %s' % summary, '',
          'The complete user manual (every chapter, in reading order) followed by the privacy policy. Each part starts '
          'with the URL of its page.', '']
     for _, f, fm, body in docs:

@@ -1,34 +1,34 @@
 ---
-title: "Signing in from a sandbox — Dozer Sandbox docs"
+title: "Signing in from a sandbox — Dozable docs"
 description: "Many command-line tools sign you in through a web browser: they open a sign-in page, you sign in, and the provider sends your browser back to the tool on http://localhost:PORT."
-url: https://dozersandbox.com/docs/signing-in-from-a-sandbox.html
+url: https://dozersandbox.com/docs/signing-in-from-a-sandbox
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox manual"
-updated: 2026-10-12
+source: "Dozable manual"
+updated: 2026-10-18
 chapter: 11
 ---
 # Signing in from a sandbox
 
 Many command-line tools sign you in through a web browser: they open a sign-in page, you sign in,
 and the provider sends your browser back to the tool on `http://localhost:PORT`. A sandbox has no
-browser and its `localhost` isn't your Mac's — so Dozer bridges both: the page opens in **your Mac's
+browser and its `localhost` isn't your Mac's — so Dozable bridges both: the page opens in **your Mac's
 browser**, and the redirect at the end finds its way back **into the sandbox**.
 
-You rarely need this for Claude itself — Dozer supplies Claude's credential already (see
-[Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.html.md)). It's for everything else an agent may sign in to:
+You rarely need this for Claude itself — Dozable supplies Claude's credential already (see
+[Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md)). It's for everything else an agent may sign in to:
 a cloud CLI, a SaaS tool's CLI, an MCP server's OAuth.
 
 ## Concepts
 
 - **The browser bridge.** Inside every sandbox, `xdg-open` — and `$BROWSER`, `open`,
-  `sensible-browser`, `www-browser` — is Dozer's own small program. It hands an **http or https**
+  `sensible-browser`, `www-browser` — is Dozable's own small program. It hands an **http or https**
   address to your Mac, which opens it in your default browser. You're told every time:
   `my-app opened https://example.com/docs in your browser`. Nothing is printed into the session itself
   — the agent's screen stays exactly as it drew it; when an address is refused, the program that asked
   hears why (its error output and exit status). (Given a document in `/workspace` instead of an address, the same program opens that file
-  on your Mac — see [Opening workspace files on your Mac](https://dozersandbox.com/docs/terminals-and-sessions.html.md#opening-workspace-files-on-your-mac).)
+  on your Mac — see [Opening workspace files on your Mac](https://dozersandbox.com/docs/terminals-and-sessions.md#opening-workspace-files-on-your-mac).)
 - **The sign-in callback.** When the address asks the provider to send the browser back to the
-  sandbox's `localhost:PORT` (its `redirect_uri`), Dozer first opens your Mac's `localhost:PORT` and
+  sandbox's `localhost:PORT` (its `redirect_uri`), Dozable first opens your Mac's `localhost:PORT` and
   forwards it into the sandbox, then opens the page. The notice says
   `sign-in callback localhost:PORT forwarded (10 min)`. When your browser lands on the callback, the
   tool in the sandbox receives it and the sign-in completes.
@@ -81,8 +81,8 @@ The sign-in page opens on **your Mac**, outside the sandbox, so it doesn't need 
 tool inside may need to reach the provider's API afterwards: allow it as a site
 (`doz net allow my-app site:api.example.com`). For Claude's own sign-in pages there is a **Sign in**
 permission (off in Standard); with the default key policy a sign-in inside a sandbox that uses a
-token or API key is refused on purpose. See [What the agent can do](https://dozersandbox.com/docs/permissions-and-network.html.md)
-and [Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.html.md#a-credential-the-agent-brings-itself).
+token or API key is refused on purpose. See [What the agent can do](https://dozersandbox.com/docs/permissions-and-network.md)
+and [Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md#a-credential-the-agent-brings-itself).
 
 ## Settings
 
@@ -98,7 +98,7 @@ and [Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.html
 - **The forward is narrow:** one port, on your Mac's loopback, for one sign-in, at most 10 minutes.
   The address's query (which carries the sign-in's secret state) never appears in notices or logs —
   only the scheme, host and path.
-- The bridge arrives with a sandbox's next start; a sandbox woken from an older version of Dozer gets
+- The bridge arrives with a sandbox's next start; a sandbox woken from an older version of Dozable gets
   it at its next session.
 
 ## Troubleshooting

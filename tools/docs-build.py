@@ -10,8 +10,10 @@ It FAILS (exit 1, with file:line) on anything else: unknown syntax, a link or #f
 a missing image, a ragged table row, a skipped heading level, a Mermaid diagram with no matching hand-drawn SVG.
 After writing, it reads the pages back and checks that every word and every code block of the source is there.
 
-Writes docs/index.html, docs/<slug>.html (slug = the file name without its number), docs/images/, and the docs
-entries of sitemap.xml. Then run tools/stamp.sh (it fingerprints site.css, docs.css and docs.js)."""
+Writes docs/index.html, docs/<slug>.html (slug = the file name without its number), docs/images/, each page's
+Markdown twin (docs/<slug>.md, docs/index.md) and the docs entries of sitemap.xml. Docs pages have CLEAN URLs, like the
+blog: every link, canonical, og:url and sitemap entry says /docs/<slug> (GitHub Pages serves it from docs/<slug>.html);
+the contents page is /docs/. A link ending .html is refused, as in blog-build.py. Then run tools/stamp.sh (it fingerprints site.css, docs.css and docs.js)."""
 import html, json, os, posixpath, re, shutil, struct, subprocess, sys, unicodedata
 from collections import Counter
 from html.parser import HTMLParser
@@ -22,7 +24,7 @@ TEMPLATE = os.path.join(SITE, 'tools', 'docs-template.html')
 DIAGRAMS = os.path.join(SITE, 'tools', 'docs-diagrams')
 BASE_URL = 'https://dozersandbox.com/docs/'
 REPO = 'https://github.com/dozer-sandbox/dozer-sandbox'
-INDEX_DESCRIPTION = ('The user manual for Dozer Sandbox: install, set up, and run AI coding agents in fast, resumable '
+INDEX_DESCRIPTION = ('The user manual for Dozable: install, set up, and run AI coding agents in fast, resumable '
                      'Linux sandboxes on your Mac, with the doz command or its dashboard.')
 
 # A blockquote whose bold lead-in is one of these is a warning callout (DESIGN.md §4); any other bold lead-in is a
@@ -40,8 +42,10 @@ GROUPS = [
     ('Start here', [(1, 'Getting started'), (5, 'Sandboxes and their lifecycle'), (7, 'Terminals and sessions'),
                     (10, 'What the agent can do')]),
     ('Install and set up', [(2, 'Install, upgrade, uninstall'), (3, 'Setting up this Mac'), (4, 'Projects')]),
-    ('Using Dozer', [(6, 'The dashboard'), (25, 'The dashboard on other devices'), (8, 'Images and bases'),
-                     (9, 'Agents and accounts'), (24, 'Codex'), (11, 'Signing in from a sandbox'), (18, 'GitHub as you')]),
+    ('Using Dozable', [(6, 'The dashboard'), (25, 'The dashboard on other devices'), (8, 'Images and bases'),
+                     (9, 'Agents and accounts'), (26, 'Trying agents'), (27, 'More agents'),
+                     (28, 'Other AI tools'), (24, 'Codex'), (29, 'Web ports'), (11, 'Signing in from a sandbox'),
+                     (18, 'GitHub as you')]),
     ('Files and tools', [(19, 'The tools layer'), (20, 'Workspace rules'), (21, 'The workspace view'),
                          (22, 'Prompts for your agent')]),
     ('Looking after sandboxes', [(12, 'Restore points, duplicates, templates'), (13, 'Resources and disk space'),
@@ -390,7 +394,9 @@ class Page:
     def __init__(self, build, path, num, slug):
         self.build, self.path, self.num, self.slug = build, path, num, slug
         self.name = os.path.basename(path)
-        self.href = slug + '.html' if num else './'
+        self.href = slug if num else './'            # the clean URL, relative to /docs/
+        self.file = slug + '.html' if num else 'index.html'
+        self.twin_file = slug + '.md' if num else 'index.md'
         self.lines = open(path, encoding='utf-8').read().split('\n')
         self.blocks = parse_blocks(self.lines, 1, self)
         self.ids, self.headings = Counter(), []
@@ -696,7 +702,7 @@ class Build:
 
     def frame(self, page, title, description, canonical, article, toc):
         tpl = open(TEMPLATE, encoding='utf-8').read()
-        markdown = canonical + '.md' if canonical.endswith('.html') else canonical + 'index.html.md'
+        markdown = canonical + '.md' if not canonical.endswith('/') else canonical + 'index.md'
         for k, v in (('TITLE', esc(title)), ('DESCRIPTION', esc(description)), ('CANONICAL', canonical),
                      ('MARKDOWN', markdown),
                      ('SIDEBAR', self.sidebar(page)), ('TOC', toc), ('ARTICLE', article)):
@@ -716,7 +722,7 @@ class Build:
             pager.append('<li class="prev"><a href="%s" rel="prev"><small>&larr; Previous</small><b>%s</b></a></li>'
                          % (prev.href, strip_tags_keep_code(prev.inline(prev.title_src, 1))))
         else:
-            pager.append('<li class="prev"><a href="./" rel="prev"><small>&larr; Contents</small><b>The Dozer Sandbox '
+            pager.append('<li class="prev"><a href="./" rel="prev"><small>&larr; Contents</small><b>The Dozable '
                          'manual</b></a></li>')
         if nxt:
             pager.append('<li class="next"><a href="%s" rel="next"><small>Next &rarr;</small><b>%s</b></a></li>'
@@ -740,7 +746,7 @@ class Build:
             '<p class="edit"><a href="%s/blob/main/docs/manual/%s">Edit this page on GitHub</a> &middot; Chapter %d of %d'
             '</p>' % (REPO, page.name, page.num, len(self.chapters)),
         ])
-        return self.frame(page, '%s — Dozer Sandbox docs' % title, strip_tags(summary), BASE_URL + page.href,
+        return self.frame(page, '%s — Dozable docs' % title, strip_tags(summary), BASE_URL + page.href,
                           article, toc)
 
     def index_html(self):
@@ -763,7 +769,7 @@ class Build:
                 self.index_header = b['head']
             else:
                 body.append(page.render([b]))
-        linked = set(re.findall(r'href="([a-z0-9-]+\.html)', '\n'.join(body)))
+        linked = set(re.findall(r'href="([a-z0-9-]+)(?:#[^"]*)?"', '\n'.join(body)))
         missing = [p.name for p in self.chapters if p.href not in linked]
         if missing:
             fail(page.name, 'the contents page does not link to %s' % ', '.join(missing))
@@ -771,7 +777,7 @@ class Build:
             '<header class="chead">',
             '<p class="eyebrow">User manual</p>',
             '<h1>%s</h1>' % page.inline(page.title_src, 1),
-            '<p class="summary">Every chapter of the Dozer Sandbox manual, for the <code>doz</code> command and its '
+            '<p class="summary">Every chapter of the Dozable manual, for the <code>doz</code> command and its '
             'dashboard.</p>',
             '<p class="meta">%d chapters. Built from dozer-sandbox <a href="%s/commit/%s">%s</a>.</p>'
             % (len(self.chapters), REPO, self.sha, self.sha),
@@ -783,10 +789,10 @@ class Build:
             '</div>',
             '<p class="edit"><a href="%s/blob/main/docs/manual/README.md">Edit this page on GitHub</a></p>' % REPO,
         ])
-        return self.frame(page, 'The Dozer Sandbox manual — Dozer Sandbox docs', INDEX_DESCRIPTION,
+        return self.frame(page, 'The Dozable manual — Dozable docs', INDEX_DESCRIPTION,
                           BASE_URL, article, '')
 
-    # ---- markdown twins (docs/<page>.html.md): the manual's own Markdown, links and images made absolute
+    # ---- markdown twins (docs/<page>.md): the manual's own Markdown, links and images made absolute
     def twin(self, page):
         """The page's Markdown source with a YAML front matter, every link absolute and pointing at the .md twins
         (an agent following a link stays in Markdown; each twin's `url` says where the HTML page is)."""
@@ -797,11 +803,11 @@ class Build:
         else:
             title = html.unescape(strip_tags(page.inline(page.title_src, 1)))
             description = html.unescape(strip_tags(summary_of(page)))
-            url, extra = BASE_URL + page.href, {'chapter': page.num}
-        fm = ['---', 'title: %s' % json.dumps(title + ' — Dozer Sandbox docs' if page is not self.readme else
-                                              'The Dozer Sandbox manual — Dozer Sandbox docs', ensure_ascii=False),
+            url, extra = BASE_URL + page.slug, {'chapter': page.num}
+        fm = ['---', 'title: %s' % json.dumps(title + ' — Dozable docs' if page is not self.readme else
+                                              'The Dozable manual — Dozable docs', ensure_ascii=False),
               'description: %s' % json.dumps(description, ensure_ascii=False),
-              'url: %s' % url, 'image: https://dozersandbox.com/og-image.png', 'source: "Dozer Sandbox manual"',
+              'url: %s' % url, 'image: https://dozersandbox.com/og-image.png', 'source: "Dozable manual"',
               'updated: %s' % self.date]
         fm += ['%s: %s' % (k, v) for k, v in extra.items()] + ['---', '']
         body, fence, comment = [], None, False
@@ -857,8 +863,8 @@ class Build:
             href = page.link(url, where)
             if not re.match(r'^https?:', href):
                 path, _, frag = href.partition('#')
-                path = 'index.html' if path in ('', './', '.') else path
-                href = BASE_URL + path + ('.md' if path.endswith('.html') else '') + ('#' + frag if frag else '')
+                path = 'index' if path in ('', './', '.') else path
+                href = BASE_URL + path + '.md' + ('#' + frag if frag else '')
             return '[%s](%s)' % (text, href)
         line = re.sub(r'(!?)\[((?:[^\[\]]|\[[^\]]*\])*)\]\(([^)\s]+)\)', repl, line)
         return re.sub(r'\x00(\d+)\x00', lambda m: codes[int(m.group(1))], line)
@@ -867,13 +873,13 @@ class Build:
         os.makedirs(os.path.join(OUT, 'images'), exist_ok=True)
         pages = {'index.html': self.index_html()}
         for p in self.chapters:
-            pages[p.href] = self.chapter_html(p)
+            pages[p.file] = self.chapter_html(p)
         self.check_frags()
-        twins = {'index.html.md': self.twin(self.readme)}
+        twins = {'index.md': self.twin(self.readme)}
         for p in self.chapters:
-            twins[p.href + '.md'] = self.twin(p)
-        for f in os.listdir(OUT):          # a renamed chapter leaves no stale twin behind
-            if f.endswith('.html.md') and f not in twins:
+            twins[p.twin_file] = self.twin(p)
+        for f in os.listdir(OUT):          # a renamed chapter (or the old .html.md scheme) leaves no stale twin behind
+            if f.endswith('.md') and f not in twins:
                 os.remove(os.path.join(OUT, f))
         for name, text in twins.items():
             with open(os.path.join(OUT, name), 'w', encoding='utf-8') as f:
@@ -908,8 +914,8 @@ class Build:
         s = open(path, encoding='utf-8').read()
         s = re.sub(r'  <url><loc>https://dozersandbox\.com/docs/[^<]*</loc>.*?</url>\n', '', s)
         urls = ''.join('  <url><loc>%s%s</loc><lastmod>%s</lastmod></url>\n'
-                       % (BASE_URL, '' if n == 'index.html' else n, self.date)
-                       for n in ['index.html'] + [p.href for p in self.chapters])
+                       % (BASE_URL, '' if n == './' else n, self.date)
+                       for n in ['./'] + [p.href for p in self.chapters])
         s = s.replace('</urlset>', urls + '</urlset>')
         open(path, 'w', encoding='utf-8').write(s)
 
@@ -918,7 +924,7 @@ class _Lazy:
     """A page before it is parsed: its href is all a link needs."""
     def __init__(self, name, num, slug):
         self.name, self.num, self.slug = name, num, slug
-        self.href = slug + '.html' if num else './'
+        self.href = slug if num else './'
 
 
 def strip_tags_keep_code(h):
@@ -993,7 +999,7 @@ def source_text(page, skip_lines=()):
 def self_check(build, pages):
     report = []
     for name, src_page, skip in [('index.html', build.readme, build.index_skip())] + \
-            [(p.href, p, ()) for p in build.chapters]:
+            [(p.file, p, ()) for p in build.chapters]:
         out = open(os.path.join(OUT, name), encoding='utf-8').read()
         region = out.split('<!-- manual text -->', 1)[1].split('<!-- /manual text -->', 1)[0]
         h1 = re.search(r'<h1>(.*?)</h1>', out, re.S).group(1)
@@ -1029,15 +1035,19 @@ def crawl():
             refs += [(f, r) for r in re.findall(r'\s(?:href|src)="([^"]+)"', s)]
     n = 0
     for f, r in refs:
+        if re.match(r'^https://dozersandbox\.com/docs/[^"#?]*\.html', r):
+            raise BuildError('docs/%s: a docs link ending .html (docs URLs are clean, /docs/<slug>): %s' % (f, r))
         if re.match(r'^(https?:|mailto:)', r):
             continue
         path, _, frag = html.unescape(r).partition('#')
         path = path.split('?')[0]
         target = os.path.normpath(os.path.join(OUT, path)) if path else os.path.join(OUT, f)
+        if path.endswith('.html') and os.path.dirname(target) == OUT:
+            raise BuildError('docs/%s: a docs link ending .html (docs URLs are clean, /docs/<slug>): %s' % (f, r))
         if os.path.isdir(target):
             target = os.path.join(target, 'index.html')
-        if not os.path.exists(target) and os.path.exists(target + '.html'):
-            continue  # a clean URL (GitHub Pages serves privacy.html at /privacy)
+        elif not os.path.exists(target) and os.path.exists(target + '.html'):
+            target += '.html'  # a clean URL (GitHub Pages serves privacy.html at /privacy)
         if not os.path.exists(target):
             raise BuildError('docs/%s: a link to a missing file: %s' % (f, r))
         if frag:

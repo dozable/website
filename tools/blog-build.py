@@ -215,7 +215,7 @@ class Post(docs.Page):
 
 
 # --------------------------------------------------------------------------------------------------------- pages
-ALT = ('The Dozer Sandbox sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes '
+ALT = ('The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes '
        'for AI coding agents on your Mac.')
 
 
@@ -241,7 +241,7 @@ def head(title, desc, url, kind, extra='', md=''):
 <link rel="canonical" href="{url}">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="{kind}">
-<meta property="og:site_name" content="Dozer Sandbox">
+<meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="{t}">
 <meta property="og:description" content="{d}">
@@ -258,7 +258,7 @@ def head(title, desc, url, kind, extra='', md=''):
 <meta name="twitter:image" content="{base}og-image.png">
 <meta name="twitter:image:alt" content="{alt}">
 {extra}<link rel="alternate" type="text/markdown" href="{md}">
-<link rel="alternate" type="application/atom+xml" title="Dozer Sandbox blog" href="feed.xml">
+<link rel="alternate" type="application/atom+xml" title="Dozable blog" href="feed.xml">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="stylesheet" href="../site.css">
@@ -307,15 +307,15 @@ def signup_box(prefix):
 </form>
 <div class="result" data-signup-result role="status" aria-live="polite" tabindex="-1" hidden><p class="result-title" data-signup-title></p><p data-signup-text></p></div>
 </div>'''.format(p=prefix, boxes=box('release-news', 'Release news', 'New versions and what changed.')
-                + box('tool-news', 'Tool news', 'New and updated tools you can try in Dozer.')
+                + box('tool-news', 'Tool news', 'New and updated tools you can try in Dozable.')
                 + box('early-access', 'Early access', 'Try beta and canary builds before they are released.')
-                + box('tips', 'Tips and tricks', 'Ways to get more out of Dozer, now and then.'))
+                + box('tips', 'Tips and tricks', 'Ways to get more out of Dozable, now and then.'))
 
 
 def post_page(p, header, footer):
     f = p['fm']
     url = BASE + 'blog/' + p['slug']
-    title = '%s — Dozer Sandbox blog' % f['title']
+    title = '%s — Dozable blog' % f['title']
     extra = ('<meta property="article:published_time" content="%s">\n' % f['date']
              + ''.join('<meta property="article:tag" content="%s">\n' % esc(TOPICS[t]) for t in f['topics']))
     if len(f['topics']) == 1:
@@ -344,8 +344,8 @@ def index_page(posts, header, footer):
                   % (f['date'], fmt_date(f['date']), chips(f['topics']), p['slug'], esc(f['title']), esc(f['summary'])))
     if not items:
         items = '<p>No posts yet.</p>\n'
-    desc = 'News, early access and tips and tricks from Dozer Sandbox. Also sent by email to anyone who signs up.'
-    return (head('Blog — Dozer Sandbox', desc, BASE + 'blog/', 'website', '', BASE + 'blog/index.md') + '<body class="docs blog">\n'
+    desc = 'News, early access and tips and tricks from Dozable. Also sent by email to anyone who signs up.'
+    return (head('Blog — Dozable', desc, BASE + 'blog/', 'website', '', BASE + 'blog/index.md') + '<body class="docs blog">\n'
             '<a class="skip" href="#main">Skip to the posts</a>\n' + header + '\n<main id="main">\n'
             '<div class="prose blog-list">\n<h1>Blog</h1>\n'
             '<p class="post-summary">News, early access and tips and tricks. Every post is also sent by email to '
@@ -365,15 +365,15 @@ def post_md(p):
     f = p['fm']
     topics = ', '.join(TOPICS[t] for t in f['topics'])
     return ('---\ntitle: %s\ndescription: %s\ndate: %s\ntopics: [%s]\nurl: %sblog/%s\nimage: %sog-image.png\n'
-            'source: "Dozer Sandbox blog"\n---\n# %s\n\n*%s · %s*\n\n%s'
-            % (q(f['title'] + ' — Dozer Sandbox blog'), q(f['summary']), f['date'], ', '.join(f['topics']), BASE,
+            'source: "Dozable blog"\n---\n# %s\n\n*%s · %s*\n\n%s'
+            % (q(f['title'] + ' — Dozable blog'), q(f['summary']), f['date'], ', '.join(f['topics']), BASE,
                p['slug'], BASE, f['title'], fmt_date(f['date']), topics, p['md']))
 
 
 def index_md(posts):
-    out = ['---', 'title: "Blog — Dozer Sandbox"',
-           'description: "News, early access and tips and tricks from Dozer Sandbox. Also sent by email to anyone who '
-           'signs up."', 'url: %sblog/' % BASE, 'image: %sog-image.png' % BASE, 'source: "Dozer Sandbox blog"', '---',
+    out = ['---', 'title: "Blog — Dozable"',
+           'description: "News, early access and tips and tricks from Dozable. Also sent by email to anyone who '
+           'signs up."', 'url: %sblog/' % BASE, 'image: %sog-image.png' % BASE, 'source: "Dozable blog"', '---',
            '# Blog', '',
            'News, early access and tips and tricks. Every post is also sent by email to the people who asked for that '
            'kind of news. [Atom feed](%sblog/feed.xml) · [Sign up](%ssignup.md)' % (BASE, BASE), '']
@@ -399,13 +399,13 @@ def feed(posts):
     updated = (posts[0]['fm']['date'] if posts else '2026-01-01') + 'T00:00:00Z'
     out = ['<?xml version="1.0" encoding="utf-8"?>',
            '<feed xmlns="http://www.w3.org/2005/Atom">',
-           '  <title>Dozer Sandbox blog</title>',
-           '  <subtitle>News, early access and tips and tricks from Dozer Sandbox.</subtitle>',
+           '  <title>Dozable blog</title>',
+           '  <subtitle>News, early access and tips and tricks from Dozable.</subtitle>',
            '  <id>%sblog/</id>' % BASE,
            '  <link rel="self" type="application/atom+xml" href="%sblog/feed.xml"/>' % BASE,
            '  <link rel="alternate" type="text/html" href="%sblog/"/>' % BASE,
            '  <updated>%s</updated>' % updated,
-           '  <author><name>Dozer Sandbox</name><uri>%s</uri></author>' % BASE]
+           '  <author><name>Dozable</name><uri>%s</uri></author>' % BASE]
     for p in posts:
         f = p['fm']
         url = BASE + 'blog/' + p['slug']

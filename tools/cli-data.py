@@ -9,8 +9,8 @@ import glob, json, os, re, subprocess, sys
 
 app = os.path.abspath(sys.argv[1])
 doz = sys.argv[2] if len(sys.argv) > 2 else os.path.join(app, '.build/debug/doz')
-MANUAL = 'https://dozersandbox.com/docs/'   # the manual's pages on the site (tools/docs-build.py): NN-slug.md -> slug.html
-page_url = lambda md: MANUAL + re.sub(r'^\d+-', '', md)[:-3] + '.html'
+MANUAL = 'https://dozersandbox.com/docs/'   # the manual's pages on the site (tools/docs-build.py): NN-slug.md -> /docs/slug
+page_url = lambda md: MANUAL + re.sub(r'^\d+-', '', md)[:-3]
 names = [l.strip().replace('/', ' ') for l in open(os.path.join(app, 'Scripts/docs-known-commands.txt'))
          if l.strip() and not l.startswith('#')]
 pages = sorted(glob.glob(os.path.join(app, 'docs/manual/[0-9]*.md')))

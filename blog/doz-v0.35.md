@@ -1,11 +1,11 @@
 ---
-title: "Dozer Sandbox 0.35 - doz try, and keys from any provider — Dozer Sandbox blog"
+title: "Dozer Sandbox 0.35 - doz try, and keys from any provider — Dozable blog"
 description: "Dozer Sandbox 0.35 adds doz try for any of 42 coding agents and AI tools, keys from any major provider or gateway, a choice of model, and OpenCode 2."
 date: 2026-10-18
 topics: [release-news]
 url: https://dozersandbox.com/blog/doz-v0.35
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox blog"
+source: "Dozable blog"
 ---
 # Dozer Sandbox 0.35 - doz try, and keys from any provider
 

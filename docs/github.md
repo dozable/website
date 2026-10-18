@@ -1,17 +1,17 @@
 ---
-title: "GitHub as you — Dozer Sandbox docs"
+title: "GitHub as you — Dozable docs"
 description: "An agent on your Mac uses git and gh as you: it clones your private repositories, opens pull requests, comments on issues."
-url: https://dozersandbox.com/docs/github.html
+url: https://dozersandbox.com/docs/github
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox manual"
-updated: 2026-10-12
+source: "Dozable manual"
+updated: 2026-10-18
 chapter: 18
 ---
 # GitHub as you
 
 An agent on your Mac uses `git` and `gh` as you: it clones your private repositories, opens pull
 requests, comments on issues. An agent in a sandbox can do the same — **without your token ever
-entering the sandbox**. Dozer's proxy, on your Mac, puts your login into each request on its way to
+entering the sandbox**. Dozable's proxy, on your Mac, puts your login into each request on its way to
 GitHub, the same way it supplies the agent's AI credential.
 
 It's **off** until you choose it — for every new sandbox (the setup's **Access** step, or `doz access
@@ -42,8 +42,8 @@ set --github read`), or for one sandbox — and **read-only** until you also all
 - **Your identity** — your `user.name` and `user.email` from the Mac's global git config are copied
   into the sandbox's git config (they're not secrets), so the agent's commits are yours. They're gone
   when you turn the permission off.
-- **`gh` is installed for you** — part of the [tools layer](https://dozersandbox.com/docs/the-tools-layer.html.md): while GitHub as you is
-  on, Dozer copies the GitHub CLI into the sandbox (downloaded once to your Mac, a pinned version whose
+- **`gh` is installed for you** — part of the [tools layer](https://dozersandbox.com/docs/the-tools-layer.md): while GitHub as you is
+  on, Dozable copies the GitHub CLI into the sandbox (downloaded once to your Mac, a pinned version whose
   sha256 is checked; on any base, without the sandbox's network). It is removed when you turn the
   permission off.
 
@@ -65,7 +65,7 @@ or `doz tools NAME --apply`.
 
 ## For every new sandbox: the Access step
 
-Setup's **Access** step ([Setting up](https://dozersandbox.com/docs/setting-up.html.md)) asks once — *Off*, *Read-only* or *Read and
+Setup's **Access** step ([Setting up](https://dozersandbox.com/docs/setting-up.md)) asks once — *Off*, *Read-only* or *Read and
 push*, from this Mac's `gh` login or a token you paste — and **confirms it with the real token**: one
 `GET https://api.github.com/user` through the same proxy leg the sandboxes use.
 
@@ -130,7 +130,7 @@ whatever the setting says (unless it's `off`).
 
 ## SSH (optional)
 
-SSH is encrypted end to end, so the proxy can't put a login into it. Instead, Dozer can forward your
+SSH is encrypted end to end, so the proxy can't put a login into it. Instead, Dozable can forward your
 Mac's **ssh-agent** into the sandbox: `ssh` and git over SSH there can ask your agent to sign, but
 your keys never leave the Mac. The sandbox may only list your agent's keys and ask for signatures —
 adding, removing or locking keys is refused before it reaches your agent.
@@ -145,11 +145,11 @@ over SSH. You're told the first time it's used. Your Mac needs a running ssh-age
 (`ssh-add -l` on the Mac). For every new sandbox: the Access step, or `doz access set --ssh-agent on`
 — it's confirmed by asking your agent for its keys ("the ssh-agent has 2 keys").
 
-The [tools layer](https://dozersandbox.com/docs/the-tools-layer.html.md) makes SSH work on any base:
+The [tools layer](https://dozersandbox.com/docs/the-tools-layer.md) makes SSH work on any base:
 
 - an **ssh client** is installed (`openssh-client`, with `apt` or `apk` through the proxy) when the image
   has none;
-- **github.com's host keys** — the ones GitHub publishes, built into Dozer — are written to
+- **github.com's host keys** — the ones GitHub publishes, built into Dozable — are written to
   `/etc/ssh/ssh_known_hosts`, so the first `ssh -T git@github.com` or `git clone git@github.com:…` never
   asks "Are you sure you want to continue connecting?" and never trusts a key it was handed. Both go
   again when forwarding is turned off (the keys file keeps anything else in it).
@@ -163,7 +163,7 @@ git clone git@github.com:OWNER/REPO.git
 
 One line in its facts — that `git` and `gh` are signed in as you, read-only or with push, and to use
 HTTPS remotes (and SSH, when the agent is forwarded) — and the details in its `dozer` skill. The line says
-when `gh` was installed by Dozer (or, if it could not be, why), and that the ssh client and github.com's
+when `gh` was installed by Dozable (or, if it could not be, why), and that the ssh client and github.com's
 host keys are in place.
 
 ## Troubleshooting
@@ -186,4 +186,4 @@ host keys are in place.
 | `github.credentials` | `gh` | Where your GitHub login comes from: `gh`, `key` or `off`. |
 | `sandbox.ssh_agent` | `off` | Forward your Mac's ssh-agent (github.com:22 only). Per sandbox too. |
 
-See also: [The tools layer](https://dozersandbox.com/docs/the-tools-layer.html.md), [What the agent can do](https://dozersandbox.com/docs/permissions-and-network.html.md), [Security model](https://dozersandbox.com/docs/security-model.html.md).
+See also: [The tools layer](https://dozersandbox.com/docs/the-tools-layer.md), [What the agent can do](https://dozersandbox.com/docs/permissions-and-network.md), [Security model](https://dozersandbox.com/docs/security-model.md).

@@ -1,15 +1,15 @@
 ---
-title: "The dashboard (doz ui) — Dozer Sandbox docs"
-description: "doz ui is Dozer in your browser: every sandbox with a live terminal, its restore points and permissions, your images, accounts, disk use and settings."
-url: https://dozersandbox.com/docs/the-dashboard.html
+title: "The dashboard (doz ui) — Dozable docs"
+description: "doz ui is Dozable in your browser: every sandbox with a live terminal, its restore points and permissions, your images, accounts, disk use and settings."
+url: https://dozersandbox.com/docs/the-dashboard
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox manual"
-updated: 2026-10-12
+source: "Dozable manual"
+updated: 2026-10-18
 chapter: 6
 ---
 # The dashboard (`doz ui`)
 
-`doz ui` is Dozer in your browser: every sandbox with a live terminal, its restore points and
+`doz ui` is Dozable in your browser: every sandbox with a live terminal, its restore points and
 permissions, your images, accounts, disk use and settings. It does almost everything the command line
 does, and a few things are easier there — watching many sessions at once, or seeing what an agent was
 refused and allowing it with one click. It runs on your Mac only; nothing else can reach it.
@@ -63,12 +63,12 @@ minutes.
 ## Install it as an app
 
 - **Chrome (or Edge):** on the dashboard, the address bar's install icon or **⋮ › Cast, save and share ›
-  Install page as app…** — *Install Dozer Sandbox*. It opens in its own window, with the Dozer icon in the
+  Install page as app…** — *Install Dozable*. It opens in its own window, with the Dozable icon in the
   Dock and in ⌘-Tab, and shares Chrome's sign-in.
 - **Safari:** **File › Add to Dock**. A Safari web app keeps its own cookies, so it opens on the
   dashboard's sign-in: paste a link from `doz ui link --print-url` into its field.
 
-When `doz ui` isn't running, the app (or a reload) shows **Dozer isn't running on this Mac** with what to
+When `doz ui` isn't running, the app (or a reload) shows **Dozable isn't running on this Mac** with what to
 run, instead of the browser's error page; it comes back by itself, on the view it was on, as soon as
 `doz ui` answers. The app needs nothing to stay running in the background.
 
@@ -84,11 +84,11 @@ top shows the whole sidebar over the page.
 
 | page | what it's for |
 |---|---|
-| **All sandboxes** | Every sandbox: state, RAM held, disk, network, account. Each row has the one likely next action (**Start**, **Resume**, **Wake** or **Pause**) and **⋯** for the state's other actions; click a row to open the sandbox. **Quick add** (every default, started and opened — also the **+** beside the **Sandboxes** heading in the sidebar; see [The quickest way](https://dozersandbox.com/docs/sandboxes-and-lifecycle.html.md#the-quickest-way-quick-add-and-doz-new)) and **New sandbox** (a wizard: every choice, step by step, written to the project folder's `doz_project.yaml` — see [Projects](https://dozersandbox.com/docs/projects.html.md#in-the-dashboard)). Under it in the sidebar, each sandbox has its own entry that opens **its page**; its dot is filled while the sandbox holds memory (running, paused, asleep), a ring when it holds none (hibernated, shut down), a square when it failed; a second dot at the right says what its agent is doing (see [What the agent is doing](https://dozersandbox.com/docs/terminals-and-sessions.html.md#what-the-agent-is-doing)). |
+| **All sandboxes** | Every sandbox: state, RAM held, disk, network, account. Each row has the one likely next action (**Start**, **Resume**, **Wake** or **Pause**) and **⋯** for the state's other actions; click a row to open the sandbox. **Quick add** (every default, started and opened — also the **+** beside the **Sandboxes** heading in the sidebar; see [The quickest way](https://dozersandbox.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new)) and **New sandbox** (a wizard: every choice, step by step, written to the project folder's `doz_project.yaml` — see [Projects](https://dozersandbox.com/docs/projects.md#in-the-dashboard)). Under it in the sidebar, each sandbox has its own entry that opens **its page**; its dot is filled while the sandbox holds memory (running, paused, asleep), a ring when it holds none (hibernated, shut down), a square when it failed; a second dot at the right says what its agent is doing (see [What the agent is doing](https://dozersandbox.com/docs/terminals-and-sessions.md#what-the-agent-is-doing)). |
 | **A sandbox's page** | See [A sandbox's page](#a-sandboxs-page) below. |
 | **All sessions** | A grid of live, read-only tiles: every session of every running sandbox, each with what its agent is doing. Click a tile to open it. |
 | **Images** | The images and templates, each image's agent version, what's out of date (**Rebuild** — **Remove…** is under **⋯**), disk shared and own, and the **Lineage** tree. |
-| **Resources** | Every byte Dozer uses, and deleting what can go. A strip under the total jumps to each group (with its size); a group's heading folds it. See [Resources and disk space](https://dozersandbox.com/docs/resources-and-disk-space.html.md). |
+| **Resources** | Every byte Dozable uses, and deleting what can go. A strip under the total jumps to each group (with its size); a group's heading folds it. See [Resources and disk space](https://dozersandbox.com/docs/resources-and-disk-space.md). |
 | **Operations** | Every action the dashboard (or a preparation) started: live progress, time taken, result. A spinner shows while any runs, and a red dot when one failed since you last looked. |
 | **Accounts & keys** | Your Claude accounts: add, verify, make default, remove (under **⋯**), keep-alive. |
 | **Metrics** | How long each kind of action takes (count, median, p90…), filtered by image and time; download as CSV. |
@@ -121,7 +121,7 @@ top shows the whole sidebar over the page.
 
 ### Safety catches
 
-**Reset**, **Remove**, **Revert** and every delete ask you to type the name first. **Shut down**
+**Reset**, **Remove**, **Revert** and every delete ask you to tick a box first ("Yes, remove …"). **Shut down**
 asks with a plain confirmation. Clicking an action again while it runs does nothing more.
 
 ### When something fails
@@ -154,14 +154,14 @@ The sidebar's footer shows the dashboard's connection and the host's state and v
 ## When `doz ui` restarts or stops
 
 A restart is routine — an upgrade, `doz ui restart`, the Mac waking up. For the first seconds the page
-says, calmly, **Reconnecting to Dozer…**; nothing behind it can be clicked meanwhile. When `doz ui`
+says, calmly, **Reconnecting to Dozable…**; nothing behind it can be clicked meanwhile. When `doz ui`
 answers again the page carries on where it was, still signed in, with no reload:
 
 - **Terminals reattach by themselves**, with their screens (what you typed while it was away is
   dropped, never typed later). An open **New sandbox** wizard keeps its choices.
 - **An operation that was running** (a start, a wake) ends with what happened — the host carried it
   on — "finished while doz ui restarted", never a spinner that never stops.
-- **A newer doz ui** (after `brew upgrade doz` and a restart): a banner says *Dozer was updated* with
+- **A newer doz ui** (after `brew upgrade doz` and a restart): a banner says *Dozable was updated* with
   **Reload**; the page reloads by itself as soon as nothing would be lost (no wizard or dialog open, no
   terminal you're typing in, nothing typed in a field).
 
@@ -185,7 +185,7 @@ starts a new shell (`shell-2`, `shell-3`, …) and its **▾** › **Terminal…
 or one running a command. Terminals are tabs; **Split** shows two side by side. Closing a tab only closes the
 view — the session keeps running. Each tab is titled like `1 · my-app · claude · 14:05` (the setting
 `ui.terminal_title`). Details, including the mouse, paste and the clipboard, in
-[Terminals and sessions](https://dozersandbox.com/docs/terminals-and-sessions.html.md#in-the-browser).
+[Terminals and sessions](https://dozersandbox.com/docs/terminals-and-sessions.md#in-the-browser).
 
 **Open in Terminal** opens the same session in your terminal app instead, via `doz attach`.
 
@@ -210,7 +210,7 @@ dashboard can switch this off but never on.
 | `ui.terminal_title` | `{sandbox} · {session} · {time}` | A terminal tab's title (and your terminal's, in `doz attach`). |
 | `ui.split_default` | `shell` | What **Split** opens: `shell`, `watch`, `attach` or `dialog`. |
 | `ui.details_open` | `true` | A sandbox's page shows its details (the tabs beside its terminals). |
-| `ui.boot_view_on_start` | `true` | **Start** opens a terminal on the boot. |
+| `ui.boot_view_on_start` | `false` | After **Start**, stay on tab zero (**Console**) rather than switch to the agent's tab. |
 | `ui.confirm_shutdown` | `true` | **Shut down** asks first. |
 | `ui.grid_live_tiles` | `8` | All sessions: at most this many tiles live at once (1–12). |
 | `ui.grid_tile_size` | `medium` | All sessions: `small`, `medium`, `large`. |
@@ -221,7 +221,7 @@ dashboard can switch this off but never on.
 
 - **Loopback only**, and every page, request and terminal checks the sign-in cookie, the exact host
   and origin, and a CSRF token on every change. For the dashboard on your other computers, tablets and phones,
-  see [`doz serve`](https://dozersandbox.com/docs/doz-serve.html.md).
+  see [`doz serve`](https://dozersandbox.com/docs/doz-serve.md).
 - **Terminals run in an isolated frame**: whatever a sandbox prints can never reach your dashboard
   session, its cookie or other terminals. Links in terminal output aren't clickable.
 - The dashboard alone never keeps an idle host running; an open terminal does, as `doz attach` does.
@@ -232,8 +232,8 @@ dashboard can switch this off but never on.
 |---|---|
 | "Sign in with a new link" | The link was used, expired, or every page was signed out: paste a link from `doz ui link --print-url`, or open one with `doz ui link`. |
 | A terminal says "Disconnected" | It was silent a long time, or it could not reattach: **Reconnect**. (After a restart or a sign-in it reattaches by itself.) |
-| "Dozer moved to 127.0.0.1:…" | `ui.port` changed and `doz ui` restarted there: use the tab it opened (an installed app: install it again from there). |
-| The installed app shows "Dozer isn't running" | Start `doz ui`; the window comes back by itself. |
+| "Dozable moved to 127.0.0.1:…" | `ui.port` changed and `doz ui` restarted there: use the tab it opened (an installed app: install it again from there). |
+| The installed app shows "Dozable isn't running" | Start `doz ui`; the window comes back by itself. |
 | "ui.port is …, and … listens on 127.0.0.1:…" | Another program holds the fixed port: stop it, or `doz config set ui.port N` (`0` = automatic). |
 | Two tabs open each time | Set `ui.open_browser` to `auto` (the default) or run `doz ui --no-open`. |
 | Open in Terminal does nothing | Make a terminal app the handler for `.command` files: Finder › Get Info on any `.command` file › Open with › Change All… |

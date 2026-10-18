@@ -1,11 +1,11 @@
 ---
-title: "Dozer Sandbox 0.33 - see what your agent is doing — Dozer Sandbox blog"
+title: "Dozer Sandbox 0.33 - see what your agent is doing — Dozable blog"
 description: "Dozer Sandbox 0.33 shows what each agent is doing at a glance, upgrades with one command, runs the dashboard in the background, and ends setup with an optional sign-up."
 date: 2026-10-11
 topics: [release-news]
 url: https://dozersandbox.com/blog/dozer-0-33
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox blog"
+source: "Dozable blog"
 ---
 # Dozer Sandbox 0.33 - see what your agent is doing
 

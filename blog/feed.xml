@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Dozer Sandbox blog</title>
-  <subtitle>News, early access and tips and tricks from Dozer Sandbox.</subtitle>
+  <title>Dozable blog</title>
+  <subtitle>News, early access and tips and tricks from Dozable.</subtitle>
   <id>https://dozersandbox.com/blog/</id>
   <link rel="self" type="application/atom+xml" href="https://dozersandbox.com/blog/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://dozersandbox.com/blog/"/>
   <updated>2026-10-18T00:00:00Z</updated>
-  <author><name>Dozer Sandbox</name><uri>https://dozersandbox.com/</uri></author>
+  <author><name>Dozable</name><uri>https://dozersandbox.com/</uri></author>
   <entry>
     <title>Dozer Sandbox 0.35 - doz try, and keys from any provider</title>
     <id>https://dozersandbox.com/blog/doz-v0.35</id>

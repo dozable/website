@@ -4,33 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>What the agent can do: permissions and the network — Dozer Sandbox docs</title>
-<meta name="description" content="A sandbox has no network card. Its only way out is a proxy in Dozer&#x27;s host, on your Mac, which checks every connection against the sandbox&#x27;s permissions — a short list of plain-language switches — and logs it.">
-<link rel="canonical" href="https://dozersandbox.com/docs/permissions-and-network.html">
-<link rel="alternate" type="text/markdown" href="https://dozersandbox.com/docs/permissions-and-network.html.md">
+<title>What the agent can do: permissions and the network — Dozable docs</title>
+<meta name="description" content="A sandbox has no network card. Its only way out is a proxy in Dozable&#x27;s host, on your Mac, which checks every connection against the sandbox&#x27;s permissions — a short list of plain-language switches — and logs it.">
+<link rel="canonical" href="https://dozersandbox.com/docs/permissions-and-network">
+<link rel="alternate" type="text/markdown" href="https://dozersandbox.com/docs/permissions-and-network.md">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="Dozer Sandbox">
+<meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="What the agent can do: permissions and the network — Dozer Sandbox docs">
-<meta property="og:description" content="A sandbox has no network card. Its only way out is a proxy in Dozer&#x27;s host, on your Mac, which checks every connection against the sandbox&#x27;s permissions — a short list of plain-language switches — and logs it.">
-<meta property="og:url" content="https://dozersandbox.com/docs/permissions-and-network.html">
+<meta property="og:title" content="What the agent can do: permissions and the network — Dozable docs">
+<meta property="og:description" content="A sandbox has no network card. Its only way out is a proxy in Dozable&#x27;s host, on your Mac, which checks every connection against the sandbox&#x27;s permissions — a short list of plain-language switches — and logs it.">
+<meta property="og:url" content="https://dozersandbox.com/docs/permissions-and-network">
 <meta property="og:image" content="https://dozersandbox.com/og-image.png">
 <meta property="og:image:secure_url" content="https://dozersandbox.com/og-image.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="The Dozer Sandbox sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
+<meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="What the agent can do: permissions and the network — Dozer Sandbox docs">
-<meta name="twitter:description" content="A sandbox has no network card. Its only way out is a proxy in Dozer&#x27;s host, on your Mac, which checks every connection against the sandbox&#x27;s permissions — a short list of plain-language switches — and logs it.">
+<meta name="twitter:title" content="What the agent can do: permissions and the network — Dozable docs">
+<meta name="twitter:description" content="A sandbox has no network card. Its only way out is a proxy in Dozable&#x27;s host, on your Mac, which checks every connection against the sandbox&#x27;s permissions — a short list of plain-language switches — and logs it.">
 <meta name="twitter:image" content="https://dozersandbox.com/og-image.png">
-<meta name="twitter:image:alt" content="The Dozer Sandbox sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
+<meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="stylesheet" href="../site.css?v=e177d3e7">
+<link rel="stylesheet" href="../site.css?v=3c6a0f06">
 <script src="../nav.js?v=4f745b91"></script>
-<link rel="stylesheet" href="docs.css?v=8123e1f9">
+<link rel="stylesheet" href="docs.css?v=4bcad37f">
 <script defer src="docs.js?v=a2a39b76"></script>
 </head>
 <body class="docs">
@@ -38,7 +38,7 @@
 <a class="skip" href="#main">Skip to the article</a>
 <header class="nav"><div class="nav-in">
   
-  <a class="nav-name" href="../">Dozer Sandbox</a>
+  <a class="nav-name" href="../">Dozable</a>
   <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel" aria-label="Menu"><svg class="bars" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <nav id="nav-panel" aria-label="Site"><a href="../#speed">Speed</a><a href="../#cli">CLI</a><a href="../#tour">Web UI</a><a href="../#compare">Compare</a><a href="../#security">Security</a><a href="../#uses">Use cases</a><a href="../#features">Features</a><a href="../timeline.html">Timeline</a><a href="../blog/">Blog</a><a href="./" aria-current="page">Docs</a><a class="nav-extra" href="https://github.com/dozer-sandbox/dozer-sandbox">GitHub</a></nav>
   <a class="nav-gh" href="https://github.com/dozer-sandbox/dozer-sandbox" aria-label="Source code on GitHub" title="Source code on GitHub"><svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg></a>
@@ -52,43 +52,47 @@
   <summary>Chapters</summary>
   <nav class="chapters-body" aria-label="Chapters">
 <h2>Start here</h2><ol>
-<li><a href="getting-started.html">Getting started</a></li>
-<li><a href="sandboxes-and-lifecycle.html">Sandboxes and their lifecycle</a></li>
-<li><a href="terminals-and-sessions.html">Terminals and sessions</a></li>
-<li><a href="permissions-and-network.html" aria-current="page">What the agent can do</a></li>
+<li><a href="getting-started">Getting started</a></li>
+<li><a href="sandboxes-and-lifecycle">Sandboxes and their lifecycle</a></li>
+<li><a href="terminals-and-sessions">Terminals and sessions</a></li>
+<li><a href="permissions-and-network" aria-current="page">What the agent can do</a></li>
 </ol>
 <h2>Install and set up</h2><ol>
-<li><a href="install-upgrade-uninstall.html">Install, upgrade, uninstall</a></li>
-<li><a href="setting-up.html">Setting up this Mac</a></li>
-<li><a href="projects.html">Projects</a></li>
+<li><a href="install-upgrade-uninstall">Install, upgrade, uninstall</a></li>
+<li><a href="setting-up">Setting up this Mac</a></li>
+<li><a href="projects">Projects</a></li>
 </ol>
-<h2>Using Dozer</h2><ol>
-<li><a href="the-dashboard.html">The dashboard</a></li>
-<li><a href="doz-serve.html">The dashboard on other devices</a></li>
-<li><a href="images-and-bases.html">Images and bases</a></li>
-<li><a href="agents-and-accounts.html">Agents and accounts</a></li>
-<li><a href="codex.html">Codex</a></li>
-<li><a href="signing-in-from-a-sandbox.html">Signing in from a sandbox</a></li>
-<li><a href="github.html">GitHub as you</a></li>
+<h2>Using Dozable</h2><ol>
+<li><a href="the-dashboard">The dashboard</a></li>
+<li><a href="doz-serve">The dashboard on other devices</a></li>
+<li><a href="images-and-bases">Images and bases</a></li>
+<li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="try-and-search">Trying agents</a></li>
+<li><a href="more-agents">More agents</a></li>
+<li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="codex">Codex</a></li>
+<li><a href="web-ports">Web ports</a></li>
+<li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
+<li><a href="github">GitHub as you</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
-<li><a href="the-tools-layer.html">The tools layer</a></li>
-<li><a href="workspace-rules.html">Workspace rules</a></li>
-<li><a href="the-workspace-view.html">The workspace view</a></li>
-<li><a href="prompts-for-your-agent.html">Prompts for your agent</a></li>
+<li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="workspace-rules">Workspace rules</a></li>
+<li><a href="the-workspace-view">The workspace view</a></li>
+<li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
 </ol>
 <h2>Looking after sandboxes</h2><ol>
-<li><a href="restore-points-duplicates-templates.html">Restore points, duplicates, templates</a></li>
-<li><a href="resources-and-disk-space.html">Resources and disk space</a></li>
-<li><a href="letting-another-agent-drive.html">Letting another agent drive</a></li>
+<li><a href="restore-points-duplicates-templates">Restore points, duplicates, templates</a></li>
+<li><a href="resources-and-disk-space">Resources and disk space</a></li>
+<li><a href="letting-another-agent-drive">Letting another agent drive</a></li>
 </ol>
 <h2>Reference</h2><ol>
-<li><a href="settings-reference.html">Settings reference</a></li>
-<li><a href="security-model.html">Security model</a></li>
-<li><a href="troubleshooting-and-faq.html">Troubleshooting and FAQ</a></li>
+<li><a href="settings-reference">Settings reference</a></li>
+<li><a href="security-model">Security model</a></li>
+<li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental.html">Audio sandboxes</a></li>
+<li><a href="audio-experimental">Audio sandboxes</a></li>
 </ol>
   </nav>
 </details>
@@ -99,7 +103,7 @@
 <header class="chead">
 <p class="eyebrow">Chapter 10</p>
 <h1>What the agent can do: permissions and the network</h1>
-<p class="summary">A sandbox has <strong>no network card</strong>. Its only way out is a proxy in Dozer&#x27;s host, on your Mac, which checks every connection against the sandbox&#x27;s <strong>permissions</strong> — a short list of plain-language switches — and logs it.</p>
+<p class="summary">A sandbox has <strong>no network card</strong>. Its only way out is a proxy in Dozable&#x27;s host, on your Mac, which checks every connection against the sandbox&#x27;s <strong>permissions</strong> — a short list of plain-language switches — and logs it.</p>
 </header>
 <details class="toc-m"><summary>On this page</summary>
 <ol>
@@ -125,18 +129,18 @@
 </details>
 <div class="prose">
 <!-- manual text -->
-<p>A sandbox has <strong>no network card</strong>. Its only way out is a proxy in Dozer&#x27;s host, on your Mac, which checks every connection against the sandbox&#x27;s <strong>permissions</strong> — a short list of plain-language switches — and logs it. You decide what the agent may reach; the agent can&#x27;t change it.</p>
+<p>A sandbox has <strong>no network card</strong>. Its only way out is a proxy in Dozable&#x27;s host, on your Mac, which checks every connection against the sandbox&#x27;s <strong>permissions</strong> — a short list of plain-language switches — and logs it. You decide what the agent may reach; the agent can&#x27;t change it.</p>
 <h2 id="concepts">Concepts<a class="anchor" href="#concepts" aria-label="Link to this section">#</a></h2>
 <ul>
 <li><p><strong>Permissions</strong> are what an agent may do, each a switch:</p>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: What the agent can do: permissions and the network"><table>
 <thead><tr><th scope="col">permission</th><th scope="col">id</th><th scope="col">what it allows</th><th scope="col">in Standard</th></tr></thead>
 <tbody>
-<tr><td>Talk to its AI model</td><td><code>model</code></td><td>Anthropic&#x27;s API</td><td>always on</td></tr><tr><td>Talk to OpenAI</td><td><code>model:openai</code></td><td>Codex&#x27;s model (<code>chatgpt.com</code>, <code>api.openai.com</code>) — <a href="codex.html">Codex</a></td><td>always on in a Codex sandbox; never in another agent&#x27;s</td></tr><tr><td>Sign in</td><td><code>sign-in</code></td><td>Claude&#x27;s sign-in pages, for signing in <em>inside</em> the sandbox</td><td>off (Dozer supplies the credential)</td></tr><tr><td>Update itself</td><td><code>update</code></td><td>new versions of Claude Code or pi</td><td>on</td></tr><tr><td>Install software — system packages</td><td><code>install:system</code></td><td>apt / apk</td><td>on</td></tr><tr><td>Install software — Node, Python, Go, Rust, Java, Ruby, .NET</td><td><code>install:node</code>, <code>install:python</code>, <code>install:go</code>, <code>install:rust</code>, <code>install:java</code>, <code>install:ruby</code>, <code>install:dotnet</code> (<code>install</code> = all)</td><td>that language&#x27;s package registry</td><td>your base&#x27;s language</td></tr><tr><td>Use GitHub</td><td><code>github</code></td><td>clone and fetch code; Claude Code&#x27;s plugins</td><td>on</td></tr><tr><td>Use GitHub as you</td><td><code>github:as-you</code></td><td>git and gh signed in as you — read-only (<a href="github.html">GitHub as you</a>)</td><td>off, in every preset</td></tr><tr><td>Push to GitHub</td><td><code>github:push</code></td><td>also push and change things on GitHub as you</td><td>off, in every preset</td></tr><tr><td>Send error reports</td><td><code>error-reports</code></td><td>the agent reporting its own crashes to its maker</td><td>on</td></tr><tr><td>Browse the web</td><td><code>web</code></td><td>any website</td><td>off — <strong>the agent could send your code anywhere</strong></td></tr><tr><td>Sites you allow</td><td><code>site:HOST</code></td><td>one host (<code>api.example.com</code>, or <code>*.example.com</code>)</td><td>none</td></tr>
+<tr><td>Talk to its AI model</td><td><code>model</code></td><td>Anthropic&#x27;s API</td><td>always on</td></tr><tr><td>Talk to OpenAI</td><td><code>model:openai</code></td><td>Codex&#x27;s model (<code>chatgpt.com</code>, <code>api.openai.com</code>) — <a href="codex">Codex</a></td><td>always on in a Codex sandbox; never in another agent&#x27;s</td></tr><tr><td>Sign in</td><td><code>sign-in</code></td><td>Claude&#x27;s sign-in pages, for signing in <em>inside</em> the sandbox</td><td>off (Dozable supplies the credential)</td></tr><tr><td>Update itself</td><td><code>update</code></td><td>new versions of Claude Code or pi</td><td>on</td></tr><tr><td>Install software — system packages</td><td><code>install:system</code></td><td>apt / apk</td><td>on</td></tr><tr><td>Install software — Node, Python, Go, Rust, Java, Ruby, .NET</td><td><code>install:node</code>, <code>install:python</code>, <code>install:go</code>, <code>install:rust</code>, <code>install:java</code>, <code>install:ruby</code>, <code>install:dotnet</code> (<code>install</code> = all)</td><td>that language&#x27;s package registry</td><td>your base&#x27;s language</td></tr><tr><td>Use GitHub</td><td><code>github</code></td><td>clone and fetch code; Claude Code&#x27;s plugins</td><td>on</td></tr><tr><td>Use GitHub as you</td><td><code>github:as-you</code></td><td>git and gh signed in as you — read-only (<a href="github">GitHub as you</a>)</td><td>off, in every preset</td></tr><tr><td>Push to GitHub</td><td><code>github:push</code></td><td>also push and change things on GitHub as you</td><td>off, in every preset</td></tr><tr><td>Send error reports</td><td><code>error-reports</code></td><td>the agent reporting its own crashes to its maker</td><td>on</td></tr><tr><td>Browse the web</td><td><code>web</code></td><td>any website</td><td>off — <strong>the agent could send your code anywhere</strong></td></tr><tr><td>Sites you allow</td><td><code>site:HOST</code></td><td>one host (<code>api.example.com</code>, or <code>*.example.com</code>)</td><td>none</td></tr>
 </tbody></table></div>
-<p><code>doz net permissions</code> lists every permission with the exact hosts behind it in your version of Dozer.</p></li>
+<p><code>doz net permissions</code> lists every permission with the exact hosts behind it in your version of Dozable.</p></li>
 <li><p><strong>Presets:</strong> <strong>Locked</strong> (its AI model only), <strong>Standard</strong>, <strong>Open</strong> (everything, still logged). Your GitHub login is never part of a preset — not even Open: it&#x27;s switched on by name, and a preset you choose later keeps it as it was. New sandboxes get the setting <code>defaults.permissions</code> (<code>standard</code>).</p></li>
-<li><p><strong>Stored by name.</strong> A sandbox remembers &quot;Update itself&quot;, not a list of hosts, so when a new version of Dozer adds a host to a permission, every sandbox that has it gets it.</p></li>
+<li><p><strong>Stored by name.</strong> A sandbox remembers &quot;Update itself&quot;, not a list of hosts, so when a new version of Dozable adds a host to a permission, every sandbox that has it gets it.</p></li>
 <li><p><strong>Live.</strong> A change applies to the sandbox&#x27;s next connection — no restart — and is kept for its next start.</p></li>
 <li><p><strong>Everything is logged:</strong> host, verdict, rule, bytes. Never the contents.</p></li>
 </ul>
@@ -182,10 +186,10 @@ doz net policy my-app --preset open                     <span class="c"># replac
 <h2 id="limits-and-security">Limits and security<a class="anchor" href="#limits-and-security" aria-label="Link to this section">#</a></h2>
 <ul>
 <li><strong>Browse the web</strong> and <strong>Open</strong> let the agent send your code and data anywhere. Prefer a <code>site:HOST</code> for what the agent really needs.</li>
-<li><strong>A Dockerfile build runs outside this policy</strong> (in Apple&#x27;s builder); the sandbox made from it doesn&#x27;t. See <a href="images-and-bases.html#your-own-dockerfile">Images and bases</a>.</li>
+<li><strong>A Dockerfile build runs outside this policy</strong> (in Apple&#x27;s builder); the sandbox made from it doesn&#x27;t. See <a href="images-and-bases#your-own-dockerfile">Images and bases</a>.</li>
 <li>IPv4 only; HTTP/2 isn&#x27;t passed through on the hosts whose traffic the proxy inspects; UDP is refused (programs fall back to TCP).</li>
-<li>There are no general port forwards from your Mac into a sandbox. The one exception is a sign-in&#x27;s callback, briefly — see <a href="signing-in-from-a-sandbox.html">Signing in from a sandbox</a>.</li>
-<li>A sandbox made with an older version of Dozer keeps its rules; <code>doz net NAME</code> shows them as the permissions they amount to, and its first permission change stores them as permissions (anything no permission covers stays as your own site rules).</li>
+<li>There are no general port forwards from your Mac into a sandbox. The one exception is a sign-in&#x27;s callback, briefly — see <a href="signing-in-from-a-sandbox">Signing in from a sandbox</a>.</li>
+<li>A sandbox made with an older version of Dozable keeps its rules; <code>doz net NAME</code> shows them as the permissions they amount to, and its first permission change stores them as permissions (anything no permission covers stays as your own site rules).</li>
 </ul>
 <h2 id="troubleshooting">Troubleshooting<a class="anchor" href="#troubleshooting" aria-label="Link to this section">#</a></h2>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Troubleshooting"><table>
@@ -196,10 +200,10 @@ doz net policy my-app --preset open                     <span class="c"># replac
 <!-- /manual text -->
 </div>
 <ul class="pager">
-<li class="prev"><a href="agents-and-accounts.html" rel="prev"><small>&larr; Previous</small><b>Agents and accounts</b></a></li>
-<li class="next"><a href="signing-in-from-a-sandbox.html" rel="next"><small>Next &rarr;</small><b>Signing in from a sandbox</b></a></li>
+<li class="prev"><a href="agents-and-accounts" rel="prev"><small>&larr; Previous</small><b>Agents and accounts</b></a></li>
+<li class="next"><a href="signing-in-from-a-sandbox" rel="next"><small>Next &rarr;</small><b>Signing in from a sandbox</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozer-sandbox/dozer-sandbox/blob/main/docs/manual/10-permissions-and-network.md">Edit this page on GitHub</a> &middot; Chapter 10 of 25</p>
+<p class="edit"><a href="https://github.com/dozer-sandbox/dozer-sandbox/blob/main/docs/manual/10-permissions-and-network.md">Edit this page on GitHub</a> &middot; Chapter 10 of 29</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">

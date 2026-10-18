@@ -1,10 +1,10 @@
 ---
-title: "Terminals and sessions — Dozer Sandbox docs"
+title: "Terminals and sessions — Dozable docs"
 description: "A session is a terminal program running inside a sandbox: a shell, claude, pi, a dev server."
-url: https://dozersandbox.com/docs/terminals-and-sessions.html
+url: https://dozersandbox.com/docs/terminals-and-sessions
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox manual"
-updated: 2026-10-12
+source: "Dozable manual"
+updated: 2026-10-18
 chapter: 7
 ---
 # Terminals and sessions
@@ -24,15 +24,15 @@ sandbox sleeps or hibernates.
 - **Bridges.** A session's terminal is also how a program reaches your Mac for two things: copying to
   your clipboard, and opening a web page in your browser. Both are shown to you every time and can be
   turned off. See [the clipboard](#the-clipboard) below and
-  [Signing in from a sandbox](https://dozersandbox.com/docs/signing-in-from-a-sandbox.html.md).
-- **The agent says what it is doing.** Claude Code and pi tell Dozer when they are working, waiting
+  [Signing in from a sandbox](https://dozersandbox.com/docs/signing-in-from-a-sandbox.md).
+- **The agent says what it is doing.** Claude Code and pi tell Dozable when they are working, waiting
   for you or done, and the dashboard and `doz ls` show it. See
   [what the agent is doing](#what-the-agent-is-doing).
 
 ## In the terminal
 
 ```sh
-doz attach my-app                 # the sandbox's own session
+doz attach my-app                 # the sandbox's own session (opened first when it is not running)
 doz attach my-app server          # a session by name
 doz run my-app -- htop            # a NEW session running a program, attached
 doz run my-app -d --session worker -- bash -lc 'make watch'    # start one in the background
@@ -53,6 +53,30 @@ doz exec my-app -- ls /workspace  # a one-off command: no terminal, output and e
   image (not on its PATH)" — and `doz` exits `125`. There is no `sudo` in the lab; it isn't needed
   there: `exec` already runs as root unless `--user` names another user.
 
+### Copying files in and out: `doz get`, `doz put`, `doz cp`
+
+```sh
+doz get my-app report.md                  # out of the sandbox, into the current folder (a path relative to /workspace)
+doz get my-app /workspace/site ./backup/  # a folder, whole, into ./backup/site
+doz get my-app out.csv results.csv        # a new name
+doz put my-app ./data                     # into the sandbox: /workspace/data
+doz put my-app notes.md /tmp/n.md         # somewhere else, under a new name
+doz cp my-app:/workspace/report.md .      # the Docker spelling: NAME:PATH on one side (NAME: alone is /workspace)
+```
+
+- They work in every sandbox, **an isolated one included** — the way files come out of a try made with
+  `--isolated`. A sleeping sandbox is woken and one that is off is started, as for `exec` (`--no-wake`,
+  `--no-start` refuse instead).
+- Into an existing folder the item keeps its name; otherwise the last part of the destination is its new
+  name. **What is already there is not replaced** unless `--force` (a file replaces a file; a folder is
+  merged into a folder, files of the same name replaced — never a folder over a file).
+- File modes are kept (an executable stays executable). On your Mac the files are yours; in the sandbox
+  they belong to the image's user — or to root where that user cannot write (it says so).
+- **Only what you named is written.** On the Mac the copy is unpacked in a temporary folder beside the
+  destination, checked, then moved into place; nothing is ever written into Dozable's own store. A folder
+  holding a link that points outside it is not copied, either way (the copy says which link).
+- A large copy shows its progress; `--json` gives the result as data.
+
 ### Restarting or ending a session
 
 `doz sessions restart NAME SESSION` ends the session's program and starts **the same program again**, in
@@ -67,7 +91,7 @@ then terminate it, then kill it if they must; anything attached sees it end. Bot
 in a terminal; from a script (stdin or stdout not a terminal), with `--json` or with `-d` it restarts the
 session and returns (`--json` answers with the result) — `--attach` attaches even without a terminal.
 
-What a restart runs is what the session was opened with, as Dozer recorded it then; variables given with
+What a restart runs is what the session was opened with, as Dozable recorded it then; variables given with
 `-e` are not kept (it says so), and a session opened by an older doz cannot be restarted — end it and
 `doz run` it again.
 
@@ -103,7 +127,7 @@ the last line names the shortest command that comes back: `doz up` in the projec
 While you're attached, `doz attach` sets your terminal window's (or tab's) title, by default to
 `sandbox · session · time`, for example `my-app · claude · 14:05`, refreshed each minute. When you
 leave, the title you had comes back (iTerm2, Ghostty, kitty and xterm keep a title stack;
-Terminal.app keeps Dozer's until something else sets one). Change it with the setting
+Terminal.app keeps Dozable's until something else sets one). Change it with the setting
 `ui.terminal_title`, using `{sandbox}` `{session}` `{image}` `{time}` `{phase}`:
 
 ```sh
@@ -111,7 +135,7 @@ doz config set ui.terminal_title "{image}:{session} ({phase})"
 doz config set ui.terminal_title ""          # leave the title to the program in the session
 ```
 
-While Dozer sets the title, a program's own title (Claude Code sets one) isn't shown.
+While Dozable sets the title, a program's own title (Claude Code sets one) isn't shown.
 
 ### When the sandbox sleeps
 
@@ -155,7 +179,7 @@ refused. **Cmd-C** copies a selection, **Cmd-V** pastes; other Cmd shortcuts bel
 ## What the agent is doing
 
 Claude Code and pi say what they are doing — **working**, **blocked** (waiting for you), **done**, or
-stopped with an **error** — and Dozer shows it, whether or not a terminal is attached:
+stopped with an **error** — and Dozable shows it, whether or not a terminal is attached:
 
 - **The dashboard**: a chip on each session's tab, on its tile in **All sessions** and on its row in the
   **Sessions** tab (with the agent's own one-line message under it); a dot beside the sandbox in the
@@ -183,10 +207,33 @@ Which agents say it:
 |---|---|
 | Claude Code | 2.1.295 and later (images install the newest by default) |
 | pi | 1.1.0 and later |
+| Grok Build | 1.0.52 and later (the version Dozable installs) |
 | Codex | no — its sessions show nothing, and everything else works as usual |
+| OpenCode | no (checked with 1.19.0) |
+| GitHub Copilot CLI | no (checked with 1.0.96) |
+| Qwen Code | no (checked with 0.25.1) |
+| Goose | no (checked with 1.54.0) |
+| Kilo Code CLI | no (checked with 7.8.8) |
+| Mistral Vibe | no (checked with 2.26.1) |
+| Factory Droid | 0.240.1 (the version Dozable installs) |
+| Dirac | no (checked with 0.5.20) |
+| Kimi Code | no (checked with 2.1.1) |
+| Cline CLI | no (checked with 3.0.71) |
+| OpenHands CLI | no (checked with 1.16.0) |
+| Letta Code | no (checked with 0.34.13) |
+| Docker Agent | 1.150.0 (the version Dozable installs) |
+| Nanocoder | no (checked with 1.31.0) |
+| mini-swe-agent | no (checked with 2.4.6) |
+| Open Interpreter | no (checked with 0.0.56) |
+| Crush | partly (0.98.1 reports idle and working, never done; not used yet) |
+| MiMo Code | no (checked with 0.1.15) |
+| CodeWhale | no (checked with 0.10.1) |
+| Maki | no (checked with 0.6.3) |
+| oh-my-pi | partly (18.10.4 reports idle, never working or done; not used yet) |
+| Tau | no (checked with 0.4.7) |
 
 How it works: a program reports its state with a terminal escape sequence (the *program status*
-protocol, OSC 7501) — but only after the terminal answers that it understands it. Dozer's session
+protocol, OSC 7501) — but only after the terminal answers that it understands it. Dozable's session
 keeper inside the sandbox answers and keeps the latest report of each session, so the status is
 there while you are detached, and after a sleep or a hibernation the agent carries on reporting. The
 sequence itself still reaches your terminal unchanged when you are attached. A session's status ends
@@ -195,7 +242,7 @@ or the sandbox shuts down.
 
 Limits:
 
-- the agent's message is its own text, shown as plain text and never written to Dozer's log;
+- the agent's message is its own text, shown as plain text and never written to Dozable's log;
 - tmux does not pass the status through, so a session running inside tmux shows none;
 - a session started before an update keeps the session keeper it started with and shows no status
   until it is restarted (`doz sessions restart NAME SESSION`).
@@ -265,7 +312,7 @@ What it never does:
 - **Only while you watch:** like the clipboard, it acts only while a terminal is attached to the
   session; at most 3 files or folders in 10 seconds per sandbox.
 
-URLs work exactly as before ([Signing in from a sandbox](https://dozersandbox.com/docs/signing-in-from-a-sandbox.html.md)). Turn
+URLs work exactly as before ([Signing in from a sandbox](https://dozersandbox.com/docs/signing-in-from-a-sandbox.md)). Turn
 files off where you don't want them:
 
 ```sh
@@ -281,7 +328,7 @@ Off by default. Turn it on for every sandbox (`doz config set sessions.tmux true
 `doz config set --sandbox NAME sessions.tmux true`), and each **new** session runs its program inside
 tmux: windows, panes, copy mode, its status bar and its prefix key, **Ctrl-b**.
 
-tmux runs *inside* Dozer's own session keeper, so everything else still works: `doz attach` and
+tmux runs *inside* Dozable's own session keeper, so everything else still works: `doz attach` and
 Ctrl-], sleep and wake (tmux and its programs are where they were), saved screens (tmux's screen,
 status bar included), browser terminals, and the clipboard and browser bridges. Each session has a
 tmux server of its own, and reopening a session finds a program tmux still holds.
@@ -292,7 +339,7 @@ Limits:
 - the kitty keyboard protocol and xterm's modifyOtherKeys don't fully pass through tmux, so a program
   that relies on them (Claude Code's richer key handling) sees less;
 - the session's exit code is tmux's (0), not the program's;
-- tmux must be in the image. The built-in images have it; on an image an older version of Dozer
+- tmux must be in the image. The built-in images have it; on an image an older version of Dozable
   prepared, the session runs without tmux and says how to get it (rebuild the image, then
   `doz reset`).
 
@@ -316,7 +363,7 @@ Limits:
 | symptom | what to do |
 |---|---|
 | Ctrl-] seems to do nothing | Look at the bottom row: the menu is there. Press Ctrl-] again (or `d`) to detach. |
-| After detaching, moving the mouse types odd characters | Shouldn't happen — Dozer turns the program's mouse mode off on the way out. If a crash left it on, run `reset` in your terminal. |
+| After detaching, moving the mouse types odd characters | Shouldn't happen — Dozable turns the program's mouse mode off on the way out. If a crash left it on, run `reset` in your terminal. |
 | The title didn't come back (Terminal.app) | Terminal.app has no title stack; the next program that sets a title replaces it. |
 | A copy didn't reach the clipboard | Check the notice: off, too large or too many. `doz config show --sandbox NAME`. |
 | Keys like Shift+Enter don't work in Claude Code under tmux | A tmux limit (see above); turn tmux off for that sandbox. |

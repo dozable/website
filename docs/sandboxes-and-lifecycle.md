@@ -1,10 +1,10 @@
 ---
-title: "Sandboxes and their lifecycle — Dozer Sandbox docs"
+title: "Sandboxes and their lifecycle — Dozable docs"
 description: "A sandbox is one Linux virtual machine with its own disks."
-url: https://dozersandbox.com/docs/sandboxes-and-lifecycle.html
+url: https://dozersandbox.com/docs/sandboxes-and-lifecycle
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox manual"
-updated: 2026-10-12
+source: "Dozable manual"
+updated: 2026-10-18
 chapter: 5
 ---
 # Sandboxes and their lifecycle
@@ -17,7 +17,7 @@ the background **host** that runs them all.
 
 - **Name.** 1–40 characters of `a-z 0-9 -`, unique in the store.
 - **Image.** What the sandbox starts from (Claude Code, pi, a plain shell, a template…). See
-  [Images and bases](https://dozersandbox.com/docs/images-and-bases.html.md).
+  [Images and bases](https://dozersandbox.com/docs/images-and-bases.md).
 - **Three kinds of storage**, each kept differently:
 
   | | what's on it | kept through |
@@ -29,7 +29,7 @@ the background **host** that runs them all.
 - **Isolated.** A sandbox with no shared folder: `/workspace` is a folder on its own disk, and nothing
   on your Mac is shared. `doz ls` shows `isolated`, and the agent is told.
 - **Sessions.** The terminal programs running inside (a shell, `claude`, `pi`). They survive pause,
-  sleep and hibernate. See [Terminals and sessions](https://dozersandbox.com/docs/terminals-and-sessions.html.md).
+  sleep and hibernate. See [Terminals and sessions](https://dozersandbox.com/docs/terminals-and-sessions.md).
 - **The host.** One background `doz` process per store. It owns every running VM, the network proxy
   and the credentials. The first command that needs it starts it, and it exits when idle, so you
   normally never think about it.
@@ -70,10 +70,16 @@ asleep or hibernated sandbox and resumes a paused one, so it's the one command t
 | `doz sleep NAME` · `doz wake NAME` | paused **and** saved to disk — survives a crash of the host | ~0.3 s | kept | carry on |
 | `doz hibernate NAME` · `doz wake NAME` | saved to disk, then the VM stops | ~0.35 s / ~0.3 s | **given back** | carry on: same processes, same screens |
 | `doz shutdown NAME` | a cold stop; the disks are kept | | given back | end |
+| `doz down NAME` | the opposite of `up`: hibernate (`--sleep`: sleep; `--shutdown`: shut down) | as those | as those | as those |
 | `doz reset NAME` | shut down and go back to a fresh copy of the image (the state disk and restore points stay) | | | end |
 | `doz rm NAME` | remove the sandbox and everything it has on disk | | | end |
 
 `start` has an alias, `cold-boot`; `pause` has `suspend`.
+
+`doz down NAME` puts a sandbox away when you are done for now: it hibernates it — nothing kept in memory, its
+sessions come back where they were with `doz up` (in its project folder), `doz attach` or `doz wake`.
+`--sleep` keeps its memory for an even quicker wake; `--shutdown` is a cold stop, asked first as `shutdown` is
+(`-y` skips the question). It works on a try too.
 
 `shutdown`, `reset` and `rm` ask first. `--yes` skips the question; without a terminal and without
 `--yes` they refuse, so a script can't destroy something by accident. The question names what you
@@ -141,12 +147,12 @@ doz up my-app                                        # create if missing, start 
 
 | option | what it does |
 |---|---|
-| `--image` | `lab`, `claude-code`, `pi`, a base × agent image, or a template. Or `--agent` with `--base` / `--dockerfile` ([Images and bases](https://dozersandbox.com/docs/images-and-bases.html.md)). |
+| `--image` | `lab`, `claude-code`, `pi`, a base × agent image, or a template. Or `--agent` with `--base` / `--dockerfile` ([Images and bases](https://dozersandbox.com/docs/images-and-bases.md)). |
 | `--workspace DIR` | Share this Mac folder at `/workspace`. Made if it doesn't exist; refused for your home folder itself, system locations and the store. |
 | `--isolated` | Share nothing (the default without `--workspace`; this says it on purpose). |
 | `--cpus` · `--memory` | Virtual CPUs (default 2) · RAM (`2G`, `512M`; default 1 GiB for lab, 2 GiB for an agent image). |
-| `--network` · `--allow` | What the agent may reach ([What the agent can do](https://dozersandbox.com/docs/permissions-and-network.html.md)). |
-| `--account` | Which Claude account it uses ([Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.html.md)). |
+| `--network` · `--allow` | What the agent may reach ([What the agent can do](https://dozersandbox.com/docs/permissions-and-network.md)). |
+| `--account` | Which Claude account it uses ([Agents and accounts](https://dozersandbox.com/docs/agents-and-accounts.md)). |
 | `--start` | Start it straight away. |
 | `--prepare` | Prepare its image now — download and bake it once, with its progress — so the first start does not wait; the sandbox stays off. If that image is already being prepared, it joins that preparation. Ctrl-C stops watching; the preparation goes on (`doz onboard --status` follows it). |
 | `--rebuild` · `--use-current` | When the image is out of date: rebuild it first, or use it as it is. |
@@ -163,11 +169,12 @@ does all that without attaching. On an existing sandbox, create options are igno
    session. Each step is filled in from your settings; **Skip to review** keeps the rest.
 2. **Review** shows the `doz_project.yaml` it writes into the folder; **Write and create** writes it,
    makes the sandbox from it, starts it and opens it with the boot in a terminal. See
-   [Projects](https://dozersandbox.com/docs/projects.html.md#in-the-dashboard).
+   [Projects](https://dozersandbox.com/docs/projects.md#in-the-dashboard).
 3. Or **One-page form** (in the wizard, top right): everything on one page, a **Shared folder** or
-   **Isolated**, and no project file. **Create** makes it off; **Start** boots it. With the setting
-   `ui.boot_view_on_start` on (the default), Start opens a terminal that shows the boot as it happens,
-   then becomes the sandbox's own session.
+   **Isolated**, and no project file. **Create** makes it off; **Start** boots it: the terminal area shows
+   the image's build while there is one, then tab zero, **Console** (the boot as it happens), then the
+   agent's own tab once it has drawn its screen. With the setting `ui.boot_view_on_start` on, the page
+   stays on Console and marks the agent's tab instead of switching to it.
 
 ![New sandbox](https://dozersandbox.com/docs/images/new-sandbox.png)
 
@@ -175,8 +182,8 @@ Each sandbox has an entry under **Sandboxes** in the sidebar, with a dot in its 
 while it holds memory, a ring when it holds none, a square when it failed). Its page has the lifecycle
 buttons across the top — **Start**, **Pause**, **Resume**, **Sleep**, **Hibernate**, **Wake**, **Shut
 down** — showing only those that make sense in its state, the one that brings it back first;
-**Reset…** and **Remove…** are under **⋯**. **Reset** and **Remove** ask you to type the sandbox's
-name; **Shut down** asks with a plain confirmation ("Don't ask again" sets `ui.confirm_shutdown` to
+**Reset…** and **Remove…** are under **⋯**. **Reset** and **Remove** ask you to tick a box
+first; **Shut down** asks with a plain confirmation ("Don't ask again" sets `ui.confirm_shutdown` to
 `false`).
 
 ## See what you have
@@ -193,7 +200,7 @@ running, these commands read the store directly.
 
 ## Saved screens
 
-Before a sandbox pauses, sleeps or hibernates, Dozer saves the screen of each of its sessions — and
+Before a sandbox pauses, sleeps or hibernates, Dozable saves the screen of each of its sessions — and
 every `host.screen_capture_minutes` (5) while it runs, for sessions that printed something since. So
 you can see what a sleeping sandbox was doing without waking it:
 
@@ -210,7 +217,7 @@ the sandbox: shutdown, reset and remove delete them.
 
 ## Boot logs
 
-Every boot of a sandbox — each start, each wake, a recovery after a crash — is kept: Dozer's timed
+Every boot of a sandbox — each start, each wake, a recovery after a crash — is kept: Dozable's timed
 steps as the boot view showed them, and the Linux kernel's own messages.
 
 ```sh
@@ -248,7 +255,7 @@ A sandbox follows your Mac's time zone, read again at every start and wake — s
 while you travelled wakes in your new zone. The agent is told its time zone too. To pin one:
 `doz config set sandbox.timezone Australia/Sydney`.
 
-The rest of Dozer's set-up inside the sandbox is put back at every start and wake too: apt never
+The rest of Dozable's set-up inside the sandbox is put back at every start and wake too: apt never
 stops to ask a question, the sandbox's own name resolves, the agent's sudo follows its setting, and
 links open on your Mac. So a sandbox that only ever sleeps or hibernates and wakes still gets what a
 newer doz fixes, without a restart.
@@ -264,7 +271,7 @@ newer doz fixes, without a restart.
 | `host.idle_timeout_minutes` | `5` | Minutes with nothing running before the host exits; `0` = never (`$DOZ_HOST_IDLE`). |
 | `host.screen_capture_minutes` | `5` | How often a running sandbox's changed screens are saved; `0` = only at pause, sleep and hibernate. |
 | `host.boot_logs_kept` | `5` | Boots kept per sandbox (1–50). |
-| `ui.boot_view_on_start` | `true` | The dashboard's Start opens a terminal on the boot. |
+| `ui.boot_view_on_start` | `false` | After the dashboard's Start, stay on tab zero (Console) rather than switch to the agent's tab. |
 | `ui.confirm_shutdown` | `true` | The dashboard's Shut down asks first. |
 
 ## Limits

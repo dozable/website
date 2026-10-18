@@ -1,11 +1,11 @@
 ---
-title: "OpenCode 2 is in Dozer Sandbox — Dozer Sandbox blog"
+title: "OpenCode 2 is in Dozer Sandbox — Dozable blog"
 description: "OpenCode 2, a rebuild of the open-source coding agent around one shared background service, now runs in Dozer Sandbox beside OpenCode 1, on your own key or OpenCode Zen's free models."
 date: 2026-10-17
 topics: [tool-news]
 url: https://dozersandbox.com/blog/opencode-2
 image: https://dozersandbox.com/og-image.png
-source: "Dozer Sandbox blog"
+source: "Dozable blog"
 ---
 # OpenCode 2 is in Dozer Sandbox
 
