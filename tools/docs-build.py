@@ -23,7 +23,7 @@ OUT = os.path.join(SITE, 'docs')
 TEMPLATE = os.path.join(SITE, 'tools', 'docs-template.html')
 DIAGRAMS = os.path.join(SITE, 'tools', 'docs-diagrams')
 BASE_URL = 'https://dozable.com/docs/'
-REPO = 'https://github.com/dozer-sandbox/dozer-sandbox'
+REPO = 'https://github.com/dozable/dozable'
 INDEX_DESCRIPTION = ('The user manual for Dozable: install, set up, and run AI coding agents in fast, resumable '
                      'Linux sandboxes on your Mac, with the doz command or its dashboard.')
 

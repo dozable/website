@@ -67,5 +67,5 @@ both.
 This manual is checked against `doz` itself on every build: every command, flag and setting it names
 exists, and the settings reference is generated from the program.
 
-The command-line [user guide](https://github.com/dozer-sandbox/dozer-sandbox/blob/main/docs/CLI-USER-GUIDE.md) and the [walkthrough](https://github.com/dozer-sandbox/dozer-sandbox/blob/main/docs/CLI-WALKTHROUGH.md) cover
+The command-line [user guide](https://github.com/dozable/dozable/blob/main/docs/CLI-USER-GUIDE.md) and the [walkthrough](https://github.com/dozable/dozable/blob/main/docs/CLI-WALKTHROUGH.md) cover
 the same ground for command-line users, more tersely.

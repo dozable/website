@@ -34,7 +34,7 @@ KEYS = ('title', 'date', 'topics', 'summary', 'email', 'status')
 # show the post again, and the old address may go without --retire. A redirect rule on the dozable.com zone (Cloudflare)
 # sends the old /blog/SLUG, /blog/SLUG.md and /blog/images/SLUG/… to the new ones: add one with each rename.
 OPTIONAL_KEYS = ('formerly',)
-REPO = 'https://github.com/dozer-sandbox/dozer-sandbox'
+REPO = 'https://github.com/dozable/dozable'
 
 _spec = importlib.util.spec_from_file_location('docs_build', os.path.join(SITE, 'tools', 'docs-build.py'))
 docs = importlib.util.module_from_spec(_spec)

@@ -60,7 +60,7 @@ Pages have Markdown twins: add `.md` to a page URL (`/docs/` is `/docs/index.md`
 ## Optional
 
 - [llms-full.txt](https://dozable.com/llms-full.txt): the whole manual and the privacy policy in one file.
-- [Source code](https://github.com/dozer-sandbox/dozer-sandbox): the GitHub repository (MIT licence).
-- [Releases](https://github.com/dozer-sandbox/dozer-sandbox/releases): every version, with notes.
+- [Source code](https://github.com/dozable/dozable): the GitHub repository (MIT licence).
+- [Releases](https://github.com/dozable/dozable/releases): every version, with notes.
 - [Blog feed](https://dozable.com/blog/feed.xml): Atom.
 - [Sitemap](https://dozable.com/sitemap.xml)

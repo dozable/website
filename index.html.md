@@ -8,7 +8,7 @@ image: https://dozable.com/og-image.png
 
 Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac — your API keys never go inside. Free and open source.
 
-Alpha Stable v0.32.0 [Version history →](https://github.com/dozer-sandbox/dozer-sandbox/releases)
+Alpha Stable v0.32.0 [Version history →](https://github.com/dozable/dozable/releases)
 
 ```
 brew trust --tap dozable/tap && brew install dozable/tap/doz && doz ui

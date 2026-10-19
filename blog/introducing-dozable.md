@@ -44,7 +44,7 @@ an image. Then **New sandbox** and you're in. Prefer the terminal? `doz onboard`
 
 ## Free and open source
 
-Dozable is free, and its source is on [GitHub](https://github.com/dozer-sandbox/dozer-sandbox).
+Dozable is free, and its source is on [GitHub](https://github.com/dozable/dozable).
 
 This blog is where news, early access and tips will appear. They're also sent by email to anyone who
 [signs up](https://dozable.com/signup) for them. Thanks for reading, and for trying it.

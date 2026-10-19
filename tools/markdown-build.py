@@ -20,7 +20,7 @@ from html.parser import HTMLParser
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = 'https://dozable.com/'
-REPO = 'https://github.com/dozer-sandbox/dozer-sandbox'
+REPO = 'https://github.com/dozable/dozable'
 ROOT_PAGES = [  # (source html, twin file, canonical url)
     ('index.html', 'index.html.md', BASE),
     ('timeline.html', 'timeline.html.md', BASE + 'timeline.html'),
