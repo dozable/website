@@ -117,7 +117,7 @@
       for (var i = 0; i < 3; i++) if (a.n[i] !== b.n[i]) return a.n[i] > b.n[i];
       return !a.pre && !!b.pre;
     }
-    fetch('https://updates.dozersandbox.com/v1/feed.json', { cache: 'no-cache' })
+    fetch('https://updates.dozable.com/v1/feed.json', { cache: 'no-cache' })
       .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
       .then(function (feed) {
         var best = null;

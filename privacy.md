@@ -63,7 +63,7 @@ If you sign up — in Dozable's setup, with `doz signup`, or on dozable.com/sign
 ### 3. The website and the update feed
 
 - **dozable.com** uses no analytics, advertising or tracking scripts, and sets no cookies of its own — the blog included. Our host, Cloudflare, may set a strictly necessary security cookie and keeps standard request logs under [its own privacy policy](https://www.cloudflare.com/privacypolicy/). The colour picker on the site exists only when you open it on your own computer.
-- **Update checks:** Dozable checks `updates.dozersandbox.com` for new releases at most once a day (or when you ask). That request carries Dozable's version and channel in its user agent and nothing else. It is part of keeping Dozable up to date, not the usage statistics; turn it off with `doz config set updates.mode off`.
+- **Update checks:** Dozable checks `updates.dozable.com` (versions before 0.37.2: `updates.dozersandbox.com`, which redirects there) for new releases at most once a day (or when you ask). That request carries Dozable's version and channel in its user agent and nothing else. It is part of keeping Dozable up to date, not the usage statistics; turn it off with `doz config set updates.mode off`.
 
 ## Where it is kept, and for how long
 
