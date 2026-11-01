@@ -3,11 +3,11 @@ title: "Privacy Policy — Dozable"
 description: "What Dozable and dozable.com collect, why, and how to turn it off: anonymous usage statistics, optional sign-up, and the website."
 url: https://dozable.com/privacy
 image: https://dozable.com/og-image.png
-updated: 2026-10-16
+updated: 2026-11-02
 ---
 # Dozable Privacy Policy
 
-**Last updated:** 16 October 2026
+**Last updated:** 2 November 2026
 
 Dozable is made by **Roundrect Pty Ltd** (ABN 36 613 522 277), Queensland, Australia ("we", "us"). This policy explains what Dozable and dozable.com collect, why, and how to turn it off.
 
@@ -64,6 +64,7 @@ If you sign up — in Dozable's setup, with `doz signup`, or on dozable.com/sign
 
 - **dozable.com** uses no analytics, advertising or tracking scripts, and sets no cookies of its own — the blog included. Our host, Cloudflare, may set a strictly necessary security cookie and keeps standard request logs under [its own privacy policy](https://www.cloudflare.com/privacypolicy/). The colour picker on the site exists only when you open it on your own computer.
 - **Update checks:** Dozable checks `updates.dozable.com` (versions before 0.37.2: `updates.dozersandbox.com`, which redirects there) for new releases at most once a day (or when you ask). That request carries Dozable's version and channel in its user agent and nothing else. It is part of keeping Dozable up to date, not the usage statistics; turn it off with `doz config set updates.mode off`.
+- **Recipe catalogue:** from version 0.37.37, while its host runs, Dozable also asks `doz.sh` at most once an hour for a newer signed recipe catalogue (the list of tools Dozable knows how to install). That request carries Dozable's version in its user agent and nothing else; the catalogue is public and the same for everyone. A community catalogue you add yourself is fetched the same way, from the address you gave. There is no setting to turn the Dozable catalogue check off yet.
 
 ## Where it is kept, and for how long
 
