@@ -4,7 +4,7 @@ description: "doz doctor checks everything Dozable depends on — macOS and Appl
 url: https://dozable.com/docs/troubleshooting-and-faq
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-19
+updated: 2026-11-13
 chapter: 17
 ---
 # Troubleshooting and FAQ
@@ -28,7 +28,7 @@ Then, depending on what's wrong:
 | What the agent was refused | `doz net NAME` (the suggestions), `doz net log NAME --denied` |
 | Everything about a sandbox | `doz inspect NAME` |
 | What the agent is told | `doz inspect NAME --prompt` |
-| The host's log | `<store>/host.log` (the store is `~/Library/Application Support/dozer-sandbox` by default) |
+| The host's log | `<store>/host.log` (the store is `~/Library/Application Support/doz` by default) |
 | Where the disk went | `doz resources` |
 
 Add `-v` to any command to see every step it takes.
@@ -138,10 +138,24 @@ The host is a background process that runs your sandboxes and exits when idle. Y
 it: any command that needs it does.
 
 **How do I start completely fresh?**
-`doz uninstall`, then `brew uninstall doz`, `brew install doz` and `doz onboard`. Your project folders
+`doz uninstall`, then `brew uninstall doz`, `brew trust --tap dozable/tap`, `brew install dozable/tap/doz` and
+`doz onboard`. Your project folders
 and keychain are untouched.
+
+**The account `mac` is "unreadable", though `claude` works on this Mac?**
+The doz host reads your Claude login in the session it was started from. A host started over ssh (or from
+another session with no login) cannot read the login keychain — `doz account ls`, `doz ls` and `doz doctor` say
+so, naming the host. Run `doz host restart` from your logged-in session (a terminal on the Mac itself). A
+command over ssh that has to start the host warns first; `doz image bake` over ssh stops the host it started
+once nothing runs.
+
+**Everything is slow — a wake takes a minute?**
+Run `doz doctor`. When `doz` was started at macOS background priority (by `taskpolicy -b`, or by a tool or agent that
+runs in the background), it and everything it starts run many times slower; doctor's `priority` line says so and how
+to move it out. A host started that way leaves the background priority by itself (`host priority` in doctor).
 
 **Exit codes?**
 `0` ok · `1` failed · `2` not found · `3` not possible in this state · `4` already exists · `5` not
 confirmed · `6` host unavailable · `7` not implemented yet · `64` usage. `exec`, `run` and `attach`
-exit with the program's own code (`125` when `doz` itself failed).
+exit with the program's own code (`125` when `doz` itself failed; `exec`'s `124` when its `--timeout`
+passed — `--json` adds `"timedOut": true`).

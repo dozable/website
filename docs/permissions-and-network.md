@@ -4,7 +4,7 @@ description: "A sandbox has no network card. Its only way out is a proxy in Doza
 url: https://dozable.com/docs/permissions-and-network
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-19
+updated: 2026-11-13
 chapter: 10
 ---
 # What the agent can do: permissions and the network
@@ -43,6 +43,18 @@ switches — and logs it. You decide what the agent may reach; the agent can't c
   next start.
 - **Everything is logged:** host, verdict, rule, bytes. Never the contents.
 
+## The default
+
+Every new sandbox — `doz new`, `doz try`, Quick try and the setup's First sandbox alike — starts on **Standard**
+(`defaults.permissions`). It's the balance most agent work needs: the agent can talk to its model, update itself,
+install software (apt, npm, PyPI and its base's other package managers) and use GitHub, so `sudo apt-get install` and
+`npm install` just work. It cannot browse the web at large, so it can't send your code to a site you never allowed.
+Every refusal is on record, and the sandbox's **Network** tab offers to allow it.
+
+**Locked** (its model only) is one choice away — `--network locked`, or the Network tab — for an agent you don't trust
+with anything else; **Open** is for when you decide the web is fine. A sandbox runs on your Mac with your project
+folder in it, which is why the default isn't Open.
+
 ## See what the agent can do
 
 ```sh
@@ -75,7 +87,10 @@ On a sandbox's page, the details' **Network** tab › **What the agent can do** 
 **Standard** · **Open**) and the permissions as switches, with its sites below. Flip a switch and it
 applies at once; each permission's **hosts** unfold beneath it. When the agent was refused something, a line
 says so — "The agent tried to install Python packages (PyPI)" — with **Allow** (or **Allow this
-site**). **Browse the web** asks you to confirm first. **Details: the rules and hosts** shows every
+site**). A site is offered as its whole domain — the agent refused at `abc.frame.claudeusercontent.com` gets
+**Allow claudeusercontent.com** (`site:*.claudeusercontent.com`), so a service that uses a new host name for
+each request needs one approval, not one per address; `doz net allow NAME site:HOST` still allows a single
+host. **Browse the web** asks you to confirm first. **Details: the rules and hosts** shows every
 host behind the switches, and **Edit policy…** edits the raw rules with a preview of exactly what
 changes.
 
@@ -118,7 +133,7 @@ Your own rules win over a permission's hosts. A host your rules can't allow does
 | key | default | what it does |
 |---|---|---|
 | `defaults.permissions` | `standard` | What a new sandbox's agent may do: `standard`, `locked`, `open`, or Standard with changes like `+web,-error-reports`. |
-| `images.claude-code.network` · `images.pi.network` · `images.lab.network` | `agent` · `agent` · `bake` | The network kind of a new sandbox of each image. |
+| `recipes.anthropic.claude-code.network` · `recipes.earendil-works.pi.network` · `images.lab.network` | `agent` · `agent` · `bake` | The network kind of a new sandbox of each image. |
 | `defaults.nat_subnet` | (a free one) | The subnet of a new `nat` sandbox (`$DOZ_SUBNET`). |
 
 ## Limits and security

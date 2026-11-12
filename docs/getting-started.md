@@ -4,7 +4,7 @@ description: "Dozable runs AI coding agents, such as Claude Code, in small Linux
 url: https://dozable.com/docs/getting-started
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-19
+updated: 2026-11-13
 chapter: 1
 ---
 # Getting started
@@ -63,20 +63,21 @@ At each question the recommended answer is already selected: press **Enter** to 
 1. **Checks.** Apple silicon, macOS, the virtualization permission, disk space. A required check
    that fails stops setup and says why; an optional one (Claude Code not installed, for example) is
    a warning.
-2. **Your Claude account.** If Claude Code is signed in on this Mac, Dozable offers to use that login.
-   Otherwise paste an API key or a `claude setup-token` token (it is never echoed), or choose
-   *Decide later*.
-3. **Images.** **Claude Code** is ticked; **pi** and the plain **lab** shell are optional. Anything
-   you leave out is prepared the first time you use it.
-4. **Preparing.** Dozable downloads the base system and installs the agent and its tools inside a VM.
-   It takes a few minutes. **You don't have to wait:** press **Ctrl-C** and it carries on in the
-   background; `doz onboard --status` shows it again.
+2. **Base image.** Node.js, the Linux system every tool runs on — **Enter** starts its download (about
+   380 MB) in the background, once; every tool you try is added to it. The next questions come at once.
+3. **Models & keys.** The sign-ins Dozable found on this Mac (Claude Code, Codex), then a key if you want
+   one — Anthropic, OpenAI, xAI, Google or an OpenRouter key (it is never echoed). **Enter** adds none.
+4. **Access**, **Workspace rules** and **Settings** — GitHub and your SSH agent (off unless you choose
+   them), what `.dozignore` does, and the settings file. See [Setting up this Mac](https://dozable.com/docs/setting-up.md).
 5. **Usage statistics.** What an official build sends — counts and ranges about how Dozable is used,
    never names, paths, contents or anything inside a sandbox — and where to see it exactly
    (`doz telemetry show`). **Enter** keeps them on; answer **n** to turn them off. A build from the
    open-source repository sends nothing and skips this step.
 6. **Stay in touch (optional).** Release news, tool news, early access and tips and tricks by email — skip it
    with **Enter**. See [Usage statistics and sign-up](#usage-statistics-and-sign-up).
+7. **Your first sandbox.** `claude`, `pi` or `opencode` — a name (`claude`) and a new empty folder
+   (`~/doz-workspaces/claude`). Dozable waits for the base if it is still downloading (**Ctrl-C** leaves it
+   running; `doz onboard --status` shows it again), adds the tool and attaches you to it.
 
 **In your browser:**
 
@@ -84,8 +85,8 @@ At each question the recommended answer is already selected: press **Enter** to 
 doz ui
 ```
 
-The dashboard opens on the **setup wizard**: the same steps, and at the end an optional **First
-sandbox**, the **Usage statistics** switch (on unless you turn it off) and an optional **Stay in touch**.
+The dashboard opens on the **setup wizard**: the same steps — the base downloading at the foot while you answer —
+the **Usage statistics** switch (on unless you turn it off), an optional **Stay in touch**, and the **First sandbox**.
 
 ![The setup wizard's first step](https://dozable.com/docs/images/wizard-welcome.png)
 
@@ -103,7 +104,7 @@ Details: [Setting up](https://dozable.com/docs/setting-up.md).
   every connection goes through the proxy, which allows only what you permit, and logs it.
 - **Your credentials never enter a sandbox.** The agent sees a stand-in; the proxy adds your real
   login as each request leaves for Anthropic.
-- **Two files hold your choices:** `~/.config/dozer-sandbox/doz.toml` (your settings for this Mac)
+- **Two files hold your choices:** `~/.config/doz/doz.toml` (your settings for this Mac)
   and a project's `doz_project.yaml` (its sandbox). Everything else is kept by the host.
 
 ## Usage statistics and sign-up
@@ -113,7 +114,7 @@ what to fix and improve: at most once a day, counts and ranges about how Dozable
 commands ran and how often they failed (by exit code), which agents, bases and network presets new
 sandboxes use, the size of your setup as ranges, typical start and wake times rounded to 50 ms, how long
 sandboxes ran and slept and how long agents worked (as ranges), which features you used (the dashboard,
-the installed app, `doz serve`, workspace rules, GitHub access, restore points, templates), which built-in
+the installed app, the dashboard on your network (`doz ui --lan`), workspace rules, GitHub access, restore points, templates), which built-in
 image-preparation step failed, and your Mac's macOS version, chip family, memory and cores as ranges — with
 a random install id. **Never**
 a sandbox, image or project name, a file or folder name or path, anything inside a sandbox, anything
@@ -180,7 +181,7 @@ what it was when you detach. Details: [Projects](https://dozable.com/docs/projec
 
 You're now in Claude Code, inside the sandbox. Its first-run screens are done and it doesn't stop to
 ask permission for each command: inside a sandbox, the VM and its network are the boundary. (To have
-Claude ask first anyway, see `claude.permissions` in the [settings](https://dozable.com/docs/settings-reference.md).)
+Claude ask first anyway, see `recipes.anthropic.claude-code.approvals` in the [settings](https://dozable.com/docs/settings-reference.md).)
 
 Claude also knows where it runs. Ask it:
 

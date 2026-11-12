@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>Settings reference — Dozable docs</title>
-<meta name="description" content="Every setting Dozable has is in one file, ~/.config/dozer-sandbox/doz.toml (under $XDG_CONFIG_HOME when that is set).">
+<meta name="description" content="This Mac&#x27;s settings are in one file, ~/.config/doz/doz.toml (under $XDG_CONFIG_HOME when that is set).">
 <link rel="canonical" href="https://dozable.com/docs/settings-reference">
 <link rel="alternate" type="text/markdown" href="https://dozable.com/docs/settings-reference.md">
 <meta name="theme-color" content="#ffffff">
@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="Settings reference — Dozable docs">
-<meta property="og:description" content="Every setting Dozable has is in one file, ~/.config/dozer-sandbox/doz.toml (under $XDG_CONFIG_HOME when that is set).">
+<meta property="og:description" content="This Mac&#x27;s settings are in one file, ~/.config/doz/doz.toml (under $XDG_CONFIG_HOME when that is set).">
 <meta property="og:url" content="https://dozable.com/docs/settings-reference">
 <meta property="og:image" content="https://dozable.com/og-image.png">
 <meta property="og:image:secure_url" content="https://dozable.com/og-image.png">
@@ -23,7 +23,7 @@
 <meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Settings reference — Dozable docs">
-<meta name="twitter:description" content="Every setting Dozable has is in one file, ~/.config/dozer-sandbox/doz.toml (under $XDG_CONFIG_HOME when that is set).">
+<meta name="twitter:description" content="This Mac&#x27;s settings are in one file, ~/.config/doz/doz.toml (under $XDG_CONFIG_HOME when that is set).">
 <meta name="twitter:image" content="https://dozable.com/og-image.png">
 <meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <link rel="icon" type="image/png" href="../favicon.png">
@@ -67,16 +67,20 @@
 <li><a href="doz-serve">The dashboard on other devices</a></li>
 <li><a href="images-and-bases">Images and bases</a></li>
 <li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents">More agents</a></li>
 <li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex">Codex</a></li>
 <li><a href="web-ports">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
@@ -90,9 +94,10 @@
 <li><a href="settings-reference" aria-current="page">Settings reference</a></li>
 <li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -103,7 +108,7 @@
 <header class="chead">
 <p class="eyebrow">Chapter 15</p>
 <h1>Settings reference</h1>
-<p class="summary">Every setting Dozable has is in one file, <strong><code>~/.config/dozer-sandbox/doz.toml</code></strong> (under <code>$XDG_CONFIG_HOME</code> when that is set).</p>
+<p class="summary">This Mac&#x27;s settings are in one file, <strong><code>~/.config/doz/doz.toml</code></strong> (under <code>$XDG_CONFIG_HOME</code> when that is set).</p>
 </header>
 <details class="toc-m"><summary>On this page</summary>
 <ol>
@@ -111,7 +116,8 @@
 </li>
 <li><a href="#read-and-change-settings">Read and change settings</a>
 <ol>
-<li><a href="#per-sandbox">Per sandbox</a></li>
+<li><a href="#per-sandbox-and-per-project">Per sandbox and per project</a></li>
+<li><a href="#the-names-before-03734">The names before 0.37.34</a></li>
 </ol></li>
 <li><a href="#about-the-file">About the file</a>
 </li>
@@ -123,27 +129,6 @@
 <li><a href="#serve"><code>[serve]</code></a></li>
 <li><a href="#host"><code>[host]</code></a></li>
 <li><a href="#store"><code>[store]</code></a></li>
-<li><a href="#claude"><code>[claude]</code></a></li>
-<li><a href="#codex"><code>[codex]</code></a></li>
-<li><a href="#antigravity"><code>[antigravity]</code></a></li>
-<li><a href="#gemini"><code>[gemini]</code></a></li>
-<li><a href="#grok"><code>[grok]</code></a></li>
-<li><a href="#gptme"><code>[gptme]</code></a></li>
-<li><a href="#copilot"><code>[copilot]</code></a></li>
-<li><a href="#qwen-code"><code>[qwen-code]</code></a></li>
-<li><a href="#mistral-vibe"><code>[mistral-vibe]</code></a></li>
-<li><a href="#droid"><code>[droid]</code></a></li>
-<li><a href="#dirac"><code>[dirac]</code></a></li>
-<li><a href="#kimi-code"><code>[kimi-code]</code></a></li>
-<li><a href="#openhands"><code>[openhands]</code></a></li>
-<li><a href="#docker-agent"><code>[docker-agent]</code></a></li>
-<li><a href="#nanocoder"><code>[nanocoder]</code></a></li>
-<li><a href="#mini-swe-agent"><code>[mini-swe-agent]</code></a></li>
-<li><a href="#open-interpreter"><code>[open-interpreter]</code></a></li>
-<li><a href="#crush"><code>[crush]</code></a></li>
-<li><a href="#mimo-code"><code>[mimo-code]</code></a></li>
-<li><a href="#codewhale"><code>[codewhale]</code></a></li>
-<li><a href="#maki"><code>[maki]</code></a></li>
 <li><a href="#defaults"><code>[defaults]</code></a></li>
 <li><a href="#agent"><code>[agent]</code></a></li>
 <li><a href="#updates"><code>[updates]</code></a></li>
@@ -154,52 +139,10 @@
 <li><a href="#bridges"><code>[bridges]</code></a></li>
 <li><a href="#workspace"><code>[workspace]</code></a></li>
 <li><a href="#github"><code>[github]</code></a></li>
-<li><a href="#images"><code>[images]</code></a></li>
 <li><a href="#imageslab"><code>[images.lab]</code></a></li>
-<li><a href="#imagesclaude-code"><code>[images.claude-code]</code></a></li>
-<li><a href="#imagespi"><code>[images.pi]</code></a></li>
-<li><a href="#imagescodex"><code>[images.codex]</code></a></li>
-<li><a href="#imagesantigravity"><code>[images.antigravity]</code></a></li>
-<li><a href="#imagesgemini"><code>[images.gemini]</code></a></li>
-<li><a href="#imagesgrok"><code>[images.grok]</code></a></li>
-<li><a href="#imagesfabric"><code>[images.fabric]</code></a></li>
-<li><a href="#imagesopenclaw"><code>[images.openclaw]</code></a></li>
-<li><a href="#imagesnanobot"><code>[images.nanobot]</code></a></li>
-<li><a href="#imagesgptme"><code>[images.gptme]</code></a></li>
-<li><a href="#imagesllm"><code>[images.llm]</code></a></li>
-<li><a href="#imagesshell-gpt"><code>[images.shell-gpt]</code></a></li>
-<li><a href="#imageszeroclaw"><code>[images.zeroclaw]</code></a></li>
-<li><a href="#imagesaichat"><code>[images.aichat]</code></a></li>
-<li><a href="#imagestgpt"><code>[images.tgpt]</code></a></li>
-<li><a href="#imagesopencode"><code>[images.opencode]</code></a></li>
-<li><a href="#imagessmolagents"><code>[images.smolagents]</code></a></li>
-<li><a href="#imagesadk"><code>[images.adk]</code></a></li>
-<li><a href="#imagespromptfoo"><code>[images.promptfoo]</code></a></li>
-<li><a href="#imagesclai"><code>[images.clai]</code></a></li>
-<li><a href="#imagescopilot"><code>[images.copilot]</code></a></li>
-<li><a href="#imagesqwen-code"><code>[images.qwen-code]</code></a></li>
-<li><a href="#imagesgoose"><code>[images.goose]</code></a></li>
-<li><a href="#imageskilo"><code>[images.kilo]</code></a></li>
-<li><a href="#imagesmistral-vibe"><code>[images.mistral-vibe]</code></a></li>
-<li><a href="#imagesdroid"><code>[images.droid]</code></a></li>
-<li><a href="#imagesdirac"><code>[images.dirac]</code></a></li>
-<li><a href="#imageskimi-code"><code>[images.kimi-code]</code></a></li>
-<li><a href="#imagescline"><code>[images.cline]</code></a></li>
-<li><a href="#imagesopenhands"><code>[images.openhands]</code></a></li>
-<li><a href="#imagesletta-code"><code>[images.letta-code]</code></a></li>
-<li><a href="#imagesdocker-agent"><code>[images.docker-agent]</code></a></li>
-<li><a href="#imagesnanocoder"><code>[images.nanocoder]</code></a></li>
-<li><a href="#imagesmini-swe-agent"><code>[images.mini-swe-agent]</code></a></li>
-<li><a href="#imagesopen-interpreter"><code>[images.open-interpreter]</code></a></li>
-<li><a href="#imagescrush"><code>[images.crush]</code></a></li>
-<li><a href="#imagesmimo-code"><code>[images.mimo-code]</code></a></li>
-<li><a href="#imagescodewhale"><code>[images.codewhale]</code></a></li>
-<li><a href="#imagesmaki"><code>[images.maki]</code></a></li>
-<li><a href="#imagesomp"><code>[images.omp]</code></a></li>
-<li><a href="#imagestau"><code>[images.tau]</code></a></li>
-<li><a href="#imagesstitch"><code>[images.stitch]</code></a></li>
-<li><a href="#imagesopencode2"><code>[images.opencode2]</code></a></li>
 <li><a href="#kernel"><code>[kernel]</code></a></li>
+<li><a href="#recipesvendorproduct--every-recipes-own"><code>[recipes.VENDOR.PRODUCT]</code> — every recipe&#x27;s own</a></li>
+<li><a href="#the-names-before-03734-still-read-and-taken-by-doz-config">The names before 0.37.34 (still read, and taken by <code>doz config</code>)</a></li>
 </ol></li>
 <li><a href="#environment-variables">Environment variables</a>
 </li>
@@ -207,32 +150,43 @@
 </details>
 <div class="prose">
 <!-- manual text -->
-<p>Every setting Dozable has is in one file, <strong><code>~/.config/dozer-sandbox/doz.toml</code></strong> (under <code>$XDG_CONFIG_HOME</code> when that is set). The file lists every setting with a description and its default, commented out; only the values you set are uncommented. An agent or tool&#x27;s own settings (<code>images.ID_version</code>, <code>ID.permissions</code>, <code>[images.ID]</code>) are written there only once one of them is set — then its whole block, defaults commented as usual — so the file stays small however many agents Dozable offers; <code>doz config show --agent ID</code> lists them. The dashboard&#x27;s <strong>Settings</strong> page shows and edits the same file.</p>
+<p>This Mac&#x27;s settings are in one file, <strong><code>~/.config/doz/doz.toml</code></strong> (under <code>$XDG_CONFIG_HOME</code> when that is set). The file lists Dozable&#x27;s own settings with a description and their default, commented out; only the values you set are uncommented. A <strong>recipe&#x27;s</strong> own settings — the settings of the agent it installs: its <code>version</code>, <code>approvals</code>, <code>memory_mib</code>, <code>network</code>, <code>history</code>, and any the recipe declares — are a <code>[recipes.VENDOR.PRODUCT]</code> block (<code>[recipes.anthropic.claude-code]</code>), written only while one of them is set, so the file stays small however many recipes there are; <code>doz config show --agent ID</code> lists them. The dashboard&#x27;s <strong>Settings</strong> page shows and edits the same file, and its <strong>Recipes</strong> section lists the recipes on this Mac.</p>
 <h2 id="where-a-value-comes-from">Where a value comes from<a class="anchor" href="#where-a-value-comes-from" aria-label="Link to this section">#</a></h2>
 <p>For each setting, the first of these that says something wins:</p>
 <ol>
-<li><strong>a command-line flag</strong> (for the few settings that have one — <code>--store</code>, <code>--progress</code>, <code>doz create --cpus</code>, …);</li>
-<li><strong>its environment variable</strong> (<code>DOZ_STORE</code>, <code>DOZ_PROGRESS</code>, <code>DOZ_HOST_IDLE</code>, <code>DOZ_SCREEN_CAPTURE</code>, <code>DOZ_BOOT_LOGS</code>, <code>DOZ_SUBNET</code>, <code>DOZ_KERNEL</code>, <code>DOZ_KERNEL_CACHE</code>);</li>
-<li><strong>the file</strong>;</li>
-<li><strong>the default</strong>.</li>
+<li><strong>a command-line flag</strong> (for the settings that have one — <code>--store</code>, <code>--progress</code>, <code>--color</code>/<code>--no-color</code>, <code>doz create --cpus</code>, <code>doz create --approvals</code>, …);</li>
+<li><strong>its environment variable</strong> (<code>DOZ_STORE</code>, <code>DOZ_PROGRESS</code>, <code>DOZ_COLOR</code>, <code>DOZ_HOST_IDLE</code>, <code>DOZ_SCREEN_CAPTURE</code>, <code>DOZ_BOOT_LOGS</code>, <code>DOZ_SUBNET</code>, <code>DOZ_KERNEL</code>, <code>DOZ_KERNEL_CACHE</code>);</li>
+<li><strong>the sandbox&#x27;s own value</strong> (a setting one sandbox can have, below);</li>
+<li><strong>its project&#x27;s</strong> (<code>doz_project.yaml</code>: when the sandbox is made, and again at every <code>doz up</code>);</li>
+<li><strong>this Mac&#x27;s</strong> (the file);</li>
+<li><strong>the default</strong> — the recipe&#x27;s own, for a recipe&#x27;s settings; Dozable&#x27;s, for the rest.</li>
 </ol>
-<p><code>doz config show</code> names the source of every value. A few settings can also be <strong>one sandbox&#x27;s own</strong> (below); a sandbox&#x27;s own value wins over the file&#x27;s.</p>
+<p><code>doz config show</code> names the source of every value, and the dashboard shows the same word as a badge: <strong>recipe</strong> · <strong>default</strong> · <strong>Mac</strong> · <strong>project</strong> · <strong>sandbox</strong> · <strong>env</strong> · <strong>flag</strong>. A value fixed when a sandbox is made (its agent&#x27;s version, memory, network, its CPUs) is recorded in it with where it came from; changing this Mac&#x27;s value later moves no existing sandbox (<code>doz reset NAME</code> moves its version).</p>
 <h2 id="read-and-change-settings">Read and change settings<a class="anchor" href="#read-and-change-settings" aria-label="Link to this section">#</a></h2>
-<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz config                                  <span class="c"># every setting: value, source, default</span>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz config                                  <span class="c"># Dozable&#x27;s own settings: value, source, default — and the recipes in use</span>
+doz config show --all                       <span class="c"># every setting, every recipe&#x27;s too</span>
 doz config get ui.theme                     <span class="c"># one value (--json adds its source and default)</span>
-doz config set ui.theme dark                <span class="c"># write it to the file (checked against its type first)</span>
+doz config set ui.theme dark                <span class="c"># write it to this Mac&#x27;s file (checked against its type first)</span>
 doz config unset ui.theme                   <span class="c"># back to the default (commented out again)</span>
 doz config init                             <span class="c"># write the file with every setting commented out</span>
-doz config show --agent grok                <span class="c"># one agent or tool&#x27;s own settings</span>
+doz config show --agent claude-code         <span class="c"># one recipe&#x27;s settings: value, source, the recipe&#x27;s default</span>
+doz config set --agent claude-code version 2.1.290   <span class="c"># one of a recipe&#x27;s settings, on this Mac</span>
 doz config path                             <span class="c"># where the file is</span></code></pre></figure>
-<p>In the dashboard: <strong>Settings</strong> lists every setting with its value, default, description and source, and changes it in place (<strong>Default</strong> puts one back). A value set by an environment variable, and the settings that name a folder on your Mac, are shown read-only there — change them with <code>doz config set</code>.</p>
-<h3 id="per-sandbox">Per sandbox<a class="anchor" href="#per-sandbox" aria-label="Link to this section">#</a></h3>
-<p><code>sandbox.clipboard</code>, <code>sandbox.browser_bridge</code>, <code>sandbox.open_files</code>, <code>sandbox.ssh_agent</code>, <code>sessions.tmux</code> and <code>sandbox.agent_sudo</code> can also be set for one sandbox:</p>
-<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz config show --sandbox my-app                          <span class="c"># its values, and whose value each is</span>
+<p><code>--agent</code> takes a recipe&#x27;s id (<code>claude-code</code>), a major (<code>opencode@2</code>) or its full name (<code>anthropic/claude-code</code>).</p>
+<p>In the dashboard: <strong>Settings</strong> lists Dozable&#x27;s settings with their value, default, description and source, and changes them in place (<strong>Default</strong> puts this Mac&#x27;s value back to the default). Its <strong>Recipes</strong> section lists the recipes in use (a sandbox runs the agent) and the ones installed (a baked image of it is on this Mac, or you set one of its values); search the catalogue for the rest. A recipe&#x27;s page has its settings, its baked images, its sandboxes and <strong>Uninstall</strong>. A value set by an environment variable, and the settings that name a folder on your Mac, are shown read-only there — change them with <code>doz config set</code>.</p>
+<h3 id="per-sandbox-and-per-project">Per sandbox and per project<a class="anchor" href="#per-sandbox-and-per-project" aria-label="Link to this section">#</a></h3>
+<p><code>sandbox.clipboard</code>, <code>sandbox.browser_bridge</code>, <code>sandbox.open_files</code>, <code>sandbox.ssh_agent</code>, <code>sessions.tmux</code>, <code>sandbox.agent_sudo</code>, <code>sandbox.audio</code> and its agent&#x27;s <strong><code>approvals</code></strong> and <strong><code>history</code></strong> can also be set for one sandbox (sound only between <code>speakers</code> and <code>on</code> — whether it has sound at all is chosen when it is made; see <a href="sound">Sound</a>):</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz config show --sandbox my-app                          <span class="c"># what it overrides, what it follows, what was recorded</span>
 doz config set --sandbox my-app sandbox.clipboard off
+doz config set --sandbox my-app approvals ask             <span class="c"># its agent asks before it acts, from the next session</span>
+doz config set --sandbox my-app history agent-default     <span class="c"># its agent&#x27;s own rule for its conversations, from its next start or wake</span>
 doz config get --sandbox my-app sessions.tmux
-doz config unset --sandbox my-app sandbox.clipboard       <span class="c"># follow the setting again</span></code></pre></figure>
-<p>Or when you create it (<code>doz create --clipboard off --browser-bridge off --open-files off --ssh-agent on --tmux --no-agent-sudo</code>), or in its <code>doz_project.yaml</code> (<code>clipboard:</code>, <code>browser_bridge:</code>, <code>open_files:</code>, <code>ssh_agent:</code>, <code>tmux:</code>, <code>agent_sudo:</code>).</p>
+doz config unset --sandbox my-app sandbox.clipboard       <span class="c"># follow the project, else this Mac, again</span>
+doz config set --project ~/code/my-app approvals ask      <span class="c"># the project&#x27;s doz_project.yaml</span></code></pre></figure>
+<p>Or when you create it (<code>doz create --clipboard off --browser-bridge off --open-files off --ssh-agent on --tmux --no-agent-sudo --sound on --approvals ask</code>), or in its <code>doz_project.yaml</code> (<code>clipboard:</code>, <code>browser_bridge:</code>, <code>open_files:</code>, <code>ssh_agent:</code>, <code>tmux:</code>, <code>agent_sudo:</code>, <code>audio:</code>, <code>approvals:</code>, <code>history:</code>).</p>
+<p><strong>Conversation history</strong> cascades one layer further: <code>agent.history</code> (Dozable-wide: <code>keep</code> or <code>agent-default</code>) → the agent&#x27;s own <code>history</code> (<code>follow</code>, the default, or <code>keep</code> / <code>agent-default</code>) → the project&#x27;s <code>history:</code> → the sandbox&#x27;s own. The most specific value that is not <code>follow</code> wins, and <code>doz config show --sandbox NAME</code> says which layer it came from. What each value does in each agent — which file and key Dozable writes, or that the agent keeps its conversations by itself — is in <a href="agents-and-accounts#conversation-history">Agents and accounts</a> and in <code>doz config show --agent ID</code>. The sandbox page&#x27;s <strong>Config</strong> tab shows the same: its overrides first, with this Mac&#x27;s value beside each and <strong>Follow the Mac</strong>.</p>
+<h3 id="the-names-before-03734">The names before 0.37.34<a class="anchor" href="#the-names-before-03734" aria-label="Link to this section">#</a></h3>
+<p>The recipe settings had other names before 0.37.34 (<code>images.claude_code_version</code>, <code>claude.permissions</code>, <code>images.claude-code.memory_mib</code>, …; the table below lists them). They still work: the file is read with them, and <code>doz config get|set|unset</code> takes them and says the new name. The first change written after the upgrade moves them to their new names and keeps the file as it was, once, as <code>doz.toml.0.37.bak</code> beside it. A base with no agent (<code>python</code>, <code>go</code>) keeps the memory and network it had: <code>defaults.memory_mib</code> and <code>defaults.network</code>, set from Claude Code&#x27;s old values.</p>
 <p>&quot;Use GitHub as you&quot; is a permission, not a setting: <code>doz net allow NAME github:as-you</code> (and <code>github:push</code>), <code>doz create --github read|push</code>, <code>github:</code> in <code>doz_project.yaml</code> — see <a href="github">GitHub as you</a>.</p>
 <h2 id="about-the-file">About the file<a class="anchor" href="#about-the-file" aria-label="Link to this section">#</a></h2>
 <ul>
@@ -248,13 +202,13 @@ doz config unset --sandbox my-app sandbox.clipboard       <span class="c"># foll
 <div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [ui]"><table>
 <thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>ui.boot_view_on_start</code></td><td><code>false</code></td><td>boolean</td><td>at once</td><td>—</td><td>After Start the page stays on tab zero, Console (the kernel and vminitd), and marks the agent&#x27;s tab when it is ready; false (the default): it switches to the agent&#x27;s tab as soon as that has drawn its screen.</td></tr><tr><td><code>ui.confirm_shutdown</code></td><td><code>true</code></td><td>boolean</td><td>at once</td><td>—</td><td>Shut Down asks first (its dialog&#x27;s &quot;don&#x27;t ask again&quot; sets this to false). Reset and Remove always ask with a box to tick.</td></tr><tr><td><code>ui.split_default</code></td><td><code>shell</code></td><td>shell | watch | attach | dialog</td><td>at once</td><td>—</td><td>What a terminal&#x27;s Split opens: shell (a new shell session), watch (a read-only view of the left terminal&#x27;s session), attach (a second, shared view of it), dialog (choose each time).</td></tr><tr><td><code>ui.terminals</code></td><td><code>true</code></td><td>boolean</td><td>at once</td><td>—</td><td>Terminals in the browser. false: the UI opens none and refuses a terminal ticket (Terminal.app still works).</td></tr><tr><td><code>ui.terminal_title</code></td><td><code>{sandbox} · {session} · {time}</code></td><td>a title with {sandbox} {session} {image} {time} {phase} (&quot;&quot; = leave the title alone)</td><td>at once</td><td>—</td><td>The title doz attach gives your terminal (window or tab) while attached, and a doz ui terminal&#x27;s tab: {sandbox} {session} {image} {time} (this Mac&#x27;s, HH:MM, refreshed each minute) {phase}. The terminal&#x27;s own title comes back when you detach (where the terminal keeps a title stack: iTerm2, Ghostty, kitty, xterm). While doz sets it, a session&#x27;s own title is not shown; &quot;&quot; leaves the title to the session.</td></tr><tr><td><code>ui.terminal_font_size</code></td><td><code>13</code></td><td>integer 9–32</td><td>at once</td><td>—</td><td>The browser terminal&#x27;s font size, in points (a terminal opened from now on).</td></tr><tr><td><code>ui.theme</code></td><td><code>auto</code></td><td>auto | light | dark</td><td>at once</td><td>—</td><td>The UI&#x27;s colours: auto follows macOS.</td></tr><tr><td><code>ui.details_open</code></td><td><code>true</code></td><td>boolean</td><td>at once</td><td>—</td><td>A sandbox&#x27;s page shows its details panel (sessions, restore points, network, keys) beside the terminals; false: collapsed.</td></tr><tr><td><code>ui.allow_secret_entry</code></td><td><code>true</code></td><td>boolean</td><td>at once</td><td>—</td><td>The web UI takes an Anthropic API key or a Claude setup token in a masked field — an account (the setup wizard, Accounts &amp; keys: stored exactly as doz account add stores it, the login keychain) or a sandbox&#x27;s own key (its page: exactly as doz key set does, held by the host) — sent once, in a request body. false: the pages show the command instead. The UI can turn this off, never on.</td></tr><tr><td><code>ui.open_browser</code></td><td><code>auto</code></td><td>auto | always | never</td><td>next command</td><td>—</td><td>When doz ui opens a browser tab: auto (only when no page of this store&#x27;s UI is open — an open page reconnects by itself instead), always (every start), never (it prints the address; doz ui link opens a page). --open and --no-open override it.</td></tr><tr><td><code>ui.port</code></td><td><code>0</code></td><td>integer 0–65535</td><td>ui-restart</td><td><code>$DOZ_UI_PORT</code>, <code>--port N</code></td><td>The port doz ui listens on, always on 127.0.0.1 (this Mac only): 0 = automatic (the port this store&#x27;s last doz ui had, when it is free — else one the system picks, and doz ui says so), or a fixed port 1024–65535 (doz ui refuses to start, naming the program, when another holds it). An installed dashboard app belongs to one port: keep it fixed for one.</td></tr><tr><td><code>ui.grid_live_tiles</code></td><td><code>8</code></td><td>integer 1–12</td><td>at once</td><td>—</td><td>All sessions: at most this many tiles show their session live at once (each is a terminal engine and a socket); the rest say so.</td></tr><tr><td><code>ui.grid_tile_size</code></td><td><code>medium</code></td><td>small | medium | large</td><td>at once</td><td>—</td><td>All sessions: the size of a tile.</td></tr><tr><td><code>ui.progress</code></td><td><code>animated</code></td><td>animated | plain</td><td>at once</td><td><code>$DOZ_PROGRESS</code>, <code>--progress auto|plain</code></td><td>How a start, wake or bake shows its progress — in the web UI&#x27;s boot view and in the CLI on a terminal: animated (a spinner on the step under way, download bars, the output&#x27;s last lines) or plain (one line per step, and a summary line per download). Not a terminal, --json or NO_COLOR: always plain.</td></tr>
+<tr><td><code>ui.boot_view_on_start</code></td><td><code>false</code></td><td>boolean</td><td>at once</td><td>—</td><td>After Start the page stays on its Console tab (the kernel and vminitd), and marks the agent&#x27;s tab when it is ready; false (the default): it switches to the agent&#x27;s tab as soon as that has drawn its screen.</td></tr><tr><td><code>ui.confirm_shutdown</code></td><td><code>true</code></td><td>boolean</td><td>at once</td><td>—</td><td>Shut Down asks first (its dialog&#x27;s &quot;don&#x27;t ask again&quot; sets this to false). Reset and Remove always ask with a box to tick.</td></tr><tr><td><code>ui.explain_tab_close</code></td><td><code>true</code></td><td>boolean</td><td>at once</td><td>—</td><td>Closing an agent&#x27;s tab returns to the sandbox&#x27;s Home, which says the agent is still running and that End stops it (its &quot;Don&#x27;t say this again&quot; sets this to false). false: Home does not say it.</td></tr><tr><td><code>ui.nav_thumbnails</code></td><td><code>true</code></td><td>boolean</td><td>at once</td><td>—</td><td>Hovering a session in the sidebar shows a screen icon; resting on it for half a second shows the session&#x27;s live picture (moving to another session then shows its picture at once). false: no icon, no picture.</td></tr><tr><td><code>ui.split_default</code></td><td><code>shell</code></td><td>shell | watch | attach | dialog</td><td>at once</td><td>—</td><td>What a terminal&#x27;s Split opens: shell (a new shell session), watch (a read-only view of the left terminal&#x27;s session), attach (a second, shared view of it), dialog (choose each time).</td></tr><tr><td><code>ui.terminals</code></td><td><code>true</code></td><td>boolean</td><td>at once</td><td>—</td><td>Terminals in the browser. false: the UI opens none and refuses a terminal ticket (Terminal.app still works).</td></tr><tr><td><code>ui.terminal_title</code></td><td><code>{sandbox} · {session} · {time}</code></td><td>a title with {sandbox} {session} {image} {time} {phase} (&quot;&quot; = leave the title alone)</td><td>at once</td><td>—</td><td>The title doz attach gives your terminal (window or tab) while attached, and a doz ui terminal&#x27;s tab: {sandbox} {session} {image} {time} (this Mac&#x27;s, HH:MM, refreshed each minute) {phase}. The terminal&#x27;s own title comes back when you detach (where the terminal keeps a title stack: iTerm2, Ghostty, kitty, xterm). While doz sets it, a session&#x27;s own title is not shown; &quot;&quot; leaves the title to the session.</td></tr><tr><td><code>ui.terminal_font_size</code></td><td><code>13</code></td><td>integer 9–32</td><td>at once</td><td>—</td><td>The browser terminal&#x27;s font size, in points (a terminal opened from now on).</td></tr><tr><td><code>ui.theme</code></td><td><code>auto</code></td><td>auto | light | dark</td><td>at once</td><td>—</td><td>The UI&#x27;s colours: auto follows macOS.</td></tr><tr><td><code>ui.density</code></td><td><code>comfortable</code></td><td>comfortable | compact</td><td>at once</td><td>—</td><td>The UI&#x27;s spacing: comfortable, or compact — tighter rows, tabs, controls and page margins; the text stays the same size.</td></tr><tr><td><code>ui.notifications</code></td><td><code>cards</code></td><td>cards | pills | bell</td><td>at once</td><td>—</td><td>Where the UI shows its notifications, in its top right corner: cards (a bell, and a column hanging below it, each with its full text and buttons and, for a success, a countdown that waits while the pointer is on any card), pills (one line each along the top, the newest at the right; click one for the rest), or bell (a count; the newest shows beside it for a few seconds; click for the list). Successes go by themselves; a failure stays until you close it. The Notifications page lists every one this tab showed.</td></tr><tr><td><code>ui.details_open</code></td><td><code>true</code></td><td>boolean</td><td>at once</td><td>—</td><td>A sandbox&#x27;s page shows its details panel (restore points, network, keys) beside the terminals; false: collapsed.</td></tr><tr><td><code>ui.allow_secret_entry</code></td><td><code>true</code></td><td>boolean</td><td>at once</td><td>—</td><td>The web UI takes an Anthropic API key or a Claude setup token in a masked field — an account (the setup wizard, Accounts &amp; keys: stored exactly as doz account add stores it, the login keychain) or a sandbox&#x27;s own key (its page: exactly as doz key set does, held by the host) — sent once, in a request body. false: the pages show the command instead. The UI can turn this off, never on.</td></tr><tr><td><code>ui.open_browser</code></td><td><code>auto</code></td><td>auto | always | never</td><td>next command</td><td>—</td><td>When doz ui opens a browser tab: auto (only when no page of this store&#x27;s UI is open — an open page reconnects by itself instead), always (every start), never (it prints the address; doz ui link opens a page). --open and --no-open override it.</td></tr><tr><td><code>ui.port</code></td><td><code>0</code></td><td>integer 0–65535</td><td>ui-restart</td><td><code>$DOZ_UI_PORT</code>, <code>--port N</code></td><td>The ONE port the dashboard (doz ui) listens on — this Mac&#x27;s browser at <a href="http://127.0.0.1">http://127.0.0.1</a>:&lt;port&gt;, and with ui.lan your other browsers at http://&lt;this Mac&gt;.local:&lt;port&gt;. 0 = automatic: without ui.lan, the port this store&#x27;s last doz ui had when it is free (else one the system picks, and doz ui says so); with ui.lan, serve.port (7443), which never moves. Or a fixed port 1024–65535 (doz ui refuses to start, naming the program, when another holds it). An installed dashboard app belongs to one port: keep it fixed for one.</td></tr><tr><td><code>ui.lan</code></td><td><code>false</code></td><td>boolean</td><td>ui-restart</td><td><code>$DOZ_UI_LAN</code>, <code>doz ui --lan | --no-lan</code></td><td>Also serve the dashboard to the other browsers of your network (every network interface of this Mac and Tailscale, never a sandbox&#x27;s network) on the same port: each gets in once with an invite (doz ui share). false (the default): this Mac only. Where it listens and your reverse proxy: the <code>serve.*</code> settings.</td></tr><tr><td><code>ui.grid_live_tiles</code></td><td><code>12</code></td><td>integer 1–12</td><td>at once</td><td>—</td><td>No longer used — every session picture is live (painted from its screen, no terminal per picture). Kept so that an older settings file still reads without a warning.</td></tr><tr><td><code>ui.grid_tile_size</code></td><td><code>medium</code></td><td>small | medium | large</td><td>at once</td><td>—</td><td>All sessions: the size of a tile.</td></tr><tr><td><code>ui.grid_refresh_ms</code></td><td><code>500</code></td><td>integer 200–10000</td><td>at once</td><td>—</td><td>How often the session pictures (All sessions, All sandboxes, a sandbox&#x27;s Home) are brought up to date, in milliseconds. Only pictures on screen are asked for, only while the browser tab is shown, and a screen that did not change costs almost nothing. Lower looks livelier and costs more.</td></tr><tr><td><code>ui.batch_concurrency</code></td><td><code>3</code></td><td>integer 1–8</td><td>at once</td><td>—</td><td>How many starts, wakes, resumes, sleeps, hibernations and shut-downs the dashboard runs at once; the others wait their turn, shown as queued with a Cancel. One you start on a single sandbox (or by typing in its terminal) goes ahead of those started for many at once. A pause, and a resume from a pause, never wait. A change applies as soon as one ends.</td></tr><tr><td><code>ui.progress</code></td><td><code>animated</code></td><td>animated | plain</td><td>at once</td><td><code>$DOZ_PROGRESS</code>, <code>--progress auto|plain</code></td><td>How a start, wake or bake shows its progress — in the web UI&#x27;s boot view and in the CLI on a terminal: animated (a spinner on the step under way, download bars, the output&#x27;s last lines) or plain (one line per step, and a summary line per download). Not a terminal, --json or NO_COLOR: always plain.</td></tr><tr><td><code>ui.color</code></td><td><code>auto</code></td><td>auto | always | never</td><td>at once</td><td><code>$DOZ_COLOR</code>, <code>--color auto|always|never, --no-color</code></td><td>Colour in the CLI&#x27;s output: auto (on a terminal, unless NO_COLOR is set, TERM is dumb, or with --json or -q), always (even into a pipe or a file), never (plain text; the layout and the symbols stay the same). The dashboard has its own theme (ui.theme).</td></tr>
 </tbody></table></div>
 <h3 id="serve"><code>[serve]</code><a class="anchor" href="#serve" aria-label="Link to this section">#</a></h3>
 <div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [serve]"><table>
 <thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>serve.port</code></td><td><code>7443</code></td><td>integer 1024–65535</td><td>serve-restart</td><td><code>$DOZ_SERVE_PORT</code>, <code>doz serve --port N</code></td><td>The port doz serve listens on — the dashboard for the other browsers of your network. It stays the same (an installed app and a bookmark belong to it): when another program holds it, doz serve refuses and names it.</td></tr><tr><td><code>serve.bind</code></td><td><code>lan</code></td><td>lan | loopback | the Mac&#x27;s addresses, comma-separated</td><td>serve-restart</td><td><code>$DOZ_SERVE_BIND</code>, <code>doz serve --bind lan|loopback|ADDRESSES</code></td><td>Where doz serve listens: lan (every network interface of this Mac and Tailscale — never a sandbox&#x27;s network), loopback (127.0.0.1 and ::1 only: for a reverse proxy on this Mac), or this Mac&#x27;s own addresses separated by commas (for a reverse proxy elsewhere on your network).</td></tr><tr><td><code>serve.public_origins</code></td><td><code>&quot;&quot;</code></td><td>origins like <a href="https://doz.home.example">https://doz.home.example</a>, comma-separated (&quot;&quot; = none)</td><td>serve-restart</td><td>—</td><td>The addresses your reverse proxy serves the dashboard at, like <a href="https://doz.home.example">https://doz.home.example</a> (comma-separated). A browser may use one only through a proxy listed in serve.trusted_proxies. Over https, keys and tokens may be typed in the dashboard; over plain http they never are.</td></tr><tr><td><code>serve.trusted_proxies</code></td><td><code>&quot;&quot;</code></td><td>addresses or networks like 127.0.0.1, 192.168.1.0/24, comma-separated (&quot;&quot; = none)</td><td>serve-restart</td><td>—</td><td>The reverse proxies whose X-Forwarded-Proto, X-Forwarded-Host and X-Forwarded-For doz serve believes — their addresses or networks, comma-separated (a proxy on this Mac: 127.0.0.1, ::1). From anyone else those headers are ignored.</td></tr><tr><td><code>serve.advertise</code></td><td><code>true</code></td><td>boolean</td><td>serve-restart</td><td>—</td><td>Announce doz serve on your network with Bonjour (&quot;Dozable on &lt;this Mac&gt;&quot;, http://&lt;this Mac&gt;.local:&lt;port&gt;), so other Macs and phones can find it.</td></tr>
+<tr><td><code>serve.port</code></td><td><code>7443</code></td><td>integer 1024–65535</td><td>ui-restart</td><td><code>$DOZ_SERVE_PORT</code>, <code>doz ui --lan --port N</code></td><td>The dashboard&#x27;s port with ui.lan while ui.port is 0 (automatic) — an earlier name for it: ui.port, when set, wins. It stays the same (devices, an installed app and a bookmark belong to it): when another program holds it, doz ui refuses and names it.</td></tr><tr><td><code>serve.bind</code></td><td><code>lan</code></td><td>lan | loopback | the Mac&#x27;s addresses, comma-separated</td><td>ui-restart</td><td><code>$DOZ_SERVE_BIND</code>, <code>doz ui --lan --bind lan|loopback|ADDRESSES</code></td><td>Where the dashboard listens for your other browsers with ui.lan: lan (every network interface of this Mac and Tailscale — never a sandbox&#x27;s network), loopback (127.0.0.1 and ::1 only: for a reverse proxy on this Mac), or this Mac&#x27;s own addresses separated by commas (for a reverse proxy elsewhere on your network). This Mac&#x27;s own browser is served at 127.0.0.1 in every case.</td></tr><tr><td><code>serve.public_origins</code></td><td><code>&quot;&quot;</code></td><td>origins like <a href="https://doz.home.example">https://doz.home.example</a>, comma-separated (&quot;&quot; = none)</td><td>ui-restart</td><td>—</td><td>The addresses your reverse proxy serves the dashboard at, like <a href="https://doz.home.example">https://doz.home.example</a> (comma-separated). A browser may use one only through a proxy listed in serve.trusted_proxies. Over https, keys and tokens may be typed in the dashboard; over plain http they never are (except in this Mac&#x27;s own browser).</td></tr><tr><td><code>serve.trusted_proxies</code></td><td><code>&quot;&quot;</code></td><td>addresses or networks like 127.0.0.1, 192.168.1.0/24, comma-separated (&quot;&quot; = none)</td><td>ui-restart</td><td>—</td><td>The reverse proxies whose X-Forwarded-Proto, X-Forwarded-Host and X-Forwarded-For the dashboard believes — their addresses or networks, comma-separated (a proxy on this Mac: 127.0.0.1, ::1). From anyone else those headers are ignored.</td></tr><tr><td><code>serve.mac_sessions</code></td><td><code>off</code></td><td>off | watch | interactive</td><td>at once</td><td>—</td><td>With ui.lan, what your other browsers may do with the sessions on this Mac (doz run @mac — no isolation: your files, Keychain and network): off (they do not see them), watch (list them and watch their screens, read-only) or interactive (also type into them, end and restart them). This Mac&#x27;s own browser always has them.</td></tr><tr><td><code>serve.advertise</code></td><td><code>true</code></td><td>boolean</td><td>ui-restart</td><td>—</td><td>With ui.lan, announce the dashboard on your network with Bonjour (&quot;Dozable on &lt;this Mac&gt;&quot;, http://&lt;this Mac&gt;.local:&lt;port&gt;), so other Macs and phones can find it.</td></tr>
 </tbody></table></div>
 <h3 id="host"><code>[host]</code><a class="anchor" href="#host" aria-label="Link to this section">#</a></h3>
 <div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [host]"><table>
@@ -266,145 +220,19 @@ doz config unset --sandbox my-app sandbox.clipboard       <span class="c"># foll
 <div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [store]"><table>
 <thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>store.path</code></td><td><code>~/Library/Application Support/dozer-sandbox</code></td><td>path (&quot;&quot; = automatic)</td><td>next command</td><td><code>$DOZ_STORE</code>, <code>--store</code></td><td>The store: images, kernels, sandboxes and the host&#x27;s files.</td></tr>
-</tbody></table></div>
-<h3 id="claude"><code>[claude]</code><a class="anchor" href="#claude" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [claude]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>claude.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_CLAUDE_PERMISSIONS=… on run/exec</code></td><td>Claude Code in a claude-code sandbox: skip its permission prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="codex"><code>[codex]</code><a class="anchor" href="#codex" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [codex]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>codex.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_CODEX_PERMISSIONS=… on run/exec</code></td><td>Codex in a codex sandbox: skip its approvals and its own Linux sandbox (the VM is the boundary), or ask as on a Mac.</td></tr><tr><td><code>codex.keep_alive</code></td><td><code>false</code></td><td>boolean</td><td>at once</td><td>—</td><td>Codex sandboxes on the account mac (this Mac&#x27;s own Codex login): when its access token is about to expire and a sandbox used it in the last 15 minutes, run this Mac&#x27;s codex doctor once — no model call — which renews the login the way Codex itself does. Off: the login renews only while Codex (the app or a codex session) runs on this Mac; when it has expired, Codex in a sandbox says so.</td></tr>
-</tbody></table></div>
-<h3 id="antigravity"><code>[antigravity]</code><a class="anchor" href="#antigravity" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [antigravity]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>antigravity.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_AGY_PERMISSIONS=… on run/exec</code></td><td>Antigravity CLI in an antigravity sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="gemini"><code>[gemini]</code><a class="anchor" href="#gemini" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [gemini]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>gemini.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_GEMINI_PERMISSIONS=… on run/exec</code></td><td>Gemini CLI in a gemini sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="grok"><code>[grok]</code><a class="anchor" href="#grok" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [grok]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>grok.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_GROK_PERMISSIONS=… on run/exec</code></td><td>Grok Build in a grok sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="gptme"><code>[gptme]</code><a class="anchor" href="#gptme" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [gptme]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>gptme.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_GPTME_PERMISSIONS=… on run/exec</code></td><td>gptme in a gptme sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="copilot"><code>[copilot]</code><a class="anchor" href="#copilot" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [copilot]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>copilot.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_COPILOT_PERMISSIONS=… on run/exec</code></td><td>GitHub Copilot CLI in a copilot sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="qwen-code"><code>[qwen-code]</code><a class="anchor" href="#qwen-code" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [qwen-code]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>qwen-code.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_QWEN_PERMISSIONS=… on run/exec</code></td><td>Qwen Code in a qwen-code sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="mistral-vibe"><code>[mistral-vibe]</code><a class="anchor" href="#mistral-vibe" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [mistral-vibe]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>mistral-vibe.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_VIBE_PERMISSIONS=… on run/exec</code></td><td>Mistral Vibe in a mistral-vibe sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="droid"><code>[droid]</code><a class="anchor" href="#droid" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [droid]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>droid.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_DROID_PERMISSIONS=… on run/exec</code></td><td>Factory Droid in a droid sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="dirac"><code>[dirac]</code><a class="anchor" href="#dirac" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [dirac]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>dirac.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_DIRAC_PERMISSIONS=… on run/exec</code></td><td>Dirac in a dirac sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="kimi-code"><code>[kimi-code]</code><a class="anchor" href="#kimi-code" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [kimi-code]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>kimi-code.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_KIMI_PERMISSIONS=… on run/exec</code></td><td>Kimi Code in a kimi-code sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="openhands"><code>[openhands]</code><a class="anchor" href="#openhands" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [openhands]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>openhands.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_OPENHANDS_PERMISSIONS=… on run/exec</code></td><td>OpenHands CLI in an openhands sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="docker-agent"><code>[docker-agent]</code><a class="anchor" href="#docker-agent" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [docker-agent]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>docker-agent.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_DOCKER_AGENT_PERMISSIONS=… on run/exec</code></td><td>Docker Agent in a docker-agent sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="nanocoder"><code>[nanocoder]</code><a class="anchor" href="#nanocoder" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [nanocoder]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>nanocoder.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_NANOCODER_PERMISSIONS=… on run/exec</code></td><td>Nanocoder in a nanocoder sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="mini-swe-agent"><code>[mini-swe-agent]</code><a class="anchor" href="#mini-swe-agent" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [mini-swe-agent]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>mini-swe-agent.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_MINI_PERMISSIONS=… on run/exec</code></td><td>mini-swe-agent in a mini-swe-agent sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="open-interpreter"><code>[open-interpreter]</code><a class="anchor" href="#open-interpreter" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [open-interpreter]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>open-interpreter.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_INTERPRETER_PERMISSIONS=… on run/exec</code></td><td>Open Interpreter in an open-interpreter sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="crush"><code>[crush]</code><a class="anchor" href="#crush" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [crush]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>crush.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_CRUSH_PERMISSIONS=… on run/exec</code></td><td>Crush in a crush sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="mimo-code"><code>[mimo-code]</code><a class="anchor" href="#mimo-code" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [mimo-code]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>mimo-code.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_MIMO_PERMISSIONS=… on run/exec</code></td><td>MiMo Code in a mimo-code sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="codewhale"><code>[codewhale]</code><a class="anchor" href="#codewhale" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [codewhale]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>codewhale.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_CODEWHALE_PERMISSIONS=… on run/exec</code></td><td>CodeWhale in a codewhale sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
-</tbody></table></div>
-<h3 id="maki"><code>[maki]</code><a class="anchor" href="#maki" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [maki]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>maki.permissions</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_MAKI_PERMISSIONS=… on run/exec</code></td><td>Maki in a maki sandbox: skip its approval prompts (the sandbox is the boundary), or ask as on a Mac.</td></tr>
+<tr><td><code>store.path</code></td><td><code>~/Library/Application Support/doz</code></td><td>path (&quot;&quot; = automatic)</td><td>next command</td><td><code>$DOZ_STORE</code>, <code>--store</code></td><td>The store: images, kernels, sandboxes and the host&#x27;s files.</td></tr>
 </tbody></table></div>
 <h3 id="defaults"><code>[defaults]</code><a class="anchor" href="#defaults" aria-label="Link to this section">#</a></h3>
 <div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [defaults]"><table>
 <thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>defaults.cpus</code></td><td><code>2</code></td><td>integer 1–64</td><td>new sandboxes</td><td><code>doz create --cpus</code></td><td>CPUs of a new sandbox.</td></tr><tr><td><code>defaults.nat_subnet</code></td><td><code>&quot;&quot;</code></td><td>IPv4 subnet, a.b.c.d/nn (&quot;&quot; = a free one)</td><td>new sandboxes</td><td><code>$DOZ_SUBNET</code>, <code>doz create --subnet</code></td><td>The vmnet subnet of a new --network nat sandbox.</td></tr><tr><td><code>defaults.image</code></td><td><code>lab</code></td><td>lab | claude-code | pi | codex, or an agent or tool&#x27;s id (doz try lists them)</td><td>new sandboxes</td><td><code>doz create --image</code></td><td>The image of a new sandbox when none is named (doz up NAME, doz init, the UI&#x27;s New sandbox). doz onboard writes the one you chose.</td></tr><tr><td><code>defaults.projects_dir</code></td><td><code>~/doz-workspaces</code></td><td>path (&quot;&quot; = automatic)</td><td>new sandboxes</td><td>—</td><td>The base folder of new sandboxes&#x27; workspaces: the web UI&#x27;s New sandbox and Quick add, and doz new, share &lt;projects_dir&gt;/&lt;sandbox name&gt; (created when missing, like any workspace). doz create is isolated unless --workspace; doz init uses the folder it runs in. In the web UI, Settings › Choose… sets it with the Mac&#x27;s folder picker.</td></tr><tr><td><code>defaults.account</code></td><td><code>mac</code></td><td>mac | none</td><td>a store that hasn&#x27;t chosen</td><td>—</td><td>The Anthropic account of a store that has not chosen one: mac (this Mac&#x27;s Claude Code login) or none. doz account default decides for a store once it has.</td></tr><tr><td><code>defaults.permissions</code></td><td><code>standard</code></td><td>standard | locked | open, or permissions like +web,-error-reports (doz net permissions)</td><td>new sandboxes</td><td><code>doz create --allow / --network</code></td><td>What a new sandbox&#x27;s agent may do (its network, as permissions — doz net permissions): standard (talk to its AI model, update itself, install system packages and its base&#x27;s language packages, use GitHub, send error reports), locked (its AI model only), open (everything, the web included), or standard with changes like +web,-error-reports. Stored by name: a Dozable update that adds a host to a permission reaches every sandbox that has it.</td></tr><tr><td><code>defaults.github</code></td><td><code>off</code></td><td>off | read | push</td><td>new sandboxes</td><td><code>doz create --github off|read|push</code></td><td>&quot;Use GitHub as you&quot; for new sandboxes: off, read (git and gh signed in as you on GitHub, read-only) or push (also push and make changes) — the Access step&#x27;s choice (doz access set --github). A sandbox can differ: doz create --github, github: in doz_project.yaml, or its permissions later (doz net allow|deny NAME github:as-you). Proxied sandboxes only.</td></tr>
+<tr><td><code>defaults.cpus</code></td><td><code>2</code></td><td>integer 1–64</td><td>new sandboxes</td><td><code>doz create --cpus</code></td><td>CPUs of a new sandbox.</td></tr><tr><td><code>defaults.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new sandbox whose image has no agent (a base alone: python, go). A recipe&#x27;s sandboxes have their recipe&#x27;s own (doz config show --agent ID), the lab its own (images.lab).</td></tr><tr><td><code>defaults.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new sandbox whose image has no agent: agent, bake, locked, open (proxied presets), nat or none.</td></tr><tr><td><code>defaults.nat_subnet</code></td><td><code>&quot;&quot;</code></td><td>IPv4 subnet, a.b.c.d/nn (&quot;&quot; = a free one)</td><td>new sandboxes</td><td><code>$DOZ_SUBNET</code>, <code>doz create --subnet</code></td><td>The vmnet subnet of a new --network nat sandbox.</td></tr><tr><td><code>defaults.image</code></td><td><code>lab</code></td><td>lab | claude-code | pi | codex, or an agent or tool&#x27;s id (doz try lists them)</td><td>new sandboxes</td><td><code>doz create --image</code></td><td>The image of a new sandbox when none is named (doz up NAME, doz init, the UI&#x27;s New sandbox). doz onboard writes the one you chose.</td></tr><tr><td><code>defaults.base</code></td><td><code>node</code></td><td>node | python | go | rust | java | ruby | dotnet | debian | ubuntu | alpine</td><td>new sandboxes</td><td><code>doz try --base</code></td><td>The base image of this store: every tool you try (Quick try, doz try, the setup&#x27;s first sandbox) is added to it as a layer when no base is named, so a second tool downloads nothing more. doz onboard sets it. New sandbox and doz_project.yaml keep a tool&#x27;s own default base unless you choose one.</td></tr><tr><td><code>defaults.projects_dir</code></td><td><code>~/doz-workspaces</code></td><td>path (&quot;&quot; = automatic)</td><td>new sandboxes</td><td>—</td><td>The base folder of new sandboxes&#x27; workspaces: the web UI&#x27;s New sandbox and Quick add, and doz new, share &lt;projects_dir&gt;/&lt;sandbox name&gt; (created when missing, like any workspace). doz create is isolated unless --workspace; doz init uses the folder it runs in. In the web UI, Settings › Choose… sets it with the Mac&#x27;s folder picker.</td></tr><tr><td><code>defaults.account</code></td><td><code>mac</code></td><td>mac | none</td><td>a store that hasn&#x27;t chosen</td><td>—</td><td>The Anthropic account of a store that has not chosen one: mac (this Mac&#x27;s Claude Code login) or none. doz account default decides for a store once it has.</td></tr><tr><td><code>defaults.permissions</code></td><td><code>standard</code></td><td>standard | locked | open, or permissions like +web,-error-reports (doz net permissions)</td><td>new sandboxes</td><td><code>doz create --allow / --network</code></td><td>What a new sandbox&#x27;s agent may do (its network, as permissions — doz net permissions): standard (talk to its AI model, update itself, install system packages and its base&#x27;s language packages, use GitHub, send error reports), locked (its AI model only), open (everything, the web included), or standard with changes like +web,-error-reports. Stored by name: a Dozable update that adds a host to a permission reaches every sandbox that has it.</td></tr><tr><td><code>defaults.github</code></td><td><code>off</code></td><td>off | read | push</td><td>new sandboxes</td><td><code>doz create --github off|read|push</code></td><td>&quot;Use GitHub as you&quot; for new sandboxes: off, read (git and gh signed in as you on GitHub, read-only) or push (also push and make changes) — the Access step&#x27;s choice (doz access set --github). A sandbox can differ: doz create --github, github: in doz_project.yaml, or its permissions later (doz net allow|deny NAME github:as-you). Proxied sandboxes only.</td></tr>
 </tbody></table></div>
 <h3 id="agent"><code>[agent]</code><a class="anchor" href="#agent" aria-label="Link to this section">#</a></h3>
 <div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [agent]"><table>
 <thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>agent.prompt</code></td><td><code>true</code></td><td>boolean</td><td>next session</td><td>—</td><td>Tell the agent where it runs: a short facts block appended to its system prompt (the sandbox, its /workspace share, the network, credentials) and the dozer skill, written at every session start. Your own template: agent-prompt.md beside this file.</td></tr>
+<tr><td><code>agent.prompt</code></td><td><code>true</code></td><td>boolean</td><td>next session</td><td>—</td><td>Tell the agent where it runs: a short facts block appended to its system prompt (the sandbox, its /workspace share, the network, credentials) and the doz skill, written at every session start. Your own template: agent-prompt.md beside this file.</td></tr><tr><td><code>agent.history</code></td><td><code>keep</code></td><td>keep | agent-default</td><td>next start or wake</td><td>—</td><td>Conversation history in sandboxes. keep: Dozable asks each agent to keep its conversations — an agent that deletes old ones by itself (Claude Code after 30 days) is told not to, by a key in its own settings file, set only where you have not set one. agent-default: each agent follows its own rule (Dozable takes back only a key that still holds its own value). A value you set in the agent&#x27;s own settings file is always kept. Each agent&#x27;s recipe can choose its own (Recipes), and so can a project (history: in doz_project.yaml) or one sandbox (doz config set --sandbox NAME history VALUE). Set once in each sandbox when it next starts or wakes; doz config show --agent ID shows what each value does in that agent.</td></tr>
 </tbody></table></div>
 <h3 id="updates"><code>[updates]</code><a class="anchor" href="#updates" aria-label="Link to this section">#</a></h3>
 <div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [updates]"><table>
@@ -422,19 +250,19 @@ doz config unset --sandbox my-app sandbox.clipboard       <span class="c"># foll
 <div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [resources]"><table>
 <thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>resources.clean_unused_days</code></td><td><code>30</code></td><td>integer 1–3650</td><td>at once</td><td>—</td><td>Clean up (the Resources page, doz resources clean) removes a prepared image no sandbox was created from in this many days; it is prepared again when next needed.</td></tr>
+<tr><td><code>resources.clean_unused_days</code></td><td><code>30</code></td><td>integer 1–3650</td><td>at once</td><td>—</td><td>Clean up (the Resources page, doz resources clean) removes a baked image no sandbox was created from in this many days; it is baked again when next needed.</td></tr>
 </tbody></table></div>
 <h3 id="sandbox"><code>[sandbox]</code><a class="anchor" href="#sandbox" aria-label="Link to this section">#</a></h3>
 <div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [sandbox]"><table>
 <thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>sandbox.agent_sudo</code></td><td><code>true</code></td><td>boolean</td><td>next session</td><td><code>doz create --no-agent-sudo / --agent-sudo</code></td><td>The agent (the image&#x27;s user in claude-code and pi sandboxes) has passwordless sudo inside its sandbox, so it can install system packages (sudo apt-get install …). The VM, the network policy and the absent credentials are the boundary — root inside reaches no more than the agent does. Applied at every boot and every agent session start (no image is rebuilt); a sandbox&#x27;s own choice (doz create --no-agent-sudo, agent_sudo in doz_project.yaml) wins over this.</td></tr><tr><td><code>sandbox.timezone</code></td><td><code>mac</code></td><td>mac, or a time zone like Australia/Sydney</td><td>next start or wake</td><td>—</td><td>The sandboxes&#x27; time zone: mac (this Mac&#x27;s, read again at every boot and wake — a laptop that travels while a sandbox sleeps is followed) or a zone like Australia/Sydney. Written to the guest&#x27;s /etc/localtime; the agent&#x27;s facts say it.</td></tr><tr><td><code>sandbox.clipboard</code></td><td><code>write</code></td><td>write | off</td><td>at once</td><td><code>doz create --clipboard write|off</code></td><td>The clipboard bridge: a program in a sandbox that copies (OSC 52 — Claude Code, vim, tmux) puts the text on this Mac&#x27;s clipboard, and every copy shows a notice (SANDBOX copied N chars) in doz attach and doz ui. At most 1 MiB a copy and 10 copies in 10 s. A sandbox can never READ the Mac clipboard. The risk: an agent could put a command there for you to paste — off turns the bridge off (copies are dropped, and said). A sandbox&#x27;s own choice (doz config set --sandbox NAME, clipboard in doz_project.yaml) wins over this.</td></tr><tr><td><code>sandbox.browser_bridge</code></td><td><code>on</code></td><td>on | off</td><td>at once</td><td><code>doz create --browser-bridge on|off</code></td><td>The browser bridge: xdg-open (and $BROWSER, open, sensible-browser) in a sandbox opens an http or https URL in this Mac&#x27;s default browser, with a notice every time (at most 3 in 10 s). A sign-in whose redirect is the sandbox&#x27;s localhost (Claude Code&#x27;s /login) gets that port forwarded from the Mac into the sandbox for up to 10 minutes, so the login completes. Never file: or other schemes, never the Mac&#x27;s own localhost. off: nothing opens (said). A sandbox&#x27;s own choice (doz config set --sandbox NAME, browser_bridge in doz_project.yaml) wins over this.</td></tr><tr><td><code>sandbox.open_files</code></td><td><code>on</code></td><td>on | off</td><td>at once</td><td><code>doz create --open-files on|off</code></td><td>Open workspace files on this Mac: xdg-open PATH (and open PATH, doz-open PATH) in a sandbox opens a document from its /workspace in the Mac&#x27;s default app — an html page in your browser, markdown in your editor — or a folder (the workspace itself, open .) in the Finder, and doz-open --reveal PATH shows a file selected in its folder; a notice every time (at most 3 in 10 s). Only the shared folder&#x27;s own files (a link or .. that leads out is refused), only documents (html, md, pdf, images, txt, csv, json, yaml, xml…) — never an app or package folder, a script, an installer or an executable. An isolated sandbox has no file to open. An app other than the default only when it is in bridges.open_apps. off: nothing opens (said). A sandbox&#x27;s own choice (doz config set --sandbox NAME, open_files in doz_project.yaml) wins over this.</td></tr><tr><td><code>sandbox.ssh_agent</code></td><td><code>off</code></td><td>off | on</td><td>at once</td><td><code>doz create --ssh-agent on|off</code></td><td>Forward this Mac&#x27;s SSH agent into the sandbox (proxied sandboxes): ssh and git over SSH there can ask your agent to sign — your keys never enter the sandbox — and only github.com:22 is reachable over SSH. A notice on first use. While it is on, the agent can authenticate as you to github.com. A sandbox&#x27;s own choice (doz create --ssh-agent on, ssh_agent in doz_project.yaml, doz config set --sandbox NAME) wins over this.</td></tr>
+<tr><td><code>sandbox.agent_sudo</code></td><td><code>true</code></td><td>boolean</td><td>next session</td><td><code>doz create --no-agent-sudo / --agent-sudo</code></td><td>The agent (the image&#x27;s user in claude-code and pi sandboxes) has passwordless sudo inside its sandbox, so it can install system packages (sudo apt-get install …). The VM, the network policy and the absent credentials are the boundary — root inside reaches no more than the agent does. Applied at every boot and every agent session start (no image is rebuilt); a sandbox&#x27;s own choice (doz create --no-agent-sudo, agent_sudo in doz_project.yaml) wins over this.</td></tr><tr><td><code>sandbox.timezone</code></td><td><code>mac</code></td><td>mac, or a time zone like Australia/Sydney</td><td>next start or wake</td><td>—</td><td>The sandboxes&#x27; time zone: mac (this Mac&#x27;s, read again at every boot and wake — a laptop that travels while a sandbox sleeps is followed) or a zone like Australia/Sydney. Written to the guest&#x27;s /etc/localtime; the agent&#x27;s facts say it.</td></tr><tr><td><code>sandbox.clipboard</code></td><td><code>write</code></td><td>write | off</td><td>at once</td><td><code>doz create --clipboard write|off</code></td><td>The clipboard bridge: a program in a sandbox that copies (OSC 52 — Claude Code, vim, tmux) puts the text on this Mac&#x27;s clipboard, and every copy shows a notice (SANDBOX copied N chars) in doz attach and doz ui. At most 1 MiB a copy and 10 copies in 10 s. A sandbox can never READ the Mac clipboard. The risk: an agent could put a command there for you to paste — off turns the bridge off (copies are dropped, and said). A sandbox&#x27;s own choice (doz config set --sandbox NAME, clipboard in doz_project.yaml) wins over this.</td></tr><tr><td><code>sandbox.browser_bridge</code></td><td><code>on</code></td><td>on | off</td><td>at once</td><td><code>doz create --browser-bridge on|off</code></td><td>The browser bridge: xdg-open (and $BROWSER, open, sensible-browser) in a sandbox opens an http or https URL in this Mac&#x27;s default browser, with a notice every time (at most 3 in 10 s). A sign-in whose redirect is the sandbox&#x27;s localhost (Claude Code&#x27;s /login) gets that port forwarded from the Mac into the sandbox for up to 10 minutes, so the login completes. Never file: or other schemes, never the Mac&#x27;s own localhost. off: nothing opens (said). A sandbox&#x27;s own choice (doz config set --sandbox NAME, browser_bridge in doz_project.yaml) wins over this.</td></tr><tr><td><code>sandbox.open_files</code></td><td><code>on</code></td><td>on | off</td><td>at once</td><td><code>doz create --open-files on|off</code></td><td>Open workspace files on this Mac: xdg-open PATH (and open PATH, doz-open PATH) in a sandbox opens a document from its /workspace in the Mac&#x27;s default app — an html page in your browser, markdown in your editor — or a folder (the workspace itself, open .) in the Finder, and doz-open --reveal PATH shows a file selected in its folder; a notice every time (at most 3 in 10 s). Only the shared folder&#x27;s own files (a link or .. that leads out is refused), only documents (html, md, pdf, images, txt, csv, json, yaml, xml…) — never an app or package folder, a script, an installer or an executable. An isolated sandbox has no file to open. An app other than the default only when it is in bridges.open_apps. off: nothing opens (said). A sandbox&#x27;s own choice (doz config set --sandbox NAME, open_files in doz_project.yaml) wins over this.</td></tr><tr><td><code>sandbox.ssh_agent</code></td><td><code>off</code></td><td>off | on</td><td>at once</td><td><code>doz create --ssh-agent on|off</code></td><td>Forward this Mac&#x27;s SSH agent into the sandbox (proxied sandboxes): ssh and git over SSH there can ask your agent to sign — your keys never enter the sandbox — and only github.com:22 is reachable over SSH. A notice on first use. While it is on, the agent can authenticate as you to github.com. A sandbox&#x27;s own choice (doz create --ssh-agent on, ssh_agent in doz_project.yaml, doz config set --sandbox NAME) wins over this.</td></tr><tr><td><code>sandbox.dotfiles</code></td><td><code>&quot;&quot;</code></td><td>a git repository&#x27;s https:// URL, or a folder on this Mac that is one (&quot;&quot; = none)</td><td>new sandboxes</td><td><code>doz create --dotfiles URL|PATH|none</code></td><td>Your dotfiles in every new sandbox: a git repository (https://github.com/you/dotfiles — fetched on this Mac with its own git login, so a private one works and no credential enters the sandbox) or a folder on this Mac that is a git repository. A sandbox gets the commit it was made at, recorded; doz dotfiles NAME --update moves it on. At its first start, as its user: the repository&#x27;s install script runs (the first of install.sh, install, bootstrap.sh, bootstrap, script/bootstrap, setup.sh, setup, script/setup — at most 5 minutes, its output in the boot log), or, with none, every dotfile and dot-folder at the top of the repository is linked into the home — never over a file that is there (only over the image&#x27;s stock copy, kept as NAME.doz-stock), never over Dozable&#x27;s own (the agents&#x27; settings and launchers). doz asks once per repository and commit before it is applied — it is code that runs in the sandbox. &quot;&quot; (the default): none. A sandbox&#x27;s own choice (doz create --dotfiles, dotfiles in doz_project.yaml) wins over this.</td></tr><tr><td><code>sandbox.audio</code></td><td><code>off</code></td><td>off | speakers | on</td><td>new sandboxes</td><td><code>doz create --sound off|speakers|on (--audio = on)</code></td><td>Sound in new sandboxes: off, speakers (this Mac&#x27;s speakers) or on (its speakers and microphone). A sandbox with sound has a sound device and boots Dozable&#x27;s sound kernel, so it is chosen at create; its own choice (doz create --sound, New sandbox › Sound) wins over this. Later a sandbox can move between speakers and on (doz config set --sandbox NAME sandbox.audio on), from its next start. It records from the Mac&#x27;s microphone only if macOS allowed it before the sandbox started (else silence); sandbox.microphone_ask says when doz asks.</td></tr><tr><td><code>sandbox.microphone_ask</code></td><td><code>first_recording</code></td><td>first_recording | first_start</td><td>next start or wake</td><td>—</td><td>When doz asks macOS about the microphone for a sandbox whose sound is on, while macOS has no answer: first_recording (when a program in it first records — that recording is silent; allow, then Shut Down and Start the sandbox) or first_start (when it starts, waiting for your answer).</td></tr>
 </tbody></table></div>
 <h3 id="sessions"><code>[sessions]</code><a class="anchor" href="#sessions" aria-label="Link to this section">#</a></h3>
 <div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [sessions]"><table>
 <thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>sessions.tmux</code></td><td><code>false</code></td><td>boolean</td><td>next session</td><td><code>doz create --tmux / --no-tmux</code></td><td>Run each new session inside tmux (within Dozable&#x27;s own session holder, so saved screens, sleep and wake, browser terminals and Ctrl-] detach keep working): tmux&#x27;s windows, panes and copy mode, its status bar and prefix key (Ctrl-b). tmux takes the mouse, and the kitty keyboard protocol and modifyOtherKeys do not fully pass through it; the session&#x27;s exit code is tmux&#x27;s. Needs tmux in the image (the built-in images this doz prepares have it; on an image an older doz prepared the session runs without it, and says so). A sandbox&#x27;s own choice (doz create --tmux, tmux: true in doz_project.yaml, doz config set --sandbox) wins over this.</td></tr>
+<tr><td><code>sessions.tmux</code></td><td><code>false</code></td><td>boolean</td><td>next session</td><td><code>doz create --tmux / --no-tmux</code></td><td>Run each new session inside tmux (within Dozable&#x27;s own session holder, so saved screens, sleep and wake, browser terminals and Ctrl-] detach keep working): tmux&#x27;s windows, panes and copy mode, its status bar and prefix key (Ctrl-b). tmux takes the mouse, and the kitty keyboard protocol and modifyOtherKeys do not fully pass through it; the session&#x27;s exit code is tmux&#x27;s. It is Dozable&#x27;s own tmux 3.8, copied into the sandbox on every base (the image&#x27;s tmux is left as it is), so tmux reports your terminal&#x27;s light or dark theme to the programs in it; a session already running in the image&#x27;s tmux keeps it until it ends. A sandbox&#x27;s own choice (doz create --tmux, tmux: true in doz_project.yaml, doz config set --sandbox) wins over this.</td></tr>
 </tbody></table></div>
 <h3 id="bridges"><code>[bridges]</code><a class="anchor" href="#bridges" aria-label="Link to this section">#</a></h3>
 <div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [bridges]"><table>
@@ -454,275 +282,11 @@ doz config unset --sandbox my-app sandbox.clipboard       <span class="c"># foll
 <tbody>
 <tr><td><code>github.credentials</code></td><td><code>gh</code></td><td>gh | key | off</td><td>at once</td><td>—</td><td>Where &quot;Use GitHub as you&quot; (a permission, off by default) gets your GitHub login: gh (this Mac&#x27;s gh login, read when used — gh auth token — and kept in memory a few minutes, never written anywhere; gh auth logout revokes it), key (only a token you give a sandbox with doz key set NAME --github — a fine-grained token limited to some repositories is best), or off (never, even with the permission on). The sandbox only ever sees a placeholder; Dozable&#x27;s proxy puts the real token in on the way to GitHub.</td></tr>
 </tbody></table></div>
-<h3 id="images"><code>[images]</code><a class="anchor" href="#images" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.claude_code_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Claude Code the claude-code image is prepared with: latest (asked of the npm registry when the image is prepared, then installed at that exact version, integrity-checked; a newer one is only said — doz image bake claude-code rebuilds when you choose) or an exact version like 2.1.227. A sandbox keeps the version it was created with; doz reset NAME moves it to the image&#x27;s current one.</td></tr><tr><td><code>images.pi_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The pi coding agent the pi image is prepared with: latest or an exact version, as images.claude_code_version.</td></tr><tr><td><code>images.codex_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The OpenAI Codex CLI the codex image (and every base&#x27;s Codex image) is prepared with: latest or an exact version like 0.160.1, as images.claude_code_version.</td></tr><tr><td><code>images.antigravity_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Antigravity CLI the antigravity image (and every base&#x27;s Antigravity CLI image) is prepared with: latest or an exact version like 1.3.4+5524158944247808, as images.claude_code_version.</td></tr><tr><td><code>images.gemini_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Gemini CLI the gemini image (and every base&#x27;s Gemini CLI image) is prepared with: latest or an exact version like 0.63.0, as images.claude_code_version.</td></tr><tr><td><code>images.grok_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Grok Build the grok image (and every base&#x27;s Grok Build image) is prepared with: latest or an exact version like 1.0.52, as images.claude_code_version.</td></tr><tr><td><code>images.fabric_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Fabric the fabric image (and every base&#x27;s Fabric image) is prepared with: latest or an exact version like 1.4.518, as images.claude_code_version.</td></tr><tr><td><code>images.openclaw_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The OpenClaw the openclaw image (and every base&#x27;s OpenClaw image) is prepared with: latest or an exact version like 2026.10.3, as images.claude_code_version.</td></tr><tr><td><code>images.nanobot_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The nanobot the nanobot image (and every base&#x27;s nanobot image) is prepared with: latest or an exact version like 0.3.5, as images.claude_code_version.</td></tr><tr><td><code>images.gptme_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The gptme the gptme image (and every base&#x27;s gptme image) is prepared with: latest or an exact version like 0.34.0, as images.claude_code_version.</td></tr><tr><td><code>images.llm_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The llm the llm image (and every base&#x27;s llm image) is prepared with: latest or an exact version like 0.36, as images.claude_code_version.</td></tr><tr><td><code>images.shell_gpt_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The ShellGPT the shell-gpt image (and every base&#x27;s ShellGPT image) is prepared with: latest or an exact version like 1.5.1, as images.claude_code_version.</td></tr><tr><td><code>images.zeroclaw_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The ZeroClaw the zeroclaw image (and every base&#x27;s ZeroClaw image) is prepared with: latest or an exact version like 0.8.5, as images.claude_code_version.</td></tr><tr><td><code>images.aichat_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The AIChat the aichat image (and every base&#x27;s AIChat image) is prepared with: latest or an exact version like 0.30.0, as images.claude_code_version.</td></tr><tr><td><code>images.tgpt_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The tgpt the tgpt image (and every base&#x27;s tgpt image) is prepared with: latest or an exact version like 2.15.0, as images.claude_code_version.</td></tr><tr><td><code>images.opencode_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The OpenCode the opencode image (and every base&#x27;s OpenCode image) is prepared with: latest or an exact version like 1.19.0, as images.claude_code_version.</td></tr><tr><td><code>images.smolagents_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The smolagents the smolagents image (and every base&#x27;s smolagents image) is prepared with: latest or an exact version like 1.26.0, as images.claude_code_version.</td></tr><tr><td><code>images.adk_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Agent Development Kit the adk image (and every base&#x27;s Agent Development Kit image) is prepared with: latest or an exact version like 2.12.0, as images.claude_code_version.</td></tr><tr><td><code>images.promptfoo_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The promptfoo the promptfoo image (and every base&#x27;s promptfoo image) is prepared with: latest or an exact version like 0.124.1, as images.claude_code_version.</td></tr><tr><td><code>images.clai_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The clai (Pydantic AI) the clai image (and every base&#x27;s clai (Pydantic AI) image) is prepared with: latest or an exact version like 2.55.0, as images.claude_code_version.</td></tr><tr><td><code>images.copilot_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The GitHub Copilot CLI the copilot image (and every base&#x27;s GitHub Copilot CLI image) is prepared with: latest or an exact version like 1.0.97, as images.claude_code_version.</td></tr><tr><td><code>images.qwen_code_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Qwen Code the qwen-code image (and every base&#x27;s Qwen Code image) is prepared with: latest or an exact version like 0.25.1, as images.claude_code_version.</td></tr><tr><td><code>images.goose_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Goose the goose image (and every base&#x27;s Goose image) is prepared with: latest or an exact version like 1.54.0, as images.claude_code_version.</td></tr><tr><td><code>images.kilo_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Kilo Code CLI the kilo image (and every base&#x27;s Kilo Code CLI image) is prepared with: latest or an exact version like 7.8.8, as images.claude_code_version.</td></tr><tr><td><code>images.mistral_vibe_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Mistral Vibe the mistral-vibe image (and every base&#x27;s Mistral Vibe image) is prepared with: latest or an exact version like 2.26.1, as images.claude_code_version.</td></tr><tr><td><code>images.droid_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Factory Droid the droid image (and every base&#x27;s Factory Droid image) is prepared with: latest or an exact version like 0.240.1, as images.claude_code_version.</td></tr><tr><td><code>images.dirac_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Dirac the dirac image (and every base&#x27;s Dirac image) is prepared with: latest or an exact version like 0.5.20, as images.claude_code_version.</td></tr><tr><td><code>images.kimi_code_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Kimi Code the kimi-code image (and every base&#x27;s Kimi Code image) is prepared with: latest or an exact version like 2.1.1, as images.claude_code_version.</td></tr><tr><td><code>images.cline_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Cline CLI the cline image (and every base&#x27;s Cline CLI image) is prepared with: latest or an exact version like 3.0.71, as images.claude_code_version.</td></tr><tr><td><code>images.openhands_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The OpenHands CLI the openhands image (and every base&#x27;s OpenHands CLI image) is prepared with: latest or an exact version like 1.16.0, as images.claude_code_version.</td></tr><tr><td><code>images.letta_code_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Letta Code the letta-code image (and every base&#x27;s Letta Code image) is prepared with: latest or an exact version like 0.34.13, as images.claude_code_version.</td></tr><tr><td><code>images.docker_agent_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Docker Agent the docker-agent image (and every base&#x27;s Docker Agent image) is prepared with: latest or an exact version like 1.150.0, as images.claude_code_version.</td></tr><tr><td><code>images.nanocoder_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Nanocoder the nanocoder image (and every base&#x27;s Nanocoder image) is prepared with: latest or an exact version like 1.31.0, as images.claude_code_version.</td></tr><tr><td><code>images.mini_swe_agent_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The mini-swe-agent the mini-swe-agent image (and every base&#x27;s mini-swe-agent image) is prepared with: latest or an exact version like 2.4.6, as images.claude_code_version.</td></tr><tr><td><code>images.open_interpreter_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Open Interpreter the open-interpreter image (and every base&#x27;s Open Interpreter image) is prepared with: latest or an exact version like 0.0.56, as images.claude_code_version.</td></tr><tr><td><code>images.crush_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Crush the crush image (and every base&#x27;s Crush image) is prepared with: latest or an exact version like 0.98.1, as images.claude_code_version.</td></tr><tr><td><code>images.mimo_code_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The MiMo Code the mimo-code image (and every base&#x27;s MiMo Code image) is prepared with: latest or an exact version like 0.1.15, as images.claude_code_version.</td></tr><tr><td><code>images.codewhale_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The CodeWhale the codewhale image (and every base&#x27;s CodeWhale image) is prepared with: latest or an exact version like 0.10.1, as images.claude_code_version.</td></tr><tr><td><code>images.maki_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Maki the maki image (and every base&#x27;s Maki image) is prepared with: latest or an exact version like 0.6.3, as images.claude_code_version.</td></tr><tr><td><code>images.omp_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The oh-my-pi the omp image (and every base&#x27;s oh-my-pi image) is prepared with: latest or an exact version like 18.10.4, as images.claude_code_version.</td></tr><tr><td><code>images.tau_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Tau the tau image (and every base&#x27;s Tau image) is prepared with: latest or an exact version like 0.4.7, as images.claude_code_version.</td></tr><tr><td><code>images.stitch_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The Google Stitch CLI the stitch image (and every base&#x27;s Google Stitch CLI image) is prepared with: latest or an exact version like 0.11.1, as images.claude_code_version.</td></tr><tr><td><code>images.opencode2_version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td>—</td><td>The OpenCode 2 the opencode2 image (and every base&#x27;s OpenCode 2 image) is prepared with: latest or an exact version like 2.0.29, as images.claude_code_version.</td></tr>
-</tbody></table></div>
 <h3 id="imageslab"><code>[images.lab]</code><a class="anchor" href="#imageslab" aria-label="Link to this section">#</a></h3>
 <div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.lab]"><table>
 <thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>images.lab.memory_mib</code></td><td><code>1024</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new lab sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.lab.network</code></td><td><code>bake</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new lab sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesclaude-code"><code>[images.claude-code]</code><a class="anchor" href="#imagesclaude-code" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.claude-code]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.claude-code.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new claude-code sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.claude-code.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new claude-code sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagespi"><code>[images.pi]</code><a class="anchor" href="#imagespi" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.pi]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.pi.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new pi sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.pi.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new pi sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagescodex"><code>[images.codex]</code><a class="anchor" href="#imagescodex" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.codex]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.codex.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new codex sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.codex.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new codex sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesantigravity"><code>[images.antigravity]</code><a class="anchor" href="#imagesantigravity" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.antigravity]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.antigravity.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new antigravity sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.antigravity.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new antigravity sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesgemini"><code>[images.gemini]</code><a class="anchor" href="#imagesgemini" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.gemini]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.gemini.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new gemini sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.gemini.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new gemini sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesgrok"><code>[images.grok]</code><a class="anchor" href="#imagesgrok" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.grok]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.grok.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new grok sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.grok.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new grok sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesfabric"><code>[images.fabric]</code><a class="anchor" href="#imagesfabric" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.fabric]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.fabric.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new fabric sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.fabric.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new fabric sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesopenclaw"><code>[images.openclaw]</code><a class="anchor" href="#imagesopenclaw" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.openclaw]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.openclaw.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new openclaw sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.openclaw.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new openclaw sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesnanobot"><code>[images.nanobot]</code><a class="anchor" href="#imagesnanobot" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.nanobot]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.nanobot.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new nanobot sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.nanobot.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new nanobot sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesgptme"><code>[images.gptme]</code><a class="anchor" href="#imagesgptme" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.gptme]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.gptme.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new gptme sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.gptme.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new gptme sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesllm"><code>[images.llm]</code><a class="anchor" href="#imagesllm" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.llm]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.llm.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new llm sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.llm.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new llm sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesshell-gpt"><code>[images.shell-gpt]</code><a class="anchor" href="#imagesshell-gpt" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.shell-gpt]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.shell-gpt.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new shell-gpt sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.shell-gpt.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new shell-gpt sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imageszeroclaw"><code>[images.zeroclaw]</code><a class="anchor" href="#imageszeroclaw" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.zeroclaw]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.zeroclaw.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new zeroclaw sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.zeroclaw.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new zeroclaw sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesaichat"><code>[images.aichat]</code><a class="anchor" href="#imagesaichat" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.aichat]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.aichat.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new aichat sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.aichat.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new aichat sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagestgpt"><code>[images.tgpt]</code><a class="anchor" href="#imagestgpt" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.tgpt]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.tgpt.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new tgpt sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.tgpt.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new tgpt sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesopencode"><code>[images.opencode]</code><a class="anchor" href="#imagesopencode" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.opencode]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.opencode.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new opencode sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.opencode.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new opencode sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagessmolagents"><code>[images.smolagents]</code><a class="anchor" href="#imagessmolagents" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.smolagents]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.smolagents.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new smolagents sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.smolagents.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new smolagents sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesadk"><code>[images.adk]</code><a class="anchor" href="#imagesadk" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.adk]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.adk.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new adk sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.adk.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new adk sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagespromptfoo"><code>[images.promptfoo]</code><a class="anchor" href="#imagespromptfoo" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.promptfoo]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.promptfoo.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new promptfoo sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.promptfoo.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new promptfoo sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesclai"><code>[images.clai]</code><a class="anchor" href="#imagesclai" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.clai]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.clai.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new clai sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.clai.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new clai sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagescopilot"><code>[images.copilot]</code><a class="anchor" href="#imagescopilot" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.copilot]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.copilot.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new copilot sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.copilot.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new copilot sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesqwen-code"><code>[images.qwen-code]</code><a class="anchor" href="#imagesqwen-code" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.qwen-code]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.qwen-code.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new qwen-code sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.qwen-code.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new qwen-code sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesgoose"><code>[images.goose]</code><a class="anchor" href="#imagesgoose" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.goose]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.goose.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new goose sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.goose.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new goose sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imageskilo"><code>[images.kilo]</code><a class="anchor" href="#imageskilo" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.kilo]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.kilo.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new kilo sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.kilo.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new kilo sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesmistral-vibe"><code>[images.mistral-vibe]</code><a class="anchor" href="#imagesmistral-vibe" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.mistral-vibe]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.mistral-vibe.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new mistral-vibe sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.mistral-vibe.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new mistral-vibe sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesdroid"><code>[images.droid]</code><a class="anchor" href="#imagesdroid" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.droid]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.droid.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new droid sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.droid.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new droid sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesdirac"><code>[images.dirac]</code><a class="anchor" href="#imagesdirac" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.dirac]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.dirac.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new dirac sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.dirac.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new dirac sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imageskimi-code"><code>[images.kimi-code]</code><a class="anchor" href="#imageskimi-code" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.kimi-code]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.kimi-code.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new kimi-code sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.kimi-code.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new kimi-code sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagescline"><code>[images.cline]</code><a class="anchor" href="#imagescline" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.cline]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.cline.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new cline sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.cline.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new cline sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesopenhands"><code>[images.openhands]</code><a class="anchor" href="#imagesopenhands" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.openhands]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.openhands.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new openhands sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.openhands.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new openhands sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesletta-code"><code>[images.letta-code]</code><a class="anchor" href="#imagesletta-code" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.letta-code]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.letta-code.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new letta-code sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.letta-code.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new letta-code sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesdocker-agent"><code>[images.docker-agent]</code><a class="anchor" href="#imagesdocker-agent" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.docker-agent]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.docker-agent.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new docker-agent sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.docker-agent.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new docker-agent sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesnanocoder"><code>[images.nanocoder]</code><a class="anchor" href="#imagesnanocoder" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.nanocoder]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.nanocoder.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new nanocoder sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.nanocoder.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new nanocoder sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesmini-swe-agent"><code>[images.mini-swe-agent]</code><a class="anchor" href="#imagesmini-swe-agent" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.mini-swe-agent]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.mini-swe-agent.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new mini-swe-agent sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.mini-swe-agent.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new mini-swe-agent sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesopen-interpreter"><code>[images.open-interpreter]</code><a class="anchor" href="#imagesopen-interpreter" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.open-interpreter]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.open-interpreter.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new open-interpreter sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.open-interpreter.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new open-interpreter sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagescrush"><code>[images.crush]</code><a class="anchor" href="#imagescrush" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.crush]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.crush.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new crush sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.crush.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new crush sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesmimo-code"><code>[images.mimo-code]</code><a class="anchor" href="#imagesmimo-code" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.mimo-code]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.mimo-code.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new mimo-code sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.mimo-code.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new mimo-code sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagescodewhale"><code>[images.codewhale]</code><a class="anchor" href="#imagescodewhale" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.codewhale]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.codewhale.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new codewhale sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.codewhale.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new codewhale sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesmaki"><code>[images.maki]</code><a class="anchor" href="#imagesmaki" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.maki]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.maki.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new maki sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.maki.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new maki sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesomp"><code>[images.omp]</code><a class="anchor" href="#imagesomp" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.omp]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.omp.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new omp sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.omp.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new omp sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagestau"><code>[images.tau]</code><a class="anchor" href="#imagestau" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.tau]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.tau.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new tau sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.tau.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new tau sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesstitch"><code>[images.stitch]</code><a class="anchor" href="#imagesstitch" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.stitch]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.stitch.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new stitch sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.stitch.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new stitch sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
-</tbody></table></div>
-<h3 id="imagesopencode2"><code>[images.opencode2]</code><a class="anchor" href="#imagesopencode2" aria-label="Link to this section">#</a></h3>
-<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [images.opencode2]"><table>
-<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
-<tbody>
-<tr><td><code>images.opencode2.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new opencode2 sandbox (a custom image follows the image it was saved from).</td></tr><tr><td><code>images.opencode2.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new opencode2 sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
+<tr><td><code>images.lab.memory_mib</code></td><td><code>1024</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new lab sandbox (a template follows the image it was saved from).</td></tr><tr><td><code>images.lab.network</code></td><td><code>bake</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new lab sandbox: agent, bake, locked, open (proxied presets), nat or none.</td></tr>
 </tbody></table></div>
 <h3 id="kernel"><code>[kernel]</code><a class="anchor" href="#kernel" aria-label="Link to this section">#</a></h3>
 <div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [kernel]"><table>
@@ -730,11 +294,24 @@ doz config unset --sandbox my-app sandbox.clipboard       <span class="c"># foll
 <tbody>
 <tr><td><code>kernel.path</code></td><td><code>&quot;&quot;</code></td><td>path (&quot;&quot; = automatic)</td><td>new sandboxes</td><td><code>$DOZ_KERNEL</code></td><td>An explicit Linux kernel for new sandboxes (&quot;&quot;: the pinned kernel, fetched into the cache).</td></tr><tr><td><code>kernel.cache</code></td><td><code>&quot;&quot;</code></td><td>path (&quot;&quot; = automatic)</td><td>new sandboxes</td><td><code>$DOZ_KERNEL_CACHE</code></td><td>Where the pinned kernel is cached (&quot;&quot;: the store&#x27;s own); share one between stores.</td></tr>
 </tbody></table></div>
+<h3 id="recipesvendorproduct--every-recipes-own"><code>[recipes.VENDOR.PRODUCT]</code> — every recipe&#x27;s own<a class="anchor" href="#recipesvendorproduct--every-recipes-own" aria-label="Link to this section">#</a></h3>
+<p>Every recipe&#x27;s agent has these, each recipe with its own defaults (<code>doz config show --agent ID</code> lists one; the descriptions are Claude Code&#x27;s). A recipe may declare more of its own: Codex&#x27;s <code>keep_alive</code>.</p>
+<div class="tablewrap wide" tabindex="0" role="region" aria-label="Table: [recipes.VENDOR.PRODUCT] — every recipe&#x27;s own"><table>
+<thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">values</th><th scope="col">applies</th><th scope="col">overridden by</th><th scope="col">what it does</th></tr></thead>
+<tbody>
+<tr><td><code>recipes.VENDOR.PRODUCT.version</code></td><td><code>latest</code></td><td>latest, or an exact version like 2.1.227</td><td>new sandboxes</td><td><code>doz create --agent claude-code@VERSION</code></td><td>The Claude Code a new sandbox of this recipe gets (and every base&#x27;s baked image of it): latest (looked up when its image is baked, then installed at that exact version, integrity-checked; a newer one is only said — doz image bake rebuilds when you choose), or an exact version like 2.1.227. A sandbox keeps the version it was made with; doz reset NAME moves it to the current one.</td></tr><tr><td><code>recipes.VENDOR.PRODUCT.approvals</code></td><td><code>skip</code></td><td>skip | ask</td><td>next session</td><td><code>-e DOZ_CLAUDE_PERMISSIONS=… on run/exec, --approvals on create</code></td><td>Claude Code&#x27;s own approval prompts: skip them (the sandbox is the boundary) or ask, as on a Mac. A sandbox (doz config set --sandbox NAME approvals ask) or its project (approvals: in doz_project.yaml) can choose its own.</td></tr><tr><td><code>recipes.VENDOR.PRODUCT.memory_mib</code></td><td><code>2048</code></td><td>integer 256–262144</td><td>new sandboxes</td><td><code>doz create --memory</code></td><td>Memory (MiB) of a new sandbox of this recipe (a template follows the image it was saved from).</td></tr><tr><td><code>recipes.VENDOR.PRODUCT.network</code></td><td><code>agent</code></td><td>agent | bake | locked | open | nat | none</td><td>new sandboxes</td><td><code>doz create --network</code></td><td>The network of a new sandbox of this recipe: agent, bake, locked, open (proxied presets), nat or none.</td></tr><tr><td><code>recipes.VENDOR.PRODUCT.history</code></td><td><code>follow</code></td><td>follow | keep | agent-default</td><td>next start or wake</td><td>—</td><td>Claude Code&#x27;s conversation history: follow (agent.history, Dozable&#x27;s choice), keep, or agent-default. keep: cleanupPeriodDays = 36500 in ~/.claude/settings.json, only where it is not set. agent-default: that key is taken back where it still holds Dozable&#x27;s value — Claude Code deletes conversations older than 30 days.</td></tr><tr><td><code>recipes.openai.codex.keep_alive</code></td><td><code>false</code></td><td>boolean</td><td>at once</td><td>—</td><td>Codex sandboxes on the account mac (this Mac&#x27;s own Codex login): when its access token is about to expire and a sandbox used it in the last 15 minutes, run this Mac&#x27;s codex doctor once — no model call — which renews the login the way Codex itself does. Off: the login renews only while Codex (the app or a codex session) runs on this Mac; when it has expired, Codex in a sandbox says so.</td></tr>
+</tbody></table></div>
+<h3 id="the-names-before-03734-still-read-and-taken-by-doz-config">The names before 0.37.34 (still read, and taken by <code>doz config</code>)<a class="anchor" href="#the-names-before-03734-still-read-and-taken-by-doz-config" aria-label="Link to this section">#</a></h3>
+<div class="tablewrap" tabindex="0" role="region" aria-label="Table: The names before 0.37.34 (still read, and taken by doz config)"><table>
+<thead><tr><th scope="col">old name</th><th scope="col">now</th></tr></thead>
+<tbody>
+<tr><td><code>images.ID_version</code></td><td><code>recipes.VENDOR.PRODUCT.version</code></td></tr><tr><td><code>ID.permissions</code></td><td><code>recipes.VENDOR.PRODUCT.approvals</code></td></tr><tr><td><code>images.ID.memory_mib</code>, <code>images.ID.network</code></td><td><code>recipes.VENDOR.PRODUCT.memory_mib</code>, <code>.network</code> (Claude Code&#x27;s, <code>images.claude-code.memory_mib</code> and <code>images.claude-code.network</code>, also seed <code>defaults.memory_mib</code>, <code>defaults.network</code>)</td></tr><tr><td><code>images.claude_code_version</code></td><td><code>recipes.anthropic.claude-code.version</code></td></tr><tr><td><code>claude.permissions</code></td><td><code>recipes.anthropic.claude-code.approvals</code></td></tr><tr><td><code>images.pi_version</code></td><td><code>recipes.earendil-works.pi.version</code></td></tr><tr><td><code>images.codex_version</code></td><td><code>recipes.openai.codex.version</code></td></tr><tr><td><code>codex.permissions</code></td><td><code>recipes.openai.codex.approvals</code></td></tr><tr><td><code>codex.keep_alive</code></td><td><code>recipes.openai.codex.keep_alive</code></td></tr>
+</tbody></table></div>
 <h2 id="environment-variables">Environment variables<a class="anchor" href="#environment-variables" aria-label="Link to this section">#</a></h2>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Environment variables"><table>
 <thead><tr><th scope="col">variable</th><th scope="col">overrides</th><th scope="col"></th></tr></thead>
 <tbody>
-<tr><td><code>DOZ_STORE</code></td><td><code>store.path</code></td><td>the store folder</td></tr><tr><td><code>DOZ_PROGRESS</code></td><td><code>ui.progress</code></td><td><code>animated</code> or <code>plain</code> progress</td></tr><tr><td><code>DOZ_HOST_IDLE</code></td><td><code>host.idle_timeout_minutes</code></td><td>host idle timeout, minutes (fractions allowed)</td></tr><tr><td><code>DOZ_SCREEN_CAPTURE</code></td><td><code>host.screen_capture_minutes</code></td><td>how often screens are saved</td></tr><tr><td><code>DOZ_BOOT_LOGS</code></td><td><code>host.boot_logs_kept</code></td><td>boots kept per sandbox</td></tr><tr><td><code>DOZ_SUBNET</code></td><td><code>defaults.nat_subnet</code></td><td>subnet of a new <code>nat</code> sandbox</td></tr><tr><td><code>DOZ_KERNEL</code> · <code>DOZ_KERNEL_CACHE</code></td><td><code>kernel.path</code> · <code>kernel.cache</code></td><td>an explicit kernel · a shared kernel cache</td></tr><tr><td><code>XDG_CONFIG_HOME</code></td><td>—</td><td>where <code>dozer-sandbox/doz.toml</code> is (default <code>~/.config</code>)</td></tr><tr><td><code>NO_COLOR</code></td><td>—</td><td>plain progress, no colours</td></tr>
+<tr><td><code>DOZ_STORE</code></td><td><code>store.path</code></td><td>the store folder</td></tr><tr><td><code>DOZ_PROGRESS</code></td><td><code>ui.progress</code></td><td><code>animated</code> or <code>plain</code> progress</td></tr><tr><td><code>DOZ_COLOR</code></td><td><code>ui.color</code></td><td><code>auto</code>, <code>always</code> or <code>never</code> colour in the CLI</td></tr><tr><td><code>DOZ_HOST_IDLE</code></td><td><code>host.idle_timeout_minutes</code></td><td>host idle timeout, minutes (fractions allowed)</td></tr><tr><td><code>DOZ_SCREEN_CAPTURE</code></td><td><code>host.screen_capture_minutes</code></td><td>how often screens are saved</td></tr><tr><td><code>DOZ_BOOT_LOGS</code></td><td><code>host.boot_logs_kept</code></td><td>boots kept per sandbox</td></tr><tr><td><code>DOZ_SUBNET</code></td><td><code>defaults.nat_subnet</code></td><td>subnet of a new <code>nat</code> sandbox</td></tr><tr><td><code>DOZ_KERNEL</code> · <code>DOZ_KERNEL_CACHE</code></td><td><code>kernel.path</code> · <code>kernel.cache</code></td><td>an explicit kernel · a shared kernel cache</td></tr><tr><td><code>XDG_CONFIG_HOME</code></td><td>—</td><td>where <code>doz/doz.toml</code> is (default <code>~/.config</code>)</td></tr><tr><td><code>NO_COLOR</code></td><td>—</td><td>no colour and plain progress, unless <code>--color always</code> (or <code>ui.color = &quot;always&quot;</code>) asks for it</td></tr>
 </tbody></table></div>
 <!-- /manual text -->
 </div>
@@ -742,7 +319,7 @@ doz config unset --sandbox my-app sandbox.clipboard       <span class="c"># foll
 <li class="prev"><a href="letting-another-agent-drive" rel="prev"><small>&larr; Previous</small><b>Letting another agent drive Dozable</b></a></li>
 <li class="next"><a href="security-model" rel="next"><small>Next &rarr;</small><b>Security model</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/15-settings-reference.md">Edit this page on GitHub</a> &middot; Chapter 15 of 29</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/15-settings-reference.md">Edit this page on GitHub</a> &middot; Chapter 15 of 34</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">
@@ -752,7 +329,8 @@ doz config unset --sandbox my-app sandbox.clipboard       <span class="c"># foll
 </li>
 <li><a href="#read-and-change-settings">Read and change settings</a>
 <ol>
-<li><a href="#per-sandbox">Per sandbox</a></li>
+<li><a href="#per-sandbox-and-per-project">Per sandbox and per project</a></li>
+<li><a href="#the-names-before-03734">The names before 0.37.34</a></li>
 </ol></li>
 <li><a href="#about-the-file">About the file</a>
 </li>
@@ -764,27 +342,6 @@ doz config unset --sandbox my-app sandbox.clipboard       <span class="c"># foll
 <li><a href="#serve"><code>[serve]</code></a></li>
 <li><a href="#host"><code>[host]</code></a></li>
 <li><a href="#store"><code>[store]</code></a></li>
-<li><a href="#claude"><code>[claude]</code></a></li>
-<li><a href="#codex"><code>[codex]</code></a></li>
-<li><a href="#antigravity"><code>[antigravity]</code></a></li>
-<li><a href="#gemini"><code>[gemini]</code></a></li>
-<li><a href="#grok"><code>[grok]</code></a></li>
-<li><a href="#gptme"><code>[gptme]</code></a></li>
-<li><a href="#copilot"><code>[copilot]</code></a></li>
-<li><a href="#qwen-code"><code>[qwen-code]</code></a></li>
-<li><a href="#mistral-vibe"><code>[mistral-vibe]</code></a></li>
-<li><a href="#droid"><code>[droid]</code></a></li>
-<li><a href="#dirac"><code>[dirac]</code></a></li>
-<li><a href="#kimi-code"><code>[kimi-code]</code></a></li>
-<li><a href="#openhands"><code>[openhands]</code></a></li>
-<li><a href="#docker-agent"><code>[docker-agent]</code></a></li>
-<li><a href="#nanocoder"><code>[nanocoder]</code></a></li>
-<li><a href="#mini-swe-agent"><code>[mini-swe-agent]</code></a></li>
-<li><a href="#open-interpreter"><code>[open-interpreter]</code></a></li>
-<li><a href="#crush"><code>[crush]</code></a></li>
-<li><a href="#mimo-code"><code>[mimo-code]</code></a></li>
-<li><a href="#codewhale"><code>[codewhale]</code></a></li>
-<li><a href="#maki"><code>[maki]</code></a></li>
 <li><a href="#defaults"><code>[defaults]</code></a></li>
 <li><a href="#agent"><code>[agent]</code></a></li>
 <li><a href="#updates"><code>[updates]</code></a></li>
@@ -795,52 +352,10 @@ doz config unset --sandbox my-app sandbox.clipboard       <span class="c"># foll
 <li><a href="#bridges"><code>[bridges]</code></a></li>
 <li><a href="#workspace"><code>[workspace]</code></a></li>
 <li><a href="#github"><code>[github]</code></a></li>
-<li><a href="#images"><code>[images]</code></a></li>
 <li><a href="#imageslab"><code>[images.lab]</code></a></li>
-<li><a href="#imagesclaude-code"><code>[images.claude-code]</code></a></li>
-<li><a href="#imagespi"><code>[images.pi]</code></a></li>
-<li><a href="#imagescodex"><code>[images.codex]</code></a></li>
-<li><a href="#imagesantigravity"><code>[images.antigravity]</code></a></li>
-<li><a href="#imagesgemini"><code>[images.gemini]</code></a></li>
-<li><a href="#imagesgrok"><code>[images.grok]</code></a></li>
-<li><a href="#imagesfabric"><code>[images.fabric]</code></a></li>
-<li><a href="#imagesopenclaw"><code>[images.openclaw]</code></a></li>
-<li><a href="#imagesnanobot"><code>[images.nanobot]</code></a></li>
-<li><a href="#imagesgptme"><code>[images.gptme]</code></a></li>
-<li><a href="#imagesllm"><code>[images.llm]</code></a></li>
-<li><a href="#imagesshell-gpt"><code>[images.shell-gpt]</code></a></li>
-<li><a href="#imageszeroclaw"><code>[images.zeroclaw]</code></a></li>
-<li><a href="#imagesaichat"><code>[images.aichat]</code></a></li>
-<li><a href="#imagestgpt"><code>[images.tgpt]</code></a></li>
-<li><a href="#imagesopencode"><code>[images.opencode]</code></a></li>
-<li><a href="#imagessmolagents"><code>[images.smolagents]</code></a></li>
-<li><a href="#imagesadk"><code>[images.adk]</code></a></li>
-<li><a href="#imagespromptfoo"><code>[images.promptfoo]</code></a></li>
-<li><a href="#imagesclai"><code>[images.clai]</code></a></li>
-<li><a href="#imagescopilot"><code>[images.copilot]</code></a></li>
-<li><a href="#imagesqwen-code"><code>[images.qwen-code]</code></a></li>
-<li><a href="#imagesgoose"><code>[images.goose]</code></a></li>
-<li><a href="#imageskilo"><code>[images.kilo]</code></a></li>
-<li><a href="#imagesmistral-vibe"><code>[images.mistral-vibe]</code></a></li>
-<li><a href="#imagesdroid"><code>[images.droid]</code></a></li>
-<li><a href="#imagesdirac"><code>[images.dirac]</code></a></li>
-<li><a href="#imageskimi-code"><code>[images.kimi-code]</code></a></li>
-<li><a href="#imagescline"><code>[images.cline]</code></a></li>
-<li><a href="#imagesopenhands"><code>[images.openhands]</code></a></li>
-<li><a href="#imagesletta-code"><code>[images.letta-code]</code></a></li>
-<li><a href="#imagesdocker-agent"><code>[images.docker-agent]</code></a></li>
-<li><a href="#imagesnanocoder"><code>[images.nanocoder]</code></a></li>
-<li><a href="#imagesmini-swe-agent"><code>[images.mini-swe-agent]</code></a></li>
-<li><a href="#imagesopen-interpreter"><code>[images.open-interpreter]</code></a></li>
-<li><a href="#imagescrush"><code>[images.crush]</code></a></li>
-<li><a href="#imagesmimo-code"><code>[images.mimo-code]</code></a></li>
-<li><a href="#imagescodewhale"><code>[images.codewhale]</code></a></li>
-<li><a href="#imagesmaki"><code>[images.maki]</code></a></li>
-<li><a href="#imagesomp"><code>[images.omp]</code></a></li>
-<li><a href="#imagestau"><code>[images.tau]</code></a></li>
-<li><a href="#imagesstitch"><code>[images.stitch]</code></a></li>
-<li><a href="#imagesopencode2"><code>[images.opencode2]</code></a></li>
 <li><a href="#kernel"><code>[kernel]</code></a></li>
+<li><a href="#recipesvendorproduct--every-recipes-own"><code>[recipes.VENDOR.PRODUCT]</code> — every recipe&#x27;s own</a></li>
+<li><a href="#the-names-before-03734-still-read-and-taken-by-doz-config">The names before 0.37.34 (still read, and taken by <code>doz config</code>)</a></li>
 </ol></li>
 <li><a href="#environment-variables">Environment variables</a>
 </li>

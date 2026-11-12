@@ -67,16 +67,20 @@
 <li><a href="doz-serve">The dashboard on other devices</a></li>
 <li><a href="images-and-bases">Images and bases</a></li>
 <li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents">More agents</a></li>
 <li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex">Codex</a></li>
 <li><a href="web-ports">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
@@ -90,9 +94,10 @@
 <li><a href="settings-reference">Settings reference</a></li>
 <li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -110,6 +115,8 @@
 <li><a href="#concepts">Concepts</a>
 </li>
 <li><a href="#the-states">The states</a>
+</li>
+<li><a href="#renaming-a-sandbox">Renaming a sandbox</a>
 </li>
 <li><a href="#the-quickest-way-quick-add-and-doz-new">The quickest way: Quick add and <code>doz new</code></a>
 </li>
@@ -182,8 +189,16 @@
 <tr><td><code>doz start NAME</code></td><td>boots (or wakes it if asleep, resumes it if paused)</td><td>~0.4 s (a first start may prepare the image)</td><td>used as needed</td><td>start fresh</td></tr><tr><td><code>doz pause NAME</code> · <code>doz resume NAME</code></td><td>the CPU stops</td><td>~1 ms</td><td>kept</td><td>frozen, then carry on</td></tr><tr><td><code>doz sleep NAME</code> · <code>doz wake NAME</code></td><td>paused <strong>and</strong> saved to disk — survives a crash of the host</td><td>~0.3 s</td><td>kept</td><td>carry on</td></tr><tr><td><code>doz hibernate NAME</code> · <code>doz wake NAME</code></td><td>saved to disk, then the VM stops</td><td>~0.35 s / ~0.3 s</td><td><strong>given back</strong></td><td>carry on: same processes, same screens</td></tr><tr><td><code>doz shutdown NAME</code></td><td>a cold stop; the disks are kept</td><td></td><td>given back</td><td>end</td></tr><tr><td><code>doz down NAME</code></td><td>the opposite of <code>up</code>: hibernate (<code>--sleep</code>: sleep; <code>--shutdown</code>: shut down)</td><td>as those</td><td>as those</td><td>as those</td></tr><tr><td><code>doz reset NAME</code></td><td>shut down and go back to a fresh copy of the image (the state disk and restore points stay)</td><td></td><td></td><td>end</td></tr><tr><td><code>doz rm NAME</code></td><td>remove the sandbox and everything it has on disk</td><td></td><td></td><td>end</td></tr>
 </tbody></table></div>
 <p><code>start</code> has an alias, <code>cold-boot</code>; <code>pause</code> has <code>suspend</code>.</p>
-<p><code>doz down NAME</code> puts a sandbox away when you are done for now: it hibernates it — nothing kept in memory, its sessions come back where they were with <code>doz up</code> (in its project folder), <code>doz attach</code> or <code>doz wake</code>. <code>--sleep</code> keeps its memory for an even quicker wake; <code>--shutdown</code> is a cold stop, asked first as <code>shutdown</code> is (<code>-y</code> skips the question). It works on a try too.</p>
+<p><code>doz down NAME</code> puts a sandbox away when you are done for now: it hibernates it — nothing kept in memory, its sessions come back where they were with <code>doz up</code> (in its project folder), <code>doz attach</code> or <code>doz wake</code>. <code>--sleep</code> keeps its memory for an even quicker wake; <code>--shutdown</code> is a cold stop, asked first as <code>shutdown</code> is (<code>-y</code> skips the question).</p>
+<p><strong>The folder Dozable made goes with it.</strong> When a sandbox&#x27;s folder did not exist and Dozable made it (<code>doz new</code>, New sandbox and Quick add in the dashboard, <code>doz try</code>, a <code>--workspace</code> that was not there yet), <code>doz rm</code> — and the dashboard&#x27;s <strong>Remove…</strong> — removes that folder too while it is empty. When it holds files, <code>doz rm</code> asks (the default keeps it and says where); off a terminal and in the dashboard it is kept. A folder that was there before is never touched, and neither is the folder of a duplicate.</p>
 <p><code>shutdown</code>, <code>reset</code> and <code>rm</code> ask first. <code>--yes</code> skips the question; without a terminal and without <code>--yes</code> they refuse, so a script can&#x27;t destroy something by accident. The question names what you asked for — and checks it exists — before you answer.</p>
+<h2 id="renaming-a-sandbox">Renaming a sandbox<a class="anchor" href="#renaming-a-sandbox" aria-label="Link to this section">#</a></h2>
+<p><code>doz rename NAME NEW</code> gives a sandbox another name. It is the same sandbox: its disks, restore points, folder, account, network, settings and kept terminal layout come along — only the name changes (its hostname inside follows at the next start). Nothing is lost, so it asks nothing.</p>
+<figure class="code"><figcaption data-gen><span>bash</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (bash)"><code>doz shutdown demo        <span class="c"># renaming needs it shut down (Shut down keeps its disk)</span>
+doz rename demo website
+doz start website</code></pre></figure>
+<p>It refuses while the sandbox runs, sleeps, hibernates or is busy — shut it down first — and refuses a name that is already taken or is not 1–40 characters of a-z, 0-9 and <code>-</code>. Its folder on your Mac keeps its own name and place — Dozable never moves your files. Templates saved from it keep saying which sandbox they came from, and past numbers on the Metrics page stay under the old name.</p>
+<p>In the dashboard: <strong>Rename…</strong> in a sandbox&#x27;s ⋯ menu — in the sidebar (on the sandbox&#x27;s line) and on its page&#x27;s toolbar. A sandbox that isn&#x27;t shut down is shut down first: the dialog says so, and its button reads <strong>Shut down and rename</strong>.</p>
 <p>A program started less than three seconds before a hibernate gets the rest of those three seconds first, so a program in the middle of starting up isn&#x27;t frozen at a bad moment.</p>
 <h2 id="the-quickest-way-quick-add-and-doz-new">The quickest way: Quick add and <code>doz new</code><a class="anchor" href="#the-quickest-way-quick-add-and-doz-new" aria-label="Link to this section">#</a></h2>
 <p>One click in the dashboard, or one command, makes a sandbox with every default and puts you in it:</p>
@@ -221,7 +236,7 @@ doz up my-app                                        <span class="c"># create if
 <ol>
 <li><strong>Sandboxes</strong> › <strong>New sandbox</strong> — a wizard, step by step: the <strong>project folder</strong> (a new one in your projects folder, or one you have), the <strong>Agent</strong> and the <strong>Base</strong> (or a <strong>Template</strong>), the account, access (GitHub, SSH agent), what the agent can do, CPUs and memory, the bridges, and the session. Each step is filled in from your settings; <strong>Skip to review</strong> keeps the rest.</li>
 <li><strong>Review</strong> shows the <code>doz_project.yaml</code> it writes into the folder; <strong>Write and create</strong> writes it, makes the sandbox from it, starts it and opens it with the boot in a terminal. See <a href="projects#in-the-dashboard">Projects</a>.</li>
-<li>Or <strong>One-page form</strong> (in the wizard, top right): everything on one page, a <strong>Shared folder</strong> or <strong>Isolated</strong>, and no project file. <strong>Create</strong> makes it off; <strong>Start</strong> boots it: the terminal area shows the image&#x27;s build while there is one, then tab zero, <strong>Console</strong> (the boot as it happens), then the agent&#x27;s own tab once it has drawn its screen. With the setting <code>ui.boot_view_on_start</code> on, the page stays on Console and marks the agent&#x27;s tab instead of switching to it.</li>
+<li>Or <strong>One-page form</strong> (in the wizard, top right): everything on one page, a <strong>Shared folder</strong> or <strong>Isolated</strong>, and no project file. <strong>Create</strong> makes it off; <strong>Start</strong> boots it: the terminal area shows the image&#x27;s build while there is one, then the <strong>Console</strong> tab (the boot as it happens), then the agent&#x27;s own tab once it has drawn its screen. With the setting <code>ui.boot_view_on_start</code> on, the page stays on Console and marks the agent&#x27;s tab instead of switching to it.</li>
 </ol>
 <figure class="shot"><div class="frame"><img src="images/new-sandbox.png" alt="New sandbox" width="1100" height="859" loading="lazy" decoding="async"></div><figcaption>New sandbox</figcaption></figure>
 <p>Each sandbox has an entry under <strong>Sandboxes</strong> in the sidebar, with a dot in its state&#x27;s colour (filled while it holds memory, a ring when it holds none, a square when it failed). Its page has the lifecycle buttons across the top — <strong>Start</strong>, <strong>Pause</strong>, <strong>Resume</strong>, <strong>Sleep</strong>, <strong>Hibernate</strong>, <strong>Wake</strong>, <strong>Shut down</strong> — showing only those that make sense in its state, the one that brings it back first; <strong>Reset…</strong> and <strong>Remove…</strong> are under <strong>⋯</strong>. <strong>Reset</strong> and <strong>Remove</strong> ask you to tick a box first; <strong>Shut down</strong> asks with a plain confirmation (&quot;Don&#x27;t ask again&quot; sets <code>ui.confirm_shutdown</code> to <code>false</code>).</p>
@@ -262,7 +277,7 @@ doz events my-app        <span class="c"># only this sandbox</span></code></pre>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Settings"><table>
 <thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>defaults.cpus</code></td><td><code>2</code></td><td>CPUs of a new sandbox (<code>--cpus</code>).</td></tr><tr><td><code>images.lab.memory_mib</code> · <code>images.claude-code.memory_mib</code> · <code>images.pi.memory_mib</code></td><td><code>1024</code> · <code>2048</code> · <code>2048</code></td><td>Memory of a new sandbox of each image (<code>--memory</code>); other images follow the one they&#x27;re based on.</td></tr><tr><td><code>defaults.projects_dir</code></td><td><code>~/doz-workspaces</code></td><td>Your projects folder: where Quick add, <code>doz new</code> and the dashboard&#x27;s New sandbox make a new sandbox&#x27;s own folder (<code>&lt;projects_dir&gt;/NAME</code>). <strong>Settings</strong> › <strong>Choose…</strong> picks it.</td></tr><tr><td><code>sandbox.timezone</code></td><td><code>mac</code></td><td><code>mac</code> (follow this Mac) or a zone like <code>Australia/Sydney</code>. Applies at each start or wake.</td></tr><tr><td><code>host.idle_timeout_minutes</code></td><td><code>5</code></td><td>Minutes with nothing running before the host exits; <code>0</code> = never (<code>$DOZ_HOST_IDLE</code>).</td></tr><tr><td><code>host.screen_capture_minutes</code></td><td><code>5</code></td><td>How often a running sandbox&#x27;s changed screens are saved; <code>0</code> = only at pause, sleep and hibernate.</td></tr><tr><td><code>host.boot_logs_kept</code></td><td><code>5</code></td><td>Boots kept per sandbox (1–50).</td></tr><tr><td><code>ui.boot_view_on_start</code></td><td><code>false</code></td><td>After the dashboard&#x27;s Start, stay on tab zero (Console) rather than switch to the agent&#x27;s tab.</td></tr><tr><td><code>ui.confirm_shutdown</code></td><td><code>true</code></td><td>The dashboard&#x27;s Shut down asks first.</td></tr>
+<tr><td><code>defaults.cpus</code></td><td><code>2</code></td><td>CPUs of a new sandbox (<code>--cpus</code>).</td></tr><tr><td><code>images.lab.memory_mib</code> · <code>recipes.anthropic.claude-code.memory_mib</code> · <code>recipes.earendil-works.pi.memory_mib</code></td><td><code>1024</code> · <code>2048</code> · <code>2048</code></td><td>Memory of a new sandbox of each image (<code>--memory</code>); other images follow the one they&#x27;re based on.</td></tr><tr><td><code>defaults.projects_dir</code></td><td><code>~/doz-workspaces</code></td><td>Your projects folder: where Quick add, <code>doz new</code> and the dashboard&#x27;s New sandbox make a new sandbox&#x27;s own folder (<code>&lt;projects_dir&gt;/NAME</code>). <strong>Settings</strong> › <strong>Choose…</strong> picks it.</td></tr><tr><td><code>sandbox.timezone</code></td><td><code>mac</code></td><td><code>mac</code> (follow this Mac) or a zone like <code>Australia/Sydney</code>. Applies at each start or wake.</td></tr><tr><td><code>host.idle_timeout_minutes</code></td><td><code>5</code></td><td>Minutes with nothing running before the host exits; <code>0</code> = never (<code>$DOZ_HOST_IDLE</code>).</td></tr><tr><td><code>host.screen_capture_minutes</code></td><td><code>5</code></td><td>How often a running sandbox&#x27;s changed screens are saved; <code>0</code> = only at pause, sleep and hibernate.</td></tr><tr><td><code>host.boot_logs_kept</code></td><td><code>5</code></td><td>Boots kept per sandbox (1–50).</td></tr><tr><td><code>ui.boot_view_on_start</code></td><td><code>false</code></td><td>After the dashboard&#x27;s Start, stay on the Console tab rather than switch to the agent&#x27;s tab.</td></tr><tr><td><code>ui.confirm_shutdown</code></td><td><code>true</code></td><td>The dashboard&#x27;s Shut down asks first.</td></tr>
 </tbody></table></div>
 <h2 id="limits">Limits<a class="anchor" href="#limits" aria-label="Link to this section">#</a></h2>
 <ul>
@@ -282,7 +297,7 @@ doz events my-app        <span class="c"># only this sandbox</span></code></pre>
 <li class="prev"><a href="projects" rel="prev"><small>&larr; Previous</small><b>Projects</b></a></li>
 <li class="next"><a href="the-dashboard" rel="next"><small>Next &rarr;</small><b>The dashboard (<code>doz ui</code>)</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/05-sandboxes-and-lifecycle.md">Edit this page on GitHub</a> &middot; Chapter 5 of 29</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/05-sandboxes-and-lifecycle.md">Edit this page on GitHub</a> &middot; Chapter 5 of 34</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">
@@ -291,6 +306,8 @@ doz events my-app        <span class="c"># only this sandbox</span></code></pre>
 <li><a href="#concepts">Concepts</a>
 </li>
 <li><a href="#the-states">The states</a>
+</li>
+<li><a href="#renaming-a-sandbox">Renaming a sandbox</a>
 </li>
 <li><a href="#the-quickest-way-quick-add-and-doz-new">The quickest way: Quick add and <code>doz new</code></a>
 </li>

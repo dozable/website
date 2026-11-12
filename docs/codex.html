@@ -67,16 +67,20 @@
 <li><a href="doz-serve">The dashboard on other devices</a></li>
 <li><a href="images-and-bases">Images and bases</a></li>
 <li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents">More agents</a></li>
 <li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex" aria-current="page">Codex</a></li>
 <li><a href="web-ports">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
@@ -90,9 +94,10 @@
 <li><a href="settings-reference">Settings reference</a></li>
 <li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -144,16 +149,16 @@ doz new --image codex                 <span class="c"># a Codex sandbox, attache
 <h2 id="the-image">The image<a class="anchor" href="#the-image" aria-label="Link to this section">#</a></h2>
 <ul>
 <li><code>codex</code> is Node.js · Codex; any other base is <code>&lt;base&gt;-codex</code> (<code>python-codex</code>, <code>go-codex</code>, <code>alpine-codex</code>, or your Dockerfile&#x27;s): <code>doz create my-app --agent codex --base python</code>.</li>
-<li>Codex is installed from its official linux-arm64 build (a single static program, the same on Debian and Alpine), checked against the integrity the npm registry publishes. <code>images.codex_version</code> is <code>latest</code> (resolved when the image is prepared) or an exact version like <code>0.160.1</code>.</li>
+<li>Codex is installed from its official linux-arm64 build (a single static program, the same on Debian and Alpine), checked against the integrity the npm registry publishes. <code>recipes.openai.codex.version</code> is <code>latest</code> (resolved when its image is baked) or an exact version like <code>0.160.1</code>.</li>
 <li>Codex&#x27;s own state (its sessions, history and settings) is <code>~/.codex</code>, on the state disk: it survives shutdown and reset.</li>
 </ul>
 <h2 id="how-it-starts">How it starts<a class="anchor" href="#how-it-starts" aria-label="Link to this section">#</a></h2>
 <p><code>codex</code> in a sandbox is Dozable&#x27;s launcher, which:</p>
 <ul>
-<li>runs Codex with <strong>approvals and Codex&#x27;s own Linux sandbox off</strong> (<code>--dangerously-bypass-approvals-and-sandbox</code>): the VM, the network permissions and the absent credentials are the boundary. Set <code>codex.permissions</code> to <code>ask</code> (or run <code>doz run NAME -e DOZ_CODEX_PERMISSIONS=ask -- codex</code>) to keep Codex&#x27;s own approvals; <code>codex</code> run as root always keeps them;</li>
+<li>runs Codex with <strong>approvals and Codex&#x27;s own Linux sandbox off</strong> (<code>--dangerously-bypass-approvals-and-sandbox</code>): the VM, the network permissions and the absent credentials are the boundary. Set <code>recipes.openai.codex.approvals</code> to <code>ask</code> (or run <code>doz run NAME -e DOZ_CODEX_PERMISSIONS=ask -- codex</code>) to keep Codex&#x27;s own approvals; <code>codex</code> run as root always keeps them;</li>
 <li>marks the working folder trusted in <code>~/.codex/config.toml</code> (only when that folder has no entry there — your own choice is kept), so there is no trust screen;</li>
 <li>turns off Codex&#x27;s update check (the image decides its version);</li>
-<li>gives Codex the sandbox&#x27;s <strong>facts</strong> as its developer instructions, and the <strong><code>dozer</code> skill</strong> in <code>~/.agents/skills/dozer/SKILL.md</code> (<a href="agents-and-accounts">Agents and accounts</a>). Your <code>AGENTS.md</code> files are never touched.</li>
+<li>gives Codex the sandbox&#x27;s <strong>facts</strong> as its developer instructions, and the <strong><code>doz</code> skill</strong> in <code>~/.agents/skills/doz/SKILL.md</code> (<a href="agents-and-accounts">Agents and accounts</a>). Your <code>AGENTS.md</code> files are never touched.</li>
 </ul>
 <p><code>codex exec</code>, <code>codex resume</code> and <code>codex fork</code> get the same; <code>codex login</code>, <code>codex mcp</code> and the other subcommands run as they are.</p>
 <h2 id="this-macs-codex-login-mac">This Mac&#x27;s Codex login (<code>mac</code>)<a class="anchor" href="#this-macs-codex-login-mac" aria-label="Link to this section">#</a></h2>
@@ -162,7 +167,7 @@ doz new --image codex                 <span class="c"># a Codex sandbox, attache
 <li><strong>Dozable only reads it.</strong> From <code>$CODEX_HOME/auth.json</code> (else <code>~/.codex/auth.json</code>) it takes the <strong>access token</strong> and the few account details Codex reads (plan, email, account id). It never uses or keeps the refresh token and never writes anything there: your Mac&#x27;s Codex stays the one that renews the login. Nothing is copied into the sandbox — it gets placeholders, and the proxy puts the token in on the way to <code>chatgpt.com</code>.</li>
 <li><strong>It is the default</strong> for Codex sandboxes while this Mac&#x27;s Codex is signed in (<code>doz account ls</code> shows <code>mac</code> · <code>codex-mac</code> with its plan, email and expiry). Choose another per sandbox (<code>doz account use NAME ACCOUNT</code>) or for all (<code>doz account default NAME</code>); <code>doz account default mac --codex</code> makes it the default explicitly.</li>
 <li><strong>It must stay fresh.</strong> Access tokens last about an hour; your Mac&#x27;s Codex renews one when it is within 5 minutes of expiry, whenever it runs — the Codex app&#x27;s background server checks every few minutes, so while the app (or any <code>codex</code> session) runs, sandboxes stay signed in. A renewal reaches open sandboxes at their next request. With nothing running it expires, and Codex in a sandbox says: &quot;your Mac&#x27;s Codex login has expired — run codex on the Mac, or turn on the keep-alive&quot;. Never another account.</li>
-<li><strong>Keep-alive</strong> (off by default): <code>doz config set codex.keep_alive true</code>. When the token is about to expire and a sandbox used it in the last 15 minutes, Dozable runs this Mac&#x27;s own <code>codex doctor</code> once — no model call — which renews the login the way Codex itself does.</li>
+<li><strong>Keep-alive</strong> (off by default): <code>doz config set --agent codex keep_alive true</code>. When the token is about to expire and a sandbox used it in the last 15 minutes, Dozable runs this Mac&#x27;s own <code>codex doctor</code> once — no model call — which renews the login the way Codex itself does.</li>
 <li><strong>Not supported yet:</strong> a Codex that keeps its login in the keyring (<code>cli_auth_credentials_store = &quot;keyring&quot;</code>) — use <code>doz account add NAME --chatgpt</code> instead; and a Mac Codex signed in with an API key — add the key as an account (<code>--openai-key</code>). <code>doz doctor</code> says which.</li>
 </ul>
 <h2 id="your-chatgpt-plan-without-the-token-in-the-sandbox-builds-from-source">Your ChatGPT plan, without the token in the sandbox (builds from source)<a class="anchor" href="#your-chatgpt-plan-without-the-token-in-the-sandbox-builds-from-source" aria-label="Link to this section">#</a></h2>
@@ -186,26 +191,26 @@ doz account default chatgpt                <span class="c"># the default OpenAI 
 doz account use my-app openai              <span class="c"># this sandbox uses the key (open sessions switch on their next request)</span>
 doz account verify chatgpt                 <span class="c"># renews the sign-in when it is due, and says how it stands</span>
 doz account rm chatgpt                     <span class="c"># also deletes its keychain item</span></code></pre></figure>
-<p>The store has two defaults: the Anthropic one (<code>mac</code> out of the box) for Claude Code and pi, and the OpenAI one (none until you choose) for Codex. <code>doz onboard</code> asks about Codex&#x27;s account when you choose the codex image (or <code>doz onboard --openai-account chatgpt|openai-key|later</code>).</p>
+<p>The store has two defaults: the Anthropic one (<code>mac</code> out of the box) for Claude Code and pi, and the OpenAI one (none until you choose) for Codex. <code>doz onboard</code>&#x27;s Models &amp; keys step shows whether Codex is signed in on this Mac, and takes an <code>openai</code> key or (official builds) <code>chatgpt</code> — or <code>doz onboard --openai-account mac|chatgpt|openai-key|later</code>.</p>
 <h2 id="settings">Settings<a class="anchor" href="#settings" aria-label="Link to this section">#</a></h2>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Settings"><table>
 <thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>images.codex_version</code></td><td><code>latest</code></td><td>The Codex version an image is prepared with.</td></tr><tr><td><code>codex.permissions</code></td><td><code>skip</code></td><td>Codex&#x27;s own approvals and sandbox in a sandbox: <code>skip</code> or <code>ask</code>.</td></tr><tr><td><code>codex.keep_alive</code></td><td><code>false</code></td><td>Renew this Mac&#x27;s Codex login near expiry (<code>codex doctor</code>) while a sandbox uses it.</td></tr><tr><td><code>images.codex.memory_mib</code> · <code>images.codex.network</code></td><td>2048 · <code>agent</code></td><td>A new Codex sandbox&#x27;s memory and network.</td></tr>
+<tr><td><code>recipes.openai.codex.version</code></td><td><code>latest</code></td><td>The Codex version its image is baked with.</td></tr><tr><td><code>recipes.openai.codex.approvals</code></td><td><code>skip</code></td><td>Codex&#x27;s own approvals and sandbox in a sandbox: <code>skip</code> or <code>ask</code>.</td></tr><tr><td><code>recipes.openai.codex.keep_alive</code></td><td><code>false</code></td><td>Renew this Mac&#x27;s Codex login near expiry (<code>codex doctor</code>) while a sandbox uses it.</td></tr><tr><td><code>recipes.openai.codex.memory_mib</code> · <code>recipes.openai.codex.network</code></td><td>2048 · <code>agent</code></td><td>A new Codex sandbox&#x27;s memory and network.</td></tr>
 </tbody></table></div>
 <h2 id="troubleshooting">Troubleshooting<a class="anchor" href="#troubleshooting" aria-label="Link to this section">#</a></h2>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Troubleshooting"><table>
 <thead><tr><th scope="col">symptom</th><th scope="col">what to do</th></tr></thead>
 <tbody>
-<tr><td>Codex says Dozable&#x27;s sign-in has ended</td><td><code>doz account add NAME --chatgpt --force</code> on your Mac; open sessions recover by themselves.</td></tr><tr><td>&quot;your Mac&#x27;s Codex login has expired&quot;</td><td>Run <code>codex</code> on the Mac (any prompt), or <code>doz config set codex.keep_alive true</code>.</td></tr><tr><td>&quot;Codex needs an OpenAI account&quot; when creating</td><td><code>doz account add chatgpt --chatgpt</code> (or <code>--openai-key</code>), then <code>doz account default NAME</code> or <code>--account NAME</code>.</td></tr><tr><td>The sign-in&#x27;s port is in use</td><td>Another sign-in (<code>codex login</code> on your Mac) is waiting — finish or cancel it, then try again.</td></tr><tr><td>Codex asks for approval for every command</td><td><code>codex.permissions</code> is <code>ask</code>, or Codex runs as root.</td></tr><tr><td>Codex can&#x27;t reach a site</td><td>It&#x27;s the network permissions: <code>doz net NAME</code> shows them; ask for the one it needs.</td></tr>
+<tr><td>Codex says Dozable&#x27;s sign-in has ended</td><td><code>doz account add NAME --chatgpt --force</code> on your Mac; open sessions recover by themselves.</td></tr><tr><td>&quot;your Mac&#x27;s Codex login has expired&quot;</td><td>Run <code>codex</code> on the Mac (any prompt), or <code>doz config set --agent codex keep_alive true</code>.</td></tr><tr><td>&quot;Codex needs an OpenAI account&quot; when creating</td><td><code>doz account add chatgpt --chatgpt</code> (or <code>--openai-key</code>), then <code>doz account default NAME</code> or <code>--account NAME</code>.</td></tr><tr><td>The sign-in&#x27;s port is in use</td><td>Another sign-in (<code>codex login</code> on your Mac) is waiting — finish or cancel it, then try again.</td></tr><tr><td>Codex asks for approval for every command</td><td><code>recipes.openai.codex.approvals</code> is <code>ask</code>, or Codex runs as root.</td></tr><tr><td>Codex can&#x27;t reach a site</td><td>It&#x27;s the network permissions: <code>doz net NAME</code> shows them; ask for the one it needs.</td></tr>
 </tbody></table></div>
 <!-- /manual text -->
 </div>
 <ul class="pager">
-<li class="prev"><a href="audio-experimental" rel="prev"><small>&larr; Previous</small><b>Audio sandboxes (EXPERIMENTAL)</b></a></li>
-<li class="next"><a href="doz-serve" rel="next"><small>Next &rarr;</small><b>The dashboard on your other computers, tablets and phones (<code>doz serve</code>)</b></a></li>
+<li class="prev"><a href="sound" rel="prev"><small>&larr; Previous</small><b>Sound</b></a></li>
+<li class="next"><a href="doz-serve" rel="next"><small>Next &rarr;</small><b>The dashboard on your other computers, tablets and phones (<code>doz ui --lan</code>)</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/24-codex.md">Edit this page on GitHub</a> &middot; Chapter 24 of 29</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/24-codex.md">Edit this page on GitHub</a> &middot; Chapter 24 of 34</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">

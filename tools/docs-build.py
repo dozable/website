@@ -43,18 +43,18 @@ GROUPS = [
                     (10, 'What the agent can do')]),
     ('Install and set up', [(2, 'Install, upgrade, uninstall'), (3, 'Setting up this Mac'), (4, 'Projects')]),
     ('Using Dozable', [(6, 'The dashboard'), (25, 'The dashboard on other devices'), (8, 'Images and bases'),
-                     (9, 'Agents and accounts'), (26, 'Trying agents'), (27, 'More agents'),
-                     (28, 'Other AI tools'), (24, 'Codex'), (29, 'Web ports'), (11, 'Signing in from a sandbox'),
-                     (18, 'GitHub as you')]),
-    ('Files and tools', [(19, 'The tools layer'), (20, 'Workspace rules'), (21, 'The workspace view'),
+                     (9, 'Agents and accounts'), (32, 'Claude Code with other models'), (26, 'Trying agents'), (27, 'More agents'),
+                     (28, 'Other AI tools'), (30, 'Your own recipes'), (24, 'Codex'), (29, 'Web ports'), (11, 'Signing in from a sandbox'),
+                     (18, 'GitHub as you'), (34, 'Sessions on this Mac')]),
+    ('Files and tools', [(19, 'The tools layer'), (31, 'Your dotfiles'), (20, 'Workspace rules'), (21, 'The workspace view'),
                          (22, 'Prompts for your agent')]),
     ('Looking after sandboxes', [(12, 'Restore points, duplicates, templates'), (13, 'Resources and disk space'),
                                  (14, 'Letting another agent drive')]),
-    ('Reference', [(15, 'Settings reference'), (16, 'Security model'), (17, 'Troubleshooting and FAQ')]),
-    ('Experimental', [(23, 'Audio sandboxes')]),
+    ('Reference', [(15, 'Settings reference'), (16, 'Security model'), (17, 'Troubleshooting and FAQ'), (33, 'Bundling doz in an app')]),
+    ('Experimental', [(23, 'Sound')]),
 ]
 # The chapter header's summary is the opening sentence of the page (see summary_of); these pages open with a notice.
-SUMMARY = {'23-audio-experimental.md': "This lets a sandbox use your Mac's microphone and speakers."}
+SUMMARY = {}
 KEY_RE = re.compile(r'^(?:(?:Ctrl|Cmd|Shift|Alt|Option)(?:[-+]\S+)*|Enter|Esc|Escape|Return|Tab)$')
 PUNCT = set('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~')
 

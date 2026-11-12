@@ -4,7 +4,7 @@ description: "Dozable keeps everything in one folder, the store."
 url: https://dozable.com/docs/resources-and-disk-space
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-19
+updated: 2026-11-13
 chapter: 13
 ---
 # Resources and disk space
@@ -23,7 +23,7 @@ use, and deletes what can safely go.
   - **used by** — what depends on it.
 - **Everything adds up.** The rows add up to the total that `du` reports for the store. A last row,
   **unattributed**, is what no row explains; it should be 0.
-- **Re-creatable vs. yours.** A download cache, an unused prepared image or an old kernel can be made
+- **Re-creatable vs. yours.** A download cache, an unused baked image or an old kernel can be made
   again (it costs time and network later). A sandbox, a restore point or a template can't — those are
   yours.
 
@@ -37,7 +37,7 @@ doz resources --json
 The groups: **Sandboxes** (each one's system disk, state disk, sleep snapshot, restore points, saved
 screens and boot logs), **Images & templates**, **Caches** (the download cache, base disks, the boot
 disk, kernels, preparation leftovers, and the **tools layer** — `gh`, downloaded once for sandboxes with
-GitHub as you; see [The tools layer](https://dozable.com/docs/the-tools-layer.md)), **Logs & metrics**, **Stray files**, Dozable's own records — and
+GitHub as you; see [Managed tools](https://dozable.com/docs/the-tools-layer.md)), **Logs & metrics**, **Stray files**, Dozable's own records — and
 **Outside the store**: your settings file, keychain entries by name, the `doz` program, project
 folders and Apple's `container` storage. Those outside rows are shown, never deleted here.
 
@@ -96,9 +96,9 @@ with Apple's `container` command.
 
 | key | default | what it does |
 |---|---|---|
-| `resources.clean_unused_days` | `30` | Clean up removes a prepared image no sandbox was made from in this many days (1–3650). It's prepared again when next needed. |
+| `resources.clean_unused_days` | `30` | Clean up removes a baked image no sandbox was made from in this many days (1–3650). It's baked again when next needed. |
 | `host.boot_logs_kept` | `5` | Boots kept per sandbox. |
-| `store.path` | `~/Library/Application Support/dozer-sandbox` | Where the store is. |
+| `store.path` | `~/Library/Application Support/doz` | Where the store is. |
 
 ## Troubleshooting
 

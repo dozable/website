@@ -1,17 +1,17 @@
 ---
 title: "Installing, upgrading and uninstalling — Dozable docs"
-description: "doz is one command-line program. It comes with everything it needs inside it: the small Linux programs each sandbox uses, the web dashboard, and the permission macOS requires to run virtual machines."
+description: "doz is one command-line program. It comes with everything it needs inside it: the small Linux programs each sandbox uses, the Linux kernel sandboxes boot (so the first start downloads no kernel), the web dashboard, and the permission macOS requires to run virtual machines."
 url: https://dozable.com/docs/install-upgrade-uninstall
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-19
+updated: 2026-11-13
 chapter: 2
 ---
 # Installing, upgrading and uninstalling
 
 `doz` is one command-line program. It comes with everything it needs inside it: the small Linux
-programs each sandbox uses, the web dashboard, and the permission macOS requires to run virtual
-machines. You install it with Homebrew.
+programs each sandbox uses, the Linux kernel sandboxes boot (so the first start downloads no kernel), the web
+dashboard, and the permission macOS requires to run virtual machines. You install it with Homebrew.
 
 ## Concepts
 
@@ -19,9 +19,10 @@ machines. You install it with Homebrew.
   without that, macOS refuses to boot virtual machines. A copy you build yourself without signing can
   run every command except the ones that boot a VM, and `doz doctor` says so.
 - **The store** is where your sandboxes, images and restore points live:
-  `~/Library/Application Support/dozer-sandbox` unless you choose another (see
-  [Settings reference](https://dozable.com/docs/settings-reference.md), `store.path`). Upgrading `doz` never touches it.
-- **The settings** live in `~/.config/dozer-sandbox/doz.toml`, beside your agent prompt template
+  `~/Library/Application Support/doz` unless you choose another (see
+  [Settings reference](https://dozable.com/docs/settings-reference.md), `store.path`). Upgrading `doz` never touches it
+  (0.37 is the one exception: it starts with a new store — see [Upgrading to 0.37](#upgrading-to-037-a-fresh-start)).
+- **The settings** live in `~/.config/doz/doz.toml`, beside your agent prompt template
   (`agent-prompt.md`). Upgrading never touches them either.
 - **The host** is a background `doz` process that runs your sandboxes. A running host keeps using the
   version of `doz` it started as, which is why upgrading has one extra step (below).
@@ -65,12 +66,17 @@ link into `libexec/doz`, where doz finds its parts). `doz upgrade -y` updates su
 the new tarball, checks it against the signed feed and Apple's signature, and swaps it in, keeping the
 previous version as `libexec/doz.previous`.
 
+The releases page also lists a `doz-VERSION-macos-arm64-helper.tar.gz`. That one is **not for you** unless you build a
+Mac app that carries `doz` inside it: it has no dashboard and never updates itself. See
+[Bundling doz in an app](https://dozable.com/docs/bundling-doz-in-an-app.md). Each tarball also has a `.dSYM.zip` beside it — its symbols,
+for reading crash reports; you don't need it to run doz.
+
 ## Upgrade
 
 doz tells you when a new release is out — one line after a command on your terminal, and a banner on the
 dashboard:
 
-> doz 0.31.1 is available — upgrade: doz upgrade -y (notes: https://updates.dozersandbox.com/v1/notes/0.31.1.html)
+> doz 0.31.1 is available — upgrade: doz upgrade -y (notes: https://updates.dozable.com/v1/notes/0.31.1.html)
 
 ```sh
 doz upgrade -y            # or doz upgrade: it shows the version and the notes, and asks first
@@ -79,12 +85,15 @@ doz host restart
 
 `doz upgrade` refreshes Dozable's tap first, then runs `brew upgrade` for your channel's formula. It always asks the
 feed itself (past any cached copy), so a release is there the minute it is published. Its first name, `doz update`,
-still works. Homebrew refreshes
+still works. Homebrew's own output stays off the screen: no update of your other taps first, and what brew prints
+goes to `brew.log` in doz's settings folder (`~/.config/doz/brew.log`) — shown when brew fails, or as it
+runs with `doz upgrade --verbose`. When a host of the previous version is running, `doz upgrade` (without `-y`)
+then asks whether to restart it now. Homebrew refreshes
 its taps only now and then, so a plain `brew upgrade doz` can say there is nothing new for up to a day; with brew
 directly, run `brew update` first.
 
 - **How it knows.** At most once a day (and when `doz ui` starts), doz reads one small file,
-  `https://updates.dozersandbox.com/v1/feed.json`, signed with Dozable's own key; anything that doesn't verify
+  `https://updates.dozable.com/v1/feed.json`, signed with Dozable's own key; anything that doesn't verify
   is ignored. Nothing about you or your sandboxes is sent — only the request, with doz's version and channel
   in its user agent. Offline, it says nothing. Never with `--json` or `-q`, or when not on a terminal.
 - **The setting `updates.mode`**: `notify` (the default), `auto` — doz also installs the update itself (through
@@ -116,6 +125,32 @@ If you skip `doz host stop`, nothing breaks right away: your sandboxes keep runn
 host can no longer boot anything once Homebrew has removed its files, so a start, a wake or a new
 sandbox is refused with a message that tells you to run `doz host stop`. Once nothing runs and
 nobody is attached, the old host exits by itself.
+
+### Upgrading to 0.37: a fresh start
+
+0.37 is the first release with Dozable's own names on disk, and it **starts fresh**: nothing from an earlier
+install is read — not your sandboxes, images, restore points, accounts, settings, prompt template or dashboard
+links. There is no migration. Before you upgrade, with the version you have:
+
+```sh
+doz get my-app /workspace/notes.md ~/Desktop/   # copy out anything a sandbox holds that you want to keep
+doz ui stop
+doz host stop
+```
+
+Then upgrade and run `doz onboard` again: it makes the new store, settings and images (every image is built
+afresh). New sandboxes' folders go to `~/doz-workspaces`; your project folders, wherever they are, are never
+touched. When you no longer need the old install, remove its folders:
+
+```sh
+rm -rf ~/Library/Application\ Support/dozer-sandbox   # the old store: sandboxes, images, restore points, accounts list
+rm -rf ~/.config/dozer-sandbox                        # the old settings and agent prompt template
+rm -rf ~/Library/Caches/dozer-sandbox                 # the old download cache
+```
+
+The keys an earlier version saved stay in your login keychain (items named `doz-…`) until you delete them in
+Keychain Access. Images an earlier version built with Apple's `container` are named `dozer/…` there:
+`container image ls` lists them and `container image delete NAME` removes one.
 
 ### Your images after an upgrade
 
@@ -162,9 +197,32 @@ It **never** touches:
   `doz account rm NAME` (it deletes the item `doz account add` made). `doz uninstall` names any left;
 - Claude Code's own files and login.
 
+## Start over: doz nuke
+
+```sh
+doz inventory        # what Dozable keeps on this Mac, where, and how big — changes nothing
+doz nuke --dry-run   # what doz nuke would remove
+doz nuke             # remove it all (asks first)
+```
+
+`doz nuke` puts this Mac back to a fresh install of Dozable and keeps `doz` installed. It lists each item with
+its place and size, then asks once:
+
+- **the store**: every sandbox, image, kernel, restore point and template, and the host's log and metrics;
+- **the settings folder**: `doz.toml`, `agent-prompt.md`, and the update and usage records;
+- **the download cache** (`~/Library/Caches/doz`);
+- **the keychain items Dozable made**: your accounts' keys and the default GitHub key.
+
+`--dry-run` lists and removes nothing; `--yes` skips the question. A running host is stopped first; a running
+`doz ui` must be stopped by you (`doz ui stop`). Your next `doz` command starts
+from the beginning: `doz onboard` or `doz ui`.
+
+It **never** touches your workspace folders, the Mac's own Claude Code and Codex logins, or Apple's `container`
+data. `doz inventory` prints the same list and changes nothing.
+
 ## Build from source (contributors)
 
-The source is on GitHub (`dozer-sandbox/dozer-sandbox`). `make install-cli` builds and signs `doz` into
+The source is on GitHub (`dozable/dozable`). `make install-cli` builds and signs `doz` into
 `~/.local/bin`; `make cli` builds a signed development copy. A source build is never updated by doz itself.
 Don't have a Homebrew `doz` and a source-built one on your `PATH` at the same time. See the repository's README.
 
@@ -172,7 +230,7 @@ Don't have a Homebrew `doz` and a source-built one on your `PATH` at the same ti
 
 | key | default | what it does |
 |---|---|---|
-| `store.path` | `~/Library/Application Support/dozer-sandbox` | Where the store lives (`--store`, `$DOZ_STORE`). |
+| `store.path` | `~/Library/Application Support/doz` | Where the store lives (`--store`, `$DOZ_STORE`). |
 | `host.idle_timeout_minutes` | `5` | Minutes with nothing running before the host exits (`0` = never). |
 | `updates.mode` | `notify` | `notify`, `auto` or `off` (`$DOZ_UPDATES`). |
 | `updates.channel` | `stable` | `stable`, `beta` or `canary` — a Homebrew install's formula decides while it is not set. |
@@ -182,8 +240,9 @@ Don't have a Homebrew `doz` and a source-built one on your `PATH` at the same ti
 | symptom | what to do |
 |---|---|
 | `brew install` says another doz formula is installed | One channel at a time: `doz upgrade --channel …` switches (or `brew uninstall` the other first). |
-| "the update feed was ignored" / "do not verify" | Nothing is installed from it; doz keeps working. If it persists, check your network isn't rewriting `updates.dozersandbox.com`. |
+| "the update feed was ignored" / "do not verify" | Nothing is installed from it; doz keeps working. If it persists, check your network isn't rewriting `updates.dozable.com`. |
 | `doz: command not found` | `brew list doz`, then open a new terminal window. |
 | "this host's program … is gone — an upgrade removed it" | `doz host stop`, then run your command again. |
 | "cannot boot a VM" or a message about the entitlement | `doz doctor`. Reinstall: `brew reinstall doz`. |
+| Start over, keeping doz installed | `doz nuke`, then `doz onboard`. |
 | Start over from nothing | `doz uninstall`, `brew uninstall doz`, then `brew trust --tap dozable/tap`, `brew install dozable/tap/doz` and `doz onboard`. |

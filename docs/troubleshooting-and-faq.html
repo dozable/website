@@ -67,16 +67,20 @@
 <li><a href="doz-serve">The dashboard on other devices</a></li>
 <li><a href="images-and-bases">Images and bases</a></li>
 <li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents">More agents</a></li>
 <li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex">Codex</a></li>
 <li><a href="web-ports">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
@@ -90,9 +94,10 @@
 <li><a href="settings-reference">Settings reference</a></li>
 <li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq" aria-current="page">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -132,7 +137,7 @@
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Start here"><table>
 <thead><tr><th scope="col">to see</th><th scope="col">run</th></tr></thead>
 <tbody>
-<tr><td>What the host is doing, live</td><td><code>doz events</code> (or <code>doz events NAME</code>), or the dashboard&#x27;s <strong>Activity</strong></td></tr><tr><td>How a start or wake went</td><td><code>doz console NAME --list</code>, then <code>doz console NAME --steps</code> — or <strong>⋯</strong> › <strong>Boot log</strong> on the sandbox&#x27;s page</td></tr><tr><td>What the agent was refused</td><td><code>doz net NAME</code> (the suggestions), <code>doz net log NAME --denied</code></td></tr><tr><td>Everything about a sandbox</td><td><code>doz inspect NAME</code></td></tr><tr><td>What the agent is told</td><td><code>doz inspect NAME --prompt</code></td></tr><tr><td>The host&#x27;s log</td><td><code>&lt;store&gt;/host.log</code> (the store is <code>~/Library/Application Support/dozer-sandbox</code> by default)</td></tr><tr><td>Where the disk went</td><td><code>doz resources</code></td></tr>
+<tr><td>What the host is doing, live</td><td><code>doz events</code> (or <code>doz events NAME</code>), or the dashboard&#x27;s <strong>Activity</strong></td></tr><tr><td>How a start or wake went</td><td><code>doz console NAME --list</code>, then <code>doz console NAME --steps</code> — or <strong>⋯</strong> › <strong>Boot log</strong> on the sandbox&#x27;s page</td></tr><tr><td>What the agent was refused</td><td><code>doz net NAME</code> (the suggestions), <code>doz net log NAME --denied</code></td></tr><tr><td>Everything about a sandbox</td><td><code>doz inspect NAME</code></td></tr><tr><td>What the agent is told</td><td><code>doz inspect NAME --prompt</code></td></tr><tr><td>The host&#x27;s log</td><td><code>&lt;store&gt;/host.log</code> (the store is <code>~/Library/Application Support/doz</code> by default)</td></tr><tr><td>Where the disk went</td><td><code>doz resources</code></td></tr>
 </tbody></table></div>
 <p>Add <code>-v</code> to any command to see every step it takes.</p>
 <h2 id="common-problems">Common problems<a class="anchor" href="#common-problems" aria-label="Link to this section">#</a></h2>
@@ -187,15 +192,17 @@
 <p><strong>Can I use Dozable offline?</strong> Mostly. Sandboxes start, sleep and wake offline; preparing an image needs the internet the first time, and <code>latest</code> agent versions need it to be resolved (set an exact version to avoid that). The agent itself needs its AI model, of course.</p>
 <p><strong>Can I move a sandbox to another Mac?</strong> Not yet with a command. A snapshot (sleep, hibernate) is encrypted with a key specific to this Mac.</p>
 <p><strong>Why does <code>doz</code> say &quot;the next command starts a new host&quot;?</strong> The host is a background process that runs your sandboxes and exits when idle. You never need to start it: any command that needs it does.</p>
-<p><strong>How do I start completely fresh?</strong> <code>doz uninstall</code>, then <code>brew uninstall doz</code>, <code>brew install doz</code> and <code>doz onboard</code>. Your project folders and keychain are untouched.</p>
-<p><strong>Exit codes?</strong> <code>0</code> ok · <code>1</code> failed · <code>2</code> not found · <code>3</code> not possible in this state · <code>4</code> already exists · <code>5</code> not confirmed · <code>6</code> host unavailable · <code>7</code> not implemented yet · <code>64</code> usage. <code>exec</code>, <code>run</code> and <code>attach</code> exit with the program&#x27;s own code (<code>125</code> when <code>doz</code> itself failed).</p>
+<p><strong>How do I start completely fresh?</strong> <code>doz uninstall</code>, then <code>brew uninstall doz</code>, <code>brew trust --tap dozable/tap</code>, <code>brew install dozable/tap/doz</code> and <code>doz onboard</code>. Your project folders and keychain are untouched.</p>
+<p><strong>The account <code>mac</code> is &quot;unreadable&quot;, though <code>claude</code> works on this Mac?</strong> The doz host reads your Claude login in the session it was started from. A host started over ssh (or from another session with no login) cannot read the login keychain — <code>doz account ls</code>, <code>doz ls</code> and <code>doz doctor</code> say so, naming the host. Run <code>doz host restart</code> from your logged-in session (a terminal on the Mac itself). A command over ssh that has to start the host warns first; <code>doz image bake</code> over ssh stops the host it started once nothing runs.</p>
+<p><strong>Everything is slow — a wake takes a minute?</strong> Run <code>doz doctor</code>. When <code>doz</code> was started at macOS background priority (by <code>taskpolicy -b</code>, or by a tool or agent that runs in the background), it and everything it starts run many times slower; doctor&#x27;s <code>priority</code> line says so and how to move it out. A host started that way leaves the background priority by itself (<code>host priority</code> in doctor).</p>
+<p><strong>Exit codes?</strong> <code>0</code> ok · <code>1</code> failed · <code>2</code> not found · <code>3</code> not possible in this state · <code>4</code> already exists · <code>5</code> not confirmed · <code>6</code> host unavailable · <code>7</code> not implemented yet · <code>64</code> usage. <code>exec</code>, <code>run</code> and <code>attach</code> exit with the program&#x27;s own code (<code>125</code> when <code>doz</code> itself failed; <code>exec</code>&#x27;s <code>124</code> when its <code>--timeout</code> passed — <code>--json</code> adds <code>&quot;timedOut&quot;: true</code>).</p>
 <!-- /manual text -->
 </div>
 <ul class="pager">
 <li class="prev"><a href="security-model" rel="prev"><small>&larr; Previous</small><b>Security model</b></a></li>
 <li class="next"><a href="github" rel="next"><small>Next &rarr;</small><b>GitHub as you</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/17-troubleshooting-and-faq.md">Edit this page on GitHub</a> &middot; Chapter 17 of 29</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/17-troubleshooting-and-faq.md">Edit this page on GitHub</a> &middot; Chapter 17 of 34</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">

@@ -67,16 +67,20 @@
 <li><a href="doz-serve">The dashboard on other devices</a></li>
 <li><a href="images-and-bases">Images and bases</a></li>
 <li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents">More agents</a></li>
 <li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex">Codex</a></li>
 <li><a href="web-ports">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent" aria-current="page">Prompts for your agent</a></li>
@@ -90,9 +94,10 @@
 <li><a href="settings-reference">Settings reference</a></li>
 <li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -138,14 +143,14 @@ brew install dozable/tap/doz
 doz --version
 doz doctor --json</code></pre></figure>
 <h2 id="2-set-up">2. Set up<a class="anchor" href="#2-set-up" aria-label="Link to this section">#</a></h2>
-<p>Onboarding checks the Mac, chooses how sandboxes sign in to Claude, writes the settings and prepares images. The account is your choice, so the prompt makes the agent ask:</p>
+<p>Onboarding checks the Mac, prepares the base image every tool is added to, adds keys, writes the settings and can make a first sandbox. The choices are yours, so the prompt makes the agent ask:</p>
 <blockquote class="example">
-<p>Set up Dozable with <code>doz onboard</code>. Before you run it, ask me which Claude account the sandboxes should use (this Mac&#x27;s login, an API key, a setup token, or later) and which images to prepare (claude-code is the default; lab is small and quick; pi is the other agent). Then run it without questions, using my answers, and show me <code>doz onboard --status</code> when the images are ready. Do not change any other setting.</p>
+<p>Set up Dozable with <code>doz onboard</code>. Before you run it, ask me which base image to prepare (Node.js is the default; <code>doz base ls</code> lists the others) and whether to make a first sandbox now (claude, pi, opencode or none). Then run it without questions, using my answers, and show me <code>doz onboard --status</code> when the base is ready. Do not change any other setting, and never ask me for a key in the chat — I add keys myself with <code>doz account add</code>.</p>
 </blockquote>
 <p>What it will run (for example):</p>
-<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz onboard --yes --account mac --images claude-code,lab
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz onboard --yes --base node --first none
 doz onboard --status</code></pre></figure>
-<p>Preparing claude-code the first time takes several minutes (a download and a bake); it happens once.</p>
+<p>Preparing the base the first time takes a few minutes (a download, once); each tool is added to it the first time it is used.</p>
 <h2 id="3-brief-it-once">3. Brief it once<a class="anchor" href="#3-brief-it-once" aria-label="Link to this section">#</a></h2>
 <p>Paste the briefing from <a href="letting-another-agent-drive#the-briefing">Letting another agent drive Dozable</a> into your project&#x27;s <code>CLAUDE.md</code> (or <code>AGENTS.md</code>). From then on, every session in that project knows how to use <code>doz</code> safely, and the prompts below can stay short.</p>
 <h2 id="three-use-cases">Three use cases<a class="anchor" href="#three-use-cases" aria-label="Link to this section">#</a></h2>
@@ -208,9 +213,9 @@ doz run feature --detach -- claude -p &quot;&lt;your task&gt;&quot;</code></pre>
 </div>
 <ul class="pager">
 <li class="prev"><a href="the-workspace-view" rel="prev"><small>&larr; Previous</small><b>The workspace view (<code>dozview</code>)</b></a></li>
-<li class="next"><a href="audio-experimental" rel="next"><small>Next &rarr;</small><b>Audio sandboxes (EXPERIMENTAL)</b></a></li>
+<li class="next"><a href="sound" rel="next"><small>Next &rarr;</small><b>Sound</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/22-prompts-for-your-agent.md">Edit this page on GitHub</a> &middot; Chapter 22 of 29</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/22-prompts-for-your-agent.md">Edit this page on GitHub</a> &middot; Chapter 22 of 34</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">

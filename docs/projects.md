@@ -4,7 +4,7 @@ description: "A project is a folder with a doz_project.yaml file in it."
 url: https://dozable.com/docs/projects
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-19
+updated: 2026-11-13
 chapter: 4
 ---
 # Projects
@@ -25,7 +25,7 @@ sandbox from a checkout.
   `none` network — are the virtual machine's make-up. Changing them in the file affects a **new**
   sandbox only; `doz up` tells you so. Other keys apply at once or from the next session (below).
 - **Your projects folder is not a project.** The setting `defaults.projects_dir`
-  (`~/doz-workspaces`; a Mac that already has `~/dozer-sandbox-workspaces` keeps using that one) is where **Quick add**, **New sandbox** and `doz new` make a
+  (`~/doz-workspaces`) is where **Quick add**, **New sandbox** and `doz new` make a
   folder for each new sandbox that has none of its own — `claude-sandbox`, `claude-sandbox-2`, … —
   with no `doz_project.yaml`. Run `doz init` in one of them to make it a project. Change the folder in
   **Settings** › **Choose…** or with `doz config set defaults.projects_dir DIR`
@@ -166,7 +166,7 @@ workspace_view: on          # off: share the folder directly (programs in it los
 | `version` | `1` | — | — |
 | `name` | the sandbox: 1–40 of `a-z 0-9 -` | the folder's name | — |
 | `image` | `claude-code`, `pi`, `lab`, a base × agent image (`python-claude-code`, `go-pi`, `debian`, …) or a template | `defaults.image` | when the sandbox is made |
-| `agent` | `claude-code`, `pi`, `codex`, `antigravity`, `gemini`, `grok` (any tool `doz search` lists) or `none` — instead of `image`, with `base` or `dockerfile`; a tool's major or exact release: `opencode@1`, `opencode@2.0.28` ([A tool's major version](https://dozable.com/docs/try-and-search.md#a-tools-major-version)) | `claude-code` | when made |
+| `agent` | `claude-code`, `pi`, `codex`, `antigravity`, `gemini`, `grok` (any tool `doz search` lists) or `none` — instead of `image`, with `base` or `dockerfile`; a tool's major or exact release: `opencode@1`, `opencode@2.0.28` ([A tool's major version](https://dozable.com/docs/try-and-search.md#a-tools-major-version)); its full name: `anthropic/claude-code`, `mine/acme/tool` ([A tool's full name](https://dozable.com/docs/try-and-search.md#a-tools-full-name)) | `claude-code` | when made |
 | `base` | a recommended base: `node`, `python`, `go`, `rust`, `java`, `ruby`, `dotnet`, `debian`, `ubuntu`, `alpine` | `node` | when made |
 | `dockerfile` | your own Dockerfile, relative to the folder or absolute (see [Images and bases](https://dozable.com/docs/images-and-bases.md#your-own-dockerfile)) | — | when made |
 | `cpus` | 1–64 | `defaults.cpus` (2) | when made |
@@ -174,7 +174,7 @@ workspace_view: on          # off: share the folder directly (programs in it los
 | `network` | `agent`, `bake`, `locked`, `open`, `nat`, `none` | per image | `agent`/`bake`/`locked`/`open`: at the next `doz up`, live (unless you edited the sandbox's permissions since); `nat`/`none`: when made |
 | `permissions` | what the agent may do on a network with permissions (`agent`, `locked`, `open`): `standard`, `locked`, `open`, or changes on Standard like `+web,-error-reports` (or a list); see [What the agent can do](https://dozable.com/docs/permissions-and-network.md) | `defaults.permissions` (standard) | when made (later: `doz net allow` / `doz net deny`) |
 | `account` | `default`, `none` or an account name | follow the store's default | run `doz account use NAME ACCOUNT` |
-| `model_source` | where the model comes from: a provider or gateway the agent is offered — `anthropic`, `openai`, `xai`, `google`, `openrouter`, `vercel-ai-gateway` (which ones depends on the tool: [Other AI tools](https://dozable.com/docs/ai-tools.md#providers-and-gateways)); `--provider` / `--gateway` on `doz up` win over it | the agent's own | when made |
+| `model_source` | where the model comes from: a provider or gateway the agent is offered — `anthropic`, `openai`, `xai`, `google`, `openrouter` (which ones depends on the tool: [Other AI tools](https://dozable.com/docs/ai-tools.md#providers-and-gateways)); `--provider` / `--gateway` on `doz up` win over it | the agent's own | when made |
 | `model` | a model id of that source (`doz models --gateway openrouter`); `--model` on `doz up` wins over it | the source's default | when made |
 | `sessions` | a list of session names, or `{name, command}` — at most 16 | the image's own session | every `doz up` |
 | `agent_prompt` | text, at most 16 KiB | — | the next session |
@@ -186,6 +186,10 @@ workspace_view: on          # off: share the folder directly (programs in it los
 | `ssh_agent` | `on` or `off` | `sandbox.ssh_agent` (off) | at once |
 | `github` | `off`, `read` or `push` ([GitHub as you](https://dozable.com/docs/github.md)) | off | when made (later: `doz net allow NAME github:as-you`) |
 | `tmux` | `true` or `false` | `sessions.tmux` (false) | the next session |
+| `approvals` | `skip` or `ask`: the agent's own approval prompts | its recipe's `approvals` (skip) | the next session |
+
+A value the file sets is recorded in its sandbox as the project's (the dashboard's badge: **project**), and
+`doz up` applies it again. `doz config set --project DIR KEY VALUE` changes the file for you.
 
 The schema is closed: an unknown key, a key given twice, a wrong type or a value out of range is an
 error that names the line. One YAML document, no anchors or aliases, at most 64 KiB.

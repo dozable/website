@@ -67,16 +67,20 @@
 <li><a href="doz-serve">The dashboard on other devices</a></li>
 <li><a href="images-and-bases">Images and bases</a></li>
 <li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents">More agents</a></li>
 <li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex">Codex</a></li>
 <li><a href="web-ports" aria-current="page">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
@@ -90,9 +94,10 @@
 <li><a href="settings-reference">Settings reference</a></li>
 <li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -109,6 +114,8 @@
 <ol>
 <li><a href="#where-the-ports-come-from">Where the ports come from</a>
 </li>
+<li><a href="#pages-that-ask-you-to-sign-in">Pages that ask you to sign in</a>
+</li>
 <li><a href="#when-it-listens">When it listens</a>
 </li>
 <li><a href="#what-a-forward-can-and-cannot-do">What a forward can and cannot do</a>
@@ -120,7 +127,7 @@
 <p>Some tools serve a web page from inside the sandbox: a chat playground, a workflow editor, the dev server of the app you are building. A <strong>forward</strong> makes such a port reachable in your Mac&#x27;s browser, at <code>http://127.0.0.1:PORT/</code> — on this Mac only, never on your network.</p>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz ports my-app                 <span class="c"># the sandbox&#x27;s forwarded ports: each one&#x27;s URL on this Mac and whether it listens</span>
 doz ports add my-app 3000        <span class="c"># forward the dev server on port 3000 too (kept until you remove it)</span>
-doz open my-app                  <span class="c"># open its first web port in your browser</span>
+doz open my-app                  <span class="c"># open its first web port in your browser (signed in, when the tool says how)</span>
 doz open my-app 3000 --print     <span class="c"># or print the URL</span>
 doz ports rm my-app 3000         <span class="c"># stop forwarding it</span></code></pre></figure>
 <p>In the dashboard, a sandbox&#x27;s header has an <strong>Open</strong> button for each web port while the sandbox runs, and its Overview tab lists every forward with its state.</p>
@@ -129,6 +136,15 @@ doz ports rm my-app 3000         <span class="c"># stop forwarding it</span></co
 <li><strong>The tool&#x27;s own.</strong> A tool whose recipe declares a web port gets it forwarded in every sandbox made from it — for example AIChat&#x27;s playground (<code>aichat --serve</code>, port 8000, opened at <code>/playground</code>). Run the server in a session; its Open button works as soon as it listens.</li>
 <li><strong>Yours.</strong> <code>doz ports add NAME PORT</code> forwards any port a program you start listens on — a dev server, a notebook, a dashboard. <code>--title</code> names its button; <code>--path</code> is what <code>doz open</code> opens. At most 16 per sandbox.</li>
 </ul>
+<h2 id="pages-that-ask-you-to-sign-in">Pages that ask you to sign in<a class="anchor" href="#pages-that-ask-you-to-sign-in" aria-label="Link to this section">#</a></h2>
+<p>Some web pages ask for a sign-in that the tool hands out in the sandbox. OpenCode 2&#x27;s web app is one: <code>opencode pair</code> prints a link that works once, for five minutes. When a tool&#x27;s recipe says how to get that link, <strong>Open signs your browser in for you</strong> — in the dashboard and with <code>doz open</code>:</p>
+<ol>
+<li>Dozable runs the tool&#x27;s own sign-in command in the sandbox (<code>opencode pair</code>), as the sandbox&#x27;s user.</li>
+<li>It takes the link the command printed for that port, keeps its path, and opens it at your Mac&#x27;s port for the forward — so it works even when the port on your Mac moved.</li>
+<li>Your browser lands on the page, signed in.</li>
+</ol>
+<p>The link is a one-time secret: Dozable never shows it, logs it, keeps it or sends it anywhere but your browser. <code>doz open NAME PORT --print</code> prints the page&#x27;s plain address instead (without signing in).</p>
+<p>If the sign-in does not work (the command failed, took longer than 15 seconds or printed no link), Dozable says why and opens the page as it is; you can still sign in by hand, as <code>doz ports NAME</code> describes. Open on another device (through <code>doz ui --lan</code>) never signs in: the page is on your Mac.</p>
 <h2 id="when-it-listens">When it listens<a class="anchor" href="#when-it-listens" aria-label="Link to this section">#</a></h2>
 <p>A forward listens <strong>while the sandbox runs</strong>. When the sandbox stops, sleeps or hibernates, its listeners close at once; when it starts or wakes again — and after Dozable itself restarts — they come back by themselves. <code>doz ports</code> says <code>stopped</code> until then.</p>
 <p>The port on your Mac is the sandbox&#x27;s own when it is free. When another program on your Mac already uses it (or it is below 1024), Dozable picks a free one, says so (<code>moved</code>), and keeps it for next time.</p>
@@ -137,21 +153,24 @@ doz ports rm my-app 3000         <span class="c"># stop forwarding it</span></co
 <li><strong>This Mac only.</strong> It listens on <code>127.0.0.1</code> (and <code>::1</code>), never on the network. Other programs on this Mac can reach it, as they can any local server — a tool with its own sign-in still asks for it.</li>
 <li><strong>Inbound only.</strong> It carries your browser&#x27;s requests to the program in the sandbox. It does not let the sandbox reach anything: what the program itself may reach is still decided by the sandbox&#x27;s <a href="permissions-and-network">network</a>.</li>
 <li><strong>No key crosses it.</strong> Your keys are swapped in by Dozable&#x27;s proxy only on the sandbox&#x27;s own outbound requests; a forward never touches them. A page that shows its environment shows a placeholder, which is useless anywhere else.</li>
-<li><strong>From another device</strong> (the dashboard through <a href="doz-serve"><code>doz serve</code></a>), <code>127.0.0.1</code> is that device, not your Mac: the button says the port is on the Mac instead of opening it there.</li>
+<li><strong>From another device</strong> (the dashboard through <a href="doz-serve"><code>doz ui --lan</code></a>), <code>127.0.0.1</code> is that device, not your Mac: the button says the port is on the Mac instead of opening it there.</li>
 </ul>
 <p>How it works: each connection your browser makes is relayed into the sandbox by Dozable&#x27;s small helper there, to the program&#x27;s own <code>localhost</code>. A program that listens on <code>127.0.0.1</code> or <code>0.0.0.0</code> inside the sandbox both work.</p>
 <!-- /manual text -->
 </div>
 <ul class="pager">
 <li class="prev"><a href="ai-tools" rel="prev"><small>&larr; Previous</small><b>Other AI tools</b></a></li>
+<li class="next"><a href="your-own-recipes" rel="next"><small>Next &rarr;</small><b>Your own recipes, and community catalogues</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/29-web-ports.md">Edit this page on GitHub</a> &middot; Chapter 29 of 29</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/29-web-ports.md">Edit this page on GitHub</a> &middot; Chapter 29 of 34</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
 <ol>
 <li><a href="#where-the-ports-come-from">Where the ports come from</a>
+</li>
+<li><a href="#pages-that-ask-you-to-sign-in">Pages that ask you to sign in</a>
 </li>
 <li><a href="#when-it-listens">When it listens</a>
 </li>

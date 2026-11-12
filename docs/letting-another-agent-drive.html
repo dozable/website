@@ -67,16 +67,20 @@
 <li><a href="doz-serve">The dashboard on other devices</a></li>
 <li><a href="images-and-bases">Images and bases</a></li>
 <li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents">More agents</a></li>
 <li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex">Codex</a></li>
 <li><a href="web-ports">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
@@ -90,9 +94,10 @@
 <li><a href="settings-reference">Settings reference</a></li>
 <li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -127,7 +132,7 @@
 <h2 id="concepts">Concepts<a class="anchor" href="#concepts" aria-label="Link to this section">#</a></h2>
 <ul>
 <li><strong>Every command works without a terminal to type into</strong>, and <strong><code>--json</code></strong> gives machine-readable output on stdout (errors as <code>{&quot;error&quot;:{&quot;code&quot;,&quot;message&quot;}}</code>; fields are only ever added).</li>
-<li><strong>Exit codes</strong> say what happened: <code>0</code> ok · <code>1</code> failed · <code>2</code> not found · <code>3</code> not possible in this state · <code>4</code> already exists · <code>5</code> not confirmed · <code>6</code> host unavailable · <code>7</code> not implemented yet · <code>64</code> usage. <code>exec</code>, <code>run</code> and <code>attach</code> exit with the program&#x27;s own code (<code>125</code> when <code>doz</code> itself failed).</li>
+<li><strong>Exit codes</strong> say what happened: <code>0</code> ok · <code>1</code> failed · <code>2</code> not found · <code>3</code> not possible in this state · <code>4</code> already exists · <code>5</code> not confirmed · <code>6</code> host unavailable · <code>7</code> not implemented yet · <code>64</code> usage. <code>exec</code>, <code>run</code> and <code>attach</code> exit with the program&#x27;s own code (<code>125</code> when <code>doz</code> itself failed). <code>exec</code> exits <code>124</code> when its <code>--timeout</code> passed (default 120 s, counted from when <code>doz</code> started — a wake or a start included); the command is killed, a wake or a start goes on. A program&#x27;s own <code>124</code> looks the same: <code>--json</code> says <code>&quot;timedOut&quot;: true</code> only for the deadline.</li>
 <li><strong>Destructive commands refuse without <code>--yes</code></strong> when there&#x27;s no terminal, so a script can&#x27;t delete something by accident.</li>
 <li><strong>Two agents, two sets of rules.</strong> The agent on your Mac has <em>your</em> permissions: it can run <code>doz</code>, so treat it as you would at the keyboard. The agent inside a sandbox is fenced in by the proxy and can&#x27;t reach Dozable at all.</li>
 </ul>
@@ -176,7 +181,7 @@ doz hibernate react19</code></pre></figure>
 <li><strong>Prefer <code>--isolated</code></strong> for work that shouldn&#x27;t touch your folder at all.</li>
 <li><strong>Use restore points</strong> before each risky step; they cost almost nothing.</li>
 <li><strong>Watch the clipboard, browser and file notices.</strong> A sandboxed agent can put text on your clipboard, open a page in your browser or open a workspace document on your Mac, and each time you&#x27;re told. Turn any of them off for a sandbox with <code>doz config set --sandbox NAME sandbox.clipboard off</code>, <code>… sandbox.browser_bridge off</code> or <code>… sandbox.open_files off</code>.</li>
-<li><strong>Scripts on a schedule</strong> should use exact agent versions (<code>images.claude_code_version</code>) so an image never needs the internet to prepare.</li>
+<li><strong>Scripts on a schedule</strong> should use exact agent versions (<code>recipes.anthropic.claude-code.version</code>) so an image never needs the internet to prepare.</li>
 </ul>
 <h2 id="useful-json">Useful JSON<a class="anchor" href="#useful-json" aria-label="Link to this section">#</a></h2>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Useful JSON"><table>
@@ -196,7 +201,7 @@ doz hibernate react19</code></pre></figure>
 <li class="prev"><a href="resources-and-disk-space" rel="prev"><small>&larr; Previous</small><b>Resources and disk space</b></a></li>
 <li class="next"><a href="settings-reference" rel="next"><small>Next &rarr;</small><b>Settings reference</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/14-letting-another-agent-drive.md">Edit this page on GitHub</a> &middot; Chapter 14 of 29</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/14-letting-another-agent-drive.md">Edit this page on GitHub</a> &middot; Chapter 14 of 34</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">

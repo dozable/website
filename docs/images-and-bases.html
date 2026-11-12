@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>Images and bases — Dozable docs</title>
-<meta name="description" content="Every sandbox starts from an image: a prepared disk with a Linux system, a developer toolkit and, usually, an AI agent.">
+<meta name="description" content="Every sandbox starts from a baked image: a disk with a Linux system, a developer toolkit and, usually, the agent a recipe installs.">
 <link rel="canonical" href="https://dozable.com/docs/images-and-bases">
 <link rel="alternate" type="text/markdown" href="https://dozable.com/docs/images-and-bases.md">
 <meta name="theme-color" content="#ffffff">
@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="Images and bases — Dozable docs">
-<meta property="og:description" content="Every sandbox starts from an image: a prepared disk with a Linux system, a developer toolkit and, usually, an AI agent.">
+<meta property="og:description" content="Every sandbox starts from a baked image: a disk with a Linux system, a developer toolkit and, usually, the agent a recipe installs.">
 <meta property="og:url" content="https://dozable.com/docs/images-and-bases">
 <meta property="og:image" content="https://dozable.com/og-image.png">
 <meta property="og:image:secure_url" content="https://dozable.com/og-image.png">
@@ -23,7 +23,7 @@
 <meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Images and bases — Dozable docs">
-<meta name="twitter:description" content="Every sandbox starts from an image: a prepared disk with a Linux system, a developer toolkit and, usually, an AI agent.">
+<meta name="twitter:description" content="Every sandbox starts from a baked image: a disk with a Linux system, a developer toolkit and, usually, the agent a recipe installs.">
 <meta name="twitter:image" content="https://dozable.com/og-image.png">
 <meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <link rel="icon" type="image/png" href="../favicon.png">
@@ -67,16 +67,20 @@
 <li><a href="doz-serve">The dashboard on other devices</a></li>
 <li><a href="images-and-bases" aria-current="page">Images and bases</a></li>
 <li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents">More agents</a></li>
 <li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex">Codex</a></li>
 <li><a href="web-ports">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
@@ -90,9 +94,10 @@
 <li><a href="settings-reference">Settings reference</a></li>
 <li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -103,13 +108,15 @@
 <header class="chead">
 <p class="eyebrow">Chapter 8</p>
 <h1>Images and bases</h1>
-<p class="summary">Every sandbox starts from an <strong>image</strong>: a prepared disk with a Linux system, a developer toolkit and, usually, an AI agent.</p>
+<p class="summary">Every sandbox starts from a <strong>baked image</strong>: a disk with a Linux system, a developer toolkit and, usually, the agent a recipe installs.</p>
 </header>
 <details class="toc-m"><summary>On this page</summary>
 <ol>
 <li><a href="#concepts">Concepts</a>
 </li>
 <li><a href="#the-recommended-bases">The recommended bases</a>
+</li>
+<li><a href="#the-stores-base">The store&#x27;s base</a>
 </li>
 <li><a href="#choose-an-image--in-the-terminal">Choose an image — in the terminal</a>
 </li>
@@ -133,12 +140,12 @@
 </details>
 <div class="prose">
 <!-- manual text -->
-<p>Every sandbox starts from an <strong>image</strong>: a prepared disk with a Linux system, a developer toolkit and, usually, an AI agent. You choose an image when you create a sandbox; Dozable prepares it the first time it&#x27;s needed and then makes each sandbox an instant copy of it.</p>
+<p>Every sandbox starts from a <strong>baked image</strong>: a disk with a Linux system, a developer toolkit and, usually, the agent a recipe installs. The layers are base → developer base → baked image, one baked image per base × recipe. You choose an image when you create a sandbox; Dozable bakes it the first time it&#x27;s needed (the CLI and the dashboard call that <em>preparing</em> it) and then makes each sandbox an instant copy of it. A recipe with at least one baked image on this Mac is <em>installed</em> — the dashboard&#x27;s <strong>Recipes › Installed</strong> lists it, with its baked images and their size.</p>
 <h2 id="concepts">Concepts<a class="anchor" href="#concepts" aria-label="Link to this section">#</a></h2>
 <ul>
 <li><p><strong>An image is two choices: an agent and a base.</strong></p>
 <ul>
-<li>The <strong>agent</strong>: <strong>Claude Code</strong>, <strong>pi</strong>, <strong>Codex</strong> (<a href="codex">Codex</a>), or <strong>none</strong> (a shell only).</li>
+<li>The <strong>agent</strong> (what a recipe installs): <strong>Claude Code</strong>, <strong>pi</strong>, <strong>Codex</strong> (<a href="codex">Codex</a>), or <strong>none</strong> (a shell only).</li>
 <li>The <strong>base</strong>: the Linux system underneath — one of the <strong>recommended bases</strong> (below), <strong>your own Dockerfile</strong>, or a <strong>template</strong> you saved from a sandbox.</li>
 </ul></li>
 <li><p><strong>Image names</strong> follow the pair: <code>&lt;base&gt;-&lt;agent&gt;</code>, for example <code>python-claude-code</code> or <code>go-pi</code>, and just <code>&lt;base&gt;</code> with no agent (<code>debian</code>). Three names predate the choice and stay:</p>
@@ -159,6 +166,10 @@
 <tr><td><code>node</code></td><td>Node.js 22 on Debian</td></tr><tr><td><code>python</code></td><td>Python 3.13 on Debian</td></tr><tr><td><code>go</code></td><td>Go 1.25 on Debian</td></tr><tr><td><code>rust</code></td><td>Rust on Debian</td></tr><tr><td><code>java</code></td><td>Java 21 (Eclipse Temurin)</td></tr><tr><td><code>ruby</code></td><td>Ruby 3.4 on Debian</td></tr><tr><td><code>dotnet</code></td><td>.NET 9 SDK</td></tr><tr><td><code>debian</code></td><td>plain Debian</td></tr><tr><td><code>ubuntu</code></td><td>Ubuntu 24.04</td></tr><tr><td><code>alpine</code></td><td>Alpine 3.20</td></tr>
 </tbody></table></div>
 <p>A base&#x27;s own package registry (PyPI for <code>python</code>, crates.io for <code>rust</code>, …) is part of what its sandboxes may reach by default. See <a href="permissions-and-network">What the agent can do</a>.</p>
+<h2 id="the-stores-base">The store&#x27;s base<a class="anchor" href="#the-stores-base" aria-label="Link to this section">#</a></h2>
+<p>A store has <strong>one base</strong> that tools are added to: the setting <code>defaults.base</code> (<code>node</code> unless you chose another in <code>doz onboard</code>&#x27;s Base image step). Every sandbox made the quick way — the dashboard&#x27;s <strong>Quick try</strong>, <code>doz try</code>, and onboarding&#x27;s first sandbox — puts its tool on it, so the base is downloaded and flattened <strong>once</strong> and each tool after the first adds only itself. OpenCode, whose own recipe is on Debian, becomes <code>node-opencode2</code> on a Node.js store, and <code>doz try opencode</code> needs no <code>--base</code>. A tool that cannot run on the store&#x27;s base (a glibc-only tool on Alpine) keeps its recipe&#x27;s own; <code>--base BASE</code> (or the Quick try&#x27;s base choice) picks another for one sandbox.</p>
+<p>Onboarding prepares the base in the host as soon as you choose it: the base image pulled, then its disk flattened — the same two steps a tool&#x27;s first preparation would take. A tool prepared meanwhile <strong>waits</strong> for it (&quot;waited for the Node.js base&quot;) instead of downloading the same layers a second time. <code>doz onboard --status</code> shows it (<code>base node ready</code>); Operations in the dashboard shows it as &quot;prepare the Node.js base&quot;.</p>
+<p>New sandbox, <code>doz new</code>, <code>doz create</code> and <code>doz_project.yaml</code> keep each recipe&#x27;s own base, so a project file means the same on every Mac.</p>
 <h2 id="choose-an-image--in-the-terminal">Choose an image — in the terminal<a class="anchor" href="#choose-an-image--in-the-terminal" aria-label="Link to this section">#</a></h2>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz create web --image claude-code --workspace ~/code/web              <span class="c"># Node · Claude Code</span>
 doz create api --agent claude-code --base python --workspace ~/code/api
@@ -206,7 +217,7 @@ doz image rm python-pi         <span class="c"># remove an image&#x27;s prepared
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Settings"><table>
 <thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>defaults.image</code></td><td><code>lab</code></td><td>The image used when you don&#x27;t name one (onboarding sets it to your choice).</td></tr><tr><td><code>images.claude_code_version</code></td><td><code>latest</code></td><td>The Claude Code version an image is prepared with: <code>latest</code> (resolved at preparation) or an exact version like <code>2.1.227</code>.</td></tr><tr><td><code>images.pi_version</code></td><td><code>latest</code></td><td>The same for pi.</td></tr><tr><td><code>images.lab.memory_mib</code> · <code>images.claude-code.memory_mib</code> · <code>images.pi.memory_mib</code></td><td><code>1024</code> · <code>2048</code> · <code>2048</code></td><td>Memory of a new sandbox of each image.</td></tr><tr><td><code>images.lab.network</code> · <code>images.claude-code.network</code> · <code>images.pi.network</code></td><td><code>bake</code> · <code>agent</code> · <code>agent</code></td><td>Network of a new sandbox of each image.</td></tr><tr><td><code>resources.clean_unused_days</code></td><td><code>30</code></td><td>Clean up removes a prepared image no sandbox was made from in this many days.</td></tr>
+<tr><td><code>defaults.image</code></td><td><code>lab</code></td><td>The image used when you don&#x27;t name one (onboarding sets it to <code>claude-code</code>).</td></tr><tr><td><code>defaults.base</code></td><td><code>node</code></td><td>The store&#x27;s base: quick-made sandboxes&#x27; tools go on it (see <a href="#the-stores-base">The store&#x27;s base</a>).</td></tr><tr><td><code>recipes.anthropic.claude-code.version</code></td><td><code>latest</code></td><td>The Claude Code version its image is baked with: <code>latest</code> (resolved when it is baked) or an exact version like <code>2.1.227</code>.</td></tr><tr><td><code>recipes.earendil-works.pi.version</code></td><td><code>latest</code></td><td>The same for pi.</td></tr><tr><td><code>images.lab.memory_mib</code> · <code>recipes.anthropic.claude-code.memory_mib</code> · <code>recipes.earendil-works.pi.memory_mib</code></td><td><code>1024</code> · <code>2048</code> · <code>2048</code></td><td>Memory of a new sandbox of each image.</td></tr><tr><td><code>images.lab.network</code> · <code>recipes.anthropic.claude-code.network</code> · <code>recipes.earendil-works.pi.network</code></td><td><code>bake</code> · <code>agent</code> · <code>agent</code></td><td>Network of a new sandbox of each image.</td></tr><tr><td><code>resources.clean_unused_days</code></td><td><code>30</code></td><td>Clean up removes a baked image no sandbox was made from in this many days.</td></tr>
 </tbody></table></div>
 <h2 id="limits">Limits<a class="anchor" href="#limits" aria-label="Link to this section">#</a></h2>
 <ul>
@@ -226,7 +237,7 @@ doz image rm python-pi         <span class="c"># remove an image&#x27;s prepared
 <li class="prev"><a href="terminals-and-sessions" rel="prev"><small>&larr; Previous</small><b>Terminals and sessions</b></a></li>
 <li class="next"><a href="agents-and-accounts" rel="next"><small>Next &rarr;</small><b>Agents and accounts</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/08-images-and-bases.md">Edit this page on GitHub</a> &middot; Chapter 8 of 29</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/08-images-and-bases.md">Edit this page on GitHub</a> &middot; Chapter 8 of 34</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">
@@ -235,6 +246,8 @@ doz image rm python-pi         <span class="c"># remove an image&#x27;s prepared
 <li><a href="#concepts">Concepts</a>
 </li>
 <li><a href="#the-recommended-bases">The recommended bases</a>
+</li>
+<li><a href="#the-stores-base">The store&#x27;s base</a>
 </li>
 <li><a href="#choose-an-image--in-the-terminal">Choose an image — in the terminal</a>
 </li>

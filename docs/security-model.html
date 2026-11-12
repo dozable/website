@@ -67,16 +67,20 @@
 <li><a href="doz-serve">The dashboard on other devices</a></li>
 <li><a href="images-and-bases">Images and bases</a></li>
 <li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents">More agents</a></li>
 <li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex">Codex</a></li>
 <li><a href="web-ports">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
@@ -90,9 +94,10 @@
 <li><a href="settings-reference">Settings reference</a></li>
 <li><a href="security-model" aria-current="page">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -143,6 +148,7 @@
 <li>The agent can&#x27;t change its own permissions, and root inside the VM can&#x27;t get around them: there is no route out but the proxy.</li>
 <li><strong>Browse the web</strong> and <strong>Open</strong> let the agent reach anything, so it could send your code anywhere. They warn before you turn them on. Prefer <code>site:HOST</code> for what&#x27;s really needed.</li>
 <li><code>--network nat</code> gives a sandbox a real network card, <strong>not filtered or logged</strong>; <code>--network none</code> gives it none. Use <code>nat</code> only when you mean it.</li>
+<li><strong>Your Mac&#x27;s localhost is never reachable</strong> through the proxy (<code>127.0.0.1</code>, <code>localhost</code>, <code>::1</code>), whatever the permissions — Open included: what listens there (a database, a dev server, another sandbox&#x27;s web port) expects only your Mac&#x27;s own programs. The one exception is chosen per sandbox: a model server on your Mac, by its port, reached as <code>mac.dozable.internal:PORT</code> — that port only (<a href="claude-code-other-models">Claude Code with other models</a>).</li>
 </ul>
 <h3 id="3-credentials-never-enter-the-sandbox">3. Credentials never enter the sandbox<a class="anchor" href="#3-credentials-never-enter-the-sandbox" aria-label="Link to this section">#</a></h3>
 <p>The proxy holds your Claude login, token or API key and adds it to requests to Anthropic on their way out. Inside the sandbox the agent sees a placeholder (<code>doz_cred_…</code>), so there&#x27;s nothing to steal:</p>
@@ -176,7 +182,7 @@
 <li>The dashboard listens on your Mac&#x27;s loopback only, signs a browser in with a one-use link, checks the exact host and origin and a CSRF token on every change, and runs each terminal in an isolated frame: whatever a sandbox prints can&#x27;t reach the dashboard&#x27;s session or other terminals.</li>
 <li>The dashboard never sets a folder of your Mac from what the page sends: the projects folder&#x27;s <strong>Choose…</strong> opens your Mac&#x27;s own folder picker, and the folder you pick there is what is saved (never a folder inside the store, never <code>/</code>).</li>
 <li>A dashboard link is a key: don&#x27;t paste it anywhere.</li>
-<li><code>doz serve</code> (the dashboard for your other devices — <a href="doz-serve">its page</a>) is a separate process you start yourself. A browser needs an invite to get in (a link, a code or a QR code — one browser each, five minutes) and stays in until you remove it; every request&#x27;s host and origin are checked against this Mac&#x27;s names and addresses (or your proxy&#x27;s address, only from a proxy you named in <code>serve.trusted_proxies</code>); keys and tokens are never taken over plain HTTP; and a sandbox can never reach it — a sandbox network&#x27;s connection is dropped, and the proxy refuses the dashboards&#x27; ports on your Mac&#x27;s own addresses. What other browsers do is in <code>doz serve log</code>.</li>
+<li>The dashboard&#x27;s LAN option (<code>doz ui --lan</code>, <code>ui.lan</code> — the dashboard for your other devices, <a href="doz-serve">its page</a>) is off until you turn it on, on the Mac. Only a connection from this Mac to <code>127.0.0.1:&lt;port&gt;</code> exactly, with no proxy in between, is your Mac&#x27;s own browser (signed in by the link); any other browser needs an invite to get in (a link, a code or a QR code — one browser each, five minutes) and stays in until you remove it; every request&#x27;s host and origin are checked against this Mac&#x27;s names and addresses (or your proxy&#x27;s address, only from a proxy you named in <code>serve.trusted_proxies</code>); another browser can never type a key or token over plain HTTP nor open a window on the Mac&#x27;s screen; and a sandbox can never reach it — a sandbox network&#x27;s connection is dropped before anything is read, and the proxy refuses the dashboard&#x27;s port on your Mac&#x27;s own addresses. What other browsers do is in <code>doz ui log</code>.</li>
 </ul>
 <h2 id="the-bridges--deliberate-ways-in-to-your-mac">The bridges — deliberate ways in to your Mac<a class="anchor" href="#the-bridges--deliberate-ways-in-to-your-mac" aria-label="Link to this section">#</a></h2>
 <p>A session&#x27;s terminal lets a program in the sandbox do three things on your Mac, because agents need them. Each is announced every time it&#x27;s used, rate-limited, works only while a terminal is attached, and can be turned off per sandbox or for all. All three travel the same way — a private escape sequence in the session&#x27;s output, which Dozable&#x27;s host takes out and decides on; the sandbox has no other channel to your Mac.</p>
@@ -193,6 +199,7 @@
 <li><strong>Dockerfile builds</strong> run in Apple&#x27;s <code>container</code> builder, <strong>outside Dozable&#x27;s network policy</strong>: their <code>RUN</code> steps reach the internet directly. Only build Dockerfiles you trust. See <a href="images-and-bases#your-own-dockerfile">Images and bases</a>.</li>
 <li><strong>Image preparation</strong> runs in a temporary VM with the <code>bake</code> permissions (package registries only), logged like any sandbox.</li>
 <li><strong>Keep-alive</strong>, when you turn it on, runs your Mac&#x27;s own <code>claude</code> once near expiry.</li>
+<li><strong>Sessions on this Mac</strong> (<code>doz run @mac</code>) are not in a sandbox at all: the program runs as you, with your files, Keychain and network, and nothing of this page applies to it. Dozable never bypasses an agent&#x27;s permissions there unless the command you gave asks, and then says so. See <a href="sessions-on-this-mac">Sessions on this Mac</a>.</li>
 </ul>
 <h2 id="what-leaves-your-mac">What leaves your Mac<a class="anchor" href="#what-leaves-your-mac" aria-label="Link to this section">#</a></h2>
 <ul>
@@ -213,7 +220,7 @@
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Settings"><table>
 <thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>defaults.permissions</code></td><td><code>standard</code></td><td>What a new sandbox&#x27;s agent may reach.</td></tr><tr><td><code>sandbox.clipboard</code></td><td><code>write</code></td><td>The clipboard bridge.</td></tr><tr><td><code>sandbox.browser_bridge</code></td><td><code>on</code></td><td>The browser bridge.</td></tr><tr><td><code>sandbox.open_files</code></td><td><code>on</code></td><td>The files bridge.</td></tr><tr><td><code>bridges.open_apps</code></td><td><code>&quot;&quot;</code></td><td>The apps a sandbox may name for the files bridge (none: default apps only).</td></tr><tr><td><code>defaults.github</code></td><td><code>off</code></td><td>&quot;Use GitHub as you&quot; for new sandboxes: <code>off</code>, <code>read</code> or <code>push</code>.</td></tr><tr><td><code>github.credentials</code></td><td><code>gh</code></td><td>Where &quot;Use GitHub as you&quot; gets your login: <code>gh</code>, <code>key</code> or <code>off</code>.</td></tr><tr><td><code>sandbox.ssh_agent</code></td><td><code>off</code></td><td>Forward your Mac&#x27;s ssh-agent (github.com:22 only).</td></tr><tr><td><code>sandbox.agent_sudo</code></td><td><code>true</code></td><td>The agent&#x27;s sudo inside its sandbox.</td></tr><tr><td><code>ui.allow_secret_entry</code></td><td><code>true</code></td><td>The dashboard may take a key or token.</td></tr><tr><td><code>claude.permissions</code></td><td><code>skip</code></td><td>Claude Code&#x27;s own permission prompts (<code>ask</code> to keep them).</td></tr><tr><td><code>telemetry.send_anonymous_usage_stats</code></td><td><code>true</code></td><td>Official builds: anonymous usage statistics (<code>false</code>, or <code>DO_NOT_TRACK=1</code>, turns them off).</td></tr>
+<tr><td><code>defaults.permissions</code></td><td><code>standard</code></td><td>What a new sandbox&#x27;s agent may reach.</td></tr><tr><td><code>sandbox.clipboard</code></td><td><code>write</code></td><td>The clipboard bridge.</td></tr><tr><td><code>sandbox.browser_bridge</code></td><td><code>on</code></td><td>The browser bridge.</td></tr><tr><td><code>sandbox.open_files</code></td><td><code>on</code></td><td>The files bridge.</td></tr><tr><td><code>bridges.open_apps</code></td><td><code>&quot;&quot;</code></td><td>The apps a sandbox may name for the files bridge (none: default apps only).</td></tr><tr><td><code>defaults.github</code></td><td><code>off</code></td><td>&quot;Use GitHub as you&quot; for new sandboxes: <code>off</code>, <code>read</code> or <code>push</code>.</td></tr><tr><td><code>github.credentials</code></td><td><code>gh</code></td><td>Where &quot;Use GitHub as you&quot; gets your login: <code>gh</code>, <code>key</code> or <code>off</code>.</td></tr><tr><td><code>sandbox.ssh_agent</code></td><td><code>off</code></td><td>Forward your Mac&#x27;s ssh-agent (github.com:22 only).</td></tr><tr><td><code>sandbox.agent_sudo</code></td><td><code>true</code></td><td>The agent&#x27;s sudo inside its sandbox.</td></tr><tr><td><code>ui.allow_secret_entry</code></td><td><code>true</code></td><td>The dashboard may take a key or token.</td></tr><tr><td><code>recipes.anthropic.claude-code.approvals</code></td><td><code>skip</code></td><td>Claude Code&#x27;s own permission prompts (<code>ask</code> to keep them).</td></tr><tr><td><code>telemetry.send_anonymous_usage_stats</code></td><td><code>true</code></td><td>Official builds: anonymous usage statistics (<code>false</code>, or <code>DO_NOT_TRACK=1</code>, turns them off).</td></tr>
 </tbody></table></div>
 <!-- /manual text -->
 </div>
@@ -221,7 +228,7 @@
 <li class="prev"><a href="settings-reference" rel="prev"><small>&larr; Previous</small><b>Settings reference</b></a></li>
 <li class="next"><a href="troubleshooting-and-faq" rel="next"><small>Next &rarr;</small><b>Troubleshooting and FAQ</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/16-security-model.md">Edit this page on GitHub</a> &middot; Chapter 16 of 29</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/16-security-model.md">Edit this page on GitHub</a> &middot; Chapter 16 of 34</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">

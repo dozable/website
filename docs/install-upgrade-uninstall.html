@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>Installing, upgrading and uninstalling — Dozable docs</title>
-<meta name="description" content="doz is one command-line program. It comes with everything it needs inside it: the small Linux programs each sandbox uses, the web dashboard, and the permission macOS requires to run virtual machines.">
+<meta name="description" content="doz is one command-line program. It comes with everything it needs inside it: the small Linux programs each sandbox uses, the Linux kernel sandboxes boot (so the first start downloads no kernel), the web dashboard, and the permission macOS requires to run virtual machines.">
 <link rel="canonical" href="https://dozable.com/docs/install-upgrade-uninstall">
 <link rel="alternate" type="text/markdown" href="https://dozable.com/docs/install-upgrade-uninstall.md">
 <meta name="theme-color" content="#ffffff">
@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="Installing, upgrading and uninstalling — Dozable docs">
-<meta property="og:description" content="doz is one command-line program. It comes with everything it needs inside it: the small Linux programs each sandbox uses, the web dashboard, and the permission macOS requires to run virtual machines.">
+<meta property="og:description" content="doz is one command-line program. It comes with everything it needs inside it: the small Linux programs each sandbox uses, the Linux kernel sandboxes boot (so the first start downloads no kernel), the web dashboard, and the permission macOS requires to run virtual machines.">
 <meta property="og:url" content="https://dozable.com/docs/install-upgrade-uninstall">
 <meta property="og:image" content="https://dozable.com/og-image.png">
 <meta property="og:image:secure_url" content="https://dozable.com/og-image.png">
@@ -23,7 +23,7 @@
 <meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Installing, upgrading and uninstalling — Dozable docs">
-<meta name="twitter:description" content="doz is one command-line program. It comes with everything it needs inside it: the small Linux programs each sandbox uses, the web dashboard, and the permission macOS requires to run virtual machines.">
+<meta name="twitter:description" content="doz is one command-line program. It comes with everything it needs inside it: the small Linux programs each sandbox uses, the Linux kernel sandboxes boot (so the first start downloads no kernel), the web dashboard, and the permission macOS requires to run virtual machines.">
 <meta name="twitter:image" content="https://dozable.com/og-image.png">
 <meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <link rel="icon" type="image/png" href="../favicon.png">
@@ -67,16 +67,20 @@
 <li><a href="doz-serve">The dashboard on other devices</a></li>
 <li><a href="images-and-bases">Images and bases</a></li>
 <li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents">More agents</a></li>
 <li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex">Codex</a></li>
 <li><a href="web-ports">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
@@ -90,9 +94,10 @@
 <li><a href="settings-reference">Settings reference</a></li>
 <li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -103,7 +108,7 @@
 <header class="chead">
 <p class="eyebrow">Chapter 2</p>
 <h1>Installing, upgrading and uninstalling</h1>
-<p class="summary"><code>doz</code> is one command-line program. It comes with everything it needs inside it: the small Linux programs each sandbox uses, the web dashboard, and the permission macOS requires to run virtual machines.</p>
+<p class="summary"><code>doz</code> is one command-line program. It comes with everything it needs inside it: the small Linux programs each sandbox uses, the Linux kernel sandboxes boot (so the first start downloads no kernel), the web dashboard, and the permission macOS requires to run virtual machines.</p>
 </header>
 <details class="toc-m"><summary>On this page</summary>
 <ol>
@@ -116,12 +121,15 @@
 </ol></li>
 <li><a href="#upgrade">Upgrade</a>
 <ol>
+<li><a href="#upgrading-to-037-a-fresh-start">Upgrading to 0.37: a fresh start</a></li>
 <li><a href="#your-images-after-an-upgrade">Your images after an upgrade</a></li>
 <li><a href="#a-sandbox-that-slept-through-an-upgrade">A sandbox that slept through an upgrade</a></li>
 </ol></li>
 <li><a href="#in-the-dashboard">In the dashboard</a>
 </li>
 <li><a href="#uninstall">Uninstall</a>
+</li>
+<li><a href="#start-over-doz-nuke">Start over: doz nuke</a>
 </li>
 <li><a href="#build-from-source-contributors">Build from source (contributors)</a>
 </li>
@@ -133,12 +141,12 @@
 </details>
 <div class="prose">
 <!-- manual text -->
-<p><code>doz</code> is one command-line program. It comes with everything it needs inside it: the small Linux programs each sandbox uses, the web dashboard, and the permission macOS requires to run virtual machines. You install it with Homebrew.</p>
+<p><code>doz</code> is one command-line program. It comes with everything it needs inside it: the small Linux programs each sandbox uses, the Linux kernel sandboxes boot (so the first start downloads no kernel), the web dashboard, and the permission macOS requires to run virtual machines. You install it with Homebrew.</p>
 <h2 id="concepts">Concepts<a class="anchor" href="#concepts" aria-label="Link to this section">#</a></h2>
 <ul>
 <li><strong>The <code>doz</code> program</strong> is what you install. It is signed with Apple&#x27;s virtualization entitlement; without that, macOS refuses to boot virtual machines. A copy you build yourself without signing can run every command except the ones that boot a VM, and <code>doz doctor</code> says so.</li>
-<li><strong>The store</strong> is where your sandboxes, images and restore points live: <code>~/Library/Application Support/dozer-sandbox</code> unless you choose another (see <a href="settings-reference">Settings reference</a>, <code>store.path</code>). Upgrading <code>doz</code> never touches it.</li>
-<li><strong>The settings</strong> live in <code>~/.config/dozer-sandbox/doz.toml</code>, beside your agent prompt template (<code>agent-prompt.md</code>). Upgrading never touches them either.</li>
+<li><strong>The store</strong> is where your sandboxes, images and restore points live: <code>~/Library/Application Support/doz</code> unless you choose another (see <a href="settings-reference">Settings reference</a>, <code>store.path</code>). Upgrading <code>doz</code> never touches it (0.37 is the one exception: it starts with a new store — see <a href="#upgrading-to-037-a-fresh-start">Upgrading to 0.37</a>).</li>
+<li><strong>The settings</strong> live in <code>~/.config/doz/doz.toml</code>, beside your agent prompt template (<code>agent-prompt.md</code>). Upgrading never touches them either.</li>
 <li><strong>The host</strong> is a background <code>doz</code> process that runs your sandboxes. A running host keeps using the version of <code>doz</code> it started as, which is why upgrading has one extra step (below).</li>
 </ul>
 <h2 id="install">Install<a class="anchor" href="#install" aria-label="Link to this section">#</a></h2>
@@ -158,16 +166,17 @@ doz --version</code></pre></figure>
 <p><code>doz upgrade --channel beta</code> switches: it asks, then Homebrew uninstalls one formula and installs the other. Your store, sandboxes and settings are not Homebrew&#x27;s and stay. doz never installs an older build — switching to a channel whose newest build is older than yours waits until that channel catches up.</p>
 <h3 id="without-homebrew">Without Homebrew<a class="anchor" href="#without-homebrew" aria-label="Link to this section">#</a></h3>
 <p>Each release also has a tarball on the project&#x27;s GitHub releases page: <code>doz-VERSION-macos-arm64.tar.gz</code> (and its <code>.sha256</code>). Unpack it anywhere and put its <code>bin</code> on your <code>PATH</code>; keep the folder as it is (<code>bin/doz</code> is a link into <code>libexec/doz</code>, where doz finds its parts). <code>doz upgrade -y</code> updates such an install itself: it downloads the new tarball, checks it against the signed feed and Apple&#x27;s signature, and swaps it in, keeping the previous version as <code>libexec/doz.previous</code>.</p>
+<p>The releases page also lists a <code>doz-VERSION-macos-arm64-helper.tar.gz</code>. That one is <strong>not for you</strong> unless you build a Mac app that carries <code>doz</code> inside it: it has no dashboard and never updates itself. See <a href="bundling-doz-in-an-app">Bundling doz in an app</a>. Each tarball also has a <code>.dSYM.zip</code> beside it — its symbols, for reading crash reports; you don&#x27;t need it to run doz.</p>
 <h2 id="upgrade">Upgrade<a class="anchor" href="#upgrade" aria-label="Link to this section">#</a></h2>
 <p>doz tells you when a new release is out — one line after a command on your terminal, and a banner on the dashboard:</p>
 <blockquote class="example">
-<p>doz 0.31.1 is available — upgrade: doz upgrade -y (notes: <a href="https://updates.dozersandbox.com/v1/notes/0.31.1.html">https://updates.dozersandbox.com/v1/notes/0.31.1.html</a>)</p>
+<p>doz 0.31.1 is available — upgrade: doz upgrade -y (notes: <a href="https://updates.dozable.com/v1/notes/0.31.1.html">https://updates.dozable.com/v1/notes/0.31.1.html</a>)</p>
 </blockquote>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz upgrade -y            <span class="c"># or doz upgrade: it shows the version and the notes, and asks first</span>
 doz host restart</code></pre></figure>
-<p><code>doz upgrade</code> refreshes Dozable&#x27;s tap first, then runs <code>brew upgrade</code> for your channel&#x27;s formula. It always asks the feed itself (past any cached copy), so a release is there the minute it is published. Its first name, <code>doz update</code>, still works. Homebrew refreshes its taps only now and then, so a plain <code>brew upgrade doz</code> can say there is nothing new for up to a day; with brew directly, run <code>brew update</code> first.</p>
+<p><code>doz upgrade</code> refreshes Dozable&#x27;s tap first, then runs <code>brew upgrade</code> for your channel&#x27;s formula. It always asks the feed itself (past any cached copy), so a release is there the minute it is published. Its first name, <code>doz update</code>, still works. Homebrew&#x27;s own output stays off the screen: no update of your other taps first, and what brew prints goes to <code>brew.log</code> in doz&#x27;s settings folder (<code>~/.config/doz/brew.log</code>) — shown when brew fails, or as it runs with <code>doz upgrade --verbose</code>. When a host of the previous version is running, <code>doz upgrade</code> (without <code>-y</code>) then asks whether to restart it now. Homebrew refreshes its taps only now and then, so a plain <code>brew upgrade doz</code> can say there is nothing new for up to a day; with brew directly, run <code>brew update</code> first.</p>
 <ul>
-<li><strong>How it knows.</strong> At most once a day (and when <code>doz ui</code> starts), doz reads one small file, <code>https://updates.dozersandbox.com/v1/feed.json</code>, signed with Dozable&#x27;s own key; anything that doesn&#x27;t verify is ignored. Nothing about you or your sandboxes is sent — only the request, with doz&#x27;s version and channel in its user agent. Offline, it says nothing. Never with <code>--json</code> or <code>-q</code>, or when not on a terminal.</li>
+<li><strong>How it knows.</strong> At most once a day (and when <code>doz ui</code> starts), doz reads one small file, <code>https://updates.dozable.com/v1/feed.json</code>, signed with Dozable&#x27;s own key; anything that doesn&#x27;t verify is ignored. Nothing about you or your sandboxes is sent — only the request, with doz&#x27;s version and channel in its user agent. Offline, it says nothing. Never with <code>--json</code> or <code>-q</code>, or when not on a terminal.</li>
 <li><strong>The setting <code>updates.mode</code></strong>: <code>notify</code> (the default), <code>auto</code> — doz also installs the update itself (through Homebrew for a Homebrew install), but only while no sandbox is running and no session is attached, and then says <code>Updated to 0.31.1 — restart to apply: doz host restart</code> — or <code>off</code> (never look). <code>doz upgrade --check</code> looks now, whatever the mode.</li>
 <li>Homebrew installs the new version beside the old one, then removes the old one.</li>
 <li><strong>A running host keeps its old version.</strong> After an upgrade, Homebrew runs <code>doz host upgrade-check</code>, which says when a host of the previous version is still running. You can run it yourself at any time; it never starts or stops anything.</li>
@@ -178,6 +187,16 @@ doz host restart</code></pre></figure>
 <figure class="code"><figcaption data-gen><span>text</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (text)"><code>note: the doz host is 0.12.0-rc.9 (this doz is 0.12.0-rc.10) — `doz host stop` switches to 0.12.0-rc.10; sandboxes hibernate and wake</code></pre></figure>
 <p>(If the host is the <em>newer</em> one — you ran an older <code>doz</code> — the note says to upgrade this <code>doz</code>.)</p>
 <p>If you skip <code>doz host stop</code>, nothing breaks right away: your sandboxes keep running. But the old host can no longer boot anything once Homebrew has removed its files, so a start, a wake or a new sandbox is refused with a message that tells you to run <code>doz host stop</code>. Once nothing runs and nobody is attached, the old host exits by itself.</p>
+<h3 id="upgrading-to-037-a-fresh-start">Upgrading to 0.37: a fresh start<a class="anchor" href="#upgrading-to-037-a-fresh-start" aria-label="Link to this section">#</a></h3>
+<p>0.37 is the first release with Dozable&#x27;s own names on disk, and it <strong>starts fresh</strong>: nothing from an earlier install is read — not your sandboxes, images, restore points, accounts, settings, prompt template or dashboard links. There is no migration. Before you upgrade, with the version you have:</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz get my-app /workspace/notes.md ~/Desktop/   <span class="c"># copy out anything a sandbox holds that you want to keep</span>
+doz ui stop
+doz host stop</code></pre></figure>
+<p>Then upgrade and run <code>doz onboard</code> again: it makes the new store, settings and images (every image is built afresh). New sandboxes&#x27; folders go to <code>~/doz-workspaces</code>; your project folders, wherever they are, are never touched. When you no longer need the old install, remove its folders:</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>rm -rf ~/Library/Application\ Support/dozer-sandbox   <span class="c"># the old store: sandboxes, images, restore points, accounts list</span>
+rm -rf ~/.config/dozer-sandbox                        <span class="c"># the old settings and agent prompt template</span>
+rm -rf ~/Library/Caches/dozer-sandbox                 <span class="c"># the old download cache</span></code></pre></figure>
+<p>The keys an earlier version saved stay in your login keychain (items named <code>doz-…</code>) until you delete them in Keychain Access. Images an earlier version built with Apple&#x27;s <code>container</code> are named <code>dozer/…</code> there: <code>container image ls</code> lists them and <code>container image delete NAME</code> removes one.</p>
 <h3 id="your-images-after-an-upgrade">Your images after an upgrade<a class="anchor" href="#your-images-after-an-upgrade" aria-label="Link to this section">#</a></h3>
 <p>A new version of Dozable may prepare its images differently (it may add a tool, for example). Your existing images are <strong>never rebuilt without you</strong>: Dozable says an image is out of date — in <code>doz image ls</code>, <code>doz doctor</code>, when you create a sandbox, and on the dashboard&#x27;s Images page — and you rebuild it when it suits you. See <a href="images-and-bases#out-of-date-images">Images and bases</a>.</p>
 <h3 id="a-sandbox-that-slept-through-an-upgrade">A sandbox that slept through an upgrade<a class="anchor" href="#a-sandbox-that-slept-through-an-upgrade" aria-label="Link to this section">#</a></h3>
@@ -199,19 +218,32 @@ brew uninstall doz</code></pre></figure>
 <li>your keychain. Remove accounts you added first if you want their keychain items gone: <code>doz account rm NAME</code> (it deletes the item <code>doz account add</code> made). <code>doz uninstall</code> names any left;</li>
 <li>Claude Code&#x27;s own files and login.</li>
 </ul>
+<h2 id="start-over-doz-nuke">Start over: doz nuke<a class="anchor" href="#start-over-doz-nuke" aria-label="Link to this section">#</a></h2>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz inventory        <span class="c"># what Dozable keeps on this Mac, where, and how big — changes nothing</span>
+doz nuke --dry-run   <span class="c"># what doz nuke would remove</span>
+doz nuke             <span class="c"># remove it all (asks first)</span></code></pre></figure>
+<p><code>doz nuke</code> puts this Mac back to a fresh install of Dozable and keeps <code>doz</code> installed. It lists each item with its place and size, then asks once:</p>
+<ul>
+<li><strong>the store</strong>: every sandbox, image, kernel, restore point and template, and the host&#x27;s log and metrics;</li>
+<li><strong>the settings folder</strong>: <code>doz.toml</code>, <code>agent-prompt.md</code>, and the update and usage records;</li>
+<li><strong>the download cache</strong> (<code>~/Library/Caches/doz</code>);</li>
+<li><strong>the keychain items Dozable made</strong>: your accounts&#x27; keys and the default GitHub key.</li>
+</ul>
+<p><code>--dry-run</code> lists and removes nothing; <code>--yes</code> skips the question. A running host is stopped first; a running <code>doz ui</code> must be stopped by you (<code>doz ui stop</code>). Your next <code>doz</code> command starts from the beginning: <code>doz onboard</code> or <code>doz ui</code>.</p>
+<p>It <strong>never</strong> touches your workspace folders, the Mac&#x27;s own Claude Code and Codex logins, or Apple&#x27;s <code>container</code> data. <code>doz inventory</code> prints the same list and changes nothing.</p>
 <h2 id="build-from-source-contributors">Build from source (contributors)<a class="anchor" href="#build-from-source-contributors" aria-label="Link to this section">#</a></h2>
-<p>The source is on GitHub (<code>dozer-sandbox/dozer-sandbox</code>). <code>make install-cli</code> builds and signs <code>doz</code> into <code>~/.local/bin</code>; <code>make cli</code> builds a signed development copy. A source build is never updated by doz itself. Don&#x27;t have a Homebrew <code>doz</code> and a source-built one on your <code>PATH</code> at the same time. See the repository&#x27;s README.</p>
+<p>The source is on GitHub (<code>dozable/dozable</code>). <code>make install-cli</code> builds and signs <code>doz</code> into <code>~/.local/bin</code>; <code>make cli</code> builds a signed development copy. A source build is never updated by doz itself. Don&#x27;t have a Homebrew <code>doz</code> and a source-built one on your <code>PATH</code> at the same time. See the repository&#x27;s README.</p>
 <h2 id="settings">Settings<a class="anchor" href="#settings" aria-label="Link to this section">#</a></h2>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Settings"><table>
 <thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>store.path</code></td><td><code>~/Library/Application Support/dozer-sandbox</code></td><td>Where the store lives (<code>--store</code>, <code>$DOZ_STORE</code>).</td></tr><tr><td><code>host.idle_timeout_minutes</code></td><td><code>5</code></td><td>Minutes with nothing running before the host exits (<code>0</code> = never).</td></tr><tr><td><code>updates.mode</code></td><td><code>notify</code></td><td><code>notify</code>, <code>auto</code> or <code>off</code> (<code>$DOZ_UPDATES</code>).</td></tr><tr><td><code>updates.channel</code></td><td><code>stable</code></td><td><code>stable</code>, <code>beta</code> or <code>canary</code> — a Homebrew install&#x27;s formula decides while it is not set.</td></tr>
+<tr><td><code>store.path</code></td><td><code>~/Library/Application Support/doz</code></td><td>Where the store lives (<code>--store</code>, <code>$DOZ_STORE</code>).</td></tr><tr><td><code>host.idle_timeout_minutes</code></td><td><code>5</code></td><td>Minutes with nothing running before the host exits (<code>0</code> = never).</td></tr><tr><td><code>updates.mode</code></td><td><code>notify</code></td><td><code>notify</code>, <code>auto</code> or <code>off</code> (<code>$DOZ_UPDATES</code>).</td></tr><tr><td><code>updates.channel</code></td><td><code>stable</code></td><td><code>stable</code>, <code>beta</code> or <code>canary</code> — a Homebrew install&#x27;s formula decides while it is not set.</td></tr>
 </tbody></table></div>
 <h2 id="troubleshooting">Troubleshooting<a class="anchor" href="#troubleshooting" aria-label="Link to this section">#</a></h2>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Troubleshooting"><table>
 <thead><tr><th scope="col">symptom</th><th scope="col">what to do</th></tr></thead>
 <tbody>
-<tr><td><code>brew install</code> says another doz formula is installed</td><td>One channel at a time: <code>doz upgrade --channel …</code> switches (or <code>brew uninstall</code> the other first).</td></tr><tr><td>&quot;the update feed was ignored&quot; / &quot;do not verify&quot;</td><td>Nothing is installed from it; doz keeps working. If it persists, check your network isn&#x27;t rewriting <code>updates.dozersandbox.com</code>.</td></tr><tr><td><code>doz: command not found</code></td><td><code>brew list doz</code>, then open a new terminal window.</td></tr><tr><td>&quot;this host&#x27;s program … is gone — an upgrade removed it&quot;</td><td><code>doz host stop</code>, then run your command again.</td></tr><tr><td>&quot;cannot boot a VM&quot; or a message about the entitlement</td><td><code>doz doctor</code>. Reinstall: <code>brew reinstall doz</code>.</td></tr><tr><td>Start over from nothing</td><td><code>doz uninstall</code>, <code>brew uninstall doz</code>, then <code>brew trust --tap dozable/tap</code>, <code>brew install dozable/tap/doz</code> and <code>doz onboard</code>.</td></tr>
+<tr><td><code>brew install</code> says another doz formula is installed</td><td>One channel at a time: <code>doz upgrade --channel …</code> switches (or <code>brew uninstall</code> the other first).</td></tr><tr><td>&quot;the update feed was ignored&quot; / &quot;do not verify&quot;</td><td>Nothing is installed from it; doz keeps working. If it persists, check your network isn&#x27;t rewriting <code>updates.dozable.com</code>.</td></tr><tr><td><code>doz: command not found</code></td><td><code>brew list doz</code>, then open a new terminal window.</td></tr><tr><td>&quot;this host&#x27;s program … is gone — an upgrade removed it&quot;</td><td><code>doz host stop</code>, then run your command again.</td></tr><tr><td>&quot;cannot boot a VM&quot; or a message about the entitlement</td><td><code>doz doctor</code>. Reinstall: <code>brew reinstall doz</code>.</td></tr><tr><td>Start over, keeping doz installed</td><td><code>doz nuke</code>, then <code>doz onboard</code>.</td></tr><tr><td>Start over from nothing</td><td><code>doz uninstall</code>, <code>brew uninstall doz</code>, then <code>brew trust --tap dozable/tap</code>, <code>brew install dozable/tap/doz</code> and <code>doz onboard</code>.</td></tr>
 </tbody></table></div>
 <!-- /manual text -->
 </div>
@@ -219,7 +251,7 @@ brew uninstall doz</code></pre></figure>
 <li class="prev"><a href="getting-started" rel="prev"><small>&larr; Previous</small><b>Getting started</b></a></li>
 <li class="next"><a href="setting-up" rel="next"><small>Next &rarr;</small><b>Setting up this Mac</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/02-install-upgrade-uninstall.md">Edit this page on GitHub</a> &middot; Chapter 2 of 29</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/02-install-upgrade-uninstall.md">Edit this page on GitHub</a> &middot; Chapter 2 of 34</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">
@@ -234,12 +266,15 @@ brew uninstall doz</code></pre></figure>
 </ol></li>
 <li><a href="#upgrade">Upgrade</a>
 <ol>
+<li><a href="#upgrading-to-037-a-fresh-start">Upgrading to 0.37: a fresh start</a></li>
 <li><a href="#your-images-after-an-upgrade">Your images after an upgrade</a></li>
 <li><a href="#a-sandbox-that-slept-through-an-upgrade">A sandbox that slept through an upgrade</a></li>
 </ol></li>
 <li><a href="#in-the-dashboard">In the dashboard</a>
 </li>
 <li><a href="#uninstall">Uninstall</a>
+</li>
+<li><a href="#start-over-doz-nuke">Start over: doz nuke</a>
 </li>
 <li><a href="#build-from-source-contributors">Build from source (contributors)</a>
 </li>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>The tools layer — Dozable docs</title>
+<title>Managed tools — Dozable docs</title>
 <meta name="description" content="Some settings need a tool inside the sandbox to be useful: &quot;GitHub as you&quot; is best with gh, SSH agent forwarding needs an ssh client and GitHub&#x27;s host keys, tmux sessions need tmux.">
 <link rel="canonical" href="https://dozable.com/docs/the-tools-layer">
 <link rel="alternate" type="text/markdown" href="https://dozable.com/docs/the-tools-layer.md">
@@ -12,7 +12,7 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="The tools layer — Dozable docs">
+<meta property="og:title" content="Managed tools — Dozable docs">
 <meta property="og:description" content="Some settings need a tool inside the sandbox to be useful: &quot;GitHub as you&quot; is best with gh, SSH agent forwarding needs an ssh client and GitHub&#x27;s host keys, tmux sessions need tmux.">
 <meta property="og:url" content="https://dozable.com/docs/the-tools-layer">
 <meta property="og:image" content="https://dozable.com/og-image.png">
@@ -22,7 +22,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The tools layer — Dozable docs">
+<meta name="twitter:title" content="Managed tools — Dozable docs">
 <meta name="twitter:description" content="Some settings need a tool inside the sandbox to be useful: &quot;GitHub as you&quot; is best with gh, SSH agent forwarding needs an ssh client and GitHub&#x27;s host keys, tmux sessions need tmux.">
 <meta name="twitter:image" content="https://dozable.com/og-image.png">
 <meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
@@ -67,16 +67,20 @@
 <li><a href="doz-serve">The dashboard on other devices</a></li>
 <li><a href="images-and-bases">Images and bases</a></li>
 <li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents">More agents</a></li>
 <li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex">Codex</a></li>
 <li><a href="web-ports">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer" aria-current="page">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
@@ -90,24 +94,25 @@
 <li><a href="settings-reference">Settings reference</a></li>
 <li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
 
 <article class="article">
 <!--email_off-->
-<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="./">Docs</a></li><li aria-current="page">The tools layer</li></ol></nav>
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="./">Docs</a></li><li aria-current="page">Managed tools</li></ol></nav>
 <header class="chead">
 <p class="eyebrow">Chapter 19</p>
-<h1>The tools layer</h1>
+<h1>Managed tools</h1>
 <p class="summary">Some settings need a tool inside the sandbox to be useful: &quot;GitHub as you&quot; is best with <code>gh</code>, SSH agent forwarding needs an ssh client and GitHub&#x27;s host keys, tmux sessions need tmux.</p>
 </header>
 <details class="toc-m"><summary>On this page</summary>
 <ol>
-<li><a href="#tools-dozable-provides">Tools Dozable provides</a>
+<li><a href="#tools-dozable-manages">Tools Dozable manages</a>
 </li>
 <li><a href="#when-it-runs">When it runs</a>
 </li>
@@ -119,17 +124,18 @@
 </details>
 <div class="prose">
 <!-- manual text -->
-<p>Some settings need a tool inside the sandbox to be useful: &quot;GitHub as you&quot; is best with <code>gh</code>, SSH agent forwarding needs an ssh client and GitHub&#x27;s host keys, tmux sessions need tmux. Dozable puts them there for you — the <strong>tools layer</strong>: the tools Dozable manages in each sandbox, chosen by its settings. It works on every base (Debian, Ubuntu, Alpine, your own Dockerfile) and never rebuilds an image.</p>
-<h2 id="tools-dozable-provides">Tools Dozable provides<a class="anchor" href="#tools-dozable-provides" aria-label="Link to this section">#</a></h2>
-<div class="tablewrap" tabindex="0" role="region" aria-label="Table: Tools Dozable provides"><table>
+<p>Some settings need a tool inside the sandbox to be useful: &quot;GitHub as you&quot; is best with <code>gh</code>, SSH agent forwarding needs an ssh client and GitHub&#x27;s host keys, tmux sessions need tmux. Dozable puts them there for you — the <strong>managed tools</strong>: tools Dozable supports natively, each chosen by its own settings, added to each sandbox and never baked into an image. They support the agent a sandbox runs (its recipe&#x27;s); they are not it. It works on every base (Debian, Ubuntu, Alpine, your own Dockerfile) and never rebuilds an image. (<code>doz tools</code>, <code>doz doctor</code> and Resources still call them the <em>tools layer</em>.)</p>
+<h2 id="tools-dozable-manages">Tools Dozable manages<a class="anchor" href="#tools-dozable-manages" aria-label="Link to this section">#</a></h2>
+<div class="tablewrap" tabindex="0" role="region" aria-label="Table: Tools Dozable manages"><table>
 <thead><tr><th scope="col">tool</th><th scope="col">when</th><th scope="col">how it gets there</th></tr></thead>
 <tbody>
-<tr><td><code>gh</code> (GitHub CLI)</td><td><strong>GitHub as you</strong> is on</td><td>downloaded <strong>once</strong> to this Mac (a pinned version, its sha256 checked), then copied into the sandbox — the sandbox&#x27;s network is not used. Removed again when GitHub as you is turned off.</td></tr><tr><td>ssh client</td><td><strong>SSH agent forwarding</strong> is on</td><td><code>apt</code> or <code>apk</code>, through the proxy, when the image lacks it</td></tr><tr><td>github.com&#x27;s host keys</td><td><strong>SSH agent forwarding</strong> is on</td><td>GitHub&#x27;s published keys, built into Dozable, written to <code>/etc/ssh/ssh_known_hosts</code> — so <code>ssh -T git@github.com</code> never asks &quot;are you sure?&quot;. Removed when forwarding is turned off.</td></tr><tr><td><code>tmux</code></td><td><strong>sessions.tmux</strong> is on</td><td><code>apt</code> or <code>apk</code>, through the proxy, when missing</td></tr><tr><td><code>git</code>, <code>curl</code>, ca-certificates</td><td>always</td><td><code>apt</code> or <code>apk</code>, through the proxy, when missing (every Dozable image already has them; a plain lab sandbox may not)</td></tr>
+<tr><td><code>gh</code> (GitHub CLI)</td><td><strong>GitHub as you</strong> is on</td><td>downloaded <strong>once</strong> to this Mac (a pinned version, its sha256 checked), then copied into the sandbox — the sandbox&#x27;s network is not used. Removed again when GitHub as you is turned off.</td></tr><tr><td>ssh client</td><td><strong>SSH agent forwarding</strong> is on</td><td><code>apt</code> or <code>apk</code>, through the proxy, when the image lacks it</td></tr><tr><td>github.com&#x27;s host keys</td><td><strong>SSH agent forwarding</strong> is on</td><td>GitHub&#x27;s published keys, built into Dozable, written to <code>/etc/ssh/ssh_known_hosts</code> — so <code>ssh -T git@github.com</code> never asks &quot;are you sure?&quot;. Removed when forwarding is turned off.</td></tr><tr><td><code>tmux</code> 3.8</td><td><strong>sessions.tmux</strong> is on</td><td><strong>built into Dozable</strong> (a static build, from source files whose checksums are pinned), copied into the sandbox — no download, and the same tmux on every base, whatever the distribution ships (Debian 12 has 3.3a, Ubuntu 24.04 and Alpine 3.20 have 3.4). Kept when you turn tmux off: a session still running in it is ended with it.</td></tr><tr><td><code>git</code>, <code>curl</code>, ca-certificates</td><td>always</td><td><code>apt</code> or <code>apk</code>, through the proxy, when missing (every Dozable image already has them; a plain lab sandbox may not)</td></tr>
 </tbody></table></div>
 <p><code>gh</code> lives at <code>/usr/local/lib/doz/bin/gh</code> (first on every session&#x27;s <code>PATH</code>) and is linked as <code>/usr/local/bin/gh</code> unless something else is already there. A <code>gh</code> you installed yourself is never touched. It is signed in through the same placeholder as git: <code>gh auth status</code> shows your login, and <code>gh repo view</code>, <code>gh pr list</code> and the rest work — read-only unless <strong>Push to GitHub</strong> is on.</p>
+<p>Dozable&#x27;s <code>tmux</code> lives at <code>/usr/local/lib/doz/bin/tmux</code> and is linked as <code>/usr/local/bin/tmux</code> unless something else is already there, so <code>tmux ls</code> or <code>tmux attach</code> in a sandbox talks to a session&#x27;s tmux with the same version. The image&#x27;s own tmux (the one in <code>/usr/bin</code>) is left as it is. A session that was already running in it when Dozable&#x27;s tmux arrived keeps it until it ends.</p>
 <h2 id="when-it-runs">When it runs<a class="anchor" href="#when-it-runs" aria-label="Link to this section">#</a></h2>
 <ul>
-<li><p><strong>The first start</strong> of a sandbox sets the layer up and shows each tool as a step (on a terminal with <code>-v</code>, or with <code>--progress plain</code>; by default only a tool that fails is shown):</p>
+<li><p><strong>The first start</strong> of a sandbox sets its managed tools up and shows each as a step (on a terminal with <code>-v</code>, or with <code>--progress plain</code>; by default only a tool that fails is shown):</p>
 <figure class="code"><figcaption data-gen><span>text</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (text)"><code>✓ tools: gh 2.102.0 on this Mac (downloaded once, sha256 checked)
 ✓ tools: installing ssh client with apk, through the proxy — 3.8 s
 ✓ tools: gh 2.102.0 — for GitHub as you (gh 2.102.0, from Dozable&#x27;s cache on the Mac)
@@ -138,7 +144,7 @@
 ✓ tools: git — always (already in the image)</code></pre></figure>
 <p><code>doz up</code>, <code>doz new</code>, <code>doz create --start</code> and Quick add show the same lines.</p></li>
 <li><p><strong>In the dashboard&#x27;s New sandbox wizard</strong>, the last step is <strong>Setting up tools</strong>: each tool with why it is there, the start&#x27;s progress, then ✓ or ✗. A failure never stops you — <strong>Retry</strong>, or <strong>Continue anyway</strong>, then <strong>Open the sandbox</strong>.</p></li>
-<li><p><strong>Every later start and wake</strong> checks the layer again, quietly: a setting you turned on while the sandbox slept is delivered then, one you turned off is removed. You see a notice only when something changed or failed. Changing a setting while the sandbox runs applies at once.</p></li>
+<li><p><strong>Every later start and wake</strong> checks them again, quietly: a setting you turned on while the sandbox slept is delivered then, one you turned off is removed. You see a notice only when something changed or failed. Changing a setting while the sandbox runs applies at once.</p></li>
 <li><p><strong>Never fatal.</strong> An offline Mac, a refused download or a package mirror that doesn&#x27;t answer is a ✗ with its reason; the sandbox starts anyway, and the next start or wake tries again.</p></li>
 </ul>
 <h2 id="see-it-set-it-up-again">See it, set it up again<a class="anchor" href="#see-it-set-it-up-again" aria-label="Link to this section">#</a></h2>
@@ -153,9 +159,9 @@ On this Mac: gh 2.102.0 (37 MB, sha256 7862c86c72f4…) — …/tools/gh/2.102.0
 <p><code>doz doctor</code> has a <strong>tools layer</strong> line; <strong>Resources</strong> lists the cache as <strong>tools layer</strong> (deleting it is safe: it is downloaded again the next time a sandbox needs it).</p>
 <h2 id="limits-and-notes">Limits and notes<a class="anchor" href="#limits-and-notes" aria-label="Link to this section">#</a></h2>
 <ul>
-<li>gh is pinned (2.102.0) and updated with Dozable, not by itself.</li>
+<li>gh is pinned (2.102.0) and updated with Dozable, not by itself. So is tmux (3.8).</li>
 <li>Packages come from your image&#x27;s own mirrors (Debian, Ubuntu, Alpine) — allowed by the <strong>Install software › System packages</strong> permission, on in Standard. With a network that can&#x27;t reach them (<code>--network none</code>), a missing package is reported, not installed.</li>
-<li>Images are never rebuilt for the layer, and preparing an image never runs it: what an image holds stays exactly its recipe.</li>
+<li>Images are never rebuilt for the managed tools, and baking an image never adds them: a baked image holds exactly its recipe.</li>
 </ul>
 <p>See also: <a href="github">GitHub as you</a>, <a href="terminals-and-sessions">Terminals and sessions</a>, <a href="resources-and-disk-space">Resources and disk space</a>.</p>
 <!-- /manual text -->
@@ -164,13 +170,13 @@ On this Mac: gh 2.102.0 (37 MB, sha256 7862c86c72f4…) — …/tools/gh/2.102.0
 <li class="prev"><a href="github" rel="prev"><small>&larr; Previous</small><b>GitHub as you</b></a></li>
 <li class="next"><a href="workspace-rules" rel="next"><small>Next &rarr;</small><b>Workspace rules: <code>.dozignore</code> and <code>.dozreadonly</code></b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/19-the-tools-layer.md">Edit this page on GitHub</a> &middot; Chapter 19 of 29</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/19-the-tools-layer.md">Edit this page on GitHub</a> &middot; Chapter 19 of 34</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
 <ol>
-<li><a href="#tools-dozable-provides">Tools Dozable provides</a>
+<li><a href="#tools-dozable-manages">Tools Dozable manages</a>
 </li>
 <li><a href="#when-it-runs">When it runs</a>
 </li>

@@ -4,10 +4,15 @@ description: "Beside Claude Code, pi and Codex, Dozable runs agents from other m
 url: https://dozable.com/docs/more-agents
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-19
+updated: 2026-11-13
 chapter: 27
 ---
 # More agents: Antigravity CLI, Grok Build, OpenCode, GitHub Copilot CLI, Qwen Code, Goose, Kilo Code CLI, Mistral Vibe, Factory Droid, Dirac, Kimi Code, Cline CLI, OpenHands CLI, Letta Code, Docker Agent, Nanocoder, mini-swe-agent, Open Interpreter, Crush, MiMo Code, CodeWhale, Maki, oh-my-pi, Tau, Gemini CLI
+
+> **Unpublished for now.** Of the agents on this page only **OpenCode** (`doz try opencode`, OpenCode 1 and 2) is
+> offered in this version of Dozable; the others are unpublished — in no list, and `doz try grok` (or `doz new`,
+> `doz create`) says so. A sandbox you already made with one keeps working: its image, its key and its settings. The
+> rest of this page describes them as they work when published.
 
 Beside Claude Code, pi and Codex, Dozable runs agents from other makers. Each uses an **API key** — most of them of the
 provider or gateway you choose (`--provider` / `--gateway`, or the Quick try's “Where it gets its model”; `--model` picks the
@@ -46,8 +51,8 @@ doz search google        # what Dozable runs with a Google key, each with its la
 
 The first `doz try` of each asks for the key (a paste, or where you keep it: 1Password, AWS, a command — see
 [Keys from 1Password, AWS or a command](https://dozable.com/docs/agents-and-accounts.md#keys-from-1password-aws-or-a-command)), prepares the
-agent's image once (a minute or so) and starts it. A try is Locked: the agent reaches its model and, below, the few
-hosts its maker's program calls when it starts — nothing else. [Trying agents](https://dozable.com/docs/try-and-search.md) has the rest.
+agent's image once (a minute or so) and starts it. A try is Standard, like any new sandbox: the agent reaches its model,
+software packages and GitHub, and, below, the few hosts its maker's program calls when it starts — not the web at large. [Trying agents](https://dozable.com/docs/try-and-search.md) has the rest.
 
 ## Antigravity CLI (Google)
 
@@ -83,7 +88,7 @@ will not run without an xAI key or sign-in, so another provider's or gateway's k
 ## OpenCode (open source)
 
 An open-source terminal agent that works with many model providers (`doz try opencode`). Dozable offers it on the
-key of the provider or gateway you choose: **Anthropic**, **OpenAI**, **xAI** (the default), **Google AI**, **OpenRouter** or **Vercel AI Gateway**; on xAI the model is `xai/grok-build-0.1`.
+key of the provider or gateway you choose: **Anthropic**, **OpenAI**, **xAI** (the default), **Google AI**, **OpenRouter** or **Vercel AI Gateway** — and OpenCode 2 also on an **OpenCode** key (below); on xAI the model is `xai/grok-build-0.1`.
 
 - **Installed** from the npm registry's linux-arm64 package, integrity-checked. Debian and Node bases (not Alpine yet).
 - **Key:** an API key of that provider or gateway (`doz account add NAME --provider xai` — or `openrouter`, `vercel-ai-gateway`, `google`; `--api-key` for Anthropic, `--openai-key` for OpenAI); the sandbox only gets a placeholder.
@@ -95,13 +100,22 @@ key of the provider or gateway you choose: **Anthropic**, **OpenAI**, **xAI** (t
   chooses one (default `big-pickle`). Only OpenCode's model requests to `opencode.ai` are allowed — not its Console or
   its sign-in. A key you add with OpenCode's own `/connect` is stored inside the sandbox; a key added in Dozable stays on
   your Mac.
+- **An OpenCode key (OpenCode 2):** one key serves **OpenCode Zen** (pay as you go — models `opencode/…`) and
+  **OpenCode Go** (the subscription — models `opencode-go/…`): `doz account add oc --provider opencode` (a key from
+  opencode.ai/auth; Dozable cannot check it without spending, so it is not checked), then
+  `doz try opencode --provider opencode`, or **OpenCode** in the try setup. The default model is
+  `opencode-go/kimi-k2.7-code`; `--model opencode/claude-sonnet-4-6` (or any other in `doz models --provider opencode`)
+  picks a Zen model. The sandbox gets only a placeholder in `OPENCODE_API_KEY`; the key goes ONLY to OpenCode's model
+  requests on `opencode.ai` and to the one read of your key's OpenCode Console settings that OpenCode makes when it
+  starts (`GET /console/api/v2/config`) — a placeholder sent anywhere else on `opencode.ai` is refused, whatever the
+  network allows.
 - **Set up for you:** its auto-update, session sharing, language-server downloads and the online model list off; the
   model set in `~/.config/opencode/opencode.json` (written only when it is not there yet). Its plugin kit is not
   downloaded into `~/.config/opencode` when it first starts (it is only for plugins you write; `cd ~/.config/opencode
   && npm install @opencode-ai/plugin` adds it). OpenCode asks no approval questions by default.
 - **May reach:** the API of the provider or gateway it was given (any of those it can use, so you can switch), and, for
-  OpenCode 2, OpenCode Zen's model requests on `opencode.ai` (`/zen/v1/chat/completions`, `/zen/v1/responses`, and
-  from OpenCode 2.0.32 `/inference/openai/v1/chat/completions`, `/inference/openai/v1/responses`).
+  OpenCode 2, OpenCode Zen's and OpenCode Go's model requests on `opencode.ai` (under `/zen/v1/` and `/zen/go/v1/`, and
+  from OpenCode 2.0.32 under `/inference/`) and, with an OpenCode key, `GET /console/api/v2/config`.
 - **Use:** `opencode` (its TUI), or `opencode run "…"` for one answer.
 
 ## GitHub Copilot CLI (GitHub)
@@ -437,3 +451,26 @@ new is allowed (`make profile-agents` in the source tree; `make agent-currency` 
 the day it came out, how long ago, and **active** (a release in the last 3 months), **quiet** (none for 3),
 **stale** (none for 6) or **deprecated** by its maker — and its **standing**: current, or superseded by another
 agent. See [Is it current?](https://dozable.com/docs/try-and-search.md#is-it-supported-doz-search).
+
+## New agents without a new doz — the recipe catalogue
+
+Every agent Dozable runs is described by a **recipe**, and each version of doz carries its own set. Dozable can also
+publish its recipes on their own, as a **recipe catalogue** on its recipe directory, `doz.sh`, so a new agent
+or a fix to one reaches you without a new release of doz:
+
+- **Where from.** doz asks `doz.sh` for it, at most once a day, and reads every file from the same place. The request carries
+  doz's version in its user agent and nothing else. (Earlier builds asked the update site, and keep their own recipes.)
+- **Signed.** doz uses a catalogue only when it is signed with Dozable's own key — the one that signs its updates — and
+  every file in it is exactly what was signed. Anything else is ignored, whole.
+- **Checked like the built-in recipes.** A catalogue that fails any check doz runs on its own recipes is ignored whole
+  (never used in part), and `doz doctor` says why. A catalogue can add agents and update them; it never takes one away,
+  so a sandbox you made keeps working.
+- **Claude Code, pi and Codex are always your doz's own** — a catalogue never changes them.
+- **When it applies.** While doz's host runs it looks for a newer catalogue at most once a day, quietly (offline is
+  fine). A new one applies when the host next starts — by itself once nothing is running, or `doz host restart`. A doz
+  older than a catalogue needs keeps its own recipes, and doz never uses a catalogue older than the recipes it carries.
+- **Where you see it.** `doz doctor`'s `recipes` line says what this doz uses: `embedded (doz 0.37.24)` — its own — or
+  `catalogue 3 from 2026-10-26`, and whether a newer one is waiting.
+
+Until Dozable publishes a catalogue, every doz simply uses its own recipes. A build you make yourself from the source
+always uses its own.

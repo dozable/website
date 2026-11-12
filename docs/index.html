@@ -67,16 +67,20 @@
 <li><a href="doz-serve">The dashboard on other devices</a></li>
 <li><a href="images-and-bases">Images and bases</a></li>
 <li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents">More agents</a></li>
 <li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex">Codex</a></li>
 <li><a href="web-ports">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
@@ -90,9 +94,10 @@
 <li><a href="settings-reference">Settings reference</a></li>
 <li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -103,7 +108,7 @@
 <p class="eyebrow">User manual</p>
 <h1>The Dozable manual</h1>
 <p class="summary">Every chapter of the Dozable manual, for the <code>doz</code> command and its dashboard.</p>
-<p class="meta">29 chapters. Built from dozer-sandbox <a href="https://github.com/dozable/dozable/commit/a9c2788">a9c2788</a>.</p>
+<p class="meta">34 chapters. Built from dozer-sandbox <a href="https://github.com/dozable/dozable/commit/9d0f602">9d0f602</a>.</p>
 </header>
 <div class="prose">
 <!-- manual text -->
@@ -124,17 +129,20 @@
 <li><a href="setting-up"><span class="n" data-gen>03</span><b>Setting up</b><span>(re)run onboarding in the terminal or the wizard</span></a></li>
 <li><a href="projects"><span class="n" data-gen>04</span><b>Projects</b><span>give a folder its own sandbox with <code>doz_project.yaml</code> and <code>doz up</code></span></a></li>
 <li><a href="the-dashboard"><span class="n" data-gen>06</span><b>The dashboard</b><span>use <code>doz ui</code>: its pages, banners, sign-in links</span></a></li>
-<li><a href="doz-serve"><span class="n" data-gen>25</span><b>The dashboard on your other devices</b><span>use the dashboard from another computer, a tablet or a phone on your network (<code>doz serve</code>) — and behind your own HTTPS reverse proxy</span></a></li>
+<li><a href="doz-serve"><span class="n" data-gen>25</span><b>The dashboard on your other devices</b><span>use the dashboard from another computer, a tablet or a phone on your network (<code>doz ui --lan</code>) — and behind your own HTTPS reverse proxy</span></a></li>
 <li><a href="images-and-bases"><span class="n" data-gen>08</span><b>Images and bases</b><span>pick a language base, use your own Dockerfile, rebuild an out-of-date image</span></a></li>
 <li><a href="agents-and-accounts"><span class="n" data-gen>09</span><b>Agents and accounts</b><span>use Claude Code or pi, add accounts, change what the agent is told</span></a></li>
+<li><a href="claude-code-other-models"><span class="n" data-gen>32</span><b>Claude Code with other models</b><span>run Claude Code through a gateway (OpenRouter) or a model server on your Mac (Ollama, LM Studio, llama-server …) — <code>--gateway</code>, <code>--provider local --local-port</code> — and what a sandbox can reach on your Mac</span></a></li>
 <li><a href="try-and-search"><span class="n" data-gen>26</span><b>Trying agents, and what Dozable supports</b><span>try an agent in one command (<code>doz try</code>), check what Dozable runs (<code>doz search</code>), see a plan before anything is made (<code>--dry-run</code>)</span></a></li>
 <li><a href="more-agents"><span class="n" data-gen>27</span><b>More agents</b><span>run Antigravity CLI, Grok Build or Gemini CLI with an API key — what each may reach, what is kept out, whether it is current</span></a></li>
 <li><a href="ai-tools"><span class="n" data-gen>28</span><b>Other AI tools</b><span>AI tools that are not coding agents (Fabric, …) — tried like an agent, each on an API key</span></a></li>
+<li><a href="your-own-recipes"><span class="n" data-gen>30</span><b>Your own recipes, and community catalogues</b><span>write a recipe of your own (<code>doz recipe new</code>), check it against the minimum requirements for a community recipe — for real with <code>--full</code> — and add catalogues others publish, by their URL and key</span></a></li>
 <li><a href="codex"><span class="n" data-gen>24</span><b>Codex</b><span>run OpenAI&#x27;s Codex on your ChatGPT plan (Dozable&#x27;s own sign-in) or an OpenAI key — the token never enters the sandbox</span></a></li>
 <li><a href="web-ports"><span class="n" data-gen>29</span><b>Web ports</b><span>open a web page a tool serves in a sandbox (a playground, your dev server) in your Mac&#x27;s browser — <code>doz ports</code>, <code>doz open</code></span></a></li>
 <li><a href="signing-in-from-a-sandbox"><span class="n" data-gen>11</span><b>Signing in from a sandbox</b><span>let a tool in a sandbox sign in through your Mac&#x27;s browser</span></a></li>
 <li><a href="github"><span class="n" data-gen>18</span><b>GitHub as you</b><span>let git and gh in a sandbox use your GitHub login — read-only or with push — without the token entering it</span></a></li>
-<li><a href="the-tools-layer"><span class="n" data-gen>19</span><b>The tools layer</b><span>know which tools Dozable puts in a sandbox for its settings (gh, the ssh client, tmux …) and check them</span></a></li>
+<li><a href="the-tools-layer"><span class="n" data-gen>19</span><b>Managed tools</b><span>know which tools Dozable manages in a sandbox for its settings (gh, the ssh client, tmux …) and check them</span></a></li>
+<li><a href="dotfiles"><span class="n" data-gen>31</span><b>Your dotfiles</b><span>have your shell setup (your dotfiles repository, or a folder on your Mac) in every sandbox — what runs, what is never touched, trust, <code>doz dotfiles</code></span></a></li>
 <li><a href="workspace-rules"><span class="n" data-gen>20</span><b>Workspace rules</b><span>keep the agent out of some files in your shared folder (<code>.dozignore</code>), or let it read but not change them (<code>.dozreadonly</code>)</span></a></li>
 <li><a href="the-workspace-view"><span class="n" data-gen>21</span><b>The workspace view</b><span><code>dozview</code>, the small program in the sandbox every workspace goes through: why (programs keep their folder across a wake), what it costs, <code>workspace.view</code>, the rules it enforces, its two processes, sleep and wake, how to look inside.</span></a></li>
 <li><a href="prompts-for-your-agent"><span class="n" data-gen>22</span><b>Prompts for your agent</b><span>prompts to paste into Claude Code, Codex or Cursor on your Mac: install, set up, and three uses — a risky change, jailing an untrusted agent, a project with secrets</span></a></li>
@@ -144,12 +152,14 @@
 <li><a href="settings-reference"><span class="n" data-gen>15</span><b>Settings reference</b><span>look up any setting, its default and when it applies</span></a></li>
 <li><a href="security-model"><span class="n" data-gen>16</span><b>Security model</b><span>understand what protects your Mac, and what doesn&#x27;t</span></a></li>
 <li><a href="troubleshooting-and-faq"><span class="n" data-gen>17</span><b>Troubleshooting and FAQ</b><span>fix something, or find a quick answer</span></a></li>
-<li><a href="audio-experimental"><span class="n" data-gen>23</span><b>Audio sandboxes (EXPERIMENTAL)</b><span>try a sandbox with your Mac&#x27;s microphone and speakers</span></a></li>
+<li><a href="sound"><span class="n" data-gen>23</span><b>Sound</b><span>give a sandbox your Mac&#x27;s speakers, and its microphone</span></a></li>
+<li><a href="sessions-on-this-mac"><span class="n" data-gen>34</span><b>Sessions on this Mac</b><span>run a program on the Mac itself (Xcode, the Simulator, your Keychain) held like a sandbox&#x27;s session — <code>doz run @mac</code> — and know that nothing isolates it</span></a></li>
+<li><a href="bundling-doz-in-an-app"><span class="n" data-gen>33</span><b>Bundling doz in an app</b><span>(app authors only) carry the helper build of <code>doz</code> inside your Mac app and drive it over <code>host.sock</code></span></a></li>
 </ul>
 <h2 id="conventions">Conventions<a class="anchor" href="#conventions" aria-label="Link to this section">#</a></h2>
 <ul>
 <li>Commands are shown as you type them: <code>doz up</code>. <code>NAME</code> is a sandbox&#x27;s name; <code>my-app</code> is an example.</li>
-<li>Every command takes <code>--json</code> (machine-readable output), <code>--store DIR</code>, <code>-v</code> (every step) and <code>-q</code> (no progress). <code>doz help COMMAND</code> shows a command&#x27;s options.</li>
+<li>Every command takes <code>--json</code> (machine-readable output), <code>--store DIR</code>, <code>-v</code> (every step), <code>-q</code> (no progress) and <code>--no-color</code> (or <code>--color auto|always|never</code>; the lasting switch is the setting <code>ui.color</code>). <code>doz help COMMAND</code> shows a command&#x27;s options.</li>
 <li>Settings are named <code>section.name</code>, like <code>sandbox.clipboard</code>; see the <a href="settings-reference">Settings reference</a>.</li>
 <li>Screenshots use the light theme; the dashboard follows your Mac&#x27;s appearance.</li>
 </ul>

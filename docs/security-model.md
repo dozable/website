@@ -4,7 +4,7 @@ description: "Dozable's job is to let an AI agent work freely — install things
 url: https://dozable.com/docs/security-model
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-19
+updated: 2026-11-13
 chapter: 16
 ---
 # Security model
@@ -37,6 +37,11 @@ proxy, in the host on your Mac, which checks every connection — DNS included �
   They warn before you turn them on. Prefer `site:HOST` for what's really needed.
 - `--network nat` gives a sandbox a real network card, **not filtered or logged**; `--network none`
   gives it none. Use `nat` only when you mean it.
+- **Your Mac's localhost is never reachable** through the proxy (`127.0.0.1`, `localhost`, `::1`), whatever
+  the permissions — Open included: what listens there (a database, a dev server, another sandbox's web
+  port) expects only your Mac's own programs. The one exception is chosen per sandbox: a model server on
+  your Mac, by its port, reached as `mac.dozable.internal:PORT` — that port only
+  ([Claude Code with other models](https://dozable.com/docs/claude-code-other-models.md)).
 
 ### 3. Credentials never enter the sandbox
 
@@ -110,13 +115,15 @@ the agent install what it needs. Turn it off with `sandbox.agent_sudo` if you pr
   **Choose…** opens your Mac's own folder picker, and the folder you pick there is what is saved
   (never a folder inside the store, never `/`).
 - A dashboard link is a key: don't paste it anywhere.
-- `doz serve` (the dashboard for your other devices — [its page](https://dozable.com/docs/doz-serve.md)) is a separate process you
-  start yourself. A browser needs an invite to get in (a link, a code or a QR code — one browser each, five
-  minutes) and stays in until you remove it; every request's host and origin are checked against this Mac's names
-  and addresses (or your proxy's address, only from a proxy you named in `serve.trusted_proxies`); keys and
-  tokens are never taken over plain HTTP; and a sandbox can never reach it — a sandbox network's connection is
-  dropped, and the proxy refuses the dashboards' ports on your Mac's own addresses. What other browsers do is in
-  `doz serve log`.
+- The dashboard's LAN option (`doz ui --lan`, `ui.lan` — the dashboard for your other devices,
+  [its page](https://dozable.com/docs/doz-serve.md)) is off until you turn it on, on the Mac. Only a connection from this Mac to
+  `127.0.0.1:<port>` exactly, with no proxy in between, is your Mac's own browser (signed in by the link); any
+  other browser needs an invite to get in (a link, a code or a QR code — one browser each, five minutes) and stays
+  in until you remove it; every request's host and origin are checked against this Mac's names and addresses (or
+  your proxy's address, only from a proxy you named in `serve.trusted_proxies`); another browser can never type a
+  key or token over plain HTTP nor open a window on the Mac's screen; and a sandbox can never reach it — a sandbox
+  network's connection is dropped before anything is read, and the proxy refuses the dashboard's port on your Mac's
+  own addresses. What other browsers do is in `doz ui log`.
 
 ## The bridges — deliberate ways in to your Mac
 
@@ -151,6 +158,9 @@ fully resolved path.
 - **Image preparation** runs in a temporary VM with the `bake` permissions (package registries only),
   logged like any sandbox.
 - **Keep-alive**, when you turn it on, runs your Mac's own `claude` once near expiry.
+- **Sessions on this Mac** (`doz run @mac`) are not in a sandbox at all: the program runs as you, with your files,
+  Keychain and network, and nothing of this page applies to it. Dozable never bypasses an agent's permissions there
+  unless the command you gave asks, and then says so. See [Sessions on this Mac](https://dozable.com/docs/sessions-on-this-mac.md).
 
 ## What leaves your Mac
 
@@ -191,5 +201,5 @@ fully resolved path.
 | `sandbox.ssh_agent` | `off` | Forward your Mac's ssh-agent (github.com:22 only). |
 | `sandbox.agent_sudo` | `true` | The agent's sudo inside its sandbox. |
 | `ui.allow_secret_entry` | `true` | The dashboard may take a key or token. |
-| `claude.permissions` | `skip` | Claude Code's own permission prompts (`ask` to keep them). |
+| `recipes.anthropic.claude-code.approvals` | `skip` | Claude Code's own permission prompts (`ask` to keep them). |
 | `telemetry.send_anonymous_usage_stats` | `true` | Official builds: anonymous usage statistics (`false`, or `DO_NOT_TRACK=1`, turns them off). |

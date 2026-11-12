@@ -4,7 +4,7 @@ description: "OpenAI's Codex runs in a Dozable sandbox the way Claude Code does:
 url: https://dozable.com/docs/codex
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-19
+updated: 2026-11-13
 chapter: 24
 ---
 # Codex
@@ -42,8 +42,8 @@ offers only OpenAI accounts; an OpenAI key can be typed in the masked field.
 - `codex` is Node.js · Codex; any other base is `<base>-codex` (`python-codex`, `go-codex`,
   `alpine-codex`, or your Dockerfile's): `doz create my-app --agent codex --base python`.
 - Codex is installed from its official linux-arm64 build (a single static program, the same on Debian
-  and Alpine), checked against the integrity the npm registry publishes. `images.codex_version` is
-  `latest` (resolved when the image is prepared) or an exact version like `0.160.1`.
+  and Alpine), checked against the integrity the npm registry publishes. `recipes.openai.codex.version` is
+  `latest` (resolved when its image is baked) or an exact version like `0.160.1`.
 - Codex's own state (its sessions, history and settings) is `~/.codex`, on the state disk: it survives
   shutdown and reset.
 
@@ -53,14 +53,14 @@ offers only OpenAI accounts; an OpenAI key can be typed in the masked field.
 
 - runs Codex with **approvals and Codex's own Linux sandbox off**
   (`--dangerously-bypass-approvals-and-sandbox`): the VM, the network permissions and the absent
-  credentials are the boundary. Set `codex.permissions` to `ask` (or run
+  credentials are the boundary. Set `recipes.openai.codex.approvals` to `ask` (or run
   `doz run NAME -e DOZ_CODEX_PERMISSIONS=ask -- codex`) to keep Codex's own approvals; `codex` run as
   root always keeps them;
 - marks the working folder trusted in `~/.codex/config.toml` (only when that folder has no entry
   there — your own choice is kept), so there is no trust screen;
 - turns off Codex's update check (the image decides its version);
-- gives Codex the sandbox's **facts** as its developer instructions, and the **`dozer` skill** in
-  `~/.agents/skills/dozer/SKILL.md` ([Agents and accounts](https://dozable.com/docs/agents-and-accounts.md)). Your
+- gives Codex the sandbox's **facts** as its developer instructions, and the **`doz` skill** in
+  `~/.agents/skills/doz/SKILL.md` ([Agents and accounts](https://dozable.com/docs/agents-and-accounts.md)). Your
   `AGENTS.md` files are never touched.
 
 `codex exec`, `codex resume` and `codex fork` get the same; `codex login`, `codex mcp` and the other
@@ -85,7 +85,7 @@ Code sandboxes use the Mac's Claude login.
   while the app (or any `codex` session) runs, sandboxes stay signed in. A renewal reaches open sandboxes
   at their next request. With nothing running it expires, and Codex in a sandbox says: "your Mac's Codex
   login has expired — run codex on the Mac, or turn on the keep-alive". Never another account.
-- **Keep-alive** (off by default): `doz config set codex.keep_alive true`. When the token is about to
+- **Keep-alive** (off by default): `doz config set --agent codex keep_alive true`. When the token is about to
   expire and a sandbox used it in the last 15 minutes, Dozable runs this Mac's own `codex doctor` once —
   no model call — which renews the login the way Codex itself does.
 - **Not supported yet:** a Codex that keeps its login in the keyring (`cli_auth_credentials_store =
@@ -140,25 +140,26 @@ doz account rm chatgpt                     # also deletes its keychain item
 ```
 
 The store has two defaults: the Anthropic one (`mac` out of the box) for Claude Code and pi, and the
-OpenAI one (none until you choose) for Codex. `doz onboard` asks about Codex's account when you choose
-the codex image (or `doz onboard --openai-account chatgpt|openai-key|later`).
+OpenAI one (none until you choose) for Codex. `doz onboard`'s Models & keys step shows whether Codex
+is signed in on this Mac, and takes an `openai` key or (official builds) `chatgpt` — or `doz onboard
+--openai-account mac|chatgpt|openai-key|later`.
 
 ## Settings
 
 | key | default | what it does |
 |---|---|---|
-| `images.codex_version` | `latest` | The Codex version an image is prepared with. |
-| `codex.permissions` | `skip` | Codex's own approvals and sandbox in a sandbox: `skip` or `ask`. |
-| `codex.keep_alive` | `false` | Renew this Mac's Codex login near expiry (`codex doctor`) while a sandbox uses it. |
-| `images.codex.memory_mib` · `images.codex.network` | 2048 · `agent` | A new Codex sandbox's memory and network. |
+| `recipes.openai.codex.version` | `latest` | The Codex version its image is baked with. |
+| `recipes.openai.codex.approvals` | `skip` | Codex's own approvals and sandbox in a sandbox: `skip` or `ask`. |
+| `recipes.openai.codex.keep_alive` | `false` | Renew this Mac's Codex login near expiry (`codex doctor`) while a sandbox uses it. |
+| `recipes.openai.codex.memory_mib` · `recipes.openai.codex.network` | 2048 · `agent` | A new Codex sandbox's memory and network. |
 
 ## Troubleshooting
 
 | symptom | what to do |
 |---|---|
 | Codex says Dozable's sign-in has ended | `doz account add NAME --chatgpt --force` on your Mac; open sessions recover by themselves. |
-| "your Mac's Codex login has expired" | Run `codex` on the Mac (any prompt), or `doz config set codex.keep_alive true`. |
+| "your Mac's Codex login has expired" | Run `codex` on the Mac (any prompt), or `doz config set --agent codex keep_alive true`. |
 | "Codex needs an OpenAI account" when creating | `doz account add chatgpt --chatgpt` (or `--openai-key`), then `doz account default NAME` or `--account NAME`. |
 | The sign-in's port is in use | Another sign-in (`codex login` on your Mac) is waiting — finish or cancel it, then try again. |
-| Codex asks for approval for every command | `codex.permissions` is `ask`, or Codex runs as root. |
+| Codex asks for approval for every command | `recipes.openai.codex.approvals` is `ask`, or Codex runs as root. |
 | Codex can't reach a site | It's the network permissions: `doz net NAME` shows them; ask for the one it needs. |

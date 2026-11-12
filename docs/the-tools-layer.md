@@ -1,27 +1,29 @@
 ---
-title: "The tools layer — Dozable docs"
+title: "Managed tools — Dozable docs"
 description: "Some settings need a tool inside the sandbox to be useful: \"GitHub as you\" is best with gh, SSH agent forwarding needs an ssh client and GitHub's host keys, tmux sessions need tmux."
 url: https://dozable.com/docs/the-tools-layer
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-19
+updated: 2026-11-13
 chapter: 19
 ---
-# The tools layer
+# Managed tools
 
 Some settings need a tool inside the sandbox to be useful: "GitHub as you" is best with `gh`, SSH agent
 forwarding needs an ssh client and GitHub's host keys, tmux sessions need tmux. Dozable puts them there for
-you — the **tools layer**: the tools Dozable manages in each sandbox, chosen by its settings. It works on
-every base (Debian, Ubuntu, Alpine, your own Dockerfile) and never rebuilds an image.
+you — the **managed tools**: tools Dozable supports natively, each chosen by its own settings, added to each
+sandbox and never baked into an image. They support the agent a sandbox runs (its recipe's); they are not
+it. It works on every base (Debian, Ubuntu, Alpine, your own Dockerfile) and never rebuilds an image.
+(`doz tools`, `doz doctor` and Resources still call them the *tools layer*.)
 
-## Tools Dozable provides
+## Tools Dozable manages
 
 | tool | when | how it gets there |
 |---|---|---|
 | `gh` (GitHub CLI) | **GitHub as you** is on | downloaded **once** to this Mac (a pinned version, its sha256 checked), then copied into the sandbox — the sandbox's network is not used. Removed again when GitHub as you is turned off. |
 | ssh client | **SSH agent forwarding** is on | `apt` or `apk`, through the proxy, when the image lacks it |
 | github.com's host keys | **SSH agent forwarding** is on | GitHub's published keys, built into Dozable, written to `/etc/ssh/ssh_known_hosts` — so `ssh -T git@github.com` never asks "are you sure?". Removed when forwarding is turned off. |
-| `tmux` | **sessions.tmux** is on | `apt` or `apk`, through the proxy, when missing |
+| `tmux` 3.8 | **sessions.tmux** is on | **built into Dozable** (a static build, from source files whose checksums are pinned), copied into the sandbox — no download, and the same tmux on every base, whatever the distribution ships (Debian 12 has 3.3a, Ubuntu 24.04 and Alpine 3.20 have 3.4). Kept when you turn tmux off: a session still running in it is ended with it. |
 | `git`, `curl`, ca-certificates | always | `apt` or `apk`, through the proxy, when missing (every Dozable image already has them; a plain lab sandbox may not) |
 
 `gh` lives at `/usr/local/lib/doz/bin/gh` (first on every session's `PATH`) and is linked as
@@ -29,9 +31,14 @@ every base (Debian, Ubuntu, Alpine, your own Dockerfile) and never rebuilds an i
 It is signed in through the same placeholder as git: `gh auth status` shows your login, and `gh repo
 view`, `gh pr list` and the rest work — read-only unless **Push to GitHub** is on.
 
+Dozable's `tmux` lives at `/usr/local/lib/doz/bin/tmux` and is linked as `/usr/local/bin/tmux` unless something
+else is already there, so `tmux ls` or `tmux attach` in a sandbox talks to a session's tmux with the same version.
+The image's own tmux (the one in `/usr/bin`) is left as it is. A session that was already running in it when
+Dozable's tmux arrived keeps it until it ends.
+
 ## When it runs
 
-- **The first start** of a sandbox sets the layer up and shows each tool as a step (on a terminal with `-v`, or with
+- **The first start** of a sandbox sets its managed tools up and shows each as a step (on a terminal with `-v`, or with
   `--progress plain`; by default only a tool that fails is shown):
 
   ```
@@ -47,7 +54,7 @@ view`, `gh pr list` and the rest work — read-only unless **Push to GitHub** is
 - **In the dashboard's New sandbox wizard**, the last step is **Setting up tools**: each tool with why it
   is there, the start's progress, then ✓ or ✗. A failure never stops you — **Retry**, or **Continue
   anyway**, then **Open the sandbox**.
-- **Every later start and wake** checks the layer again, quietly: a setting you turned on while the
+- **Every later start and wake** checks them again, quietly: a setting you turned on while the
   sandbox slept is delivered then, one you turned off is removed. You see a notice only when something
   changed or failed. Changing a setting while the sandbox runs applies at once.
 - **Never fatal.** An offline Mac, a refused download or a package mirror that doesn't answer is a ✗ with
@@ -74,11 +81,11 @@ safe: it is downloaded again the next time a sandbox needs it).
 
 ## Limits and notes
 
-- gh is pinned (2.102.0) and updated with Dozable, not by itself.
+- gh is pinned (2.102.0) and updated with Dozable, not by itself. So is tmux (3.8).
 - Packages come from your image's own mirrors (Debian, Ubuntu, Alpine) — allowed by the **Install
   software › System packages** permission, on in Standard. With a network that can't reach them
   (`--network none`), a missing package is reported, not installed.
-- Images are never rebuilt for the layer, and preparing an image never runs it: what an image holds stays
+- Images are never rebuilt for the managed tools, and baking an image never adds them: a baked image holds
   exactly its recipe.
 
 See also: [GitHub as you](https://dozable.com/docs/github.md), [Terminals and sessions](https://dozable.com/docs/terminals-and-sessions.md),

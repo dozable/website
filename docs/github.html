@@ -67,16 +67,20 @@
 <li><a href="doz-serve">The dashboard on other devices</a></li>
 <li><a href="images-and-bases">Images and bases</a></li>
 <li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents">More agents</a></li>
 <li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex">Codex</a></li>
 <li><a href="web-ports">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github" aria-current="page">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
@@ -90,9 +94,10 @@
 <li><a href="settings-reference">Settings reference</a></li>
 <li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -143,7 +148,7 @@
 <li><code>off</code>: never, even with the permission on.</li>
 </ul></li>
 <li><strong>Your identity</strong> — your <code>user.name</code> and <code>user.email</code> from the Mac&#x27;s global git config are copied into the sandbox&#x27;s git config (they&#x27;re not secrets), so the agent&#x27;s commits are yours. They&#x27;re gone when you turn the permission off.</li>
-<li><strong><code>gh</code> is installed for you</strong> — part of the <a href="the-tools-layer">tools layer</a>: while GitHub as you is on, Dozable copies the GitHub CLI into the sandbox (downloaded once to your Mac, a pinned version whose sha256 is checked; on any base, without the sandbox&#x27;s network). It is removed when you turn the permission off.</li>
+<li><strong><code>gh</code> is installed for you</strong> — one of the <a href="the-tools-layer">managed tools</a>: while GitHub as you is on, Dozable copies the GitHub CLI into the sandbox (downloaded once to your Mac, a pinned version whose sha256 is checked; on any base, without the sandbox&#x27;s network). It is removed when you turn the permission off.</li>
 </ul>
 <h2 id="gh-in-the-sandbox">gh in the sandbox<a class="anchor" href="#gh-in-the-sandbox" aria-label="Link to this section">#</a></h2>
 <p><code>gh</code> needs no login of its own: it reads <code>GH_TOKEN</code>, the placeholder, and the proxy does the rest.</p>
@@ -185,7 +190,7 @@ doz key rm my-app --github</code></pre></figure>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz config set --sandbox my-app sandbox.ssh_agent on    <span class="c"># or doz create --ssh-agent on, ssh_agent: on in doz_project.yaml</span>
 doz config set --sandbox my-app sandbox.ssh_agent off</code></pre></figure>
 <p>While it&#x27;s on, sessions get <code>SSH_AUTH_SOCK</code>, and the network allows <code>github.com:22</code> — nothing else over SSH. You&#x27;re told the first time it&#x27;s used. Your Mac needs a running ssh-agent with a key in it (<code>ssh-add -l</code> on the Mac). For every new sandbox: the Access step, or <code>doz access set --ssh-agent on</code> — it&#x27;s confirmed by asking your agent for its keys (&quot;the ssh-agent has 2 keys&quot;).</p>
-<p>The <a href="the-tools-layer">tools layer</a> makes SSH work on any base:</p>
+<p>The <a href="the-tools-layer">managed tools</a> make SSH work on any base:</p>
 <ul>
 <li>an <strong>ssh client</strong> is installed (<code>openssh-client</code>, with <code>apt</code> or <code>apk</code> through the proxy) when the image has none;</li>
 <li><strong>github.com&#x27;s host keys</strong> — the ones GitHub publishes, built into Dozable — are written to <code>/etc/ssh/ssh_known_hosts</code>, so the first <code>ssh -T git@github.com</code> or <code>git clone git@github.com:…</code> never asks &quot;Are you sure you want to continue connecting?&quot; and never trusts a key it was handed. Both go again when forwarding is turned off (the keys file keeps anything else in it).</li>
@@ -193,7 +198,7 @@ doz config set --sandbox my-app sandbox.ssh_agent off</code></pre></figure>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>ssh -T git@github.com     <span class="c"># Hi you! You&#x27;ve successfully authenticated…</span>
 git clone git@github.com:OWNER/REPO.git</code></pre></figure>
 <h2 id="what-the-agent-is-told">What the agent is told<a class="anchor" href="#what-the-agent-is-told" aria-label="Link to this section">#</a></h2>
-<p>One line in its facts — that <code>git</code> and <code>gh</code> are signed in as you, read-only or with push, and to use HTTPS remotes (and SSH, when the agent is forwarded) — and the details in its <code>dozer</code> skill. The line says when <code>gh</code> was installed by Dozable (or, if it could not be, why), and that the ssh client and github.com&#x27;s host keys are in place.</p>
+<p>One line in its facts — that <code>git</code> and <code>gh</code> are signed in as you, read-only or with push, and to use HTTPS remotes (and SSH, when the agent is forwarded) — and the details in its <code>doz</code> skill. The line says when <code>gh</code> was installed by Dozable (or, if it could not be, why), and that the ssh client and github.com&#x27;s host keys are in place.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="anchor" href="#troubleshooting" aria-label="Link to this section">#</a></h2>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Troubleshooting"><table>
 <thead><tr><th scope="col">symptom</th><th scope="col">what to do</th></tr></thead>
@@ -206,14 +211,14 @@ git clone git@github.com:OWNER/REPO.git</code></pre></figure>
 <tbody>
 <tr><td><code>defaults.github</code></td><td><code>off</code></td><td>&quot;GitHub as you&quot; for new sandboxes: <code>off</code>, <code>read</code> or <code>push</code> (the Access step).</td></tr><tr><td><code>github.credentials</code></td><td><code>gh</code></td><td>Where your GitHub login comes from: <code>gh</code>, <code>key</code> or <code>off</code>.</td></tr><tr><td><code>sandbox.ssh_agent</code></td><td><code>off</code></td><td>Forward your Mac&#x27;s ssh-agent (github.com:22 only). Per sandbox too.</td></tr>
 </tbody></table></div>
-<p>See also: <a href="the-tools-layer">The tools layer</a>, <a href="permissions-and-network">What the agent can do</a>, <a href="security-model">Security model</a>.</p>
+<p>See also: <a href="the-tools-layer">Managed tools</a>, <a href="permissions-and-network">What the agent can do</a>, <a href="security-model">Security model</a>.</p>
 <!-- /manual text -->
 </div>
 <ul class="pager">
 <li class="prev"><a href="troubleshooting-and-faq" rel="prev"><small>&larr; Previous</small><b>Troubleshooting and FAQ</b></a></li>
-<li class="next"><a href="the-tools-layer" rel="next"><small>Next &rarr;</small><b>The tools layer</b></a></li>
+<li class="next"><a href="the-tools-layer" rel="next"><small>Next &rarr;</small><b>Managed tools</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/18-github.md">Edit this page on GitHub</a> &middot; Chapter 18 of 29</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/18-github.md">Edit this page on GitHub</a> &middot; Chapter 18 of 34</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">

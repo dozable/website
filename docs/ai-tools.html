@@ -67,16 +67,20 @@
 <li><a href="doz-serve">The dashboard on other devices</a></li>
 <li><a href="images-and-bases">Images and bases</a></li>
 <li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents">More agents</a></li>
 <li><a href="ai-tools" aria-current="page">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex">Codex</a></li>
 <li><a href="web-ports">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
@@ -90,9 +94,10 @@
 <li><a href="settings-reference">Settings reference</a></li>
 <li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -143,6 +148,9 @@
 </details>
 <div class="prose">
 <!-- manual text -->
+<blockquote class="note">
+<p><strong>Unpublished for now.</strong> Every tool on this page is unpublished in this version of Dozable: in no list, and <code>doz try fabric</code> (or <code>doz new</code>, <code>doz create</code>) says so. So is the <strong>Vercel AI Gateway</strong>: OpenRouter is the gateway offered now (<code>--gateway openrouter</code>). A sandbox you already made with one, and a Vercel key you already added, keep working. The rest of this page describes them as they work when published.</p>
+</blockquote>
 <p>Beside the coding agents, Dozable runs AI tools that are not coding agents: command-line tools that answer a prompt, prompt toolkits, agent frameworks. Each is tried like an agent (<code>doz try TOOL</code>) and uses an <strong>API key</strong> of a provider or a <strong>gateway</strong> Dozable offers. The key stays on your Mac; the sandbox only gets a placeholder, which Dozable&#x27;s proxy swaps for the key on the way out, and only to that provider&#x27;s or gateway&#x27;s own API.</p>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz try fabric                                  <span class="c"># Fabric, on its default (a Google AI key)</span>
 doz try shell-gpt --provider openai             <span class="c"># ShellGPT on an OpenAI key</span>
@@ -284,7 +292,7 @@ doz models --provider xai                     <span class="c"># a provider: the 
 <ul>
 <li><strong>Installed</strong> from the project&#x27;s own linux-arm64 release on GitHub, checked against the SHA-512 Dozable recorded when it pinned the release. Debian, Node and Alpine bases.</li>
 <li><strong>Key:</strong> Google AI (default: <code>doz account add google --provider google</code>; get one at <a href="https://aistudio.google.com/apikey">https://aistudio.google.com/apikey</a>), Anthropic, OpenAI, xAI or OpenRouter — its own vendors. Dozable sets <code>DEFAULT_VENDOR</code> and <code>DEFAULT_MODEL</code> for the choice (over the ones in <code>~/.config/fabric/.env</code>, written only when not there yet).</li>
-<li><strong>Patterns</strong> come with it: its release&#x27;s some 260 patterns, checksum-verified when the image is prepared, in <code>/opt/fabric/patterns</code> (<code>CUSTOM_PATTERNS_DIRECTORY</code>) — <code>fabric -l</code> lists them; <code>fabric -U</code> (from GitHub) is not needed.</li>
+<li><strong>Patterns</strong> come with it: its release&#x27;s some 260 patterns, checksum-verified when its image is baked, in <code>/opt/fabric/patterns</code> (<code>CUSTOM_PATTERNS_DIRECTORY</code>) — <code>fabric -l</code> lists them; <code>fabric -U</code> (from GitHub) is not needed.</li>
 <li><strong>Use:</strong> <code>echo &quot;some text&quot; | fabric &quot;summarise this&quot;</code>, <code>cat notes.txt | fabric -p summarize</code> — or the sandbox page&#x27;s Guide.</li>
 <li><strong>May reach:</strong> those providers&#x27; APIs.</li>
 <li><strong>Its REST API:</strong> run <code>fabric --serve</code> in a session; the sandbox&#x27;s <strong>Open Fabric REST API</strong> button (or <code>doz open NAME</code>) opens its API reference in your Mac&#x27;s browser — see <a href="web-ports">Web ports</a>.</li>
@@ -305,7 +313,7 @@ doz models --provider xai                     <span class="c"># a provider: the 
 <li class="prev"><a href="more-agents" rel="prev"><small>&larr; Previous</small><b>More agents: Antigravity CLI, Grok Build, OpenCode, GitHub Copilot CLI, Qwen Code, Goose, Kilo Code CLI, Mistral Vibe, Factory Droid, Dirac, Kimi Code, Cline CLI, OpenHands CLI, Letta Code, Docker Agent, Nanocoder, mini-swe-agent, Open Interpreter, Crush, MiMo Code, CodeWhale, Maki, oh-my-pi, Tau, Gemini CLI</b></a></li>
 <li class="next"><a href="web-ports" rel="next"><small>Next &rarr;</small><b>Web ports: opening a sandbox&#x27;s web page on your Mac</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/28-ai-tools.md">Edit this page on GitHub</a> &middot; Chapter 28 of 29</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/28-ai-tools.md">Edit this page on GitHub</a> &middot; Chapter 28 of 34</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">

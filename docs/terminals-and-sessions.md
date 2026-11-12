@@ -4,7 +4,7 @@ description: "A session is a terminal program running inside a sandbox: a shell,
 url: https://dozable.com/docs/terminals-and-sessions
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-19
+updated: 2026-11-13
 chapter: 7
 ---
 # Terminals and sessions
@@ -39,6 +39,8 @@ doz run my-app -d --session worker -- bash -lc 'make watch'    # start one in th
 doz sessions my-app               # list them
 doz sessions restart my-app codex # end its program and start it again (an agent continues its conversation)
 doz sessions end my-app worker    # end its program
+doz sessions send my-app worker --text 'make test' --enter   # type into a session, from a script
+doz sessions screen my-app worker # what its screen shows now
 doz exec my-app -- ls /workspace  # a one-off command: no terminal, output and exit code pass through
 ```
 
@@ -77,6 +79,79 @@ doz cp my-app:/workspace/report.md .      # the Docker spelling: NAME:PATH on on
   holding a link that points outside it is not copied, either way (the copy says which link).
 - A large copy shows its progress; `--json` gives the result as data.
 
+### Looking at the files: `doz files`
+
+```sh
+doz files my-app                 # /workspace: kind, size, modified, name (a link with its target)
+doz files my-app src             # a folder in it (relative to /workspace, or /workspace/src)
+doz files my-app src --watch     # then a line each time that folder's listing changes (Ctrl-C stops)
+```
+
+- **A shared workspace is read on your Mac**, whatever the sandbox is doing: nothing is started or woken,
+  and no Dozable host is started to answer. It shows what the sandbox sees: with
+  [workspace rules](https://dozable.com/docs/workspace-rules.md) a hidden name is not there, a locked one is listed as
+  `locked`, a read-only one is marked `read-only`. A link is shown with its target and never followed; a
+  folder through a link (or `..`) that leads outside the shared folder is not listed.
+- **`--watch`** watches the folder on your Mac: a quarter of a second of changes is one line, whether the
+  change was made on the Mac or inside the sandbox. Nothing is watched inside the sandbox, so a sleeping
+  sandbox stays asleep. `--json` gives the list, or one JSON line per change.
+- **An isolated sandbox** keeps its files on its own disk: they are listed from inside it while it runs (as
+  the image's user) and never watched — list again to see what changed. While it is asleep or off it is not
+  woken to answer; start it first.
+
+### Changing the files: `doz files mkdir|new|mv|rename|rm|open`
+
+```sh
+doz files mkdir my-app notes            # a new, empty folder (its parent must be there)
+doz files new my-app notes/todo.md      # a new, empty file
+doz files rename my-app notes/todo.md plan.md
+doz files mv my-app notes/plan.md docs/plan.md
+doz files rm my-app old.txt             # asks first (--yes does not); a folder with anything in it needs -r
+doz files open my-app docs/index.html   # on your Mac, in its default app; --reveal shows it in the Finder
+doz files open my-app                   # the workspace in the Finder
+doz files open my-app --app cursor      # the workspace in your editor (a folder or a file in it too)
+doz files editors                       # the editors --app can use on this Mac
+```
+
+- **Nothing is ever replaced**: a new file, a new folder or a move to a name that is there is refused.
+  `/workspace` itself is never renamed, moved or deleted, and a folder never goes into itself.
+- **A shared workspace is changed on your Mac**, in any state of the sandbox — nothing is started or woken,
+  and no Dozable host is started for it. Only the shared folder is touched: a link is never followed (deleting
+  a link deletes the link, never what it points to) and a path that leads outside the shared folder is
+  refused. The [workspace rules](https://dozable.com/docs/workspace-rules.md) apply as in the sandbox: a hidden item is not there,
+  a locked or read-only one is not changed, a new name the rules would hide, lock or make read-only is
+  refused, and a folder holding something the rules protect is not moved or deleted.
+- **An isolated sandbox** is changed from inside, as the image's user, while it runs; asleep or off it is
+  refused (and stays as it is).
+- **`open`** follows the rules of the agent’s own opening ([Opening workspace files on your Mac](#opening-workspace-files-on-your-mac)):
+  `sandbox.open_files` on, documents only, never a program; a folder opens in the Finder. An isolated
+  sandbox's files are inside it — `doz get` copies one out.
+- **`open --app EDITOR`** opens the workspace — or a folder or a file in it — in an editor: one Dozable knows
+  that is installed on this Mac (`vscode`, `cursor`, `zed`, `windsurf`, `xcode`, `sublime`, `nova`, `bbedit`,
+  `intellij`, `pycharm`, `webstorm`, `goland`, `textmate` — its id or its name, `"Visual Studio Code"`), or an
+  app you listed in `bridges.open_apps`. An editor opens text, so any file that is not a program opens; never an
+  executable, a script (`#!`), an app or an installer. The workspace rules, `sandbox.open_files` and isolation
+  apply as above. `doz files editors` lists what `--app` takes here.
+
+### The Files tab
+
+The sandbox page's details have a **Files** tab: the tree of `/workspace`. A folder opens on a click (or
+→, Enter); while the tab is shown, open folders are watched, so a change made on the Mac or inside the
+sandbox appears by itself (an isolated sandbox: Refresh). Which folders are open is kept per sandbox, so a
+reload, another browser or a restarted `doz ui` shows the same ones open. The head's buttons make a file or a
+folder in the selected folder; each row's ⋯ opens it on the Mac (a folder or a file also in each editor
+installed — **Open in Cursor**, …), shows it in the Finder, copies its path,
+renames, moves or deletes it (a box to tick first) — the same rules as the commands above, and nothing done
+here starts a host or wakes the sandbox. A row dragged onto a folder is moved there. Locked and read-only
+items are marked and cannot be changed here. An isolated sandbox that is not running says so, and nothing in
+it is asked.
+
+**Open folder** (the folder icon beside Open in Terminal, on the right of the terminal strip) opens the
+whole workspace on this Mac: **Show in the Finder**, or **Open in &lt;editor&gt;** for each editor installed.
+The editor you used last comes first next time (this browser remembers it). An isolated sandbox has nothing
+on this Mac, so the button is disabled and says why; a browser on another device (`doz ui --lan`) does not
+show it.
+
 ### Restarting or ending a session
 
 `doz sessions restart NAME SESSION` ends the session's program and starts **the same program again**, in
@@ -94,6 +169,44 @@ session and returns (`--json` answers with the result) — `--attach` attaches e
 What a restart runs is what the session was opened with, as Dozable recorded it then; variables given with
 `-e` are not kept (it says so), and a session opened by an older doz cannot be restarted — end it and
 `doz run` it again.
+
+### Typing into a session and reading its screen, from a script
+
+`doz sessions send NAME SESSION` types into a session without attaching — for a script, or another agent
+driving one ([Letting another agent drive](https://dozable.com/docs/letting-another-agent-drive.md)):
+
+```sh
+doz sessions send my-app worker --text 'make test' --enter
+doz sessions send my-app claude --text "$(cat prompt.md)" --paste --enter   # a bracketed paste
+doz sessions send my-app claude --keys esc                                   # a key alone
+echo 'yes' | doz sessions send my-app worker --text - --enter                # the text from stdin
+doz sessions send my-app worker --text 'ls' --enter --then-screen            # and the screen a moment later
+```
+
+- In this order: the text, then each key of `--keys` as given (`enter`, `tab`, `esc`, `backspace`, the
+  arrows, `home`, `end`, `pgup`, `pgdn`, `ctrl-<letter>`, `f1` to `f12`), then `--enter`. At most 64 KiB.
+- It returns once the session's holder has every byte for the program's input — that proves the bytes
+  arrived, not that the program acted on them. `--then-screen` (or `--then-screen=MS`) waits and prints
+  the screen as it is then, so a script can check; with `--json` it is under `"screen"`.
+- A sleeping or hibernated sandbox is woken first (`--no-wake` refuses, exit `3`); one that is shut down
+  has no sessions (exit `3`); a session that is not there or has ended is exit `2`.
+
+`doz sessions screen NAME SESSION` prints the session's screen as it is now: its rows as text, nothing
+else (`--json` adds the cursor, the size, whether it is the primary or alternate screen, and the session's
+status). A sandbox that is asleep or hibernated is not woken: you get its last saved screen, and stderr
+says it is not live — `--wake` wakes it first and reads it live. A sandbox named `send` or `screen` is
+listed with `doz sessions ls send`.
+
+`doz sessions wait NAME SESSION --until done` waits until the session's program reports one of the states you
+name (`idle`, `working`, `done`, `blocked`, `error` — what the AGENT column shows), as a comma list or `--until`
+again: `--until idle,done,blocked,error` asks "has it stopped working?" in one call. The state now counts, so it
+returns at once when it is already there. From a script (no terminal), `doz sessions end` and
+`doz sessions restart` need `--yes` (they ask otherwise, and with no terminal to ask, refuse with exit `5`). `--timeout S` gives up after S seconds
+with exit `124`. The sandbox must be running (a wait never wakes it); only agents that report their status ever
+arrive.
+
+All of these work the same for a session on your Mac itself — `@mac` as the place — with no isolation around
+it: see [Sessions on this Mac](https://dozable.com/docs/sessions-on-this-mac.md).
 
 ### Leaving: the Ctrl-] menu
 
@@ -146,18 +259,21 @@ wakes. With `--no-wake`, `attach` waits for a sleeping sandbox instead of waking
 
 On a sandbox's page in the dashboard:
 
-- **Open** (in the empty terminal area, or a session's row in the details' **Sessions** tab) attaches
-  to a session, starting the image's own one if needed.
+- **Home**, the first tab, lists every session — the agent's as a card, the others as rows, each with
+  a small picture of its screen, live while the sandbox runs (a picture is drawn from the session's
+  screen, not a terminal of its own, so it never attaches to the session or changes its size).
+  **Open** there attaches to a session (the image's own one is started if needed).
 - **Watch** (a session's **⋯**) is read-only: nothing you type reaches the session, and it never
   resizes it.
 - On the terminals' tab strip, **New shell** starts a new shell session (`shell-2`, `shell-3`, …); its
   **▾** › **Terminal…** starts a new session — a shell, or one running a command — and **Run
   detached…** one that runs without opening here.
 - Terminals are **tabs**; **Split** shows two side by side (⇄ moves a tab across). Two tabs on one
-  session are marked "shared with tab N". Closing a tab only closes the view.
+  session are marked "shared with tab N". Closing a tab only closes the view — the session keeps
+  running; closing the agent's tab brings you to Home, which says so.
 - **All sessions** shows every session of every running sandbox as a live, read-only tile.
-- **Restart session** and **End session** are on a tab's **⋯** and on a session's **⋯** in the details'
-  **Sessions** tab (see [Restarting or ending a session](#restarting-or-ending-a-session)). Both ask first; for
+- **Restart session** and **End session** are on a tab's **⋯** and on a session's **⋯** on **Home**
+  (**End…** is on the agent's card itself) (see [Restarting or ending a session](#restarting-or-ending-a-session)). Both ask first; for
   an agent session you can choose to start a new conversation. The tab shows "Restarting the session…" and
   reattaches when the program is back, keeping what was on screen above it.
 
@@ -243,7 +359,9 @@ or the sandbox shuts down.
 Limits:
 
 - the agent's message is its own text, shown as plain text and never written to Dozable's log;
-- tmux does not pass the status through, so a session running inside tmux shows none;
+- tmux does not pass the status through, so a session running inside tmux shows none: tmux (3.8 too) drops
+  the sequence, and the agents send it plain. tmux's `allow-passthrough` would not change that — it only
+  passes on a sequence a program wraps for tmux, and Claude Code and pi don't — so Dozable leaves it off;
 - a session started before an update keeps the session keeper it started with and shows no status
   until it is restarted (`doz sessions restart NAME SESSION`).
 
@@ -333,15 +451,24 @@ Ctrl-], sleep and wake (tmux and its programs are where they were), saved screen
 status bar included), browser terminals, and the clipboard and browser bridges. Each session has a
 tmux server of its own, and reopening a session finds a program tmux still holds.
 
+It is **tmux 3.8**, on every base: Dozable brings its own (one of its [managed tools](https://dozable.com/docs/the-tools-layer.md)), so
+floating panes, the fast switcher (`Ctrl-b Tab`), auto-hiding scrollbars and `remain-on-exit failed-key`
+are there whatever tmux the image ships. tmux 3.8 also asks your terminal whether it is in light or dark
+mode and tells the programs in its panes, so an agent inside tmux picks colours for the terminal you
+attach with (Ghostty, kitty, iTerm2 and others answer; with one that doesn't, tmux guesses from its
+background colour).
+
 Limits:
 
 - tmux takes **Ctrl-b** and the mouse (in the browser, Shift+drag still selects text);
 - the kitty keyboard protocol and xterm's modifyOtherKeys don't fully pass through tmux, so a program
   that relies on them (Claude Code's richer key handling) sees less;
 - the session's exit code is tmux's (0), not the program's;
-- tmux must be in the image. The built-in images have it; on an image an older version of Dozable
-  prepared, the session runs without tmux and says how to get it (rebuild the image, then
-  `doz reset`).
+- the session's program runs in Dozable's tmux once it is in the sandbox (the first start after you turn
+  tmux on puts it there). If it is not there yet, the image's own tmux is used; with neither, the session
+  runs without tmux and says how to get it (`doz tools NAME --apply`);
+- a session that was already running in the image's tmux before Dozable's arrived keeps that tmux until it
+  ends.
 
 ## Settings
 
@@ -351,11 +478,12 @@ Limits:
 | `sandbox.clipboard` | `write` | `write`: copies reach your Mac's clipboard, with a notice. `off`: never. Per sandbox too. |
 | `sandbox.open_files` | `on` | `on`: `xdg-open PATH` opens a `/workspace` document in its app, or a folder in the Finder, on your Mac, with a notice. `off`: never. Per sandbox too. |
 | `bridges.open_apps` | `""` | The apps a sandbox may name to open a file in (`doz-open --app NAME`). Empty: default apps only. |
-| `sessions.tmux` | `false` | New sessions run inside tmux. Per sandbox too. |
+| `sessions.tmux` | `false` | New sessions run inside tmux (Dozable's tmux 3.8). Per sandbox too. |
 | `ui.terminals` | `true` | Terminals in the browser at all. |
 | `ui.terminal_font_size` | `13` | Browser terminal font size. |
 | `ui.split_default` | `shell` | What **Split** opens. |
-| `ui.grid_live_tiles` · `ui.grid_tile_size` | `8` · `medium` | All sessions' live tiles and their size. |
+| `ui.grid_tile_size` | `medium` | The size of All sessions' tiles (every tile is live; `ui.grid_live_tiles` is no longer used). |
+| `ui.grid_refresh_ms` | `500` | How often the pictures are brought up to date, in milliseconds (200–10000; lower is livelier and costs more). |
 | `host.screen_capture_minutes` | `5` | How often running sessions' screens are saved. |
 
 ## Troubleshooting

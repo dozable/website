@@ -67,16 +67,20 @@
 <li><a href="doz-serve">The dashboard on other devices</a></li>
 <li><a href="images-and-bases">Images and bases</a></li>
 <li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents">More agents</a></li>
 <li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex">Codex</a></li>
 <li><a href="web-ports">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
@@ -90,9 +94,10 @@
 <li><a href="settings-reference">Settings reference</a></li>
 <li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -108,6 +113,8 @@
 <details class="toc-m"><summary>On this page</summary>
 <ol>
 <li><a href="#concepts">Concepts</a>
+</li>
+<li><a href="#the-default">The default</a>
 </li>
 <li><a href="#see-what-the-agent-can-do">See what the agent can do</a>
 </li>
@@ -144,6 +151,9 @@
 <li><p><strong>Live.</strong> A change applies to the sandbox&#x27;s next connection — no restart — and is kept for its next start.</p></li>
 <li><p><strong>Everything is logged:</strong> host, verdict, rule, bytes. Never the contents.</p></li>
 </ul>
+<h2 id="the-default">The default<a class="anchor" href="#the-default" aria-label="Link to this section">#</a></h2>
+<p>Every new sandbox — <code>doz new</code>, <code>doz try</code>, Quick try and the setup&#x27;s First sandbox alike — starts on <strong>Standard</strong> (<code>defaults.permissions</code>). It&#x27;s the balance most agent work needs: the agent can talk to its model, update itself, install software (apt, npm, PyPI and its base&#x27;s other package managers) and use GitHub, so <code>sudo apt-get install</code> and <code>npm install</code> just work. It cannot browse the web at large, so it can&#x27;t send your code to a site you never allowed. Every refusal is on record, and the sandbox&#x27;s <strong>Network</strong> tab offers to allow it.</p>
+<p><strong>Locked</strong> (its model only) is one choice away — <code>--network locked</code>, or the Network tab — for an agent you don&#x27;t trust with anything else; <strong>Open</strong> is for when you decide the web is fine. A sandbox runs on your Mac with your project folder in it, which is why the default isn&#x27;t Open.</p>
 <h2 id="see-what-the-agent-can-do">See what the agent can do<a class="anchor" href="#see-what-the-agent-can-do" aria-label="Link to this section">#</a></h2>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz net my-app            <span class="c"># the checklist, its sites, and what it was refused lately</span>
 doz net log my-app        <span class="c"># the connection log</span>
@@ -159,7 +169,7 @@ doz net allow my-app web --yes               <span class="c"># asks first withou
 doz create my-app --allow install:rust,site:api.example.com,-error-reports</code></pre></figure>
 <p><code>--allow</code> on <code>create</code> and <code>up</code> adds to the default: permission ids, <code>-PERMISSION</code> to remove one, <code>site:HOST</code>, or a preset name.</p>
 <h2 id="change-it--in-the-dashboard">Change it — in the dashboard<a class="anchor" href="#change-it--in-the-dashboard" aria-label="Link to this section">#</a></h2>
-<p>On a sandbox&#x27;s page, the details&#x27; <strong>Network</strong> tab › <strong>What the agent can do</strong> shows the presets (<strong>Locked</strong> · <strong>Standard</strong> · <strong>Open</strong>) and the permissions as switches, with its sites below. Flip a switch and it applies at once; each permission&#x27;s <strong>hosts</strong> unfold beneath it. When the agent was refused something, a line says so — &quot;The agent tried to install Python packages (PyPI)&quot; — with <strong>Allow</strong> (or <strong>Allow this site</strong>). <strong>Browse the web</strong> asks you to confirm first. <strong>Details: the rules and hosts</strong> shows every host behind the switches, and <strong>Edit policy…</strong> edits the raw rules with a preview of exactly what changes.</p>
+<p>On a sandbox&#x27;s page, the details&#x27; <strong>Network</strong> tab › <strong>What the agent can do</strong> shows the presets (<strong>Locked</strong> · <strong>Standard</strong> · <strong>Open</strong>) and the permissions as switches, with its sites below. Flip a switch and it applies at once; each permission&#x27;s <strong>hosts</strong> unfold beneath it. When the agent was refused something, a line says so — &quot;The agent tried to install Python packages (PyPI)&quot; — with <strong>Allow</strong> (or <strong>Allow this site</strong>). A site is offered as its whole domain — the agent refused at <code>abc.frame.claudeusercontent.com</code> gets <strong>Allow claudeusercontent.com</strong> (<code>site:*.claudeusercontent.com</code>), so a service that uses a new host name for each request needs one approval, not one per address; <code>doz net allow NAME site:HOST</code> still allows a single host. <strong>Browse the web</strong> asks you to confirm first. <strong>Details: the rules and hosts</strong> shows every host behind the switches, and <strong>Edit policy…</strong> edits the raw rules with a preview of exactly what changes.</p>
 <figure class="shot"><div class="frame"><img src="images/permissions.png" alt="What the agent can do" width="1100" height="859" loading="lazy" decoding="async"></div><figcaption>What the agent can do</figcaption></figure>
 <p>New sandbox shows the same switches (preset from the base you chose), and the <strong>Settings</strong> page edits <code>defaults.permissions</code> with them.</p>
 <h2 id="the-network-kinds">The network kinds<a class="anchor" href="#the-network-kinds" aria-label="Link to this section">#</a></h2>
@@ -181,7 +191,7 @@ doz net policy my-app --preset open                     <span class="c"># replac
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Settings"><table>
 <thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>defaults.permissions</code></td><td><code>standard</code></td><td>What a new sandbox&#x27;s agent may do: <code>standard</code>, <code>locked</code>, <code>open</code>, or Standard with changes like <code>+web,-error-reports</code>.</td></tr><tr><td><code>images.claude-code.network</code> · <code>images.pi.network</code> · <code>images.lab.network</code></td><td><code>agent</code> · <code>agent</code> · <code>bake</code></td><td>The network kind of a new sandbox of each image.</td></tr><tr><td><code>defaults.nat_subnet</code></td><td>(a free one)</td><td>The subnet of a new <code>nat</code> sandbox (<code>$DOZ_SUBNET</code>).</td></tr>
+<tr><td><code>defaults.permissions</code></td><td><code>standard</code></td><td>What a new sandbox&#x27;s agent may do: <code>standard</code>, <code>locked</code>, <code>open</code>, or Standard with changes like <code>+web,-error-reports</code>.</td></tr><tr><td><code>recipes.anthropic.claude-code.network</code> · <code>recipes.earendil-works.pi.network</code> · <code>images.lab.network</code></td><td><code>agent</code> · <code>agent</code> · <code>bake</code></td><td>The network kind of a new sandbox of each image.</td></tr><tr><td><code>defaults.nat_subnet</code></td><td>(a free one)</td><td>The subnet of a new <code>nat</code> sandbox (<code>$DOZ_SUBNET</code>).</td></tr>
 </tbody></table></div>
 <h2 id="limits-and-security">Limits and security<a class="anchor" href="#limits-and-security" aria-label="Link to this section">#</a></h2>
 <ul>
@@ -203,13 +213,15 @@ doz net policy my-app --preset open                     <span class="c"># replac
 <li class="prev"><a href="agents-and-accounts" rel="prev"><small>&larr; Previous</small><b>Agents and accounts</b></a></li>
 <li class="next"><a href="signing-in-from-a-sandbox" rel="next"><small>Next &rarr;</small><b>Signing in from a sandbox</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/10-permissions-and-network.md">Edit this page on GitHub</a> &middot; Chapter 10 of 29</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/10-permissions-and-network.md">Edit this page on GitHub</a> &middot; Chapter 10 of 34</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
 <ol>
 <li><a href="#concepts">Concepts</a>
+</li>
+<li><a href="#the-default">The default</a>
 </li>
 <li><a href="#see-what-the-agent-can-do">See what the agent can do</a>
 </li>

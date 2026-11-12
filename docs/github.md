@@ -4,7 +4,7 @@ description: "An agent on your Mac uses git and gh as you: it clones your privat
 url: https://dozable.com/docs/github
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-19
+updated: 2026-11-13
 chapter: 18
 ---
 # GitHub as you
@@ -42,7 +42,7 @@ set --github read`), or for one sandbox — and **read-only** until you also all
 - **Your identity** — your `user.name` and `user.email` from the Mac's global git config are copied
   into the sandbox's git config (they're not secrets), so the agent's commits are yours. They're gone
   when you turn the permission off.
-- **`gh` is installed for you** — part of the [tools layer](https://dozable.com/docs/the-tools-layer.md): while GitHub as you is
+- **`gh` is installed for you** — one of the [managed tools](https://dozable.com/docs/the-tools-layer.md): while GitHub as you is
   on, Dozable copies the GitHub CLI into the sandbox (downloaded once to your Mac, a pinned version whose
   sha256 is checked; on any base, without the sandbox's network). It is removed when you turn the
   permission off.
@@ -145,7 +145,7 @@ over SSH. You're told the first time it's used. Your Mac needs a running ssh-age
 (`ssh-add -l` on the Mac). For every new sandbox: the Access step, or `doz access set --ssh-agent on`
 — it's confirmed by asking your agent for its keys ("the ssh-agent has 2 keys").
 
-The [tools layer](https://dozable.com/docs/the-tools-layer.md) makes SSH work on any base:
+The [managed tools](https://dozable.com/docs/the-tools-layer.md) make SSH work on any base:
 
 - an **ssh client** is installed (`openssh-client`, with `apt` or `apk` through the proxy) when the image
   has none;
@@ -162,7 +162,7 @@ git clone git@github.com:OWNER/REPO.git
 ## What the agent is told
 
 One line in its facts — that `git` and `gh` are signed in as you, read-only or with push, and to use
-HTTPS remotes (and SSH, when the agent is forwarded) — and the details in its `dozer` skill. The line says
+HTTPS remotes (and SSH, when the agent is forwarded) — and the details in its `doz` skill. The line says
 when `gh` was installed by Dozable (or, if it could not be, why), and that the ssh client and github.com's
 host keys are in place.
 
@@ -186,4 +186,4 @@ host keys are in place.
 | `github.credentials` | `gh` | Where your GitHub login comes from: `gh`, `key` or `off`. |
 | `sandbox.ssh_agent` | `off` | Forward your Mac's ssh-agent (github.com:22 only). Per sandbox too. |
 
-See also: [The tools layer](https://dozable.com/docs/the-tools-layer.md), [What the agent can do](https://dozable.com/docs/permissions-and-network.md), [Security model](https://dozable.com/docs/security-model.md).
+See also: [Managed tools](https://dozable.com/docs/the-tools-layer.md), [What the agent can do](https://dozable.com/docs/permissions-and-network.md), [Security model](https://dozable.com/docs/security-model.md).

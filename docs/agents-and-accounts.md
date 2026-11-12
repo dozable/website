@@ -4,7 +4,7 @@ description: "Dozable runs three AI coding agents out of the box — Claude Code
 url: https://dozable.com/docs/agents-and-accounts
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-19
+updated: 2026-11-13
 chapter: 9
 ---
 # Agents and accounts
@@ -14,6 +14,23 @@ gives each one the account it should use, without the secret ever entering the s
 own page: [Codex](https://dozable.com/docs/codex.md). This page covers which
 agent can use which account, how to add accounts, the agent's versions and its `sudo`, and what the
 agent is told about where it runs.
+
+## The words
+
+| word | means |
+|---|---|
+| **recipe** | the definition: how to build, launch and configure one agent (`anthropic/claude-code`). The dashboard's **Recipes › Installed** lists the ones on this Mac. |
+| **agent** | what a recipe installs and a sandbox runs: you install the Claude Code recipe and run its agent, Claude Code. |
+| a recipe's **subject** | what a recipe calls its own agent, shown beside its name — pi is a *coding harness*, Fabric an *agentic tool*. Without one it is simply an agent. |
+| **managed tools** | `gh`, tmux, the ssh client and GitHub's host keys: tools Dozable supports natively, each with its own settings, added to a sandbox and never baked — see [Managed tools](https://dozable.com/docs/the-tools-layer.md). |
+| **baked image** | base → developer base → baked image: one per base × recipe, made once and cloned for each sandbox. |
+
+A recipe on this Mac is **in use** (a sandbox runs its agent) or **installed** (a baked image of it is
+here); the rest are **available** in the catalogue (`doz search`, Quick try). `doz recipe ls --installed`
+lists the first two, and `doz recipe uninstall ID` removes a recipe's baked images (refused while a
+sandbox runs it; your settings for it are kept unless `--forget-settings`). Each recipe's settings — its
+agent's `version`, `approvals`, `memory_mib`, `network` and `history` — are in [the settings](https://dozable.com/docs/settings-reference.md)
+under `[recipes.VENDOR.PRODUCT]`.
 
 ## Concepts
 
@@ -42,7 +59,7 @@ agent is told about where it runs.
   | agent | accounts it can use |
   |---|---|
   | Claude Code | `mac`, a setup token, an API key |
-  | pi | an API key only (a Claude subscription is never given to it): Anthropic's (the default), or an OpenAI, xAI, Google AI, OpenRouter or Vercel AI Gateway key (`doz try pi --gateway openrouter`); off Anthropic, Dozable puts the model on its session's command line (`--model PROVIDER/MODEL`) |
+  | pi | an API key only (a Claude subscription is never given to it): Anthropic's (the default), or an OpenAI, xAI, Google AI or OpenRouter key (`doz try pi --gateway openrouter`); off Anthropic, Dozable puts the model on its session's command line (`--model PROVIDER/MODEL`) |
   | Codex | `mac` (this Mac's Codex login), a ChatGPT sign-in or an OpenAI API key — never an Anthropic account (and no Claude agent ever gets an OpenAI one) |
 
   This is checked **before** a sandbox is made. With no account pi can use, Dozable stops and tells you
@@ -54,10 +71,53 @@ Claude Code starts ready to work: its first-run screens are done, the working fo
 it runs without asking permission for each command (the VM and its network are the boundary). It
 also shows your real plan ("Claude Max") and picks the same default model as on your Mac.
 
-To have it ask first, set `claude.permissions` to `ask`, or for one session:
+To have it ask first, set its recipe's `approvals` to `ask` — on this Mac
+(`doz config set --agent claude-code approvals ask`), for one sandbox
+(`doz config set --sandbox NAME approvals ask`, or `doz create NAME --approvals ask`), or in a project
+(`approvals: ask` in `doz_project.yaml`) — or for one session:
 `doz run NAME -e DOZ_CLAUDE_PERMISSIONS=ask -- claude`. A `claude` run as root always asks.
 
 Inside a sandbox Claude Code never updates itself; the image decides its version (below).
+
+Dozable also keeps your Claude Code conversations — see the next section.
+
+## Conversation history
+
+Some agents delete their own old conversations: Claude Code, on its own, deletes conversations older
+than 30 days. By default Dozable keeps them — the setting **`agent.history`** is `keep`. For an agent that
+deletes by itself, Dozable writes the agent's own setting into the agent's own settings file, once, when
+the sandbox is set up (its next start or wake), and only where you have not set one: **your value is never
+changed**, and a key you delete or change yourself is left as you made it. Nothing is rebuilt. A file
+Dozable cannot read (a hand edit that is not valid JSON or TOML) is never written.
+
+What each value does in each agent:
+
+| agent | `keep` (the default) | `agent-default` |
+|---|---|---|
+| Claude Code | sets `cleanupPeriodDays = 36500` in `~/.claude/settings.json` | takes `cleanupPeriodDays` back if it still holds 36500 — Claude Code deletes conversations older than 30 days ([its settings](https://code.claude.com/docs/en/settings-reference#cleanupperioddays)) |
+| Codex | sets `history.persistence = "save-all"` in `~/.codex/config.toml` (a `none` you set stays) | takes it back if it still holds `save-all` — Codex saves its conversations by itself |
+| pi | nothing — it keeps every session by itself | nothing |
+| OpenCode, OpenCode 2 | nothing — it has no clean-up of its own | nothing |
+| any other agent | not known — the setting does not apply | not known |
+
+**`agent-default`** lets each agent follow its own rule: Dozable takes back only a key that still holds
+exactly the value Dozable wrote (if you happened to type that same value yourself, it goes too).
+Conversations an agent already deleted are gone.
+
+Where to choose — the most specific value that is not `follow` wins:
+
+```sh
+doz config set agent.history agent-default                 # every agent, on this Mac
+doz config set --agent claude-code history keep            # one agent (follow: what agent.history says)
+doz config set --project ~/code/my-app history keep        # a project (history: in doz_project.yaml)
+doz config set --sandbox my-app history agent-default      # one sandbox
+doz config show --agent codex                              # what each value does in Codex, and where its value comes from
+```
+
+In the dashboard: **Settings › The agent** shows **Conversation history** with a table of what each value
+does in each agent; each agent's page under **Recipes** has its own drop-down and its row of that table;
+a sandbox's **Config** tab shows its value and where it came from. A change applies at each sandbox's next
+start or wake.
 
 ## Accounts — in the terminal
 
@@ -70,9 +130,18 @@ doz account default work                          # every sandbox that follows t
 doz account use my-app work                       # this sandbox uses work (open sessions switch on their next request)
 doz account use my-app default                    # follow the store's default again
 doz account verify work                           # one tiny request to api.anthropic.com
+doz account rename work team                      # its keychain item, the default and its sandboxes go with it
+doz account set-plan team pro                     # a setup token's plan, without pasting it again
+doz account add team --setup-token --force        # a new token under the same name (default, sandboxes and plan kept)
 doz account rm work                               # also deletes the keychain item Dozable made
 doz create my-app --image claude-code --account work
 ```
+
+A rename moves everything that names the account: the keychain item Dozable made for it (written under
+the new name and read back before the old one is deleted), the store's default, and every sandbox that
+uses it — chosen for it or as a custom key. Open sessions keep working. A keychain item you named
+yourself (`--keychain SERVICE`) keeps its name. This Mac's logins keep theirs, and so does a ChatGPT
+sign-in (sign in again under the new name, then remove the old one).
 
 A new sandbox follows the store's default account — `mac` out of the box. Sign in to Claude Code on
 your Mac once, and every sandbox can use your subscription with nothing to paste.
@@ -82,8 +151,9 @@ Keys of the other providers and of the model gateways are accounts too, each wit
 ```sh
 doz account add xai --provider xai                # xAI (Grok Build, and the tools that speak xAI)
 doz account add google --provider google          # the Gemini API (Gemini CLI, Antigravity CLI, Fabric …)
+doz account add oc --provider opencode            # OpenCode (OpenCode Zen and OpenCode Go: one key; OpenCode 2)
 doz account add or --provider openrouter          # OpenRouter: one key, many models (creator/name)
-doz account add vg --provider vercel-ai-gateway   # Vercel AI Gateway: the same idea
+doz account add vg --provider vercel-ai-gateway   # Vercel AI Gateway: the same idea (unpublished for now — a key already added keeps working)
 ```
 
 Each provider has its own default (`doz account default or` makes `or` OpenRouter's). An agent or tool that can use
@@ -93,30 +163,59 @@ only to that provider's or gateway's own API — a placeholder sent anywhere els
 
 ## Accounts — in the dashboard
 
-**Accounts & keys** shows one card per provider (Anthropic, OpenAI, then each provider and gateway),
-naming the tools its key serves. Each key is a row:
+**Accounts & keys** is built around four things you come to it for.
 
-- a **Default** radio: the key a sandbox that follows its provider's default uses. Anthropic also
-  offers **No default**.
+**Something is broken — fix it.** At the top, **Needs you** lists every problem, one line each, worst
+first: a key its provider refused, a key Dozable cannot read (its keychain item is gone, the keychain is
+locked, or the 1Password / AWS / command source did not answer), and this Mac's Claude login when it is
+signed out or expired while a sandbox relies on it. Each line says which sandboxes get no key at their
+next session and has the one fix as a button — **Copy claude** (sign in on this Mac), **Add it again…**,
+**Read again**, **Replace…** — with the rest under **⋯**. The same key stored twice is one line. When
+nothing is wrong, the page says **Every key works**. The **Accounts & keys** entry in the sidebar shows a
+red count while a problem breaks a sandbox.
+
+A refused or unreadable key is **replaced in place**: **Replace…** / **Add it again…** opens the paste
+under the same name, and the sandboxes that use it keep using it — the new key from their next session
+(what `doz account add NAME --force` does). To put a new value in a key that works, use **⋯ › Edit…**.
+
+**Edit a key.** **⋯ › Edit…** changes a key's details in one step: its **Name** (the sandboxes that use
+it and its default come along), a Claude subscription token's **Plan**, and — for a key Dozable keeps in
+your keychain — **Replace the key**: paste a new value under the same name, or leave it empty to keep
+the current one. A new value is checked like an added one; the sandboxes that use it get it at their next
+session. A key read from 1Password, AWS or a command, a custom key, or a keychain item you named offers
+the name only, with the `doz account add … --force` line for the rest. This Mac's logins and a ChatGPT
+sign-in have no Edit.
+
+**Which key does this sandbox use?** The **Sandboxes** view lists every sandbox with its tool, the key it
+uses now, how it gets it (its provider's default, or chosen for it) and its status. A sandbox whose
+network reaches no model provider (NAT, or no network) shows **Not needed**. **Change…** turns the row
+into a choice right there — the keys its tool can use, its provider's default, or no key — and **Use it**
+applies it from the sandbox's next session.
+
+**Change a default.** The **Keys** view has a heading and a table per provider (Anthropic, OpenAI, then
+each provider and gateway), naming the tools its key serves. Each key is a row:
+
+- a **Default** radio: the key a sandbox that follows its provider's default uses. Anthropic's last row
+  is **No default**.
 - the key's name, and where it lives in plain words: Keychain, 1Password, AWS, a command, or this
-  Mac's Claude login. **Details** shows the keychain item, the fingerprint, the source and the last check.
-- one status: **Works**, **Not checked**, **Refused** (its provider said no), **Can't read** (its source
-  did not answer, or its keychain item is gone) or **No check for this provider**.
-- the sandboxes that use it, then the one action that helps now: **Check**, **Read again** or **Fix**.
-  **Remove…** sits under **⋯**.
+  Mac's Claude login. **⋯ › Details** shows the keychain item, the fingerprint, the source and the last check.
+- one status: **Works**, **Not checked**, **Refused** (its provider said no), **Can't read** or
+  **No check for this provider** — with a second line only when it adds something (the refusal's code,
+  an expiry, "read on use").
+- the sandboxes that use it (each a link to its page), then the one action that helps now (**Check**,
+  **Read again**, **Replace…**, **Add again…**) and **⋯** (**Set default**, **Edit…**, **Details**, **Remove…**).
 
-A key that fails comes first, at the top of the page, with what the provider or source answered, the
-fix, and the sandboxes it affects. The same key stored twice is flagged ("same key as …"). The Claude
-Code keep-alive switch sits under the Mac login's row.
+The Claude Code keep-alive switch sits under Anthropic's table. **Find** filters both views by a tool,
+a provider, a key or a sandbox.
 
-**By sandbox** lists every sandbox with the key its tool uses now and how it got it (the provider's
-default, or chosen for it). **Change…** picks another; it applies from the sandbox's next session.
-
-**Add a key** asks for the provider first; type a tool's name (grok, codex, gemini) to find the
-providers it can use. Paste the key into the masked field: Dozable checks it with one small request
-and keeps it in your login keychain. The field is there only while the setting
-`ui.allow_secret_entry` is on. For a key kept in 1Password or AWS, read by a command, a custom key or a
-ChatGPT sign-in, the page gives the exact `doz account add` line to copy and run in Terminal.
+**Add a key for a tool.** **Add a key** first asks which tool it is for — or which provider. Type a
+tool's name (grok, codex, opencode) and it shows the providers that tool can use, with the keys you
+already have for each; type a provider's name and press Enter to go straight to it. Paste the key into
+the masked field: Dozable checks it with one small request and keeps it in your login keychain. The
+field is there only while the setting `ui.allow_secret_entry` is on. For a key kept in 1Password or
+AWS, read by a command, a custom key or a ChatGPT sign-in, the page gives the exact `doz account add`
+line to copy and run in Terminal. After the check it offers what follows: to make the new key its
+provider's default, and to remove an old copy of a replaced key that still fails.
 
 A sandbox's page shows its account, with **Account…** (the details' **Keys** tab) to change it; New
 sandbox offers only the accounts its agent can use.
@@ -136,8 +235,10 @@ Claude Code renews it whenever it runs on your Mac near expiry.
   login recently and no Claude Code runs on the Mac, the host runs the Mac's `claude` once — one tiny
   turn on your subscription.
 - **If you sign out on the Mac**, sandboxes stop getting a token at once. **If a different account
-  signs in**, sandboxes on `mac` are held rather than silently switching who pays;
-  `doz account use NAME mac` follows the new one.
+  signs in**, sandboxes on `mac` follow it at their next request — running sessions keep working,
+  with no restart and no sign-in inside the sandbox — and each sandbox's activity says which account
+  it now uses. (A session's plan and rate-limit tier are read when it starts, so a session started
+  before the switch still reports the earlier account's until it is restarted.)
 - **Several Claude config folders:** `doz account add work-mac --claude-login --config-dir ~/.claude-work`.
 
 **No silent fallback:** a missing or expired credential is refused with a message saying what to do.
@@ -171,7 +272,7 @@ A key typed or piped in lasts while the host runs; after the host stops, set it 
 
 ## Keys from 1Password, AWS or a command
 
-An API-key account (`--api-key`, `--openai-key`, `--provider xai|google|google-stitch|openrouter|vercel-ai-gateway`, `--custom`) can keep its key
+An API-key account (`--api-key`, `--openai-key`, `--provider xai|google|google-stitch|opencode|openrouter|vercel-ai-gateway`, `--custom`) can keep its key
 where you already keep it. Dozable stores only **where** it is — never the key, not even in the keychain —
 and the host reads it on your Mac when a sandbox needs it:
 
@@ -238,15 +339,15 @@ GitHub, xAI, Google). Sessions opened after attaching get its variable.
 
 ## Agent versions
 
-An agent image installs its agent at one exact version, chosen by `images.claude_code_version` and
-`images.pi_version`:
+An agent image installs its agent at one exact version, chosen by `recipes.anthropic.claude-code.version` and
+`recipes.earendil-works.pi.version`:
 
-- **`latest`** (the default) is resolved **when the image is prepared** — never while a sandbox runs —
+- **`latest`** (the default) is resolved **when its image is baked** — never while a sandbox runs —
   and installed at that exact version, integrity-checked.
 - **A newer release is only announced** (`doz image ls`, `doz doctor`, the Images page, `doz create`):
   "Claude Code 2.1.290 is available (image has 2.1.285)". Rebuild when it suits you:
   `doz image bake claude-code`, then `doz reset NAME` for the sandboxes you want on it.
-- **An exact version** (`doz config set images.claude_code_version 2.1.227`) never asks the internet,
+- **An exact version** (`doz config set recipes.anthropic.claude-code.version 2.1.227`) never asks the internet,
   so it works offline.
 
 ## Sudo inside the sandbox
@@ -271,11 +372,11 @@ At every session start, Dozable tells the agent where it is:
   folder (and which) or isolated; how its network works and what to do when refused; that its
   credentials are supplied by the proxy; whether it has sudo; its time zone; what the clipboard does;
   one line on what it can show you on your Mac — a URL in your browser, a workspace document in its
-  app, a workspace folder in the Finder — saying only what is on (the `dozer` skill has the details:
+  app, a workspace folder in the Finder — saying only what is on (the `doz` skill has the details:
   types, apps, refusals); and, only when you turned it on, one line saying `git` and `gh` are signed in
   as you on GitHub, read-only or with push ([GitHub as you](https://dozable.com/docs/github.md));
-- the **`dozer` skill** (`~/.claude/skills/dozer/SKILL.md`, pi: `~/.pi/agent/skills/dozer/SKILL.md`,
-  Codex: `~/.agents/skills/dozer/SKILL.md`),
+- the **`doz` skill** (`~/.claude/skills/doz/SKILL.md`, pi: `~/.pi/agent/skills/doz/SKILL.md`,
+  Codex: `~/.agents/skills/doz/SKILL.md`),
   which it reads when a question is about the machine: what persists, the network, credentials,
   sleep, and what it can't do from inside (and must ask you for).
 
@@ -283,6 +384,12 @@ At every session start, Dozable tells the agent where it is:
 doz inspect my-app --prompt          # exactly what the next session gets
 doz config set agent.prompt false    # off: the next session start removes both
 ```
+
+Running Claude Code with **your own `--append-system-prompt`** (`doz run my-app -- claude
+--append-system-prompt "…"`) keeps the facts: Claude Code uses only one such flag, so Dozable combines
+them — the facts first, then each of your values (and an `--append-system-prompt-file`'s text) — into
+one. A value that already contains the facts (`"$(cat /run/doz/agent-prompt.md)"`) is passed as it is,
+never doubled. `--system-prompt` is a full replacement of Claude Code's prompt: then no facts are added.
 
 **Your own words**, in three layers: the built-in text < your **`agent-prompt.md`** (beside
 `doz.toml`; text outside an HTML comment replaces the built-in text for every sandbox) < a sandbox's
@@ -292,7 +399,7 @@ replacing (`--agent-prompt-mode replace`). Your text may use `{{variables}}` fro
 `workspace.shared`, `workspace.host_path`, `workspace.guest_path`, `workspace.description`, `workspace.rules`,
 `network.mode`, `network.allowed_hosts`, `network.description`, `network.permissions`,
 `account.name`, `agent.state`, `credentials.description`, `sandbox.sudo`, `sandbox.timezone`, `sudo.description`,
-`clipboard.description`, `browser.description`, `files.description`, `mac.open`, `github.facts`, `github.description`, `mac.hostname`, `dozer.version` (the template
+`clipboard.description`, `browser.description`, `files.description`, `mac.open`, `github.facts`, `github.description`, `dotfiles.facts`, `mac.hostname`, `doz.version` (the template
 `agent-prompt.md` lists them with what each says). `doz inspect NAME --prompt` shows any mistake: an unknown variable is an error that stops the
 agent's sessions from starting until it's fixed, never silently blank.
 
@@ -305,10 +412,11 @@ touched.
 |---|---|---|
 | `defaults.account` | `mac` | The account of a store that hasn't chosen one. |
 | `host.keepalive` | `false` | Keep-alive for a store that hasn't chosen (`doz account keepalive`). |
-| `claude.permissions` | `skip` | Claude Code's own permission prompts in a sandbox: `skip` or `ask`. |
-| `images.claude_code_version` · `images.pi_version` · `images.codex_version` | `latest` | The agent version an image is prepared with. |
+| `recipes.anthropic.claude-code.approvals` | `skip` | Claude Code's own permission prompts in a sandbox: `skip` or `ask`. |
+| `recipes.anthropic.claude-code.version` · `recipes.earendil-works.pi.version` · `recipes.openai.codex.version` | `latest` | The agent version its image is baked with. |
 | `sandbox.agent_sudo` | `true` | The agent's passwordless sudo. Per sandbox too. |
-| `agent.prompt` | `true` | Give the agent its facts block and the `dozer` skill. |
+| `agent.prompt` | `true` | Give the agent its facts block and the `doz` skill. |
+| `agent.history` | `keep` | Keep the agents' conversations, or `agent-default`. Per agent, project and sandbox too ([above](#conversation-history)). |
 | `ui.allow_secret_entry` | `true` | The dashboard may take a key or token. |
 
 ## Troubleshooting

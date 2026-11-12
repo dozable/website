@@ -4,10 +4,15 @@ description: "Beside the coding agents, Dozable runs AI tools that are not codin
 url: https://dozable.com/docs/ai-tools
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-19
+updated: 2026-11-13
 chapter: 28
 ---
 # Other AI tools
+
+> **Unpublished for now.** Every tool on this page is unpublished in this version of Dozable: in no list, and
+> `doz try fabric` (or `doz new`, `doz create`) says so. So is the **Vercel AI Gateway**: OpenRouter is the gateway
+> offered now (`--gateway openrouter`). A sandbox you already made with one, and a Vercel key you already added, keep
+> working. The rest of this page describes them as they work when published.
 
 Beside the coding agents, Dozable runs AI tools that are not coding agents: command-line tools that answer a prompt,
 prompt toolkits, agent frameworks. Each is tried like an agent (`doz try TOOL`) and uses an **API key** of a provider
@@ -233,7 +238,7 @@ A prompt toolkit: crowd-sourced "patterns" applied to text you pipe in.
 - **Key:** Google AI (default: `doz account add google --provider google`; get one at https://aistudio.google.com/apikey),
   Anthropic, OpenAI, xAI or OpenRouter — its own vendors. Dozable sets `DEFAULT_VENDOR` and `DEFAULT_MODEL` for the choice
   (over the ones in `~/.config/fabric/.env`, written only when not there yet).
-- **Patterns** come with it: its release's some 260 patterns, checksum-verified when the image is prepared, in
+- **Patterns** come with it: its release's some 260 patterns, checksum-verified when its image is baked, in
   `/opt/fabric/patterns` (`CUSTOM_PATTERNS_DIRECTORY`) — `fabric -l` lists them; `fabric -U` (from GitHub) is not needed.
 - **Use:** `echo "some text" | fabric "summarise this"`, `cat notes.txt | fabric -p summarize` — or the sandbox page's Guide.
 - **May reach:** those providers' APIs.

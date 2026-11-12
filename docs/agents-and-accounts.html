@@ -67,16 +67,20 @@
 <li><a href="doz-serve">The dashboard on other devices</a></li>
 <li><a href="images-and-bases">Images and bases</a></li>
 <li><a href="agents-and-accounts" aria-current="page">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents">More agents</a></li>
 <li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex">Codex</a></li>
 <li><a href="web-ports">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
@@ -90,9 +94,10 @@
 <li><a href="settings-reference">Settings reference</a></li>
 <li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -107,9 +112,13 @@
 </header>
 <details class="toc-m"><summary>On this page</summary>
 <ol>
+<li><a href="#the-words">The words</a>
+</li>
 <li><a href="#concepts">Concepts</a>
 </li>
 <li><a href="#claude-code-in-a-sandbox">Claude Code in a sandbox</a>
+</li>
+<li><a href="#conversation-history">Conversation history</a>
 </li>
 <li><a href="#accounts--in-the-terminal">Accounts — in the terminal</a>
 </li>
@@ -140,6 +149,13 @@
 <div class="prose">
 <!-- manual text -->
 <p>Dozable runs three AI coding agents out of the box — <strong>Claude Code</strong>, <strong>pi</strong> and OpenAI&#x27;s <strong>Codex</strong> — and gives each one the account it should use, without the secret ever entering the sandbox. Codex has its own page: <a href="codex">Codex</a>. This page covers which agent can use which account, how to add accounts, the agent&#x27;s versions and its <code>sudo</code>, and what the agent is told about where it runs.</p>
+<h2 id="the-words">The words<a class="anchor" href="#the-words" aria-label="Link to this section">#</a></h2>
+<div class="tablewrap" tabindex="0" role="region" aria-label="Table: The words"><table>
+<thead><tr><th scope="col">word</th><th scope="col">means</th></tr></thead>
+<tbody>
+<tr><td><strong>recipe</strong></td><td>the definition: how to build, launch and configure one agent (<code>anthropic/claude-code</code>). The dashboard&#x27;s <strong>Recipes › Installed</strong> lists the ones on this Mac.</td></tr><tr><td><strong>agent</strong></td><td>what a recipe installs and a sandbox runs: you install the Claude Code recipe and run its agent, Claude Code.</td></tr><tr><td>a recipe&#x27;s <strong>subject</strong></td><td>what a recipe calls its own agent, shown beside its name — pi is a <em>coding harness</em>, Fabric an <em>agentic tool</em>. Without one it is simply an agent.</td></tr><tr><td><strong>managed tools</strong></td><td><code>gh</code>, tmux, the ssh client and GitHub&#x27;s host keys: tools Dozable supports natively, each with its own settings, added to a sandbox and never baked — see <a href="the-tools-layer">Managed tools</a>.</td></tr><tr><td><strong>baked image</strong></td><td>base → developer base → baked image: one per base × recipe, made once and cloned for each sandbox.</td></tr>
+</tbody></table></div>
+<p>A recipe on this Mac is <strong>in use</strong> (a sandbox runs its agent) or <strong>installed</strong> (a baked image of it is here); the rest are <strong>available</strong> in the catalogue (<code>doz search</code>, Quick try). <code>doz recipe ls --installed</code> lists the first two, and <code>doz recipe uninstall ID</code> removes a recipe&#x27;s baked images (refused while a sandbox runs it; your settings for it are kept unless <code>--forget-settings</code>). Each recipe&#x27;s settings — its agent&#x27;s <code>version</code>, <code>approvals</code>, <code>memory_mib</code>, <code>network</code> and <code>history</code> — are in <a href="settings-reference">the settings</a> under <code>[recipes.VENDOR.PRODUCT]</code>.</p>
 <h2 id="concepts">Concepts<a class="anchor" href="#concepts" aria-label="Link to this section">#</a></h2>
 <ul>
 <li><p><strong>The agent runs as a normal user</strong> (<code>agent</code>) in <code>/workspace</code>. Its own settings, logins and history (<code>~/.claude</code>, <code>~/.pi/agent</code>, Codex&#x27;s <code>~/.codex</code>) are on a separate <strong>state disk</strong> that survives shutdown and reset.</p></li>
@@ -155,14 +171,31 @@
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Agents and accounts"><table>
 <thead><tr><th scope="col">agent</th><th scope="col">accounts it can use</th></tr></thead>
 <tbody>
-<tr><td>Claude Code</td><td><code>mac</code>, a setup token, an API key</td></tr><tr><td>pi</td><td>an API key only (a Claude subscription is never given to it): Anthropic&#x27;s (the default), or an OpenAI, xAI, Google AI, OpenRouter or Vercel AI Gateway key (<code>doz try pi --gateway openrouter</code>); off Anthropic, Dozable puts the model on its session&#x27;s command line (<code>--model PROVIDER/MODEL</code>)</td></tr><tr><td>Codex</td><td><code>mac</code> (this Mac&#x27;s Codex login), a ChatGPT sign-in or an OpenAI API key — never an Anthropic account (and no Claude agent ever gets an OpenAI one)</td></tr>
+<tr><td>Claude Code</td><td><code>mac</code>, a setup token, an API key</td></tr><tr><td>pi</td><td>an API key only (a Claude subscription is never given to it): Anthropic&#x27;s (the default), or an OpenAI, xAI, Google AI or OpenRouter key (<code>doz try pi --gateway openrouter</code>); off Anthropic, Dozable puts the model on its session&#x27;s command line (<code>--model PROVIDER/MODEL</code>)</td></tr><tr><td>Codex</td><td><code>mac</code> (this Mac&#x27;s Codex login), a ChatGPT sign-in or an OpenAI API key — never an Anthropic account (and no Claude agent ever gets an OpenAI one)</td></tr>
 </tbody></table></div>
 <p>This is checked <strong>before</strong> a sandbox is made. With no account pi can use, Dozable stops and tells you the next step (or, on a terminal and in the dashboard, offers to take a key right there).</p></li>
 </ul>
 <h2 id="claude-code-in-a-sandbox">Claude Code in a sandbox<a class="anchor" href="#claude-code-in-a-sandbox" aria-label="Link to this section">#</a></h2>
 <p>Claude Code starts ready to work: its first-run screens are done, the working folder is trusted, and it runs without asking permission for each command (the VM and its network are the boundary). It also shows your real plan (&quot;Claude Max&quot;) and picks the same default model as on your Mac.</p>
-<p>To have it ask first, set <code>claude.permissions</code> to <code>ask</code>, or for one session: <code>doz run NAME -e DOZ_CLAUDE_PERMISSIONS=ask -- claude</code>. A <code>claude</code> run as root always asks.</p>
+<p>To have it ask first, set its recipe&#x27;s <code>approvals</code> to <code>ask</code> — on this Mac (<code>doz config set --agent claude-code approvals ask</code>), for one sandbox (<code>doz config set --sandbox NAME approvals ask</code>, or <code>doz create NAME --approvals ask</code>), or in a project (<code>approvals: ask</code> in <code>doz_project.yaml</code>) — or for one session: <code>doz run NAME -e DOZ_CLAUDE_PERMISSIONS=ask -- claude</code>. A <code>claude</code> run as root always asks.</p>
 <p>Inside a sandbox Claude Code never updates itself; the image decides its version (below).</p>
+<p>Dozable also keeps your Claude Code conversations — see the next section.</p>
+<h2 id="conversation-history">Conversation history<a class="anchor" href="#conversation-history" aria-label="Link to this section">#</a></h2>
+<p>Some agents delete their own old conversations: Claude Code, on its own, deletes conversations older than 30 days. By default Dozable keeps them — the setting <strong><code>agent.history</code></strong> is <code>keep</code>. For an agent that deletes by itself, Dozable writes the agent&#x27;s own setting into the agent&#x27;s own settings file, once, when the sandbox is set up (its next start or wake), and only where you have not set one: <strong>your value is never changed</strong>, and a key you delete or change yourself is left as you made it. Nothing is rebuilt. A file Dozable cannot read (a hand edit that is not valid JSON or TOML) is never written.</p>
+<p>What each value does in each agent:</p>
+<div class="tablewrap" tabindex="0" role="region" aria-label="Table: Conversation history"><table>
+<thead><tr><th scope="col">agent</th><th scope="col"><code>keep</code> (the default)</th><th scope="col"><code>agent-default</code></th></tr></thead>
+<tbody>
+<tr><td>Claude Code</td><td>sets <code>cleanupPeriodDays = 36500</code> in <code>~/.claude/settings.json</code></td><td>takes <code>cleanupPeriodDays</code> back if it still holds 36500 — Claude Code deletes conversations older than 30 days (<a href="https://code.claude.com/docs/en/settings-reference#cleanupperioddays">its settings</a>)</td></tr><tr><td>Codex</td><td>sets <code>history.persistence = &quot;save-all&quot;</code> in <code>~/.codex/config.toml</code> (a <code>none</code> you set stays)</td><td>takes it back if it still holds <code>save-all</code> — Codex saves its conversations by itself</td></tr><tr><td>pi</td><td>nothing — it keeps every session by itself</td><td>nothing</td></tr><tr><td>OpenCode, OpenCode 2</td><td>nothing — it has no clean-up of its own</td><td>nothing</td></tr><tr><td>any other agent</td><td>not known — the setting does not apply</td><td>not known</td></tr>
+</tbody></table></div>
+<p><strong><code>agent-default</code></strong> lets each agent follow its own rule: Dozable takes back only a key that still holds exactly the value Dozable wrote (if you happened to type that same value yourself, it goes too). Conversations an agent already deleted are gone.</p>
+<p>Where to choose — the most specific value that is not <code>follow</code> wins:</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz config set agent.history agent-default                 <span class="c"># every agent, on this Mac</span>
+doz config set --agent claude-code history keep            <span class="c"># one agent (follow: what agent.history says)</span>
+doz config set --project ~/code/my-app history keep        <span class="c"># a project (history: in doz_project.yaml)</span>
+doz config set --sandbox my-app history agent-default      <span class="c"># one sandbox</span>
+doz config show --agent codex                              <span class="c"># what each value does in Codex, and where its value comes from</span></code></pre></figure>
+<p>In the dashboard: <strong>Settings › The agent</strong> shows <strong>Conversation history</strong> with a table of what each value does in each agent; each agent&#x27;s page under <strong>Recipes</strong> has its own drop-down and its row of that table; a sandbox&#x27;s <strong>Config</strong> tab shows its value and where it came from. A change applies at each sandbox&#x27;s next start or wake.</p>
 <h2 id="accounts--in-the-terminal">Accounts — in the terminal<a class="anchor" href="#accounts--in-the-terminal" aria-label="Link to this section">#</a></h2>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz account ls                                    <span class="c"># accounts, state, expiry, which sandboxes use them — never a secret</span>
                                                   <span class="c"># (state rejected: its provider refused the key at its last check)</span>
@@ -172,26 +205,35 @@ doz account default work                          <span class="c"># every sandbo
 doz account use my-app work                       <span class="c"># this sandbox uses work (open sessions switch on their next request)</span>
 doz account use my-app default                    <span class="c"># follow the store&#x27;s default again</span>
 doz account verify work                           <span class="c"># one tiny request to api.anthropic.com</span>
+doz account rename work team                      <span class="c"># its keychain item, the default and its sandboxes go with it</span>
+doz account set-plan team pro                     <span class="c"># a setup token&#x27;s plan, without pasting it again</span>
+doz account add team --setup-token --force        <span class="c"># a new token under the same name (default, sandboxes and plan kept)</span>
 doz account rm work                               <span class="c"># also deletes the keychain item Dozable made</span>
 doz create my-app --image claude-code --account work</code></pre></figure>
+<p>A rename moves everything that names the account: the keychain item Dozable made for it (written under the new name and read back before the old one is deleted), the store&#x27;s default, and every sandbox that uses it — chosen for it or as a custom key. Open sessions keep working. A keychain item you named yourself (<code>--keychain SERVICE</code>) keeps its name. This Mac&#x27;s logins keep theirs, and so does a ChatGPT sign-in (sign in again under the new name, then remove the old one).</p>
 <p>A new sandbox follows the store&#x27;s default account — <code>mac</code> out of the box. Sign in to Claude Code on your Mac once, and every sandbox can use your subscription with nothing to paste.</p>
 <p>Keys of the other providers and of the model gateways are accounts too, each with its provider:</p>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz account add xai --provider xai                <span class="c"># xAI (Grok Build, and the tools that speak xAI)</span>
 doz account add google --provider google          <span class="c"># the Gemini API (Gemini CLI, Antigravity CLI, Fabric …)</span>
+doz account add oc --provider opencode            <span class="c"># OpenCode (OpenCode Zen and OpenCode Go: one key; OpenCode 2)</span>
 doz account add or --provider openrouter          <span class="c"># OpenRouter: one key, many models (creator/name)</span>
-doz account add vg --provider vercel-ai-gateway   <span class="c"># Vercel AI Gateway: the same idea</span></code></pre></figure>
+doz account add vg --provider vercel-ai-gateway   <span class="c"># Vercel AI Gateway: the same idea (unpublished for now — a key already added keeps working)</span></code></pre></figure>
 <p>Each provider has its own default (<code>doz account default or</code> makes <code>or</code> OpenRouter&#x27;s). An agent or tool that can use several (the AI tools — see <a href="ai-tools">Other AI tools</a>) talks to the provider or gateway of the account it is given: <code>doz try TOOL --gateway openrouter</code> picks OpenRouter&#x27;s default key, <code>--account NAME</code> a given one. The key goes only to that provider&#x27;s or gateway&#x27;s own API — a placeholder sent anywhere else is refused.</p>
 <h2 id="accounts--in-the-dashboard">Accounts — in the dashboard<a class="anchor" href="#accounts--in-the-dashboard" aria-label="Link to this section">#</a></h2>
-<p><strong>Accounts &amp; keys</strong> shows one card per provider (Anthropic, OpenAI, then each provider and gateway), naming the tools its key serves. Each key is a row:</p>
+<p><strong>Accounts &amp; keys</strong> is built around four things you come to it for.</p>
+<p><strong>Something is broken — fix it.</strong> At the top, <strong>Needs you</strong> lists every problem, one line each, worst first: a key its provider refused, a key Dozable cannot read (its keychain item is gone, the keychain is locked, or the 1Password / AWS / command source did not answer), and this Mac&#x27;s Claude login when it is signed out or expired while a sandbox relies on it. Each line says which sandboxes get no key at their next session and has the one fix as a button — <strong>Copy claude</strong> (sign in on this Mac), <strong>Add it again…</strong>, <strong>Read again</strong>, <strong>Replace…</strong> — with the rest under <strong>⋯</strong>. The same key stored twice is one line. When nothing is wrong, the page says <strong>Every key works</strong>. The <strong>Accounts &amp; keys</strong> entry in the sidebar shows a red count while a problem breaks a sandbox.</p>
+<p>A refused or unreadable key is <strong>replaced in place</strong>: <strong>Replace…</strong> / <strong>Add it again…</strong> opens the paste under the same name, and the sandboxes that use it keep using it — the new key from their next session (what <code>doz account add NAME --force</code> does). To put a new value in a key that works, use <strong>⋯ › Edit…</strong>.</p>
+<p><strong>Edit a key.</strong> <strong>⋯ › Edit…</strong> changes a key&#x27;s details in one step: its <strong>Name</strong> (the sandboxes that use it and its default come along), a Claude subscription token&#x27;s <strong>Plan</strong>, and — for a key Dozable keeps in your keychain — <strong>Replace the key</strong>: paste a new value under the same name, or leave it empty to keep the current one. A new value is checked like an added one; the sandboxes that use it get it at their next session. A key read from 1Password, AWS or a command, a custom key, or a keychain item you named offers the name only, with the <code>doz account add … --force</code> line for the rest. This Mac&#x27;s logins and a ChatGPT sign-in have no Edit.</p>
+<p><strong>Which key does this sandbox use?</strong> The <strong>Sandboxes</strong> view lists every sandbox with its tool, the key it uses now, how it gets it (its provider&#x27;s default, or chosen for it) and its status. A sandbox whose network reaches no model provider (NAT, or no network) shows <strong>Not needed</strong>. <strong>Change…</strong> turns the row into a choice right there — the keys its tool can use, its provider&#x27;s default, or no key — and <strong>Use it</strong> applies it from the sandbox&#x27;s next session.</p>
+<p><strong>Change a default.</strong> The <strong>Keys</strong> view has a heading and a table per provider (Anthropic, OpenAI, then each provider and gateway), naming the tools its key serves. Each key is a row:</p>
 <ul>
-<li>a <strong>Default</strong> radio: the key a sandbox that follows its provider&#x27;s default uses. Anthropic also offers <strong>No default</strong>.</li>
-<li>the key&#x27;s name, and where it lives in plain words: Keychain, 1Password, AWS, a command, or this Mac&#x27;s Claude login. <strong>Details</strong> shows the keychain item, the fingerprint, the source and the last check.</li>
-<li>one status: <strong>Works</strong>, <strong>Not checked</strong>, <strong>Refused</strong> (its provider said no), <strong>Can&#x27;t read</strong> (its source did not answer, or its keychain item is gone) or <strong>No check for this provider</strong>.</li>
-<li>the sandboxes that use it, then the one action that helps now: <strong>Check</strong>, <strong>Read again</strong> or <strong>Fix</strong>. <strong>Remove…</strong> sits under <strong>⋯</strong>.</li>
+<li>a <strong>Default</strong> radio: the key a sandbox that follows its provider&#x27;s default uses. Anthropic&#x27;s last row is <strong>No default</strong>.</li>
+<li>the key&#x27;s name, and where it lives in plain words: Keychain, 1Password, AWS, a command, or this Mac&#x27;s Claude login. <strong>⋯ › Details</strong> shows the keychain item, the fingerprint, the source and the last check.</li>
+<li>one status: <strong>Works</strong>, <strong>Not checked</strong>, <strong>Refused</strong> (its provider said no), <strong>Can&#x27;t read</strong> or <strong>No check for this provider</strong> — with a second line only when it adds something (the refusal&#x27;s code, an expiry, &quot;read on use&quot;).</li>
+<li>the sandboxes that use it (each a link to its page), then the one action that helps now (<strong>Check</strong>, <strong>Read again</strong>, <strong>Replace…</strong>, <strong>Add again…</strong>) and <strong>⋯</strong> (<strong>Set default</strong>, <strong>Edit…</strong>, <strong>Details</strong>, <strong>Remove…</strong>).</li>
 </ul>
-<p>A key that fails comes first, at the top of the page, with what the provider or source answered, the fix, and the sandboxes it affects. The same key stored twice is flagged (&quot;same key as …&quot;). The Claude Code keep-alive switch sits under the Mac login&#x27;s row.</p>
-<p><strong>By sandbox</strong> lists every sandbox with the key its tool uses now and how it got it (the provider&#x27;s default, or chosen for it). <strong>Change…</strong> picks another; it applies from the sandbox&#x27;s next session.</p>
-<p><strong>Add a key</strong> asks for the provider first; type a tool&#x27;s name (grok, codex, gemini) to find the providers it can use. Paste the key into the masked field: Dozable checks it with one small request and keeps it in your login keychain. The field is there only while the setting <code>ui.allow_secret_entry</code> is on. For a key kept in 1Password or AWS, read by a command, a custom key or a ChatGPT sign-in, the page gives the exact <code>doz account add</code> line to copy and run in Terminal.</p>
+<p>The Claude Code keep-alive switch sits under Anthropic&#x27;s table. <strong>Find</strong> filters both views by a tool, a provider, a key or a sandbox.</p>
+<p><strong>Add a key for a tool.</strong> <strong>Add a key</strong> first asks which tool it is for — or which provider. Type a tool&#x27;s name (grok, codex, opencode) and it shows the providers that tool can use, with the keys you already have for each; type a provider&#x27;s name and press Enter to go straight to it. Paste the key into the masked field: Dozable checks it with one small request and keeps it in your login keychain. The field is there only while the setting <code>ui.allow_secret_entry</code> is on. For a key kept in 1Password or AWS, read by a command, a custom key or a ChatGPT sign-in, the page gives the exact <code>doz account add</code> line to copy and run in Terminal. After the check it offers what follows: to make the new key its provider&#x27;s default, and to remove an old copy of a replaced key that still fails.</p>
 <p>A sandbox&#x27;s page shows its account, with <strong>Account…</strong> (the details&#x27; <strong>Keys</strong> tab) to change it; New sandbox offers only the accounts its agent can use.</p>
 <h2 id="how-the-mac-login-stays-fresh">How the Mac login stays fresh<a class="anchor" href="#how-the-mac-login-stays-fresh" aria-label="Link to this section">#</a></h2>
 <p>Dozable reads only the <strong>access token</strong> of your Mac&#x27;s Claude Code login — never the refresh token — so your Mac&#x27;s Claude Code stays the one program that renews it. The access token lives about 8 hours; Claude Code renews it whenever it runs on your Mac near expiry.</p>
@@ -199,7 +241,7 @@ doz account add vg --provider vercel-ai-gateway   <span class="c"># Vercel AI Ga
 <li>The host re-reads the login every 2 minutes; a renewed token reaches every sandbox without a restart.</li>
 <li><strong>If it expired</strong> (nothing ran Claude Code on the Mac overnight), Claude Code in the sandbox shows &quot;this Mac&#x27;s Claude login expired at 04:59 — open Claude Code on the Mac (any prompt), then retry&quot;, and recovers by itself once the Mac renews.</li>
 <li><strong>Keep-alive</strong> (off by default): <code>doz account keepalive on</code>. Near expiry, if a sandbox used the Mac login recently and no Claude Code runs on the Mac, the host runs the Mac&#x27;s <code>claude</code> once — one tiny turn on your subscription.</li>
-<li><strong>If you sign out on the Mac</strong>, sandboxes stop getting a token at once. <strong>If a different account signs in</strong>, sandboxes on <code>mac</code> are held rather than silently switching who pays; <code>doz account use NAME mac</code> follows the new one.</li>
+<li><strong>If you sign out on the Mac</strong>, sandboxes stop getting a token at once. <strong>If a different account signs in</strong>, sandboxes on <code>mac</code> follow it at their next request — running sessions keep working, with no restart and no sign-in inside the sandbox — and each sandbox&#x27;s activity says which account it now uses. (A session&#x27;s plan and rate-limit tier are read when it starts, so a session started before the switch still reports the earlier account&#x27;s until it is restarted.)</li>
 <li><strong>Several Claude config folders:</strong> <code>doz account add work-mac --claude-login --config-dir ~/.claude-work</code>.</li>
 </ul>
 <p><strong>No silent fallback:</strong> a missing or expired credential is refused with a message saying what to do. A sandbox never switches account by itself.</p>
@@ -216,7 +258,7 @@ doz key ls my-app                                   <span class="c"># never the 
 doz key rm my-app --anthropic</code></pre></figure>
 <p>A key typed or piped in lasts while the host runs; after the host stops, set it again (or use <code>--keychain</code>, which is read again by each new host).</p>
 <h2 id="keys-from-1password-aws-or-a-command">Keys from 1Password, AWS or a command<a class="anchor" href="#keys-from-1password-aws-or-a-command" aria-label="Link to this section">#</a></h2>
-<p>An API-key account (<code>--api-key</code>, <code>--openai-key</code>, <code>--provider xai|google|google-stitch|openrouter|vercel-ai-gateway</code>, <code>--custom</code>) can keep its key where you already keep it. Dozable stores only <strong>where</strong> it is — never the key, not even in the keychain — and the host reads it on your Mac when a sandbox needs it:</p>
+<p>An API-key account (<code>--api-key</code>, <code>--openai-key</code>, <code>--provider xai|google|google-stitch|opencode|openrouter|vercel-ai-gateway</code>, <code>--custom</code>) can keep its key where you already keep it. Dozable stores only <strong>where</strong> it is — never the key, not even in the keychain — and the host reads it on your Mac when a sandbox needs it:</p>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz account add grok --provider xai --from op://Dev/xAI/credential               <span class="c"># 1Password (op)</span>
 doz account add grok --provider xai --from op://Dev/xAI/credential --env OP_ACCOUNT=my.1password.com
 doz account add work --api-key --from aws:arn:aws:secretsmanager:eu-west-1:123456789012:secret:dev/anthropic#api_key
@@ -246,11 +288,11 @@ doz account use my-app search --extra                                           
 doz account use my-app search --remove-extra</code></pre></figure>
 <p>Each host must be one the sandbox may reach on purpose (<code>--allow site:HOST</code>, or <code>doz net allow</code>) — Dozable refuses to attach it otherwise, and withholds it (saying how to allow it) if the policy later denies the host. A custom key never goes to a host Dozable already holds keys for (Anthropic, OpenAI, GitHub, xAI, Google). Sessions opened after attaching get its variable.</p>
 <h2 id="agent-versions">Agent versions<a class="anchor" href="#agent-versions" aria-label="Link to this section">#</a></h2>
-<p>An agent image installs its agent at one exact version, chosen by <code>images.claude_code_version</code> and <code>images.pi_version</code>:</p>
+<p>An agent image installs its agent at one exact version, chosen by <code>recipes.anthropic.claude-code.version</code> and <code>recipes.earendil-works.pi.version</code>:</p>
 <ul>
-<li><strong><code>latest</code></strong> (the default) is resolved <strong>when the image is prepared</strong> — never while a sandbox runs — and installed at that exact version, integrity-checked.</li>
+<li><strong><code>latest</code></strong> (the default) is resolved <strong>when its image is baked</strong> — never while a sandbox runs — and installed at that exact version, integrity-checked.</li>
 <li><strong>A newer release is only announced</strong> (<code>doz image ls</code>, <code>doz doctor</code>, the Images page, <code>doz create</code>): &quot;Claude Code 2.1.290 is available (image has 2.1.285)&quot;. Rebuild when it suits you: <code>doz image bake claude-code</code>, then <code>doz reset NAME</code> for the sandboxes you want on it.</li>
-<li><strong>An exact version</strong> (<code>doz config set images.claude_code_version 2.1.227</code>) never asks the internet, so it works offline.</li>
+<li><strong>An exact version</strong> (<code>doz config set recipes.anthropic.claude-code.version 2.1.227</code>) never asks the internet, so it works offline.</li>
 </ul>
 <h2 id="sudo-inside-the-sandbox">Sudo inside the sandbox<a class="anchor" href="#sudo-inside-the-sandbox" aria-label="Link to this section">#</a></h2>
 <p>The agent has <strong>passwordless <code>sudo</code></strong> in its sandbox, so it can install what a task needs: <code>sudo apt-get install -y PACKAGE</code> (Debian-based images keep the package lists, and never stop to ask configuration questions) or <code>sudo apk add PACKAGE</code> on Alpine. Root inside the VM reaches no more than the agent: there&#x27;s no network card, every connection still goes through your permissions, no credential is inside, and nothing of your Mac but the workspace. <code>doz reset</code> or a restore point undoes what it installed.</p>
@@ -258,18 +300,19 @@ doz account use my-app search --remove-extra</code></pre></figure>
 <h2 id="the-agents-environment-facts">The agent&#x27;s environment facts<a class="anchor" href="#the-agents-environment-facts" aria-label="Link to this section">#</a></h2>
 <p>At every session start, Dozable tells the agent where it is:</p>
 <ul>
-<li>a short <strong>facts block</strong>, added to its system prompt: that it&#x27;s in a Dozable sandbox (a Linux VM on your Mac, not a container) with its name, image, CPUs and memory; whether <code>/workspace</code> is your Mac folder (and which) or isolated; how its network works and what to do when refused; that its credentials are supplied by the proxy; whether it has sudo; its time zone; what the clipboard does; one line on what it can show you on your Mac — a URL in your browser, a workspace document in its app, a workspace folder in the Finder — saying only what is on (the <code>dozer</code> skill has the details: types, apps, refusals); and, only when you turned it on, one line saying <code>git</code> and <code>gh</code> are signed in as you on GitHub, read-only or with push (<a href="github">GitHub as you</a>);</li>
-<li>the <strong><code>dozer</code> skill</strong> (<code>~/.claude/skills/dozer/SKILL.md</code>, pi: <code>~/.pi/agent/skills/dozer/SKILL.md</code>, Codex: <code>~/.agents/skills/dozer/SKILL.md</code>), which it reads when a question is about the machine: what persists, the network, credentials, sleep, and what it can&#x27;t do from inside (and must ask you for).</li>
+<li>a short <strong>facts block</strong>, added to its system prompt: that it&#x27;s in a Dozable sandbox (a Linux VM on your Mac, not a container) with its name, image, CPUs and memory; whether <code>/workspace</code> is your Mac folder (and which) or isolated; how its network works and what to do when refused; that its credentials are supplied by the proxy; whether it has sudo; its time zone; what the clipboard does; one line on what it can show you on your Mac — a URL in your browser, a workspace document in its app, a workspace folder in the Finder — saying only what is on (the <code>doz</code> skill has the details: types, apps, refusals); and, only when you turned it on, one line saying <code>git</code> and <code>gh</code> are signed in as you on GitHub, read-only or with push (<a href="github">GitHub as you</a>);</li>
+<li>the <strong><code>doz</code> skill</strong> (<code>~/.claude/skills/doz/SKILL.md</code>, pi: <code>~/.pi/agent/skills/doz/SKILL.md</code>, Codex: <code>~/.agents/skills/doz/SKILL.md</code>), which it reads when a question is about the machine: what persists, the network, credentials, sleep, and what it can&#x27;t do from inside (and must ask you for).</li>
 </ul>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz inspect my-app --prompt          <span class="c"># exactly what the next session gets</span>
 doz config set agent.prompt false    <span class="c"># off: the next session start removes both</span></code></pre></figure>
-<p><strong>Your own words</strong>, in three layers: the built-in text &lt; your <strong><code>agent-prompt.md</code></strong> (beside <code>doz.toml</code>; text outside an HTML comment replaces the built-in text for every sandbox) &lt; a sandbox&#x27;s own (<code>doz create --agent-prompt FILE</code>, or <code>agent_prompt</code> in <code>doz_project.yaml</code>), appended or replacing (<code>--agent-prompt-mode replace</code>). Your text may use <code>{{variables}}</code> from a fixed list — <code>sandbox.name</code>, <code>sandbox.image</code>, <code>sandbox.base</code>, <code>sandbox.cpus</code>, <code>sandbox.memory</code>, <code>workspace.shared</code>, <code>workspace.host_path</code>, <code>workspace.guest_path</code>, <code>workspace.description</code>, <code>workspace.rules</code>, <code>network.mode</code>, <code>network.allowed_hosts</code>, <code>network.description</code>, <code>network.permissions</code>, <code>account.name</code>, <code>agent.state</code>, <code>credentials.description</code>, <code>sandbox.sudo</code>, <code>sandbox.timezone</code>, <code>sudo.description</code>, <code>clipboard.description</code>, <code>browser.description</code>, <code>files.description</code>, <code>mac.open</code>, <code>github.facts</code>, <code>github.description</code>, <code>mac.hostname</code>, <code>dozer.version</code> (the template <code>agent-prompt.md</code> lists them with what each says). <code>doz inspect NAME --prompt</code> shows any mistake: an unknown variable is an error that stops the agent&#x27;s sessions from starting until it&#x27;s fixed, never silently blank.</p>
+<p>Running Claude Code with <strong>your own <code>--append-system-prompt</code></strong> (<code>doz run my-app -- claude --append-system-prompt &quot;…&quot;</code>) keeps the facts: Claude Code uses only one such flag, so Dozable combines them — the facts first, then each of your values (and an <code>--append-system-prompt-file</code>&#x27;s text) — into one. A value that already contains the facts (<code>&quot;$(cat /run/doz/agent-prompt.md)&quot;</code>) is passed as it is, never doubled. <code>--system-prompt</code> is a full replacement of Claude Code&#x27;s prompt: then no facts are added.</p>
+<p><strong>Your own words</strong>, in three layers: the built-in text &lt; your <strong><code>agent-prompt.md</code></strong> (beside <code>doz.toml</code>; text outside an HTML comment replaces the built-in text for every sandbox) &lt; a sandbox&#x27;s own (<code>doz create --agent-prompt FILE</code>, or <code>agent_prompt</code> in <code>doz_project.yaml</code>), appended or replacing (<code>--agent-prompt-mode replace</code>). Your text may use <code>{{variables}}</code> from a fixed list — <code>sandbox.name</code>, <code>sandbox.image</code>, <code>sandbox.base</code>, <code>sandbox.cpus</code>, <code>sandbox.memory</code>, <code>workspace.shared</code>, <code>workspace.host_path</code>, <code>workspace.guest_path</code>, <code>workspace.description</code>, <code>workspace.rules</code>, <code>network.mode</code>, <code>network.allowed_hosts</code>, <code>network.description</code>, <code>network.permissions</code>, <code>account.name</code>, <code>agent.state</code>, <code>credentials.description</code>, <code>sandbox.sudo</code>, <code>sandbox.timezone</code>, <code>sudo.description</code>, <code>clipboard.description</code>, <code>browser.description</code>, <code>files.description</code>, <code>mac.open</code>, <code>github.facts</code>, <code>github.description</code>, <code>dotfiles.facts</code>, <code>mac.hostname</code>, <code>doz.version</code> (the template <code>agent-prompt.md</code> lists them with what each says). <code>doz inspect NAME --prompt</code> shows any mistake: an unknown variable is an error that stops the agent&#x27;s sessions from starting until it&#x27;s fixed, never silently blank.</p>
 <p>Dozable owns only those two files. The agent&#x27;s own memory files (<code>CLAUDE.md</code>, <code>AGENTS.md</code>) are never touched.</p>
 <h2 id="settings">Settings<a class="anchor" href="#settings" aria-label="Link to this section">#</a></h2>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Settings"><table>
 <thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>defaults.account</code></td><td><code>mac</code></td><td>The account of a store that hasn&#x27;t chosen one.</td></tr><tr><td><code>host.keepalive</code></td><td><code>false</code></td><td>Keep-alive for a store that hasn&#x27;t chosen (<code>doz account keepalive</code>).</td></tr><tr><td><code>claude.permissions</code></td><td><code>skip</code></td><td>Claude Code&#x27;s own permission prompts in a sandbox: <code>skip</code> or <code>ask</code>.</td></tr><tr><td><code>images.claude_code_version</code> · <code>images.pi_version</code> · <code>images.codex_version</code></td><td><code>latest</code></td><td>The agent version an image is prepared with.</td></tr><tr><td><code>sandbox.agent_sudo</code></td><td><code>true</code></td><td>The agent&#x27;s passwordless sudo. Per sandbox too.</td></tr><tr><td><code>agent.prompt</code></td><td><code>true</code></td><td>Give the agent its facts block and the <code>dozer</code> skill.</td></tr><tr><td><code>ui.allow_secret_entry</code></td><td><code>true</code></td><td>The dashboard may take a key or token.</td></tr>
+<tr><td><code>defaults.account</code></td><td><code>mac</code></td><td>The account of a store that hasn&#x27;t chosen one.</td></tr><tr><td><code>host.keepalive</code></td><td><code>false</code></td><td>Keep-alive for a store that hasn&#x27;t chosen (<code>doz account keepalive</code>).</td></tr><tr><td><code>recipes.anthropic.claude-code.approvals</code></td><td><code>skip</code></td><td>Claude Code&#x27;s own permission prompts in a sandbox: <code>skip</code> or <code>ask</code>.</td></tr><tr><td><code>recipes.anthropic.claude-code.version</code> · <code>recipes.earendil-works.pi.version</code> · <code>recipes.openai.codex.version</code></td><td><code>latest</code></td><td>The agent version its image is baked with.</td></tr><tr><td><code>sandbox.agent_sudo</code></td><td><code>true</code></td><td>The agent&#x27;s passwordless sudo. Per sandbox too.</td></tr><tr><td><code>agent.prompt</code></td><td><code>true</code></td><td>Give the agent its facts block and the <code>doz</code> skill.</td></tr><tr><td><code>agent.history</code></td><td><code>keep</code></td><td>Keep the agents&#x27; conversations, or <code>agent-default</code>. Per agent, project and sandbox too (<a href="#conversation-history">above</a>).</td></tr><tr><td><code>ui.allow_secret_entry</code></td><td><code>true</code></td><td>The dashboard may take a key or token.</td></tr>
 </tbody></table></div>
 <h2 id="troubleshooting">Troubleshooting<a class="anchor" href="#troubleshooting" aria-label="Link to this section">#</a></h2>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Troubleshooting"><table>
@@ -283,15 +326,19 @@ doz config set agent.prompt false    <span class="c"># off: the next session sta
 <li class="prev"><a href="images-and-bases" rel="prev"><small>&larr; Previous</small><b>Images and bases</b></a></li>
 <li class="next"><a href="permissions-and-network" rel="next"><small>Next &rarr;</small><b>What the agent can do: permissions and the network</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/09-agents-and-accounts.md">Edit this page on GitHub</a> &middot; Chapter 9 of 29</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/09-agents-and-accounts.md">Edit this page on GitHub</a> &middot; Chapter 9 of 34</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
 <ol>
+<li><a href="#the-words">The words</a>
+</li>
 <li><a href="#concepts">Concepts</a>
 </li>
 <li><a href="#claude-code-in-a-sandbox">Claude Code in a sandbox</a>
+</li>
+<li><a href="#conversation-history">Conversation history</a>
 </li>
 <li><a href="#accounts--in-the-terminal">Accounts — in the terminal</a>
 </li>

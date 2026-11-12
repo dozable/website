@@ -4,7 +4,7 @@ description: "A sandbox is one Linux virtual machine with its own disks."
 url: https://dozable.com/docs/sandboxes-and-lifecycle
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-10-19
+updated: 2026-11-13
 chapter: 5
 ---
 # Sandboxes and their lifecycle
@@ -79,11 +79,38 @@ asleep or hibernated sandbox and resumes a paused one, so it's the one command t
 `doz down NAME` puts a sandbox away when you are done for now: it hibernates it — nothing kept in memory, its
 sessions come back where they were with `doz up` (in its project folder), `doz attach` or `doz wake`.
 `--sleep` keeps its memory for an even quicker wake; `--shutdown` is a cold stop, asked first as `shutdown` is
-(`-y` skips the question). It works on a try too.
+(`-y` skips the question).
+
+**The folder Dozable made goes with it.** When a sandbox's folder did not exist and Dozable made it (`doz new`, New
+sandbox and Quick add in the dashboard, `doz try`, a `--workspace` that was not there yet), `doz rm` — and the
+dashboard's **Remove…** — removes that folder too while it is empty. When it holds files, `doz rm` asks (the default
+keeps it and says where); off a terminal and in the dashboard it is kept. A folder that was there before is never
+touched, and neither is the folder of a duplicate.
 
 `shutdown`, `reset` and `rm` ask first. `--yes` skips the question; without a terminal and without
 `--yes` they refuse, so a script can't destroy something by accident. The question names what you
 asked for — and checks it exists — before you answer.
+
+## Renaming a sandbox
+
+`doz rename NAME NEW` gives a sandbox another name. It is the same sandbox: its disks, restore points, folder,
+account, network, settings and kept terminal layout come along — only the name changes (its hostname inside follows
+at the next start). Nothing is lost, so it asks nothing.
+
+```bash
+doz shutdown demo        # renaming needs it shut down (Shut down keeps its disk)
+doz rename demo website
+doz start website
+```
+
+It refuses while the sandbox runs, sleeps, hibernates or is busy — shut it down first — and refuses a name that is
+already taken or is not 1–40 characters of a-z, 0-9 and `-`. Its folder on your Mac keeps its own name and place —
+Dozable never moves your files. Templates saved from it keep saying which
+sandbox they came from, and past numbers on the Metrics page stay under the old name.
+
+In the dashboard: **Rename…** in a sandbox's ⋯ menu — in the sidebar (on the sandbox's line) and on its page's
+toolbar. A sandbox that isn't shut down is shut down first: the dialog says so, and its button reads **Shut down and
+rename**.
 
 A program started less than three seconds before a hibernate gets the rest of those three seconds
 first, so a program in the middle of starting up isn't frozen at a bad moment.
@@ -172,7 +199,7 @@ does all that without attaching. On an existing sandbox, create options are igno
    [Projects](https://dozable.com/docs/projects.md#in-the-dashboard).
 3. Or **One-page form** (in the wizard, top right): everything on one page, a **Shared folder** or
    **Isolated**, and no project file. **Create** makes it off; **Start** boots it: the terminal area shows
-   the image's build while there is one, then tab zero, **Console** (the boot as it happens), then the
+   the image's build while there is one, then the **Console** tab (the boot as it happens), then the
    agent's own tab once it has drawn its screen. With the setting `ui.boot_view_on_start` on, the page
    stays on Console and marks the agent's tab instead of switching to it.
 
@@ -265,13 +292,13 @@ newer doz fixes, without a restart.
 | key | default | what it does |
 |---|---|---|
 | `defaults.cpus` | `2` | CPUs of a new sandbox (`--cpus`). |
-| `images.lab.memory_mib` · `images.claude-code.memory_mib` · `images.pi.memory_mib` | `1024` · `2048` · `2048` | Memory of a new sandbox of each image (`--memory`); other images follow the one they're based on. |
+| `images.lab.memory_mib` · `recipes.anthropic.claude-code.memory_mib` · `recipes.earendil-works.pi.memory_mib` | `1024` · `2048` · `2048` | Memory of a new sandbox of each image (`--memory`); other images follow the one they're based on. |
 | `defaults.projects_dir` | `~/doz-workspaces` | Your projects folder: where Quick add, `doz new` and the dashboard's New sandbox make a new sandbox's own folder (`<projects_dir>/NAME`). **Settings** › **Choose…** picks it. |
 | `sandbox.timezone` | `mac` | `mac` (follow this Mac) or a zone like `Australia/Sydney`. Applies at each start or wake. |
 | `host.idle_timeout_minutes` | `5` | Minutes with nothing running before the host exits; `0` = never (`$DOZ_HOST_IDLE`). |
 | `host.screen_capture_minutes` | `5` | How often a running sandbox's changed screens are saved; `0` = only at pause, sleep and hibernate. |
 | `host.boot_logs_kept` | `5` | Boots kept per sandbox (1–50). |
-| `ui.boot_view_on_start` | `false` | After the dashboard's Start, stay on tab zero (Console) rather than switch to the agent's tab. |
+| `ui.boot_view_on_start` | `false` | After the dashboard's Start, stay on the Console tab rather than switch to the agent's tab. |
 | `ui.confirm_shutdown` | `true` | The dashboard's Shut down asks first. |
 
 ## Limits

@@ -67,16 +67,20 @@
 <li><a href="doz-serve">The dashboard on other devices</a></li>
 <li><a href="images-and-bases">Images and bases</a></li>
 <li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents" aria-current="page">More agents</a></li>
 <li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex">Codex</a></li>
 <li><a href="web-ports">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
@@ -90,9 +94,10 @@
 <li><a href="settings-reference">Settings reference</a></li>
 <li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -163,10 +168,15 @@
 </li>
 <li><a href="#is-it-current">Is it current?</a>
 </li>
+<li><a href="#new-agents-without-a-new-doz--the-recipe-catalogue">New agents without a new doz — the recipe catalogue</a>
+</li>
 </ol>
 </details>
 <div class="prose">
 <!-- manual text -->
+<blockquote class="note">
+<p><strong>Unpublished for now.</strong> Of the agents on this page only <strong>OpenCode</strong> (<code>doz try opencode</code>, OpenCode 1 and 2) is offered in this version of Dozable; the others are unpublished — in no list, and <code>doz try grok</code> (or <code>doz new</code>, <code>doz create</code>) says so. A sandbox you already made with one keeps working: its image, its key and its settings. The rest of this page describes them as they work when published.</p>
+</blockquote>
 <p>Beside Claude Code, pi and Codex, Dozable runs agents from other makers. Each uses an <strong>API key</strong> — most of them of the provider or gateway you choose (<code>--provider</code> / <code>--gateway</code>, or the Quick try&#x27;s “Where it gets its model”; <code>--model</code> picks the model; see <a href="ai-tools#providers-and-gateways">Other AI tools</a>). The key stays on your Mac and the sandbox only ever gets a placeholder, which Dozable&#x27;s proxy swaps for the key on the way out — and only to that provider&#x27;s or gateway&#x27;s own API.</p>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz try antigravity      <span class="c"># Google&#x27;s agent (alias: agy)</span>
 doz try grok             <span class="c"># xAI&#x27;s agent</span>
@@ -194,7 +204,7 @@ doz try omp              <span class="c"># oh-my-pi (a pi derivative), on xAI or
 doz try tau              <span class="c"># Tau (Hugging Face&#x27;s Python port of pi), on xAI or another provider or gateway</span>
 doz try gemini           <span class="c"># Google&#x27;s earlier agent (superseded by Antigravity CLI)</span>
 doz search google        <span class="c"># what Dozable runs with a Google key, each with its latest release</span></code></pre></figure>
-<p>The first <code>doz try</code> of each asks for the key (a paste, or where you keep it: 1Password, AWS, a command — see <a href="agents-and-accounts#keys-from-1password-aws-or-a-command">Keys from 1Password, AWS or a command</a>), prepares the agent&#x27;s image once (a minute or so) and starts it. A try is Locked: the agent reaches its model and, below, the few hosts its maker&#x27;s program calls when it starts — nothing else. <a href="try-and-search">Trying agents</a> has the rest.</p>
+<p>The first <code>doz try</code> of each asks for the key (a paste, or where you keep it: 1Password, AWS, a command — see <a href="agents-and-accounts#keys-from-1password-aws-or-a-command">Keys from 1Password, AWS or a command</a>), prepares the agent&#x27;s image once (a minute or so) and starts it. A try is Standard, like any new sandbox: the agent reaches its model, software packages and GitHub, and, below, the few hosts its maker&#x27;s program calls when it starts — not the web at large. <a href="try-and-search">Trying agents</a> has the rest.</p>
 <h2 id="antigravity-cli-google">Antigravity CLI (Google)<a class="anchor" href="#antigravity-cli-google" aria-label="Link to this section">#</a></h2>
 <p>Google&#x27;s terminal agent and <strong>the one to use with a Google key</strong> (<code>doz try antigravity</code>, or <code>agy</code>).</p>
 <ul>
@@ -214,13 +224,14 @@ doz search google        <span class="c"># what Dozable runs with a Google key, 
 <li><strong>Kept out, whatever you choose:</strong> xAI&#x27;s sign-in hosts (Dozable never offers the sign-in).</li>
 </ul>
 <h2 id="opencode-open-source">OpenCode (open source)<a class="anchor" href="#opencode-open-source" aria-label="Link to this section">#</a></h2>
-<p>An open-source terminal agent that works with many model providers (<code>doz try opencode</code>). Dozable offers it on the key of the provider or gateway you choose: <strong>Anthropic</strong>, <strong>OpenAI</strong>, <strong>xAI</strong> (the default), <strong>Google AI</strong>, <strong>OpenRouter</strong> or <strong>Vercel AI Gateway</strong>; on xAI the model is <code>xai/grok-build-0.1</code>.</p>
+<p>An open-source terminal agent that works with many model providers (<code>doz try opencode</code>). Dozable offers it on the key of the provider or gateway you choose: <strong>Anthropic</strong>, <strong>OpenAI</strong>, <strong>xAI</strong> (the default), <strong>Google AI</strong>, <strong>OpenRouter</strong> or <strong>Vercel AI Gateway</strong> — and OpenCode 2 also on an <strong>OpenCode</strong> key (below); on xAI the model is <code>xai/grok-build-0.1</code>.</p>
 <ul>
 <li><strong>Installed</strong> from the npm registry&#x27;s linux-arm64 package, integrity-checked. Debian and Node bases (not Alpine yet).</li>
 <li><strong>Key:</strong> an API key of that provider or gateway (<code>doz account add NAME --provider xai</code> — or <code>openrouter</code>, <code>vercel-ai-gateway</code>, <code>google</code>; <code>--api-key</code> for Anthropic, <code>--openai-key</code> for OpenAI); the sandbox only gets a placeholder.</li>
 <li><strong>No key at all (OpenCode 2):</strong> OpenCode Zen&#x27;s free models — <code>doz try opencode --provider opencode-zen</code>, or <strong>OpenCode Zen</strong> in the try setup (marked &quot;no key needed&quot;). No account is used and nothing of yours is added to its requests. The model list shows each free model with its data terms as OpenCode&#x27;s docs state them (some keep nothing, some are used to improve the model) — the free models OpenCode&#x27;s docs list that this release of OpenCode can use without a key; <code>doz models --provider opencode-zen</code> lists them, and <code>--model</code> chooses one (default <code>big-pickle</code>). Only OpenCode&#x27;s model requests to <code>opencode.ai</code> are allowed — not its Console or its sign-in. A key you add with OpenCode&#x27;s own <code>/connect</code> is stored inside the sandbox; a key added in Dozable stays on your Mac.</li>
+<li><strong>An OpenCode key (OpenCode 2):</strong> one key serves <strong>OpenCode Zen</strong> (pay as you go — models <code>opencode/…</code>) and <strong>OpenCode Go</strong> (the subscription — models <code>opencode-go/…</code>): <code>doz account add oc --provider opencode</code> (a key from opencode.ai/auth; Dozable cannot check it without spending, so it is not checked), then <code>doz try opencode --provider opencode</code>, or <strong>OpenCode</strong> in the try setup. The default model is <code>opencode-go/kimi-k2.7-code</code>; <code>--model opencode/claude-sonnet-4-6</code> (or any other in <code>doz models --provider opencode</code>) picks a Zen model. The sandbox gets only a placeholder in <code>OPENCODE_API_KEY</code>; the key goes ONLY to OpenCode&#x27;s model requests on <code>opencode.ai</code> and to the one read of your key&#x27;s OpenCode Console settings that OpenCode makes when it starts (<code>GET /console/api/v2/config</code>) — a placeholder sent anywhere else on <code>opencode.ai</code> is refused, whatever the network allows.</li>
 <li><strong>Set up for you:</strong> its auto-update, session sharing, language-server downloads and the online model list off; the model set in <code>~/.config/opencode/opencode.json</code> (written only when it is not there yet). Its plugin kit is not downloaded into <code>~/.config/opencode</code> when it first starts (it is only for plugins you write; <code>cd ~/.config/opencode &amp;&amp; npm install @opencode-ai/plugin</code> adds it). OpenCode asks no approval questions by default.</li>
-<li><strong>May reach:</strong> the API of the provider or gateway it was given (any of those it can use, so you can switch), and, for OpenCode 2, OpenCode Zen&#x27;s model requests on <code>opencode.ai</code> (<code>/zen/v1/chat/completions</code>, <code>/zen/v1/responses</code>, and from OpenCode 2.0.32 <code>/inference/openai/v1/chat/completions</code>, <code>/inference/openai/v1/responses</code>).</li>
+<li><strong>May reach:</strong> the API of the provider or gateway it was given (any of those it can use, so you can switch), and, for OpenCode 2, OpenCode Zen&#x27;s and OpenCode Go&#x27;s model requests on <code>opencode.ai</code> (under <code>/zen/v1/</code> and <code>/zen/go/v1/</code>, and from OpenCode 2.0.32 under <code>/inference/</code>) and, with an OpenCode key, <code>GET /console/api/v2/config</code>.</li>
 <li><strong>Use:</strong> <code>opencode</code> (its TUI), or <code>opencode run &quot;…&quot;</code> for one answer.</li>
 </ul>
 <h2 id="github-copilot-cli-github">GitHub Copilot CLI (GitHub)<a class="anchor" href="#github-copilot-cli-github" aria-label="Link to this section">#</a></h2>
@@ -424,13 +435,24 @@ doz search google        <span class="c"># what Dozable runs with a Google key, 
 <p>Dozable keeps a <strong>network profile</strong> of every agent: a fresh try with the network open and every request logged, its first start and a short task, and for each host and path it called, a decision — allowed (and why), allowed by its path only, turned off by the agent&#x27;s own setting, or refused. The recipes are checked against these profiles on every build, so an agent never meets a refusal on a normal first run, and a new release is profiled again before anything new is allowed (<code>make profile-agents</code> in the source tree; <code>make agent-currency</code> says which agents moved).</p>
 <h2 id="is-it-current">Is it current?<a class="anchor" href="#is-it-current" aria-label="Link to this section">#</a></h2>
 <p><code>doz search</code>, <code>doz try</code> and the Quick try show each agent&#x27;s <strong>latest release</strong> as your Mac last saw it — the version, the day it came out, how long ago, and <strong>active</strong> (a release in the last 3 months), <strong>quiet</strong> (none for 3), <strong>stale</strong> (none for 6) or <strong>deprecated</strong> by its maker — and its <strong>standing</strong>: current, or superseded by another agent. See <a href="try-and-search#is-it-supported-doz-search">Is it current?</a>.</p>
+<h2 id="new-agents-without-a-new-doz--the-recipe-catalogue">New agents without a new doz — the recipe catalogue<a class="anchor" href="#new-agents-without-a-new-doz--the-recipe-catalogue" aria-label="Link to this section">#</a></h2>
+<p>Every agent Dozable runs is described by a <strong>recipe</strong>, and each version of doz carries its own set. Dozable can also publish its recipes on their own, as a <strong>recipe catalogue</strong> on its recipe directory, <code>doz.sh</code>, so a new agent or a fix to one reaches you without a new release of doz:</p>
+<ul>
+<li><strong>Where from.</strong> doz asks <code>doz.sh</code> for it, at most once a day, and reads every file from the same place. The request carries doz&#x27;s version in its user agent and nothing else. (Earlier builds asked the update site, and keep their own recipes.)</li>
+<li><strong>Signed.</strong> doz uses a catalogue only when it is signed with Dozable&#x27;s own key — the one that signs its updates — and every file in it is exactly what was signed. Anything else is ignored, whole.</li>
+<li><strong>Checked like the built-in recipes.</strong> A catalogue that fails any check doz runs on its own recipes is ignored whole (never used in part), and <code>doz doctor</code> says why. A catalogue can add agents and update them; it never takes one away, so a sandbox you made keeps working.</li>
+<li><strong>Claude Code, pi and Codex are always your doz&#x27;s own</strong> — a catalogue never changes them.</li>
+<li><strong>When it applies.</strong> While doz&#x27;s host runs it looks for a newer catalogue at most once a day, quietly (offline is fine). A new one applies when the host next starts — by itself once nothing is running, or <code>doz host restart</code>. A doz older than a catalogue needs keeps its own recipes, and doz never uses a catalogue older than the recipes it carries.</li>
+<li><strong>Where you see it.</strong> <code>doz doctor</code>&#x27;s <code>recipes</code> line says what this doz uses: <code>embedded (doz 0.37.24)</code> — its own — or <code>catalogue 3 from 2026-10-26</code>, and whether a newer one is waiting.</li>
+</ul>
+<p>Until Dozable publishes a catalogue, every doz simply uses its own recipes. A build you make yourself from the source always uses its own.</p>
 <!-- /manual text -->
 </div>
 <ul class="pager">
 <li class="prev"><a href="try-and-search" rel="prev"><small>&larr; Previous</small><b>Trying agents, and what Dozable supports</b></a></li>
 <li class="next"><a href="ai-tools" rel="next"><small>Next &rarr;</small><b>Other AI tools</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/27-more-agents.md">Edit this page on GitHub</a> &middot; Chapter 27 of 29</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/27-more-agents.md">Edit this page on GitHub</a> &middot; Chapter 27 of 34</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">
@@ -491,6 +513,8 @@ doz search google        <span class="c"># what Dozable runs with a Google key, 
 <li><a href="#what-each-one-calls--the-network-profiles">What each one calls — the network profiles</a>
 </li>
 <li><a href="#is-it-current">Is it current?</a>
+</li>
+<li><a href="#new-agents-without-a-new-doz--the-recipe-catalogue">New agents without a new doz — the recipe catalogue</a>
 </li>
 </ol>
 </nav>

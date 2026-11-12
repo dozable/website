@@ -4,16 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>The dashboard on your other computers, tablets and phones (doz serve) — Dozable docs</title>
-<meta name="description" content="doz ui is this Mac&#x27;s own dashboard: it listens on 127.0.0.1 and nothing else can reach it.">
+<title>The dashboard on your other computers, tablets and phones (doz ui --lan) — Dozable docs</title>
+<meta name="description" content="doz ui is one dashboard. Without its LAN option it listens on 127.0.0.1 and nothing but this Mac can reach it.">
 <link rel="canonical" href="https://dozable.com/docs/doz-serve">
 <link rel="alternate" type="text/markdown" href="https://dozable.com/docs/doz-serve.md">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="The dashboard on your other computers, tablets and phones (doz serve) — Dozable docs">
-<meta property="og:description" content="doz ui is this Mac&#x27;s own dashboard: it listens on 127.0.0.1 and nothing else can reach it.">
+<meta property="og:title" content="The dashboard on your other computers, tablets and phones (doz ui --lan) — Dozable docs">
+<meta property="og:description" content="doz ui is one dashboard. Without its LAN option it listens on 127.0.0.1 and nothing but this Mac can reach it.">
 <meta property="og:url" content="https://dozable.com/docs/doz-serve">
 <meta property="og:image" content="https://dozable.com/og-image.png">
 <meta property="og:image:secure_url" content="https://dozable.com/og-image.png">
@@ -22,8 +22,8 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The dashboard on your other computers, tablets and phones (doz serve) — Dozable docs">
-<meta name="twitter:description" content="doz ui is this Mac&#x27;s own dashboard: it listens on 127.0.0.1 and nothing else can reach it.">
+<meta name="twitter:title" content="The dashboard on your other computers, tablets and phones (doz ui --lan) — Dozable docs">
+<meta name="twitter:description" content="doz ui is one dashboard. Without its LAN option it listens on 127.0.0.1 and nothing but this Mac can reach it.">
 <meta name="twitter:image" content="https://dozable.com/og-image.png">
 <meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <link rel="icon" type="image/png" href="../favicon.png">
@@ -67,16 +67,20 @@
 <li><a href="doz-serve" aria-current="page">The dashboard on other devices</a></li>
 <li><a href="images-and-bases">Images and bases</a></li>
 <li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
 <li><a href="try-and-search">Trying agents</a></li>
 <li><a href="more-agents">More agents</a></li>
 <li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
 <li><a href="codex">Codex</a></li>
 <li><a href="web-ports">Web ports</a></li>
 <li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
 <li><a href="github">GitHub as you</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
 </ol>
 <h2>Files and tools</h2><ol>
 <li><a href="the-tools-layer">The tools layer</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
 <li><a href="workspace-rules">Workspace rules</a></li>
 <li><a href="the-workspace-view">The workspace view</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
@@ -90,24 +94,25 @@
 <li><a href="settings-reference">Settings reference</a></li>
 <li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
+<li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
 </ol>
 <h2>Experimental</h2><ol>
-<li><a href="audio-experimental">Audio sandboxes</a></li>
+<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
 
 <article class="article">
 <!--email_off-->
-<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="./">Docs</a></li><li aria-current="page">The dashboard on your other computers, tablets and phones (<code>doz serve</code>)</li></ol></nav>
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="./">Docs</a></li><li aria-current="page">The dashboard on your other computers, tablets and phones (<code>doz ui --lan</code>)</li></ol></nav>
 <header class="chead">
 <p class="eyebrow">Chapter 25</p>
-<h1>The dashboard on your other computers, tablets and phones (<code>doz serve</code>)</h1>
-<p class="summary"><code>doz ui</code> is this Mac&#x27;s own dashboard: it listens on <code>127.0.0.1</code> and nothing else can reach it.</p>
+<h1>The dashboard on your other computers, tablets and phones (<code>doz ui --lan</code>)</h1>
+<p class="summary"><code>doz ui</code> is one dashboard. Without its LAN option it listens on <code>127.0.0.1</code> and nothing but this Mac can reach it.</p>
 </header>
 <details class="toc-m"><summary>On this page</summary>
 <ol>
-<li><a href="#letting-a-browser-in">Letting a browser in</a>
+<li><a href="#this-macs-browser-and-the-others">This Mac&#x27;s browser and the others</a>
 </li>
 <li><a href="#what-another-browser-can-do">What another browser can do</a>
 </li>
@@ -130,53 +135,57 @@
 </details>
 <div class="prose">
 <!-- manual text -->
-<p><code>doz ui</code> is this Mac&#x27;s own dashboard: it listens on <code>127.0.0.1</code> and nothing else can reach it. <code>doz serve</code> is the same dashboard for the other browsers of your home network — the laptop on the couch, a second Mac, the iPad, a phone — at <code>http://&lt;this Mac&gt;.local:7443</code>.</p>
-<figure class="code"><figcaption data-gen><span>bash</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (bash)"><code>doz serve</code></pre></figure>
-<p>It runs until you press Ctrl-C (or run <code>doz serve stop</code> in another terminal). To keep it running without a terminal open, start it in the background:</p>
-<figure class="code"><figcaption data-gen><span>bash</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (bash)"><code>doz serve start --detach     <span class="c"># or -d: prints where it listens and an invite, then returns</span>
-doz serve status             <span class="c"># pid, since when, the addresses, the version, its log</span>
-doz serve stop</code></pre></figure>
-<p>A detached <code>doz serve</code> belongs to no terminal — closing the terminal does not stop it; its output goes to <code>&lt;store&gt;/serve/serve.log</code>. Nothing listens beyond this Mac until you start it.</p>
-<h2 id="letting-a-browser-in">Letting a browser in<a class="anchor" href="#letting-a-browser-in" aria-label="Link to this section">#</a></h2>
-<p>A browser gets in once, with an <strong>invite</strong>, and then stays in until you remove it. An invite is three things at once — use whichever suits the device:</p>
+<p><code>doz ui</code> is one dashboard. Without its LAN option it listens on <code>127.0.0.1</code> and nothing but this Mac can reach it. With the LAN option the SAME dashboard, on the same port, also serves the other browsers of your home network — the laptop on the couch, a second Mac, the iPad, a phone — at <code>http://&lt;this Mac&gt;.local:7443</code>.</p>
+<figure class="code"><figcaption data-gen><span>bash</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (bash)"><code>doz ui --lan                          <span class="c"># this run</span>
+doz config set ui.lan true            <span class="c"># every run (then: doz ui restart, if one is running)</span></code></pre></figure>
+<p>Nothing listens beyond this Mac until you turn it on, and it is only ever turned on here, on the Mac (<code>ui.lan</code> cannot be changed from a browser). It runs until you press Ctrl-C (or run <code>doz ui stop</code> in another terminal). To keep it running without a terminal open, start it in the background:</p>
+<figure class="code"><figcaption data-gen><span>bash</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (bash)"><code>doz ui --lan --detach        <span class="c"># or -d: prints where it listens and an invite, then returns</span>
+doz ui status                <span class="c"># pid, since when, the addresses, the version, its log</span>
+doz ui stop</code></pre></figure>
+<p>A detached <code>doz ui</code> belongs to no terminal — closing the terminal does not stop it; its output goes to <code>&lt;store&gt;/ui.log</code>.</p>
+<p>The earlier name of <code>doz ui --lan</code>, doz serve, still works for one release (it says so), and so do its subcommands (share, devices, revoke, rename, status, log and stop).</p>
+<h2 id="this-macs-browser-and-the-others">This Mac&#x27;s browser and the others<a class="anchor" href="#this-macs-browser-and-the-others" aria-label="Link to this section">#</a></h2>
+<p><strong>This Mac&#x27;s browser</strong> is signed in by the link <code>doz ui</code> opens (or <code>doz ui link</code>), at <code>http://127.0.0.1:&lt;port&gt;</code>, as without the LAN option — and it can do everything, including typing a key and the windows on the Mac&#x27;s screen (the folder pickers, Open in Terminal).</p>
+<p><strong>Every other browser</strong> gets in once, with an <strong>invite</strong>, and then stays in until you remove it. An invite is three things at once — use whichever suits the device:</p>
 <ul>
 <li>a <strong>QR code</strong> — point a phone&#x27;s or tablet&#x27;s camera at it;</li>
 <li>a short <strong>access code</strong> like <code>Y14G-99K3</code> — type it on the dashboard&#x27;s sign-in page;</li>
 <li>a <strong>link</strong> — open it in the other browser.</li>
 </ul>
-<p>Whichever is used first lets ONE browser in, within five minutes; the other two stop working. <code>doz serve</code> prints an invite when it starts (on a terminal) — its link by name (<code>http://&lt;this Mac&gt;.local:7443/…</code>) and by each of the Mac&#x27;s addresses (<code>http://192.168.1.20:7443/…</code>): <code>.local</code> names do not resolve the same everywhere, so use an address if the name does not answer. The links work in this Mac&#x27;s own browser too. For another invite:</p>
-<figure class="code"><figcaption data-gen><span>bash</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (bash)"><code>doz serve share</code></pre></figure>
-<p>or, on any browser that is already in: <strong>Devices › Add another browser</strong>. The Mac&#x27;s own <code>doz ui</code> has the same Devices page.</p>
-<p>A browser that opens the dashboard without an invite sees the sign-in page and nothing else — no sandbox, no name, no data. A request <code>doz serve</code> refuses always gets an answer saying why — only a sandbox&#x27;s connection is dropped without one.</p>
+<p>Whichever is used first lets ONE browser in, within five minutes; the other two stop working. <code>doz ui --lan</code> prints an invite when it starts (on a terminal) — its link by name (<code>http://&lt;this Mac&gt;.local:7443/…</code>) and by each of the Mac&#x27;s addresses (<code>http://192.168.1.20:7443/…</code>): <code>.local</code> names do not resolve the same everywhere, so use an address if the name does not answer. For another invite:</p>
+<figure class="code"><figcaption data-gen><span>bash</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (bash)"><code>doz ui share</code></pre></figure>
+<p>or, on any browser that is already in (this Mac&#x27;s too): <strong>Devices › Add another browser</strong>.</p>
+<p>Which kind of browser a request comes from is decided for each request: only a connection from this Mac itself, to <code>127.0.0.1:&lt;port&gt;</code> exactly, with no reverse proxy in between, is this Mac&#x27;s browser. The same Mac reaching the dashboard by <code>&lt;this Mac&gt;.local</code> or <code>localhost</code> is treated like any other browser (it needs an invite).</p>
+<p>A browser that opens the dashboard without an invite sees the sign-in page and nothing else — no sandbox, no name, no data. A request the dashboard refuses always gets an answer saying why — only a sandbox&#x27;s connection is dropped without one.</p>
 <h2 id="what-another-browser-can-do">What another browser can do<a class="anchor" href="#what-another-browser-can-do" aria-label="Link to this section">#</a></h2>
-<p>Everything the Mac&#x27;s dashboard does — watch and drive sandboxes, open terminals in the browser, create sandboxes, change their network, settings, images and resources — with two exceptions:</p>
+<p>Everything the Mac&#x27;s browser does — watch and drive sandboxes, open terminals in the browser, create sandboxes, change their network, settings, images and resources — with two exceptions:</p>
 <ul>
-<li><strong>No keys or tokens over plain HTTP.</strong> Adding an account&#x27;s API key or setup token, a sandbox&#x27;s own key or a GitHub token would send it across your network unencrypted, so the dashboard does not offer the field there and <code>doz serve</code> refuses it. Add it on the Mac (<code>doz account add NAME --api-key</code>, or the Mac&#x27;s own <code>doz ui</code>), or reach <code>doz serve</code> over HTTPS through your reverse proxy (below) — there it is allowed.</li>
-<li><strong>Nothing that opens a window on the Mac&#x27;s screen</strong>: the Mac&#x27;s folder and file pickers and <strong>Open in Terminal</strong> are not shown on another computer. Type the folder&#x27;s path instead, and use the browser&#x27;s own terminals.</li>
+<li><strong>No keys or tokens over plain HTTP.</strong> Adding an account&#x27;s API key or setup token, a sandbox&#x27;s own key or a GitHub token would send it across your network unencrypted, so the dashboard does not offer the field there and refuses it. Add it on the Mac (<code>doz account add NAME --api-key</code>, or this Mac&#x27;s own browser), or reach the dashboard over HTTPS through your reverse proxy (below) — there it is allowed.</li>
+<li><strong>Nothing that opens a window on the Mac&#x27;s screen</strong>: the Mac&#x27;s folder and file pickers, <strong>Open in Terminal</strong>, <strong>Open folder</strong> and the Files tab&#x27;s Open items are not shown on another computer. Type the folder&#x27;s path instead, and use the browser&#x27;s own terminals.</li>
 </ul>
-<p>The <code>serve.*</code> settings — who can reach the dashboard — are changed only on the Mac, with <code>doz config set</code>.</p>
+<p><code>ui.lan</code> and the <code>serve.*</code> settings — who can reach the dashboard — are changed only on the Mac, with <code>doz config set</code>.</p>
 <h2 id="the-browsers-that-are-in">The browsers that are in<a class="anchor" href="#the-browsers-that-are-in" aria-label="Link to this section">#</a></h2>
-<figure class="code"><figcaption data-gen><span>bash</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (bash)"><code>doz serve devices           <span class="c"># name, when let in, last seen, from where, which browser</span>
-doz serve rename ID &quot;Kitchen iPad&quot;
-doz serve revoke ID         <span class="c"># or --all</span></code></pre></figure>
-<p>The <strong>Devices</strong> page (on every browser that is in, and on the Mac&#x27;s <code>doz ui</code>) lists the same, with <strong>Remove</strong> and <strong>Rename</strong>, and the recent activity. A removed browser is signed out at once — its pages say so and its terminals close — and needs a new invite to come back.</p>
-<p>Every change a remote browser asks for, every terminal it opens, every admission and every refusal is written to an audit log — never a key, a code or what was typed:</p>
-<figure class="code"><figcaption data-gen><span>bash</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (bash)"><code>doz serve log</code></pre></figure>
+<figure class="code"><figcaption data-gen><span>bash</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (bash)"><code>doz ui devices              <span class="c"># name, when let in, last seen, from where, which browser</span>
+doz ui rename ID &quot;Kitchen iPad&quot;
+doz ui revoke ID            <span class="c"># or --all</span></code></pre></figure>
+<p>The <strong>Devices</strong> page (on every browser that is in, and on this Mac&#x27;s) lists the same, with <strong>Remove</strong> and <strong>Rename</strong>, and the recent activity. A removed browser is signed out at once — its pages say so and its terminals close — and needs a new invite to come back. A new link for this Mac&#x27;s browser (<code>doz ui link --rotate</code>, <code>doz ui --new-link</code>) signs out this Mac&#x27;s pages only; the other browsers stay in.</p>
+<p>Every change another browser asks for, every terminal it opens, every admission and every refusal is written to an audit log — never a key, a code or what was typed:</p>
+<figure class="code"><figcaption data-gen><span>bash</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (bash)"><code>doz ui log</code></pre></figure>
 <h2 id="where-it-listens">Where it listens<a class="anchor" href="#where-it-listens" aria-label="Link to this section">#</a></h2>
-<p>By default (<code>serve.bind = lan</code>) on every network interface of this Mac (Wi-Fi, Ethernet, the Thunderbolt Bridge) and on Tailscale — never on a sandbox&#x27;s network. A sandbox can never reach <code>doz serve</code>: a connection from a sandbox&#x27;s network is dropped before anything is read, and the proxy that carries a proxied sandbox&#x27;s traffic refuses the Mac&#x27;s own addresses on the dashboards&#x27; ports, whatever the sandbox&#x27;s network policy says.</p>
-<p><code>doz serve</code> also announces itself with Bonjour as &quot;Dozable on &lt;this Mac&gt;&quot; (<code>serve.advertise</code>), so Safari&#x27;s Bonjour list and other devices can find it.</p>
-<p>The port is <code>serve.port</code> (7443). It never moves by itself — an installed app and a bookmark belong to it: when another program holds it, <code>doz serve</code> refuses and names that program.</p>
-<figure class="code"><figcaption data-gen><span>bash</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (bash)"><code>doz config set serve.port 8443</code></pre></figure>
+<p>By default (<code>serve.bind = lan</code>) on every network interface of this Mac (Wi-Fi, Ethernet, the Thunderbolt Bridge) and on Tailscale — never on a sandbox&#x27;s network. A sandbox can never reach the dashboard: a connection from a sandbox&#x27;s network is dropped before anything is read, and the proxy that carries a proxied sandbox&#x27;s traffic refuses the Mac&#x27;s own addresses on the dashboard&#x27;s port, whatever the sandbox&#x27;s network policy says. This Mac&#x27;s own browser is served at <code>127.0.0.1</code> whatever <code>serve.bind</code> says.</p>
+<p>With the LAN option the dashboard announces itself with Bonjour as &quot;Dozable on &lt;this Mac&gt;&quot; (<code>serve.advertise</code>), so Safari&#x27;s Bonjour list and other devices can find it.</p>
+<p>The port is the dashboard&#x27;s one port, <code>ui.port</code>. While <code>ui.port</code> is 0 (automatic), the LAN option uses <code>serve.port</code> (7443): with other browsers it never moves by itself — their sign-ins, an installed app and a bookmark belong to it. When another program holds it, <code>doz ui</code> refuses and names that program.</p>
+<figure class="code"><figcaption data-gen><span>bash</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (bash)"><code>doz config set ui.port 8443</code></pre></figure>
 <h2 id="https-behind-your-own-reverse-proxy">HTTPS behind your own reverse proxy<a class="anchor" href="#https-behind-your-own-reverse-proxy" aria-label="Link to this section">#</a></h2>
-<p>If you already run a reverse proxy at home (Caddy, Traefik, nginx, Nginx Proxy Manager, a Cloudflare Tunnel …), put <code>doz serve</code> behind it: your proxy does HTTPS, and through it the dashboard can be installed as an app (with its offline page, like <code>doz ui</code>&#x27;s) and takes keys and tokens.</p>
-<p>Tell <code>doz serve</code> three things:</p>
+<p>If you already run a reverse proxy at home (Caddy, Traefik, nginx, Nginx Proxy Manager, a Cloudflare Tunnel …), put the dashboard behind it: your proxy does HTTPS, and through it the dashboard can be installed as an app (with its offline page) and takes keys and tokens.</p>
+<p>Tell <code>doz ui</code> three things:</p>
 <figure class="code"><figcaption data-gen><span>bash</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (bash)"><code>doz config set serve.public_origins https://doz.home.example   <span class="c"># the address your proxy serves it at</span>
 doz config set serve.trusted_proxies 127.0.0.1,::1             <span class="c"># your proxy&#x27;s address (here: on this Mac)</span>
 doz config set serve.bind loopback                             <span class="c"># a proxy on this Mac: listen on 127.0.0.1 only</span></code></pre></figure>
 <p>For a proxy on another machine of your network, set <code>serve.trusted_proxies</code> to that machine&#x27;s address and <code>serve.bind</code> to this Mac&#x27;s address the proxy connects to (or leave it <code>lan</code>).</p>
-<p><code>doz serve</code> believes <code>X-Forwarded-Proto</code>, <code>X-Forwarded-Host</code> and <code>X-Forwarded-For</code> ONLY from the addresses in <code>serve.trusted_proxies</code>; from anyone else they are ignored, and the public address is refused. When it starts it prints the upstream your proxy should use and what is missing. Check the whole path:</p>
+<p>The dashboard believes <code>X-Forwarded-Proto</code>, <code>X-Forwarded-Host</code> and <code>X-Forwarded-For</code> ONLY from the addresses in <code>serve.trusted_proxies</code>; from anyone else they are ignored, and the public address is refused. A request that came through a proxy is never treated as this Mac&#x27;s own browser, even from a proxy on this Mac. When it starts it prints the upstream your proxy should use and what is missing. Check the whole path:</p>
 <figure class="code"><figcaption data-gen><span>bash</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (bash)"><code>doz doctor</code></pre></figure>
-<p>— its <code>doz serve via https://…</code> line fetches each public address from this Mac and says whether it came back to this <code>doz serve</code>, over https, through a trusted proxy.</p>
+<p>— its <code>dashboard via https://…</code> line fetches each public address from this Mac and says whether it came back to this dashboard, over https, through a trusted proxy.</p>
 <p>What your proxy must do: pass the <code>Host</code> header (or <code>X-Forwarded-Host</code>), set <code>X-Forwarded-Proto</code> and <code>X-Forwarded-For</code>, pass WebSocket upgrades (the terminals), and not buffer responses (the live updates are a server-sent event stream).</p>
 <h3 id="caddy">Caddy<a class="anchor" href="#caddy" aria-label="Link to this section">#</a></h3>
 <figure class="code"><figcaption data-gen><span>caddyfile</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (caddyfile)"><code>doz.home.example {
@@ -230,32 +239,32 @@ ingress:
     service: http://127.0.0.1:7443
   - service: http_status:404</code></pre></figure>
 <p><code>cloudflared</code> runs on this Mac, so <code>serve.trusted_proxies</code> is <code>127.0.0.1,::1</code> and <code>serve.public_origins</code> is <code>https://doz.example.com</code>. A tunnel puts the dashboard on the Internet: put Cloudflare Access in front of it too.</p>
-<p>The Caddy and Traefik configurations above are the ones Dozable&#x27;s own tests run in front of <code>doz serve</code> (terminals, live updates, the installable app, keys over https, <code>doz doctor</code>); the nginx and Cloudflare ones follow the same rules.</p>
+<p>The Caddy and Traefik configurations above are the ones Dozable&#x27;s own tests ran in front of the dashboard (terminals, live updates, the installable app, keys over https, <code>doz doctor</code>); the nginx and Cloudflare ones follow the same rules.</p>
 <h2 id="the-macos-firewall-and-local-network-privacy">The macOS firewall and Local Network privacy<a class="anchor" href="#the-macos-firewall-and-local-network-privacy" aria-label="Link to this section">#</a></h2>
 <ul>
-<li><strong>Firewall</strong> (System Settings › Network › Firewall): when it is on, macOS asks once whether <code>doz</code> may accept incoming connections — answer <strong>Allow</strong>. A <code>doz</code> installed with Homebrew is signed, and with the firewall&#x27;s &quot;Automatically allow downloaded signed software&quot; (on by default) it is allowed without asking. With &quot;Block all incoming connections&quot; nothing on your network can reach <code>doz serve</code>; <code>doz serve</code> says so when it starts. It never changes your firewall&#x27;s settings.</li>
-<li><strong>Local Network privacy</strong>: accepting connections from your network needs no permission. Announcing with Bonjour is done on behalf of the app you run <code>doz serve</code> in (Terminal, iTerm2, your editor); if macOS has refused that app Local Network access, <code>doz serve</code> says it was not announced — browsers still reach it by address and by <code>&lt;this Mac&gt;.local</code>. To announce it: System Settings › Privacy &amp; Security › Local Network, allow that app, or set <code>serve.advertise</code> to false.</li>
+<li><strong>Firewall</strong> (System Settings › Network › Firewall): when it is on, macOS asks once whether <code>doz</code> may accept incoming connections — answer <strong>Allow</strong>. A <code>doz</code> installed with Homebrew is signed, and with the firewall&#x27;s &quot;Automatically allow downloaded signed software&quot; (on by default) it is allowed without asking. With &quot;Block all incoming connections&quot; nothing on your network can reach the dashboard; <code>doz ui --lan</code> says so when it starts. It never changes your firewall&#x27;s settings.</li>
+<li><strong>Local Network privacy</strong>: accepting connections from your network needs no permission. Announcing with Bonjour is done on behalf of the app you run <code>doz ui</code> in (Terminal, iTerm2, your editor); if macOS has refused that app Local Network access, <code>doz ui</code> says it was not announced — browsers still reach it by address and by <code>&lt;this Mac&gt;.local</code>. To announce it: System Settings › Privacy &amp; Security › Local Network, allow that app, or set <code>serve.advertise</code> to false.</li>
 </ul>
 <h2 id="settings">Settings<a class="anchor" href="#settings" aria-label="Link to this section">#</a></h2>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Settings"><table>
 <thead><tr><th scope="col">setting</th><th scope="col">default</th><th scope="col">what</th></tr></thead>
 <tbody>
-<tr><td><code>serve.port</code></td><td>7443</td><td>the port (<code>--port</code>, <code>$DOZ_SERVE_PORT</code>)</td></tr><tr><td><code>serve.bind</code></td><td><code>lan</code></td><td><code>lan</code>, <code>loopback</code>, or this Mac&#x27;s addresses (<code>--bind</code>, <code>$DOZ_SERVE_BIND</code>)</td></tr><tr><td><code>serve.public_origins</code></td><td>—</td><td>your proxy&#x27;s https addresses</td></tr><tr><td><code>serve.trusted_proxies</code></td><td>—</td><td>your proxy&#x27;s addresses or networks</td></tr><tr><td><code>serve.advertise</code></td><td>true</td><td>announce with Bonjour</td></tr>
+<tr><td><code>ui.lan</code></td><td>false</td><td>serve your other browsers too (<code>--lan</code>, <code>--no-lan</code>, <code>$DOZ_UI_LAN</code>)</td></tr><tr><td><code>ui.port</code></td><td>0</td><td>the dashboard&#x27;s one port; 0 = automatic (<code>--port</code>, <code>$DOZ_UI_PORT</code>)</td></tr><tr><td><code>serve.port</code></td><td>7443</td><td>the port with the LAN option while <code>ui.port</code> is 0 (<code>$DOZ_SERVE_PORT</code>)</td></tr><tr><td><code>serve.bind</code></td><td><code>lan</code></td><td><code>lan</code>, <code>loopback</code>, or this Mac&#x27;s addresses (<code>--bind</code>, <code>$DOZ_SERVE_BIND</code>)</td></tr><tr><td><code>serve.public_origins</code></td><td>—</td><td>your proxy&#x27;s https addresses</td></tr><tr><td><code>serve.trusted_proxies</code></td><td>—</td><td>your proxy&#x27;s addresses or networks</td></tr><tr><td><code>serve.advertise</code></td><td>true</td><td>announce with Bonjour</td></tr><tr><td><code>serve.mac_sessions</code></td><td><code>off</code></td><td>what these browsers may do with the sessions on this Mac: <code>off</code>, <code>watch</code> or <code>interactive</code> (<a href="sessions-on-this-mac#in-the-dashboard">Sessions on this Mac</a>)</td></tr>
 </tbody></table></div>
-<p>All of them apply when <code>doz serve</code> starts again. See the <a href="settings-reference">Settings reference</a>.</p>
+<p>All of them but <code>serve.mac_sessions</code> (at once) apply when <code>doz ui</code> starts again (<code>doz ui restart</code>). See the <a href="settings-reference">Settings reference</a>.</p>
 <!-- /manual text -->
 </div>
 <ul class="pager">
 <li class="prev"><a href="codex" rel="prev"><small>&larr; Previous</small><b>Codex</b></a></li>
 <li class="next"><a href="try-and-search" rel="next"><small>Next &rarr;</small><b>Trying agents, and what Dozable supports</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/25-doz-serve.md">Edit this page on GitHub</a> &middot; Chapter 25 of 29</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/25-doz-serve.md">Edit this page on GitHub</a> &middot; Chapter 25 of 34</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
 <ol>
-<li><a href="#letting-a-browser-in">Letting a browser in</a>
+<li><a href="#this-macs-browser-and-the-others">This Mac&#x27;s browser and the others</a>
 </li>
 <li><a href="#what-another-browser-can-do">What another browser can do</a>
 </li>
