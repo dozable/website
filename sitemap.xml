@@ -4,14 +4,6 @@
   <url><loc>https://dozable.com/timeline.html</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://dozable.com/privacy</loc><lastmod>2026-10-10</lastmod></url>
   <url><loc>https://dozable.com/signup</loc><lastmod>2026-10-10</lastmod></url>
-  <url><loc>https://dozable.com/blog/</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://dozable.com/blog/dozable</loc><lastmod>2026-10-19</lastmod></url>
-  <url><loc>https://dozable.com/blog/doz-v0.35</loc><lastmod>2026-10-18</lastmod></url>
-  <url><loc>https://dozable.com/blog/doz-try</loc><lastmod>2026-10-18</lastmod></url>
-  <url><loc>https://dozable.com/blog/opencode-2</loc><lastmod>2026-10-17</lastmod></url>
-  <url><loc>https://dozable.com/blog/grok-build-status</loc><lastmod>2026-10-17</lastmod></url>
-  <url><loc>https://dozable.com/blog/introducing-dozable</loc><lastmod>2026-10-11</lastmod></url>
-  <url><loc>https://dozable.com/blog/dozable-0-33</loc><lastmod>2026-10-11</lastmod></url>
   <url><loc>https://dozable.com/docs/</loc><lastmod>2026-11-13</lastmod></url>
   <url><loc>https://dozable.com/docs/getting-started</loc><lastmod>2026-11-13</lastmod></url>
   <url><loc>https://dozable.com/docs/install-upgrade-uninstall</loc><lastmod>2026-11-13</lastmod></url>
@@ -47,4 +39,13 @@
   <url><loc>https://dozable.com/docs/claude-code-other-models</loc><lastmod>2026-11-13</lastmod></url>
   <url><loc>https://dozable.com/docs/bundling-doz-in-an-app</loc><lastmod>2026-11-13</lastmod></url>
   <url><loc>https://dozable.com/docs/sessions-on-this-mac</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://dozable.com/blog/</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://dozable.com/blog/doz-v0.37</loc><lastmod>2026-11-13</lastmod></url>
+  <url><loc>https://dozable.com/blog/dozable</loc><lastmod>2026-10-19</lastmod></url>
+  <url><loc>https://dozable.com/blog/doz-v0.35</loc><lastmod>2026-10-18</lastmod></url>
+  <url><loc>https://dozable.com/blog/doz-try</loc><lastmod>2026-10-18</lastmod></url>
+  <url><loc>https://dozable.com/blog/opencode-2</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://dozable.com/blog/grok-build-status</loc><lastmod>2026-10-17</lastmod></url>
+  <url><loc>https://dozable.com/blog/introducing-dozable</loc><lastmod>2026-10-11</lastmod></url>
+  <url><loc>https://dozable.com/blog/dozable-0-33</loc><lastmod>2026-10-11</lastmod></url>
 </urlset>

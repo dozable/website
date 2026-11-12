@@ -5,8 +5,42 @@
   <id>https://dozersandbox.com/blog/</id>
   <link rel="self" type="application/atom+xml" href="https://dozable.com/blog/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://dozable.com/blog/"/>
-  <updated>2026-10-19T00:00:00Z</updated>
+  <updated>2026-11-13T00:00:00Z</updated>
   <author><name>Dozable</name><uri>https://dozable.com/</uri></author>
+  <entry>
+    <title>Dozable 0.37 - sessions on this Mac</title>
+    <id>https://dozersandbox.com/blog/doz-v0.37</id>
+    <link rel="alternate" type="text/html" href="https://dozable.com/blog/doz-v0.37"/>
+    <published>2026-11-13T00:00:00Z</published>
+    <updated>2026-11-13T00:00:00Z</updated>
+    <summary>Dozable 0.37 holds sessions on this Mac for work a Linux sandbox cannot do, and adds Claude Code with local models, your own recipes, and dotfiles in every sandbox.</summary>
+    <category term="release-news" label="Release news"/>
+    <content type="html">&lt;p&gt;It&amp;#x27;s on the &lt;a href="https://dozable.com/docs/install-upgrade-uninstall"&gt;stable channel&lt;/a&gt; now, as 0.37.46, and includes everything since 0.35.&lt;/p&gt;
+&lt;h2 id="sessions-on-this-mac"&gt;Sessions on this Mac&lt;a class="anchor" href="https://dozable.com/blog/doz-v0.37#sessions-on-this-mac" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Dozable holds &lt;a href="https://dozable.com/docs/sessions-on-this-mac"&gt;terminal sessions on this Mac&lt;/a&gt;, for work a Linux sandbox cannot do: Swift, Xcode, signing and notarisation. A session runs as you: your files, Keychain and network, with no sandbox and no proxy.&lt;/p&gt;
+&lt;p&gt;The dashboard&amp;#x27;s &lt;strong&gt;This Mac&lt;/strong&gt; page lists them. Opening a session starts read-only; &lt;strong&gt;Type into it&lt;/strong&gt; switches to typing. Start one with &lt;code&gt;doz run @mac&lt;/code&gt;; other devices see none of this by default.&lt;/p&gt;
+&lt;h2 id="claude-code-with-other-models"&gt;Claude Code with other models&lt;a class="anchor" href="https://dozable.com/blog/doz-v0.37#claude-code-with-other-models" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://dozable.com/docs/claude-code-other-models"&gt;Claude Code can use&lt;/a&gt; a model server on this Mac (Ollama, LM Studio or oMLX), OpenRouter&amp;#x27;s Anthropic endpoint, or Anthropic as before. The proxy lets that sandbox reach only the port you chose.&lt;/p&gt;
+&lt;h2 id="recipes-and-dotfiles"&gt;Recipes and dotfiles&lt;a class="anchor" href="https://dozable.com/blog/doz-v0.37#recipes-and-dotfiles" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;You can add &lt;a href="https://dozable.com/docs/your-own-recipes"&gt;your own recipe&lt;/a&gt; with &lt;code&gt;doz recipe new&lt;/code&gt; or &lt;code&gt;doz recipe add&lt;/code&gt;, and a signed community catalogue with &lt;code&gt;doz recipe source add&lt;/code&gt;. A sandbox can use &lt;a href="https://dozable.com/docs/dotfiles"&gt;your dotfiles&lt;/a&gt; from a git repository or a folder on this Mac: fetched on the Mac, applied as the image&amp;#x27;s user, and never overwriting an existing file.&lt;/p&gt;
+&lt;h2 id="also-new"&gt;Also new&lt;a class="anchor" href="https://dozable.com/blog/doz-v0.37#also-new" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Claude Code keeps its conversations, instead of deleting them after 30 days. A cleanup period you already set is left alone.&lt;/li&gt;
+&lt;li&gt;A sandbox&amp;#x27;s &lt;strong&gt;Files&lt;/strong&gt; tab shows &lt;code&gt;/workspace&lt;/code&gt; as a live, editable tree. &lt;strong&gt;Open folder&lt;/strong&gt; opens it in the Finder or an editor on this Mac (&lt;code&gt;doz files open&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;doz sessions send&lt;/code&gt; types into a session from a script; &lt;code&gt;doz sessions screen&lt;/code&gt; prints the screen as it is now. Both work on a sandbox&amp;#x27;s sessions too.&lt;/li&gt;
+&lt;li&gt;Dozable offers Claude Code, Codex, pi and OpenCode (1 and 2), with OpenRouter as the gateway. The other tools, and Vercel AI Gateway, are unpublished for now and return in a later release; sandboxes already made with them keep working.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="fixed"&gt;Fixed&lt;a class="anchor" href="https://dozable.com/blog/doz-v0.37#fixed" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;A busy sandbox is no longer starved of memory after a wake, and one unresponsive sandbox can no longer hang &lt;code&gt;doz ls&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;A sandbox that stopped answering is shown as &amp;quot;not answering&amp;quot;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="upgrade"&gt;Upgrade&lt;a class="anchor" href="https://dozable.com/blog/doz-v0.37#upgrade" aria-label="Link to this section"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;0.37 starts fresh: settings, the store and caches live in new &lt;code&gt;doz&lt;/code&gt; folders, and nothing is migrated from the earlier paths. The &lt;a href="https://dozable.com/docs/install-upgrade-uninstall"&gt;install and upgrade&lt;/a&gt; page says what to do before and after. If you are upgrading from 0.35, trust the Homebrew tap once, then upgrade:&lt;/p&gt;
+&lt;figure class="code"&gt;&lt;figcaption data-gen&gt;&lt;span&gt;sh&lt;/span&gt;&lt;button class="copy" type="button"&gt;Copy&lt;/button&gt;&lt;/figcaption&gt;&lt;pre tabindex="0" role="region" aria-label="Code (sh)"&gt;&lt;code&gt;brew trust --tap dozable/tap
+doz upgrade&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;p&gt;Then try a session on this Mac, or Claude Code with a local model.&lt;/p&gt;</content>
+  </entry>
   <entry>
     <title>Dozer Sandbox is now Dozable</title>
     <id>https://dozersandbox.com/blog/dozable</id>

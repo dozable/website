@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Dozable 0.37 - sessions on this Mac — Dozable blog</title>
+<meta name="description" content="Dozable 0.37 holds sessions on this Mac for work a Linux sandbox cannot do, and adds Claude Code with local models, your own recipes, and dotfiles in every sandbox.">
+<link rel="canonical" href="https://dozable.com/blog/doz-v0.37">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Dozable">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Dozable 0.37 - sessions on this Mac — Dozable blog">
+<meta property="og:description" content="Dozable 0.37 holds sessions on this Mac for work a Linux sandbox cannot do, and adds Claude Code with local models, your own recipes, and dotfiles in every sandbox.">
+<meta property="og:url" content="https://dozable.com/blog/doz-v0.37">
+<meta property="og:image" content="https://dozable.com/og-image.png">
+<meta property="og:image:secure_url" content="https://dozable.com/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dozable 0.37 - sessions on this Mac — Dozable blog">
+<meta name="twitter:description" content="Dozable 0.37 holds sessions on this Mac for work a Linux sandbox cannot do, and adds Claude Code with local models, your own recipes, and dotfiles in every sandbox.">
+<meta name="twitter:image" content="https://dozable.com/og-image.png">
+<meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
+<meta property="article:published_time" content="2026-11-13">
+<meta property="article:tag" content="Release news">
+<link rel="alternate" type="text/markdown" href="https://dozable.com/blog/doz-v0.37.md">
+<link rel="alternate" type="application/atom+xml" title="Dozable blog" href="feed.xml">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../site.css?v=3c6a0f06">
+<script src="../nav.js?v=4f745b91"></script>
+<link rel="stylesheet" href="../docs/docs.css?v=4bcad37f">
+<script defer src="../docs/docs.js?v=a2a39b76"></script>
+<script defer src="../signup.js?v=4c5f91c5"></script>
+</head>
+<body class="docs blog">
+<a class="skip" href="#main">Skip to the post</a>
+<header class="nav"><div class="nav-in">
+  
+  <a class="nav-name" href="../">Dozable</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel" aria-label="Menu"><svg class="bars" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <nav id="nav-panel" aria-label="Site"><a href="../#speed">Speed</a><a href="../#cli">CLI</a><a href="../#tour">Web UI</a><a href="../#compare">Compare</a><a href="../#security">Security</a><a href="../#uses">Use cases</a><a href="../#features">Features</a><a href="../timeline.html">Timeline</a><a href="./" aria-current="page">Blog</a><a href="../docs/">Docs</a><a class="nav-extra" href="https://github.com/dozable/dozable">GitHub</a></nav>
+  <a class="nav-gh" href="https://github.com/dozable/dozable" aria-label="Source code on GitHub" title="Source code on GitHub"><svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg></a>
+  <a class="pill" href="../#install">Install</a>
+</div></header>
+<main id="main">
+<article class="prose article post">
+<p class="crumbs"><a href="./">&lsaquo; All posts</a></p>
+<header class="post-head"><p class="post-meta"><time datetime="2026-11-13">13 November 2026</time> <span class="chip">Release news</span></p>
+<h1>Dozable 0.37 - sessions on this Mac</h1>
+<p class="post-summary">Dozable 0.37 holds sessions on this Mac for work a Linux sandbox cannot do, and adds Claude Code with local models, your own recipes, and dotfiles in every sandbox.</p></header>
+<p>It&#x27;s on the <a href="https://dozable.com/docs/install-upgrade-uninstall">stable channel</a> now, as 0.37.46, and includes everything since 0.35.</p>
+<h2 id="sessions-on-this-mac">Sessions on this Mac<a class="anchor" href="#sessions-on-this-mac" aria-label="Link to this section">#</a></h2>
+<p>Dozable holds <a href="https://dozable.com/docs/sessions-on-this-mac">terminal sessions on this Mac</a>, for work a Linux sandbox cannot do: Swift, Xcode, signing and notarisation. A session runs as you: your files, Keychain and network, with no sandbox and no proxy.</p>
+<p>The dashboard&#x27;s <strong>This Mac</strong> page lists them. Opening a session starts read-only; <strong>Type into it</strong> switches to typing. Start one with <code>doz run @mac</code>; other devices see none of this by default.</p>
+<h2 id="claude-code-with-other-models">Claude Code with other models<a class="anchor" href="#claude-code-with-other-models" aria-label="Link to this section">#</a></h2>
+<p><a href="https://dozable.com/docs/claude-code-other-models">Claude Code can use</a> a model server on this Mac (Ollama, LM Studio or oMLX), OpenRouter&#x27;s Anthropic endpoint, or Anthropic as before. The proxy lets that sandbox reach only the port you chose.</p>
+<h2 id="recipes-and-dotfiles">Recipes and dotfiles<a class="anchor" href="#recipes-and-dotfiles" aria-label="Link to this section">#</a></h2>
+<p>You can add <a href="https://dozable.com/docs/your-own-recipes">your own recipe</a> with <code>doz recipe new</code> or <code>doz recipe add</code>, and a signed community catalogue with <code>doz recipe source add</code>. A sandbox can use <a href="https://dozable.com/docs/dotfiles">your dotfiles</a> from a git repository or a folder on this Mac: fetched on the Mac, applied as the image&#x27;s user, and never overwriting an existing file.</p>
+<h2 id="also-new">Also new<a class="anchor" href="#also-new" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Claude Code keeps its conversations, instead of deleting them after 30 days. A cleanup period you already set is left alone.</li>
+<li>A sandbox&#x27;s <strong>Files</strong> tab shows <code>/workspace</code> as a live, editable tree. <strong>Open folder</strong> opens it in the Finder or an editor on this Mac (<code>doz files open</code>).</li>
+<li><code>doz sessions send</code> types into a session from a script; <code>doz sessions screen</code> prints the screen as it is now. Both work on a sandbox&#x27;s sessions too.</li>
+<li>Dozable offers Claude Code, Codex, pi and OpenCode (1 and 2), with OpenRouter as the gateway. The other tools, and Vercel AI Gateway, are unpublished for now and return in a later release; sandboxes already made with them keep working.</li>
+</ul>
+<h2 id="fixed">Fixed<a class="anchor" href="#fixed" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>A busy sandbox is no longer starved of memory after a wake, and one unresponsive sandbox can no longer hang <code>doz ls</code>.</li>
+<li>A sandbox that stopped answering is shown as &quot;not answering&quot;.</li>
+</ul>
+<h2 id="upgrade">Upgrade<a class="anchor" href="#upgrade" aria-label="Link to this section">#</a></h2>
+<p>0.37 starts fresh: settings, the store and caches live in new <code>doz</code> folders, and nothing is migrated from the earlier paths. The <a href="https://dozable.com/docs/install-upgrade-uninstall">install and upgrade</a> page says what to do before and after. If you are upgrading from 0.35, trust the Homebrew tap once, then upgrade:</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>brew trust --tap dozable/tap
+doz upgrade</code></pre></figure>
+<p>Then try a session on this Mac, or Claude Code with a local model.</p>
+</article>
+<aside class="post-sub" aria-labelledby="sub-h"><div class="post-sub-in">
+<h2 id="sub-h">Get Release news by email</h2>
+<p>Tick what you’d like to hear about. <a href="./">Read past issues &rarr;</a></p>
+<div class="signup-box signup" data-signup-root>
+<noscript><p class="note">This form needs JavaScript &mdash; or run <code>doz signup</code> in Terminal.</p></noscript>
+<form data-signup action="#" method="post">
+  <div class="field"><label for="post-email">Email</label>
+  <input id="post-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="254" placeholder="you@example.com"></div>
+  <fieldset><legend>What would you like to hear about? <span class="muted">Choose at least one.</span></legend>
+    <label class="check"><input type="checkbox" name="interests" value="release-news"><span><b>Release news</b><small>New versions and what changed.</small></span></label>
+    <label class="check"><input type="checkbox" name="interests" value="tool-news"><span><b>Tool news</b><small>New and updated tools you can try in Dozable.</small></span></label>
+    <label class="check"><input type="checkbox" name="interests" value="early-access"><span><b>Early access</b><small>Try beta and canary builds before they are released.</small></span></label>
+    <label class="check"><input type="checkbox" name="interests" value="tips"><span><b>Tips and tricks</b><small>Ways to get more out of Dozable, now and then.</small></span></label>
+  </fieldset>
+  <p class="msg" data-signup-error role="alert" hidden></p>
+  <button class="pill big" type="submit">Sign up</button>
+  <p class="fine-s">Email only. We confirm by email, and every email has a one-click unsubscribe. <a href="../privacy">Privacy &rarr;</a></p>
+</form>
+<div class="result" data-signup-result role="status" aria-live="polite" tabindex="-1" hidden><p class="result-title" data-signup-title></p><p data-signup-text></p></div>
+</div>
+</div></aside>
+</main>
+<footer class="foot"><div class="wrap">
+  <ul>
+    <li><a href="https://github.com/dozable/dozable">GitHub</a></li>
+    <li><a href="../docs/">Manual</a></li>
+    <li><a href="https://github.com/dozable/dozable/releases">Releases</a></li>
+    <li><a href="../timeline.html">Timeline</a></li>
+    <li><a href="../blog/">Blog</a></li>
+    <li><a href="../privacy">Privacy</a></li>
+    <li><a href="../signup">Sign up</a></li>
+    <li><a href="https://github.com/dozable/dozable/blob/main/LICENSE">MIT licence</a></li>
+    <li><a href="../LICENSES/lucide.txt">Icon licence</a></li>
+  </ul>
+  <p>Requires Apple silicon and macOS 26 or later.</p>
+  <p>&copy; 2026 Johno Scott. Released under the MIT licence.</p>
+</div></footer>
+</body>
+</html>
