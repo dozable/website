@@ -39,7 +39,7 @@ The fix was to give the bot the ability to use Claude's peer session messaging. 
 
 The relay is a long-lived Claude session that runs in the background, and it starts from a scratch directory rather than a work repo. Its only job is to send messages to work sessions and print what comes back. One relay can support all the Claude sessions that the bot is running.
 
-**Sending uses Claude Code's own cross-session messaging.** Inside the relay, Claude uses its built-in `SendMessage` tool to reach a work session. I address the target by its exact session name. In my probe, the short IDs that `claude agents` prints didn't match as addresses, and names stayed stable when processes were respawned. A reply arrives in the relay labelled `Message from @<sender-name>`. Claude Code's [cross-session messaging docs](https://code.claude.com/docs/en/cross-session-messaging.md) describe the same tools, `ListAgents` and `SendMessage`, and the same "Message from @name" preview.
+**Sending uses Claude Code's own cross-session messaging.** Inside the relay, Claude uses its built-in `SendMessage` tool to reach a work session. I address the target by its exact session name. In my probe, the short IDs that `claude agents` prints didn't match as addresses, and names stayed stable when processes were respawned. A reply arrives in the relay labelled `Message from @<sender-name>`. Claude Code's [cross-session messaging docs](https://code.claude.com/docs/en/cross-session-messaging) describe the same tools, `ListAgents` and `SendMessage`, and the same "Message from @name" preview.
 
 The two frames below are from the later diagram, not from the 10 November probe. They show the worker typing the instruction into the relay, then the relay sending by exact name.
 
@@ -74,7 +74,7 @@ What I have proved is narrow: repeated exchanges between one relay and one recei
 - **A human attaching while the relay is messaging the same session.** Not part of the 10 November probe. The demonstration below is a later account, from a transcript, and it is not a re-run of that probe.
 - **The typing script as a bridge.** The terminal UI breaks words up on screen, so the script's simple text matching didn't work reliably. It was good enough for a probe and isn't a deployed integration.
 
-Claude Code is also moving quickly. Its current docs describe other routes I haven't tried in this setup: replying from agent view's peek panel, resuming a running session with a prompt, an idle notification option on `SendMessage`, and [channels](https://code.claude.com/docs/en/channels.md) for pushing events into a session. Some of these may make parts of this setup simpler, or unnecessary. I'll test them before I say so.
+Claude Code is also moving quickly. Its current docs describe other routes I haven't tried in this setup: replying from agent view's peek panel, resuming a running session with a prompt, an idle notification option on `SendMessage`, and [channels](https://code.claude.com/docs/en/channels) for pushing events into a session. Some of these may make parts of this setup simpler, or unnecessary. I'll test them before I say so.
 
 So the 10 November probe is a narrow result, not a deployed system. It proved that a bot can hold a repeated exchange with a running session through a relay. A human attaching is a separate, documented way in. On that probe, using both on the same session at the same time, and getting a reply back to the bot without polling, were still untested.
 
