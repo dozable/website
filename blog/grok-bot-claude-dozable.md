@@ -13,7 +13,7 @@ source: "Dozable blog"
 
 I quickly fell for Grok Bot's charm and capabilities. From marketing to product management (I even have a librarian), my bots handle their daily duties well, and I now rely on them. But they can't design, and they can't code! At least not to the level I reliably get from Claude Code.
 
-So I decided they should be able to hand that work to Claude Code on my Mac, using my own subscription, just like I do. If all you want is command-line access, that's easy to set up in the Grok Bot app on your computer. The hard part came when I realised something much better: a Grok Bot and I should work together in the same Claude Code terminal session, one that keeps running no matter who is connected.
+So I decided they should be able to delegate that work to Claude Code on my Mac, using my own subscription, just like I do. If all you want is command-line access, that's easy to set up in the Grok Bot app on your computer. The hard part came when I realised something much better: a Grok Bot and I should work together in the same Claude Code terminal session, one that keeps running no matter who is connected.
 
 The goal was to give each of my Grok Bots its own Claude Code workspaces on my own Macs, so the bots and the people on my team can work together in them. The bots do the delegated work in their sessions. A person keeps full visibility of every session, and can watch one or jump in and type whenever they need to.
 
