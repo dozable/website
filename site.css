@@ -48,10 +48,9 @@ code { font-family: var(--mono); font-size: 0.9em; }
 .nav nav .nav-extra { display: none; }
 .nav-gh { order: 2; }
 .nav .pill { order: 3; }
-.theme-toggle { display: none; order: 4; width: 40px; height: 40px; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); cursor: pointer; place-items: center; flex: none; -webkit-tap-highlight-color: transparent; }
+.theme-toggle { display: none; order: 4; width: 40px; height: 40px; margin: 0; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; color: var(--ink); cursor: pointer; place-items: center; flex: none; -webkit-tap-highlight-color: transparent; appearance: none; }
 html.js-theme .theme-toggle { display: grid; }
-.theme-toggle:hover { background: var(--hover); }
-.theme-toggle:active { background: var(--press); }
+.theme-toggle:hover, .theme-toggle:active { background: transparent; box-shadow: none; }
 .theme-toggle:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
 .theme-toggle svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .theme-toggle .sun { display: none; }
