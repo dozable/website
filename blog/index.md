@@ -9,7 +9,7 @@ source: "Dozable blog"
 
 News, early access and tips and tricks. Every post is also sent by email to the people who asked for that kind of news. [Atom feed](https://dozable.com/blog/feed.xml) · [Sign up](https://dozable.com/signup.md)
 
-- [Working together with Grok Bot in a Claude Code session, enabled by Dozable](https://dozable.com/blog/grok-bot-claude-dozable.md) — 13 November 2026 — Tips and tricks: Claude Code superpowers granted to your Grok Bots.
+- [Working together with Grok Bot in a Claude Code session, enabled by Dozable](https://dozable.com/blog/grok-bot-claude-dozable.md) — 13 November 2026 — Tips and tricks: Grok Bot hands design and coding to Claude Code sessions in templated Dozable sandboxes, and I can watch the same session or type in it.
 - [Dozable 0.37 - sessions on this Mac](https://dozable.com/blog/doz-v0.37.md) — 13 November 2026 — Release news: Dozable 0.37 holds sessions on this Mac for work a Linux sandbox cannot do, and adds Claude Code with local models, your own recipes, and dotfiles in every sandbox.
 - [Dozer Sandbox is now Dozable](https://dozable.com/blog/dozable.md) — 19 October 2026 — Release news: Dozer Sandbox has a new name, Dozable, in 0.36.1; the doz command, your sandboxes, your settings and how you upgrade all stay as they are.
 - [Dozable 0.35 - doz try, and keys from any provider](https://dozable.com/blog/doz-v0.35.md) — 18 October 2026 — Release news: Dozable 0.35 adds doz try for any of 42 coding agents and AI tools, keys from any major provider or gateway, a choice of model, and OpenCode 2.

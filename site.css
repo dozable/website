@@ -515,3 +515,127 @@ html { scroll-behavior: smooth; }
 .post-sub .signup-box .check { background: #fff; }
 .post-sub .signup-box .check:has(input:checked) { background: var(--accent); }
 .blog .shot { margin: 1.6em 0; }
+
+/* One post embeds a self-contained diagram. The figure is wider than the 70ch column so the drawing can be read.
+   The overlay and its script are emitted only for a post that has a diagram fence. */
+.blog .diagram-embed {
+  width: min(1120px, calc(100vw - 32px));
+  max-width: none;
+  margin: 1.6em 0 1.6em calc(50% - min(560px, 50vw - 16px));
+  border: 1px solid #000;
+  border-radius: 14px;
+  box-shadow: 0 4px 0 #000;
+  background: #fff;
+  overflow: hidden;
+}
+.blog .diagram-bar { margin: 0; padding: 12px 16px 14px; background: var(--tint-soft); border-bottom: 1px solid #000; }
+.blog .diagram-bar p { margin: 0 0 10px; font-size: 15px; line-height: 1.45; }
+.blog .diagram-actions { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; margin: 0 !important; }
+.blog .diagram-embed iframe { display: block; width: 100%; height: min(78vh, 820px); min-height: 560px; border: 0; background: #f5f4ef; }
+@media (max-width: 700px) {
+  .blog .diagram-embed iframe { height: 72vh; min-height: 440px; }
+}
+.diagram-overlay { position: fixed; inset: 0; z-index: 80; background: #fff; display: flex; flex-direction: column; }
+.diagram-overlay[hidden] { display: none !important; }
+.diagram-overlay-bar { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center; padding: 10px 16px; border-bottom: 1px solid #000; background: #fff; }
+.diagram-overlay-bar .diagram-close { font-family: inherit; cursor: pointer; }
+.diagram-overlay-host { flex: 1; min-height: 0; }
+.diagram-overlay-host iframe { width: 100%; height: 100%; border: 0; display: block; background: #f5f4ef; }
+body.diagram-open { overflow: hidden; }
+
+/* A timeline fence fills the post column. Each bubble is 80% of that column:
+   Grok Bot on the left, Me on the right, so a bubble crosses the midpoint.
+   No centre line, no step markers, no script. */
+.blog .tl {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 1.4em 0 1.6em;
+}
+.blog .tl figcaption { margin: 0 0 10px; font-size: 15px; color: var(--ink-2); }
+.blog .tl-labels {
+  display: flex; justify-content: space-between; gap: 12px;
+  margin: 0 0 14px; font: 600 13px/1.3 var(--mono); min-width: 0;
+}
+.blog .tl-labels span { min-width: 0; overflow-wrap: anywhere; }
+.blog .tl-labels span:first-child::before,
+.blog .tl-labels span:last-child::before {
+  content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 6px;
+  border: 1px solid #000; border-radius: 3px; vertical-align: -1px;
+}
+.blog .tl-labels span:first-child::before { background: #fff6cc; }
+.blog .tl-labels span:last-child::before { background: #f1f1f3; }
+.blog .tl-list,
+.blog .tl-step {
+  display: block;
+  width: 100%;
+  max-width: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.blog .tl-step { margin: 0 0 8px; }
+.blog .tl-bubble {
+  display: block;
+  box-sizing: border-box;
+  width: 80%;
+  max-width: 80%;
+  border: 1px solid transparent;
+  border-radius: 18px;
+  box-shadow: none;
+  padding: 12px 18px;
+}
+.blog .tl-step.l .tl-bubble { margin-left: 0; margin-right: auto; background: #fff6cc; color: #111; border-color: rgb(0 0 0 / .12); }
+.blog .tl-step.r .tl-bubble { margin-left: auto; margin-right: 0; background: #f1f1f3; color: #111; border-color: rgb(0 0 0 / .1); }
+.blog .tl-say {
+  margin: 0 0 6px; font: 400 15.5px/1.35 var(--font); color: inherit;
+}
+.blog .tl-bubble pre {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  color: inherit;
+  overflow: visible;
+  text-align: left;
+  font: 12.5px/1.45 var(--mono);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.blog .tl-step.l .tl-bubble pre { background: #fff6cc; color: #111; }
+.blog .tl-step.r .tl-bubble pre { background: #f1f1f3; color: #111; }
+.blog .tl-bubble .out { color: inherit; }
+.blog .tl-bubble .cmd { font-weight: 700; color: #111; }
+.blog .tl-bubble .note { color: #3a3a3c; }
+.blog .tl-bubble::after {
+  content: ""; position: absolute; top: 20px; width: 0; height: 0;
+  border: 6px solid transparent;
+}
+.blog .tl-bubble { position: relative; }
+.blog .tl-step.l .tl-bubble::after { right: -6px; border-left-color: #fff6cc; }
+.blog .tl-step.r .tl-bubble::after { left: -6px; border-right-color: #f1f1f3; }
+/* Stronger fills only when the page is actually in dark mode. The light pair above
+   is what a light page uses. */
+@media (prefers-color-scheme: dark) {
+  .blog .tl-labels span:first-child::before { background: #ffd60a; }
+  .blog .tl-labels span:last-child::before { background: #111; }
+  .blog .tl-step.l .tl-bubble,
+  .blog .tl-step.l .tl-bubble pre { background: #ffd60a; color: #111; border-color: rgb(0 0 0 / .12); }
+  .blog .tl-step.r .tl-bubble,
+  .blog .tl-step.r .tl-bubble pre { background: #111; color: #fff; border-color: rgb(255 255 255 / .16); }
+  .blog .tl-step.l .tl-bubble .cmd,
+  .blog .tl-step.l .tl-bubble .out,
+  .blog .tl-step.l .tl-bubble .note { color: #111; }
+  .blog .tl-step.r .tl-bubble .cmd,
+  .blog .tl-step.r .tl-bubble .out { color: #fff; }
+  .blog .tl-step.r .tl-bubble .note { color: #e8e8e8; }
+  .blog .tl-step.l .tl-bubble::after { border-left-color: #ffd60a; }
+  .blog .tl-step.r .tl-bubble::after { border-right-color: #111; }
+}

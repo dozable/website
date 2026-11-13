@@ -7,6 +7,10 @@ drafts never reach the public website repository. Stdlib only. The Markdown is r
 (imported, not copied), so a post is written in the same dialect as the manual, and it FAILS (exit 1, file:line) on
 anything that dialect rejects, on a bad front matter and on a missing image.
 
+A fenced block with the language `diagram`, and one plain `*.html` file name inside it, embeds that file (beside
+index.md) in an iframe. The page also gets one inline script, on that post only, for an Expand overlay. The HTML
+must be self-contained: no external script, stylesheet, font or tracker. Other posts are unchanged.
+
 Writes, into the website (or --out):
   blog/index.html            the list, newest first
   blog/<slug>.html           one page per post (served at /blog/<slug>)
@@ -131,6 +135,86 @@ def image_size(path, where):
     fail(where, 'an image that is not a PNG or JPEG: %s' % os.path.basename(path))
 
 
+def assert_local_diagram(path, where):
+    """The embedded diagram is a same-origin page. It must not pull in a script, a font, a CDN or a tracker."""
+    text = open(path, encoding='utf-8').read()
+    if re.search(r'<script\b[^>]*\bsrc\s*=', text, re.I):
+        fail(where, 'a diagram must not load an external script: %s' % os.path.basename(path))
+    if re.search(r'<link\b[^>]*rel=["\']stylesheet["\'][^>]*href=["\']https?:', text, re.I):
+        fail(where, 'a diagram must not load an external stylesheet: %s' % os.path.basename(path))
+    if re.search(r'''@import\s+url\(\s*['"]?https?:''', text, re.I):
+        fail(where, 'a diagram must not import an external stylesheet: %s' % os.path.basename(path))
+    if re.search(r'fonts\.google|googletagmanager|google-analytics|cdn\.jsdelivr|unpkg\.com|cdnjs\.cloudflare', text, re.I):
+        fail(where, 'a diagram must not call a tracker, a CDN or a web font: %s' % os.path.basename(path))
+
+
+# Inline, and only on a post that embeds a diagram. Every other blog page stays as it was: nav.js, docs.js
+# (the Copy buttons) and signup.js. This script moves the iframe into a full-window overlay. Without JavaScript
+# the Expand control is an ordinary link to the diagram page.
+DIAGRAM_CHROME = '''<div class="diagram-overlay" id="diagram-overlay" hidden role="dialog" aria-modal="true" aria-label="Expanded diagram">
+<div class="diagram-overlay-bar">
+<button type="button" class="pill diagram-close">Close</button>
+<a class="diagram-overlay-open" href="">Open on its own page</a>
+</div>
+<div class="diagram-overlay-host"></div>
+</div>
+<script>
+(function () {
+  var overlay = document.getElementById('diagram-overlay');
+  if (!overlay) return;
+  var host = overlay.querySelector('.diagram-overlay-host');
+  var closeBtn = overlay.querySelector('.diagram-close');
+  var own = overlay.querySelector('.diagram-overlay-open');
+  var openLink = null, frame = null, slot = null;
+  function shut() {
+    if (!frame || !slot) return;
+    slot.parentNode.insertBefore(frame, slot.nextSibling);
+    slot.parentNode.removeChild(slot);
+    overlay.hidden = true;
+    document.body.classList.remove('diagram-open');
+    if (openLink) { openLink.setAttribute('aria-expanded', 'false'); openLink.focus(); }
+    frame = null; slot = null;
+  }
+  function open(link, iframe) {
+    if (frame) shut();
+    openLink = link;
+    frame = iframe;
+    slot = document.createElement('span');
+    slot.hidden = true;
+    iframe.parentNode.insertBefore(slot, iframe);
+    host.appendChild(iframe);
+    own.href = link.getAttribute('href');
+    overlay.hidden = false;
+    document.body.classList.add('diagram-open');
+    link.setAttribute('aria-expanded', 'true');
+    closeBtn.focus();
+  }
+  document.querySelectorAll('.diagram-embed').forEach(function (fig) {
+    var link = fig.querySelector('[data-diagram-expand]');
+    var iframe = fig.querySelector('iframe');
+    if (!link || !iframe) return;
+    link.setAttribute('aria-expanded', 'false');
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      open(link, iframe);
+    });
+  });
+  closeBtn.addEventListener('click', shut);
+  document.addEventListener('keydown', function (e) {
+    if (overlay.hidden) return;
+    if (e.key === 'Escape') { e.preventDefault(); shut(); return; }
+    if (e.key !== 'Tab') return;
+    var nodes = overlay.querySelectorAll('button, a, iframe');
+    if (!nodes.length) return;
+    var first = nodes[0], last = nodes[nodes.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+})();
+</script>
+'''
+
+
 class Post(docs.Page):
     """docs-build.py's Page, adapted to one post: no h1 in the body (the title is front matter), plain image file
     names beside index.md, absolute links only."""
@@ -142,6 +226,7 @@ class Post(docs.Page):
         self.name = os.path.basename(folder) + '/index.md'
         self.lines = body
         self.images = []
+        self.assets = []
         self.blocks = docs.parse_blocks(body, line0, self)
         self.ids, self.headings, self.code_blocks = docs.Counter(), [], []
         self.fragments = []
@@ -173,9 +258,91 @@ class Post(docs.Page):
         fail(where, 'a link must be an absolute https:// URL (or a #heading of this post): %s' % url)
 
     def code(self, b):
+        if b['lang'] == 'diagram':
+            return self.diagram(b)
+        if b['lang'] == 'timeline':
+            return self.timeline(b)
         if b['lang'] == 'mermaid':
             fail('%s:%d' % (self.name, b['ln']), 'no Mermaid diagrams in a post')
         return docs.Page.code(self, b)
+
+    def diagram(self, b):
+        where = '%s:%d' % (self.name, b['ln'])
+        src = b['text'].strip()
+        if '\n' in src or not re.match(r'^[A-Za-z0-9][A-Za-z0-9._-]*\.html$', src):
+            fail(where, 'a diagram fence holds one plain .html file name beside index.md, got %r' % src)
+        disk = os.path.join(self.folder, src)
+        if not os.path.isfile(disk):
+            fail(where, 'a missing diagram: %s' % src)
+        assert_local_diagram(disk, where)
+        if src not in self.assets:
+            self.assets.append(src)
+        href = 'images/%s/%s' % (self.slug, src)
+        title = 'Interactive diagram of Grok Bot, the relay and Claude Code sessions in a Dozable sandbox'
+        return ('<figure class="diagram-embed"><figcaption class="diagram-bar"><p>Play walks the stages. '
+                'Expand fills the window. The other link opens the diagram on its own page, which is also the '
+                'way in when a frame cannot be shown.</p><p class="diagram-actions">'
+                '<a class="pill" href="%s" data-diagram-expand>Expand</a>'
+                '<a href="%s">Open the diagram on its own page</a></p></figcaption>'
+                '<iframe src="%s" title="%s"></iframe></figure>'
+                % (esc(href), esc(href), esc(href), esc(title)))
+
+    def timeline(self, b):
+        """A fenced timeline: steps alternate left and right. No line, no markers, no JavaScript.
+        The first two lines are 'left: …' and 'right: …'. A '---' line starts the next step.
+        The first line of a step is '> ' plus a short sentence (body font). The lines after
+        it are the command and output. Odd steps are the left speaker, even steps the right."""
+        where = '%s:%d' % (self.name, b['ln'])
+        lines = b['text'].split('\n')
+        while lines and not lines[0].strip():
+            lines.pop(0)
+        while lines and not lines[-1].strip():
+            lines.pop()
+        if len(lines) < 2 or not lines[0].startswith('left:') or not lines[1].startswith('right:'):
+            fail(where, "a timeline block starts with 'left: …' and 'right: …'")
+        left_name, right_name = lines[0][5:].strip(), lines[1][6:].strip()
+        if not left_name or not right_name:
+            fail(where, 'a timeline block needs both speaker names')
+        chunks, cur = [], []
+        for line in lines[2:]:
+            if line.strip() == '---':
+                chunks.append('\n'.join(cur).strip('\n'))
+                cur = []
+            else:
+                cur.append(line)
+        chunks.append('\n'.join(cur).strip('\n'))
+        chunks = [c for c in chunks if c.strip()]
+        if not chunks:
+            fail(where, 'a timeline block needs at least one step')
+
+        def bubble(text):
+            lines = text.split('\n')
+            if not lines or not lines[0].startswith('> '):
+                fail(where, "each timeline step starts with '> ' and a short sentence")
+            say = lines[0][2:].strip()
+            if not say:
+                fail(where, 'a timeline sentence is empty')
+            lines = lines[1:]
+            while lines and not lines[0].strip():
+                lines.pop(0)
+            bits = ['<p class="tl-say">%s</p>' % esc(say)]
+            if any(line.strip() for line in lines):
+                bits.append('<pre>')
+                for line in lines:
+                    cls = 'cmd' if line.startswith('$ ') or line.startswith('  --') else 'note' if line.startswith('#') else 'out'
+                    bits.append('<span class="%s">%s</span>\n' % (cls, esc(line) if line else ''))
+                bits.append('</pre>')
+            return ''.join(bits)
+
+        steps = []
+        for i, chunk in enumerate(chunks):
+            side = 'l' if i % 2 == 0 else 'r'
+            who = left_name if side == 'l' else right_name
+            steps.append('<li class="tl-step %s"><div class="tl-bubble" aria-label="%s">%s</div></li>'
+                         % (side, esc(who), bubble(chunk)))
+        return ('<figure class="tl"><figcaption>An illustrative session, not a transcript.</figcaption>'
+                '<div class="tl-labels"><span>%s</span><span>%s</span></div><ol class="tl-list">%s</ol></figure>'
+                % (esc(left_name), esc(right_name), ''.join(steps)))
 
     def image(self, b):
         where = '%s:%d' % (self.name, b['ln'])
@@ -206,17 +373,30 @@ class Post(docs.Page):
 
     def body_md(self):
         """The post's Markdown with its image paths made absolute (links are absolute already)."""
-        out, fence = [], None
+        out, fence, diagram = [], None, None
         for line in self.lines:
             st = line.strip()
             if fence:
-                out.append(line)
                 if st.startswith(fence) and set(st) <= set(fence[0]):
-                    fence = None
+                    if diagram is not None:
+                        name = diagram or 'diagram.html'
+                        out.append('[Interactive diagram](%sblog/images/%s/%s)' % (BASE, self.slug, name))
+                    else:
+                        out.append(line)
+                    fence, diagram = None, None
+                    continue
+                if diagram is not None:
+                    if diagram == '':
+                        diagram = st
+                    continue
+                out.append(line)
                 continue
             m = docs.FENCE.match(st)
             if m:
                 fence = m.group(1)
+                if (m.group(2) or '').lower() == 'diagram':
+                    diagram = ''
+                    continue
             line = re.sub(r'^!\[([^\]]*)\]\(([A-Za-z0-9][A-Za-z0-9._-]*)\)\s*$',
                           lambda mm: '![%s](%simages/%s/%s)' % (mm.group(1), BASE + 'blog/', self.slug, mm.group(2)), line)
             out.append(line)
@@ -331,7 +511,7 @@ def post_page(p, header, footer):
         sub_h = 'Get %s by email' % TOPICS[f['topics'][0]]
     else:
         sub_h = 'Get posts like this by email \u2014 tick what you\u2019d like'
-    return (head(title, f['summary'], url, 'article', extra, url + '.md') + '<body class="docs blog">\n'
+    page = (head(title, f['summary'], url, 'article', extra, url + '.md') + '<body class="docs blog">\n'
             '<a class="skip" href="#main">Skip to the post</a>\n' + header + '\n<main id="main">\n'
             '<article class="prose article post">\n'
             '<p class="crumbs"><a href="./">&lsaquo; All posts</a></p>\n'
@@ -342,6 +522,9 @@ def post_page(p, header, footer):
             '<p>Tick what you\u2019d like to hear about. <a href="./">Read past issues &rarr;</a></p>\n%s\n</div></aside>\n</main>\n%s\n</body>\n</html>\n'
             % (f['date'], fmt_date(f['date']), chips(f['topics']), esc(f['title']), esc(f['summary']), p['html'],
                esc(sub_h), signup_box('post-'), footer))
+    if p.get('assets'):
+        page = page.replace('</body>', DIAGRAM_CHROME + '</body>', 1)
+    return page
 
 
 def index_page(posts, header, footer):
@@ -396,6 +579,7 @@ def index_md(posts):
 # --------------------------------------------------------------------------------------------------------- feed
 def absolutize(body, slug):
     body = re.sub(r'(<img src=")images/', r'\1' + BASE + 'blog/images/', body)
+    body = re.sub(r'((?:src|href)=")images/', r'\1' + BASE + 'blog/images/', body)
     body = re.sub(r'(<a class="anchor" href=")#', r'\1' + BASE + 'blog/' + slug + '#', body)
     return re.sub(r'(<a href=")#', r'\1' + BASE + 'blog/' + slug + '#', body)
 
@@ -458,7 +642,8 @@ def load_posts(repo, drafts):
         post.check_fragments()
         if not ''.join(body).strip():
             fail(d + '/index.md', 'an empty post')
-        posts.append({'slug': slug, 'fm': fm, 'html': post.body_html(), 'md': post.body_md(), 'images': post.images, 'folder': folder})
+        posts.append({'slug': slug, 'fm': fm, 'html': post.body_html(), 'md': post.body_md(),
+                       'images': post.images, 'assets': post.assets, 'folder': folder})
     posts.sort(key=lambda p: (p['fm']['date'], p['slug']), reverse=True)
     return posts
 
@@ -550,6 +735,10 @@ def main():
             dest = os.path.join(blog, 'images', p['slug'], img)
             os.makedirs(os.path.dirname(dest), exist_ok=True)
             shutil.copyfile(os.path.join(p['folder'], img), dest)
+        for asset in p.get('assets') or []:
+            dest = os.path.join(blog, 'images', p['slug'], asset)
+            os.makedirs(os.path.dirname(dest), exist_ok=True)
+            shutil.copyfile(os.path.join(p['folder'], asset), dest)
     if out == SITE:
         sitemap(posts)
     else:                                  # a preview copy: the page assets the pages link to
