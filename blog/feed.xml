@@ -13,7 +13,7 @@
     <link rel="alternate" type="text/html" href="https://dozable.com/blog/grok-bot-claude-dozable"/>
     <published>2026-11-13T00:00:00Z</published>
     <updated>2026-11-13T00:00:00Z</updated>
-    <summary>We set out to give each of our Grok Bots its own Claude Code workspaces on our own Macs, so the bots and a person can work together with full visibility of every session; this is how far we got and what is still untested.</summary>
+    <summary>Claude Code superpowers granted to your Grok Bots.</summary>
     <category term="tips" label="Tips and tricks"/>
     <content type="html">&lt;p&gt;It started with something we noticed pretty early on. Grok Bot is brilliant at keeping things organised, but when the work turned to tricky coding and design, Claude Code was clearly the stronger of the two. We didn&amp;#x27;t want to give up either. We wanted Grok Bot keeping everything on track, and Claude Code doing the hard design and coding. So the next step felt obvious: let Grok Bot hand that work to Claude Code and get on with it by itself, while we kept an eye on everything.&lt;/p&gt;
 &lt;p&gt;The goal was to give each of our Grok Bots its own Claude Code workspaces on our own Macs, so the bots and the people on our team can work together in them. The bots do the delegated work in their sessions. A person keeps full visibility of every session, and can watch one or jump in and type whenever they need to.&lt;/p&gt;

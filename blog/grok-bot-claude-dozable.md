@@ -1,6 +1,6 @@
 ---
 title: "Working together with Grok Bot in a Claude Code session, enabled by Dozable — Dozable blog"
-description: "We set out to give each of our Grok Bots its own Claude Code workspaces on our own Macs, so the bots and a person can work together with full visibility of every session; this is how far we got and what is still untested."
+description: "Claude Code superpowers granted to your Grok Bots."
 date: 2026-11-13
 topics: [tips]
 url: https://dozable.com/blog/grok-bot-claude-dozable
