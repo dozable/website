@@ -11,7 +11,7 @@ source: "Dozable blog"
 
 *13 November 2026 · Tips and tricks*
 
-It started with something we noticed pretty early on. Grok Bot is brilliant at keeping things organised, but when the work turned to tricky coding and design, Claude Code was clearly the stronger of the two. I didn't want to give up either. I wanted Grok Bot keeping everything on track, and Claude Code doing the hard design and coding. So the next step felt obvious: let Grok Bot hand that work to Claude Code and get on with it by itself, while I kept an eye on everything.
+I quickly fell for Grok Bot's charm and capabilities. From marketing to product management (I even have a librarian), they are all performing their daily duties and I have come to rely on them. However, they can't design and they can't code, at least not to the same level as Claude Code. I didn't want to give up either. I wanted Grok Bot keeping everything on track, and Claude Code doing the hard design and coding. So the next step felt obvious: let Grok Bot hand that work to Claude Code and get on with it by itself, while I kept an eye on everything.
 
 The goal was to give each of my Grok Bots its own Claude Code workspaces on my own Macs, so the bots and the people on my team can work together in them. The bots do the delegated work in their sessions. A person keeps full visibility of every session, and can watch one or jump in and type whenever they need to.
 
