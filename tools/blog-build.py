@@ -244,11 +244,12 @@ def head(title, desc, url, kind, extra='', md=''):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="light dark">
 <title>{t}</title>
 <meta name="description" content="{d}">
 <link rel="canonical" href="{url}">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="{kind}">
 <meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">

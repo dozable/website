@@ -3,25 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <meta name="robots" content="noindex">
 <title>Docs design guide — Dozable</title>
 <link rel="alternate" type="text/markdown" href="https://dozable.com/DESIGN.md">
 <meta name="description" content="The style guide for the user manual pages on dozable.com/docs: layout, typography, components and colour, shown as a living specimen.">
 <link rel="icon" type="image/png" href="favicon.png">
-<link rel="stylesheet" href="site.css?v=3c6a0f06">
+<link rel="stylesheet" href="site.css?v=306e9325">
 <script src="nav.js?v=4f745b91"></script>
-<link rel="stylesheet" href="docs/docs.css?v=4bcad37f">
+<link rel="stylesheet" href="docs/docs.css?v=7c9cbc98">
 <style>
 /* specimen-only helpers; not part of docs.css */
 .spec-note { font-size: 14px; color: var(--ink-2); }
 .swatches { list-style: none; padding: 0 !important; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
-.swatches li { margin: 0 !important; padding: 0 !important; border: 1px solid #000; border-radius: 14px; overflow: hidden; font-size: 13px; line-height: 1.35; }
-.swatches i { display: block; height: 56px; border-bottom: 1px solid #000; }
+.swatches li { margin: 0 !important; padding: 0 !important; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; font-size: 13px; line-height: 1.35; }
+.swatches i { display: block; height: 56px; border-bottom: 1px solid var(--line); }
 .swatches span { display: block; padding: 8px 10px 10px; }
 .swatches b { display: block; font: 700 12px var(--mono); }
-.demo { border: 1px dashed #000; border-radius: 14px; padding: 18px 20px 6px; margin: 1.2em 0 1.6em; }
-.demo > .label { display: inline-block; font: 700 11px var(--font); letter-spacing: .08em; text-transform: uppercase; background: #000; color: #fff; border-radius: 980px; padding: 2px 10px; margin: 0 0 12px; }
+.demo { border: 1px dashed var(--line); border-radius: 14px; padding: 18px 20px 6px; margin: 1.2em 0 1.6em; }
+.demo > .label { display: inline-block; font: 700 11px var(--font); letter-spacing: .08em; text-transform: uppercase; background: var(--ink); color: var(--on-ink); border-radius: 980px; padding: 2px 10px; margin: 0 0 12px; }
 .demo .chead { margin-bottom: 8px; }
 .scale { display: grid; gap: 10px; margin: 1.2em 0; }
 .scale > div { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; align-items: baseline; border-bottom: 1px solid var(--hair); padding-bottom: 10px; }
