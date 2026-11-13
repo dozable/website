@@ -1,5 +1,5 @@
 #!/bin/bash
-# tools/stamp.sh — run (after tools/docs-build.py, tools/blog-build.py and tools/markdown-build.py) before every commit that changes site.css, site.js, headlines.js, headlines.txt, docs/docs.css,
+# tools/stamp.sh — run (after tools/docs-build.py, tools/blog-build.py and tools/markdown-build.py) before every commit that changes site.css, site.js, theme.js, headlines.js, headlines.txt, docs/docs.css,
 # docs/docs.js or the docs pages (tools/docs-build.py).
 #  1. Fingerprints their links in every page — the root pages and docs/*.html, each by its own relative path
 #     (?v=<8 hex of the file's sha256>): Cloudflare tells browsers to keep these files for hours, so a page
@@ -18,7 +18,7 @@ lines = [l.strip() for l in open('headlines.txt', encoding='utf-8') if l.strip()
 primary = '<br>'.join(re.sub(r'(\d) (ms|s)\b', r'\1&nbsp;\2', html.escape(p)) for p in re.split(r'\s+/\s+', lines[0]))
 for page in sorted(glob.glob('*.html') + glob.glob('docs/*.html') + glob.glob('blog/*.html')):
     s = open(page, encoding='utf-8').read()
-    for asset in ('site.css', 'site.js', 'headlines.js', 'cli.js', 'carousel.js', 'signup.js', 'nav.js', 'docs/docs.css', 'docs/docs.js'):
+    for asset in ('site.css', 'site.js', 'headlines.js', 'cli.js', 'carousel.js', 'signup.js', 'nav.js', 'theme.js', 'docs/docs.css', 'docs/docs.js'):
         rel = os.path.relpath(asset, os.path.dirname(page) or '.')
         s = re.sub(r'(href|src)="%s(\?v=[0-9a-f]+)?"' % re.escape(rel), r'\1="%s?v=%s"' % (rel, fp(asset)), s)
     s = re.sub(r'data-headlines="headlines\.txt(\?v=[0-9a-f]+)?"', 'data-headlines="headlines.txt?v=%s"' % fp('headlines.txt'), s)
