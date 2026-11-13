@@ -564,8 +564,8 @@ body.diagram-open { overflow: hidden; }
   content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 6px;
   border: 1px solid #000; border-radius: 3px; vertical-align: -1px;
 }
-.blog .tl-labels span:first-child::before { background: var(--accent); }
-.blog .tl-labels span:last-child::before { background: #000; }
+.blog .tl-labels span:first-child::before { background: #fff6cc; }
+.blog .tl-labels span:last-child::before { background: #f1f1f3; }
 .blog .tl-list,
 .blog .tl-step {
   display: block;
@@ -586,8 +586,8 @@ body.diagram-open { overflow: hidden; }
   box-shadow: none;
   padding: 8px 12px;
 }
-.blog .tl-step.l .tl-bubble { margin-left: 0; margin-right: auto; background: var(--accent); color: #111; border-color: rgb(0 0 0 / .12); }
-.blog .tl-step.r .tl-bubble { margin-left: auto; margin-right: 0; background: #111; color: #fff; border-color: rgb(255 255 255 / .16); }
+.blog .tl-step.l .tl-bubble { margin-left: 0; margin-right: auto; background: #fff6cc; color: #111; border-color: rgb(0 0 0 / .12); }
+.blog .tl-step.r .tl-bubble { margin-left: auto; margin-right: 0; background: #f1f1f3; color: #111; border-color: rgb(0 0 0 / .1); }
 .blog .tl-say {
   margin: 0 0 6px; font: 400 15.5px/1.35 var(--font); color: inherit;
 }
@@ -609,20 +609,33 @@ body.diagram-open { overflow: hidden; }
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
-.blog .tl-step.l .tl-bubble pre { background: var(--accent); color: #111; }
-.blog .tl-step.r .tl-bubble pre { background: #111; color: #fff; }
+.blog .tl-step.l .tl-bubble pre { background: #fff6cc; color: #111; }
+.blog .tl-step.r .tl-bubble pre { background: #f1f1f3; color: #111; }
 .blog .tl-bubble .out { color: inherit; }
-.blog .tl-bubble .cmd { font-weight: 700; }
-.blog .tl-step.l .tl-bubble .cmd,
-.blog .tl-step.l .tl-bubble .out,
-.blog .tl-step.l .tl-bubble .note { color: #111; }
-.blog .tl-step.r .tl-bubble .cmd { color: #fff; }
-.blog .tl-step.r .tl-bubble .out { color: #fff; }
-.blog .tl-step.r .tl-bubble .note { color: #e8e8e8; }
+.blog .tl-bubble .cmd { font-weight: 700; color: #111; }
+.blog .tl-bubble .note { color: #3a3a3c; }
 .blog .tl-bubble::after {
   content: ""; position: absolute; top: 12px; width: 0; height: 0;
   border: 6px solid transparent;
 }
 .blog .tl-bubble { position: relative; }
-.blog .tl-step.l .tl-bubble::after { right: -6px; border-left-color: var(--accent); }
-.blog .tl-step.r .tl-bubble::after { left: -6px; border-right-color: #111; }
+.blog .tl-step.l .tl-bubble::after { right: -6px; border-left-color: #fff6cc; }
+.blog .tl-step.r .tl-bubble::after { left: -6px; border-right-color: #f1f1f3; }
+/* Stronger fills only when the page is actually in dark mode. The light pair above
+   is what a light page uses. */
+@media (prefers-color-scheme: dark) {
+  .blog .tl-labels span:first-child::before { background: #ffd60a; }
+  .blog .tl-labels span:last-child::before { background: #111; }
+  .blog .tl-step.l .tl-bubble,
+  .blog .tl-step.l .tl-bubble pre { background: #ffd60a; color: #111; border-color: rgb(0 0 0 / .12); }
+  .blog .tl-step.r .tl-bubble,
+  .blog .tl-step.r .tl-bubble pre { background: #111; color: #fff; border-color: rgb(255 255 255 / .16); }
+  .blog .tl-step.l .tl-bubble .cmd,
+  .blog .tl-step.l .tl-bubble .out,
+  .blog .tl-step.l .tl-bubble .note { color: #111; }
+  .blog .tl-step.r .tl-bubble .cmd,
+  .blog .tl-step.r .tl-bubble .out { color: #fff; }
+  .blog .tl-step.r .tl-bubble .note { color: #e8e8e8; }
+  .blog .tl-step.l .tl-bubble::after { border-left-color: #ffd60a; }
+  .blog .tl-step.r .tl-bubble::after { border-right-color: #111; }
+}
