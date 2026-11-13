@@ -27,7 +27,7 @@ Dozable was the right tool because of its session keeper. A session lives in the
 
 The other half is the boundary. A sandbox is a Linux virtual machine with its own kernel, so the tools for a workload are installed in its image and not on the Mac. They don't pollute the tools already there. For Remotion I save that image as a [template](https://dozable.com/docs/restore-points-duplicates-templates#templates), and the next team starts from it. A [recipe](https://dozable.com/docs/images-and-bases) is what bakes an agent's image, and a recipe cannot yet add the system packages this workload needs, so the template is the quick start I use.
 
-The same work is what led Dozable to put the session keeper on the Mac itself. Xcode and signing cannot run in a Linux sandbox, and a session there is held the same way: detach, come back, type from a script, from Terminal.app or the dashboard. Dozable now supports those shared host sessions with the same isolation as a sandbox. The commands are in [Letting another agent drive](https://dozable.com/docs/letting-another-agent-drive), [Terminals and sessions](https://dozable.com/docs/terminals-and-sessions) and [Sessions on this Mac](https://dozable.com/docs/sessions-on-this-mac).
+The same work is what led Dozable to put the session keeper on the Mac itself. Xcode and signing cannot run in a Linux sandbox, and a session there is held the same way: detach, come back, type from a script, from Terminal.app or the dashboard. Dozable now supports those shared host sessions. The isolation boundary is macOS Seatbelt: `sandbox-exec` and a sandbox profile. It is the same technique [Claude Code](https://code.claude.com/docs/en/sandboxing), the [Codex CLI](https://learn.chatgpt.com/docs/sandboxing) and the [Gemini CLI](https://geminicli.com/docs/cli/sandbox/) use for agent isolation on macOS. The commands are in [Letting another agent drive](https://dozable.com/docs/letting-another-agent-drive), [Terminals and sessions](https://dozable.com/docs/terminals-and-sessions) and [Sessions on this Mac](https://dozable.com/docs/sessions-on-this-mac).
 
 ## The relay command
 
@@ -95,7 +95,7 @@ On Friday 13 November 2026, in Sydney, I showed this setup to a new team member 
 
 ## What still applies
 
-A relay reaches only the sessions in its own sandbox. Xcode cannot run in the Linux sandbox, so that work is a session on the Mac (`doz run @mac`), on the [stable channel](https://dozable.com/docs/install-upgrade-uninstall) as 0.37.46. The manual still says that session runs as you, with no isolation at all: no virtual machine, no proxy, and your files and Keychain. I treat it that way. Its prompt tells it to stop before signing or sending anything out. I leave tmux off in a sandbox. `relay collect` copies finished work onto the same Mac, and it is not a backup.
+A relay reaches only the sessions in its own sandbox. Xcode cannot run in the Linux sandbox, so that work is a session on the Mac (`doz run @mac`), on the [stable channel](https://dozable.com/docs/install-upgrade-uninstall) as 0.37.46. The manual for that version still says that session runs as you, with no isolation at all: no virtual machine, no proxy, and your files and Keychain, and it does not describe a Seatbelt profile there. I treat it that way. Its prompt tells it to stop before signing or sending anything out. I leave tmux off in a sandbox. `relay collect` copies finished work onto the same Mac, and it is not a backup.
 
 ## The skill
 
