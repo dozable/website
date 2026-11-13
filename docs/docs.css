@@ -184,9 +184,11 @@ kbd { font: 600 .85em var(--mono); background: var(--surface); color: var(--ink)
 
 /* The state diagram is a black-on-white drawing (sandbox-states.svg). Invert the ink; leave screenshots alone. */
 @media (prefers-color-scheme: dark) {
-  .shot.diagram img { filter: invert(1); }
-  .pager a:hover small { color: var(--on-accent); }
+  html:not([data-theme="light"]) .shot.diagram img { filter: invert(1); }
+  html:not([data-theme="light"]) .pager a:hover small { color: var(--on-accent); }
 }
+html[data-theme="dark"] .shot.diagram img { filter: invert(1); }
+html[data-theme="dark"] .pager a:hover small { color: var(--on-accent); }
 @media print {
-  .shot.diagram img { filter: none; }
+  html[data-theme] .shot.diagram img, .shot.diagram img { filter: none; }
 }

@@ -244,6 +244,7 @@ def head(title, desc, url, kind, extra='', md=''):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>(function(){{try{{var t=localStorage.getItem('doz-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}}catch(e){{}}document.documentElement.classList.add('js-theme')}})();</script>
 <meta name="color-scheme" content="light dark">
 <title>{t}</title>
 <meta name="description" content="{d}">
@@ -273,6 +274,7 @@ def head(title, desc, url, kind, extra='', md=''):
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="stylesheet" href="../site.css">
 <script src="../nav.js"></script>
+<script src="../theme.js"></script>
 <link rel="stylesheet" href="../docs/docs.css">
 <script defer src="../docs/docs.js"></script>
 <script defer src="../signup.js"></script>
@@ -554,7 +556,7 @@ def main():
     if out == SITE:
         sitemap(posts)
     else:                                  # a preview copy: the page assets the pages link to
-        for f in ('site.css', 'site.js', 'signup.js', 'nav.js', 'favicon.png', 'apple-touch-icon.png', 'og-image.png',
+        for f in ('site.css', 'site.js', 'signup.js', 'nav.js', 'theme.js', 'favicon.png', 'apple-touch-icon.png', 'og-image.png',
                   'docs/docs.css', 'docs/docs.js'):
             os.makedirs(os.path.dirname(os.path.join(out, f)) or out, exist_ok=True)
             shutil.copyfile(os.path.join(SITE, f), os.path.join(out, f))
