@@ -543,15 +543,15 @@ html { scroll-behavior: smooth; }
 .diagram-overlay-host iframe { width: 100%; height: 100%; border: 0; display: block; background: #f5f4ef; }
 body.diagram-open { overflow: hidden; }
 
-/* A timeline fence: one centred area (max 900px), a centre line behind the steps.
-   Each bubble is at most 80% of that area, hung left or right, one step per row.
-   A wide bubble may cross the line. The numbered dot stays on the line. No script. */
+/* A timeline fence fills the post column. Each bubble is 80% of that column:
+   Grok Bot on the left, Me on the right, so a bubble crosses the midpoint.
+   No centre line, no step markers, no script. */
 .blog .tl {
   box-sizing: border-box;
-  width: min(900px, calc(100vw - 48px));
-  max-width: min(900px, calc(100vw - 48px));
-  margin: 1.4em 0 1.6em calc(50% - min(450px, 50vw - 24px));
-  min-width: 0;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 1.4em 0 1.6em;
 }
 .blog .tl figcaption { margin: 0 0 10px; font-size: 15px; color: var(--ink-2); }
 .blog .tl-labels {
@@ -566,38 +566,48 @@ body.diagram-open { overflow: hidden; }
 }
 .blog .tl-labels span:first-child::before { background: var(--accent); }
 .blog .tl-labels span:last-child::before { background: #000; }
-.blog .tl-list { list-style: none; margin: 0; padding: 8px 0; position: relative; min-width: 0; }
-.blog .tl-list::before {
-  content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
-  background: #000; transform: translateX(-1px); z-index: 0;
-}
+.blog .tl-list,
 .blog .tl-step {
-  position: relative;
+  display: block;
   width: 100%;
-  max-width: 100%;
-  margin: 0 0 8px;
-  min-width: 0;
+  max-width: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
-.blog .tl-dot {
-  position: absolute; left: 50%; top: 8px; z-index: 2;
-  transform: translateX(-50%);
-  width: 28px; height: 28px; border-radius: 50%; border: 1px solid #000; background: #fff;
-  font: 700 12px/26px var(--mono); text-align: center;
-}
+.blog .tl-step { margin: 0 0 8px; }
 .blog .tl-bubble {
-  position: relative; z-index: 1;
+  display: block;
   box-sizing: border-box;
-  width: 80%; min-width: 60%; max-width: 80%;
-  border: 0; border-radius: 14px; box-shadow: none; padding: 8px 12px;
+  width: 80%;
+  max-width: 80%;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  box-shadow: none;
+  padding: 8px 12px;
 }
-.blog .tl-step.l .tl-bubble { margin-right: auto; margin-left: 0; background: var(--accent); color: #111; }
-.blog .tl-step.r .tl-bubble { margin-left: auto; margin-right: 0; background: #111; color: #fff; }
+.blog .tl-step.l .tl-bubble { margin-left: 0; margin-right: auto; background: var(--accent); color: #111; border-color: rgb(0 0 0 / .12); }
+.blog .tl-step.r .tl-bubble { margin-left: auto; margin-right: 0; background: #111; color: #fff; border-color: rgb(255 255 255 / .16); }
+.blog .tl-say {
+  margin: 0 0 6px; font: 400 15.5px/1.35 var(--font); color: inherit;
+}
 .blog .tl-bubble pre {
-  margin: 0; max-width: none; width: auto;
-  background: transparent; border: 0; border-radius: 0; box-shadow: none;
-  padding: 0; color: inherit; overflow: visible; text-align: left;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  color: inherit;
+  overflow: visible;
+  text-align: left;
   font: 12.5px/1.45 var(--mono);
-  white-space: pre-wrap; overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 .blog .tl-step.l .tl-bubble pre { background: var(--accent); color: #111; }
 .blog .tl-step.r .tl-bubble pre { background: #111; color: #fff; }
@@ -610,13 +620,9 @@ body.diagram-open { overflow: hidden; }
 .blog .tl-step.r .tl-bubble .out { color: #fff; }
 .blog .tl-step.r .tl-bubble .note { color: #e8e8e8; }
 .blog .tl-bubble::after {
-  content: ""; position: absolute; top: 14px; width: 0; height: 0;
-  border: 8px solid transparent;
+  content: ""; position: absolute; top: 12px; width: 0; height: 0;
+  border: 6px solid transparent;
 }
-.blog .tl-step.l .tl-bubble::after { right: -8px; border-left-color: var(--accent); }
-.blog .tl-step.r .tl-bubble::after { left: -8px; border-right-color: #111; }
-@media (max-width: 639px) {
-  .blog .tl { width: 100%; max-width: 100%; margin-left: 0; margin-right: 0; }
-  .blog .tl-list::before { width: 1px; }
-  .blog .tl-bubble { max-width: 80%; }
-}
+.blog .tl-bubble { position: relative; }
+.blog .tl-step.l .tl-bubble::after { right: -6px; border-left-color: var(--accent); }
+.blog .tl-step.r .tl-bubble::after { left: -6px; border-right-color: #111; }

@@ -89,64 +89,82 @@ Sample output is marked with a `#`. Names are generic.
 left: Grok Bot (via its worker)
 right: Me
 ---
+> Which team templates are there?
 $ relay team ls
 remotion-video	Remotion videos
 go-react-web	Go and React
 # proven line omitted
 ---
+> Let me watch.
 $ doz ui
 # Watch is read-only
 # Open can type
 ---
+> Starting three Remotion sessions.
 $ relay up demo-remotion \
   --team remotion-video --sessions 3 \
   --workspace ~/work --as worker \
   --primary-agent "Grok Bot"
 ready: demo-remotion — 3 sessions.
 ---
+> I'll sit on video-1.
 $ doz attach demo-remotion video-1
 # attached; it keeps running when I leave
 ---
+> Asking video-1 to make the intro.
 $ relay ask demo-remotion video-1 \
   --file task.md --detach
 # request 1700000000-1001 delivered
 # then: relay result …
 ---
+> Make the title two seconds longer.
 make the title two seconds longer
 # a line I type in the same terminal
 ---
+> It can keep going while you watch.
 # an attached client is not a reason to stop
 ---
+> I'll leave it running.
 # Ctrl-] twice detaches
 # doz: d detach · n next · p prev · s sessions
 # the session keeps running
 ---
+> A reply should wake me.
 $ relay forward demo-remotion --once
 # a reply event wakes the bot
 # no address is shown
 ---
+> I'll watch the reply, read-only.
 # Watch on video-1, read-only
 ---
+> video-1 finished.
 $ relay result demo-remotion 1700000000-1001
 status: complete
 # the rest is the session's reply
 ---
+> I can see the reply.
 # I see the reply on the session
 ---
+> Here is a link to that session.
 $ relay rc demo-remotion video-1
 # prints a claude.ai link, not shown
 ---
+> I'll type from the dashboard.
 # Open types into video-1
 ---
+> I'll keep a copy of the work.
 $ relay collect demo-remotion
 collected: ~/agent-relay-archive/demo-remotion/…
 ---
+> Collect does not need me.
 # collect does not need me
 ---
+> I'm retiring the team.
 $ relay retire demo-remotion --as worker
 4/4 marked retired
 RETIRED: demo-remotion. Nothing was deleted.
 ---
+> It's still there. I have not removed it.
 # hibernated; I have not removed it
 ```
 

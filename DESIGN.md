@@ -154,9 +154,11 @@ one inline script for that overlay alone. Other posts do not get the script. The
 — no external script, stylesheet, web font or tracker — and the build refuses one that is not.
 
 A fenced block whose language is `timeline` is static HTML, with no script. The first two lines are
-`left:` and `right:` (who speaks). A line that is only `---` starts the next step. Steps alternate,
-left then right, one bubble each, down one centred area. A bubble is at most 80% of that area and may
-cross the centre line. The same rule holds on a narrow screen, where the line is thinner.
+`left:` and `right:` (who speaks). A line that is only `---` starts the next step. The first line of a
+step is `> ` and a short sentence, set in the body font; the lines under it are the command and output.
+Steps alternate, left then right, one bubble each. The block is the post column. Each bubble is 80% of
+that column, the left speaker flush left and the right speaker flush right, so a bubble crosses the
+midpoint. There is no centre line and no step marker.
 
 The order for a publish:
 `tools/docs-build.py` (if the manual changed), then `tools/blog-build.py`, then `tools/markdown-build.py`, then

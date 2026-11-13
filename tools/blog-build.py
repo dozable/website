@@ -288,9 +288,10 @@ class Post(docs.Page):
                 % (esc(href), esc(href), esc(href), esc(title)))
 
     def timeline(self, b):
-        """A fenced timeline: steps alternate left and right down a centre line. No JavaScript.
+        """A fenced timeline: steps alternate left and right. No line, no markers, no JavaScript.
         The first two lines are 'left: …' and 'right: …'. A '---' line starts the next step.
-        Odd steps are the left speaker, even steps the right."""
+        The first line of a step is '> ' plus a short sentence (body font). The lines after
+        it are the command and output. Odd steps are the left speaker, even steps the right."""
         where = '%s:%d' % (self.name, b['ln'])
         lines = b['text'].split('\n')
         while lines and not lines[0].strip():
@@ -315,20 +316,30 @@ class Post(docs.Page):
             fail(where, 'a timeline block needs at least one step')
 
         def bubble(text):
-            bits = ['<pre>']
-            for line in text.split('\n'):
-                cls = 'cmd' if line.startswith('$ ') or line.startswith('  --') else 'note' if line.startswith('#') else 'out'
-                bits.append('<span class="%s">%s</span>\n' % (cls, esc(line) if line else ''))
-            bits.append('</pre>')
+            lines = text.split('\n')
+            if not lines or not lines[0].startswith('> '):
+                fail(where, "each timeline step starts with '> ' and a short sentence")
+            say = lines[0][2:].strip()
+            if not say:
+                fail(where, 'a timeline sentence is empty')
+            lines = lines[1:]
+            while lines and not lines[0].strip():
+                lines.pop(0)
+            bits = ['<p class="tl-say">%s</p>' % esc(say)]
+            if any(line.strip() for line in lines):
+                bits.append('<pre>')
+                for line in lines:
+                    cls = 'cmd' if line.startswith('$ ') or line.startswith('  --') else 'note' if line.startswith('#') else 'out'
+                    bits.append('<span class="%s">%s</span>\n' % (cls, esc(line) if line else ''))
+                bits.append('</pre>')
             return ''.join(bits)
 
         steps = []
         for i, chunk in enumerate(chunks):
             side = 'l' if i % 2 == 0 else 'r'
             who = left_name if side == 'l' else right_name
-            steps.append('<li class="tl-step %s"><span class="tl-dot" aria-hidden="true">%d</span>'
-                         '<div class="tl-bubble" aria-label="%s">%s</div></li>'
-                         % (side, i + 1, esc(who), bubble(chunk)))
+            steps.append('<li class="tl-step %s"><div class="tl-bubble" aria-label="%s">%s</div></li>'
+                         % (side, esc(who), bubble(chunk)))
         return ('<figure class="tl"><figcaption>An illustrative session, not a transcript.</figcaption>'
                 '<div class="tl-labels"><span>%s</span><span>%s</span></div><ol class="tl-list">%s</ol></figure>'
                 % (esc(left_name), esc(right_name), ''.join(steps)))

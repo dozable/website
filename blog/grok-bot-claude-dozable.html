@@ -31,7 +31,7 @@
 <link rel="alternate" type="application/atom+xml" title="Dozable blog" href="feed.xml">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="stylesheet" href="../site.css?v=8db5627d">
+<link rel="stylesheet" href="../site.css?v=e45dacd1">
 <script src="../nav.js?v=4f745b91"></script>
 <link rel="stylesheet" href="../docs/docs.css?v=4bcad37f">
 <script defer src="../docs/docs.js?v=a2a39b76"></script>
@@ -87,48 +87,48 @@
 <p>On 10 November, Claude Code 2.1.321 had no <code>claude send</code>, and resuming a running session with extra flags started a copy. A session that skipped permission prompts held a message from one that did not, on a prompt that was still waiting about four minutes later. That evening a script typed <code>SEND R1</code>, then <code>SEND R2</code>, then <code>SEND R3</code> into a throwaway relay. Each reply came back, in about 29, 15 and 18 seconds, without a restart. It was one receiver, and nothing woke the bot. <code>relay ask</code>, the shared-session rule and the webhook closed those gaps. Inside a sandbox, Dozable&#x27;s Claude wrapper skips permission prompts. The sandbox is the boundary.</p>
 <h2 id="a-session">A session<a class="anchor" href="#a-session" aria-label="Link to this section">#</a></h2>
 <p>Sample output is marked with a <code>#</code>. Names are generic.</p>
-<figure class="tl"><figcaption>An illustrative session, not a transcript.</figcaption><div class="tl-labels"><span>Grok Bot (via its worker)</span><span>Me</span></div><ol class="tl-list"><li class="tl-step l"><span class="tl-dot" aria-hidden="true">1</span><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><pre><span class="cmd">$ relay team ls</span>
+<figure class="tl"><figcaption>An illustrative session, not a transcript.</figcaption><div class="tl-labels"><span>Grok Bot (via its worker)</span><span>Me</span></div><ol class="tl-list"><li class="tl-step l"><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><p class="tl-say">Which team templates are there?</p><pre><span class="cmd">$ relay team ls</span>
 <span class="out">remotion-video	Remotion videos</span>
 <span class="out">go-react-web	Go and React</span>
 <span class="note"># proven line omitted</span>
-</pre></div></li><li class="tl-step r"><span class="tl-dot" aria-hidden="true">2</span><div class="tl-bubble" aria-label="Me"><pre><span class="cmd">$ doz ui</span>
+</pre></div></li><li class="tl-step r"><div class="tl-bubble" aria-label="Me"><p class="tl-say">Let me watch.</p><pre><span class="cmd">$ doz ui</span>
 <span class="note"># Watch is read-only</span>
 <span class="note"># Open can type</span>
-</pre></div></li><li class="tl-step l"><span class="tl-dot" aria-hidden="true">3</span><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><pre><span class="cmd">$ relay up demo-remotion \</span>
+</pre></div></li><li class="tl-step l"><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><p class="tl-say">Starting three Remotion sessions.</p><pre><span class="cmd">$ relay up demo-remotion \</span>
 <span class="cmd">  --team remotion-video --sessions 3 \</span>
 <span class="cmd">  --workspace ~/work --as worker \</span>
 <span class="cmd">  --primary-agent &quot;Grok Bot&quot;</span>
 <span class="out">ready: demo-remotion — 3 sessions.</span>
-</pre></div></li><li class="tl-step r"><span class="tl-dot" aria-hidden="true">4</span><div class="tl-bubble" aria-label="Me"><pre><span class="cmd">$ doz attach demo-remotion video-1</span>
+</pre></div></li><li class="tl-step r"><div class="tl-bubble" aria-label="Me"><p class="tl-say">I&#x27;ll sit on video-1.</p><pre><span class="cmd">$ doz attach demo-remotion video-1</span>
 <span class="note"># attached; it keeps running when I leave</span>
-</pre></div></li><li class="tl-step l"><span class="tl-dot" aria-hidden="true">5</span><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><pre><span class="cmd">$ relay ask demo-remotion video-1 \</span>
+</pre></div></li><li class="tl-step l"><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><p class="tl-say">Asking video-1 to make the intro.</p><pre><span class="cmd">$ relay ask demo-remotion video-1 \</span>
 <span class="cmd">  --file task.md --detach</span>
 <span class="note"># request 1700000000-1001 delivered</span>
 <span class="note"># then: relay result …</span>
-</pre></div></li><li class="tl-step r"><span class="tl-dot" aria-hidden="true">6</span><div class="tl-bubble" aria-label="Me"><pre><span class="out">make the title two seconds longer</span>
+</pre></div></li><li class="tl-step r"><div class="tl-bubble" aria-label="Me"><p class="tl-say">Make the title two seconds longer.</p><pre><span class="out">make the title two seconds longer</span>
 <span class="note"># a line I type in the same terminal</span>
-</pre></div></li><li class="tl-step l"><span class="tl-dot" aria-hidden="true">7</span><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><pre><span class="note"># an attached client is not a reason to stop</span>
-</pre></div></li><li class="tl-step r"><span class="tl-dot" aria-hidden="true">8</span><div class="tl-bubble" aria-label="Me"><pre><span class="note"># Ctrl-] twice detaches</span>
+</pre></div></li><li class="tl-step l"><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><p class="tl-say">It can keep going while you watch.</p><pre><span class="note"># an attached client is not a reason to stop</span>
+</pre></div></li><li class="tl-step r"><div class="tl-bubble" aria-label="Me"><p class="tl-say">I&#x27;ll leave it running.</p><pre><span class="note"># Ctrl-] twice detaches</span>
 <span class="note"># doz: d detach · n next · p prev · s sessions</span>
 <span class="note"># the session keeps running</span>
-</pre></div></li><li class="tl-step l"><span class="tl-dot" aria-hidden="true">9</span><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><pre><span class="cmd">$ relay forward demo-remotion --once</span>
+</pre></div></li><li class="tl-step l"><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><p class="tl-say">A reply should wake me.</p><pre><span class="cmd">$ relay forward demo-remotion --once</span>
 <span class="note"># a reply event wakes the bot</span>
 <span class="note"># no address is shown</span>
-</pre></div></li><li class="tl-step r"><span class="tl-dot" aria-hidden="true">10</span><div class="tl-bubble" aria-label="Me"><pre><span class="note"># Watch on video-1, read-only</span>
-</pre></div></li><li class="tl-step l"><span class="tl-dot" aria-hidden="true">11</span><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><pre><span class="cmd">$ relay result demo-remotion 1700000000-1001</span>
+</pre></div></li><li class="tl-step r"><div class="tl-bubble" aria-label="Me"><p class="tl-say">I&#x27;ll watch the reply, read-only.</p><pre><span class="note"># Watch on video-1, read-only</span>
+</pre></div></li><li class="tl-step l"><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><p class="tl-say">video-1 finished.</p><pre><span class="cmd">$ relay result demo-remotion 1700000000-1001</span>
 <span class="out">status: complete</span>
 <span class="note"># the rest is the session&#x27;s reply</span>
-</pre></div></li><li class="tl-step r"><span class="tl-dot" aria-hidden="true">12</span><div class="tl-bubble" aria-label="Me"><pre><span class="note"># I see the reply on the session</span>
-</pre></div></li><li class="tl-step l"><span class="tl-dot" aria-hidden="true">13</span><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><pre><span class="cmd">$ relay rc demo-remotion video-1</span>
+</pre></div></li><li class="tl-step r"><div class="tl-bubble" aria-label="Me"><p class="tl-say">I can see the reply.</p><pre><span class="note"># I see the reply on the session</span>
+</pre></div></li><li class="tl-step l"><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><p class="tl-say">Here is a link to that session.</p><pre><span class="cmd">$ relay rc demo-remotion video-1</span>
 <span class="note"># prints a claude.ai link, not shown</span>
-</pre></div></li><li class="tl-step r"><span class="tl-dot" aria-hidden="true">14</span><div class="tl-bubble" aria-label="Me"><pre><span class="note"># Open types into video-1</span>
-</pre></div></li><li class="tl-step l"><span class="tl-dot" aria-hidden="true">15</span><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><pre><span class="cmd">$ relay collect demo-remotion</span>
+</pre></div></li><li class="tl-step r"><div class="tl-bubble" aria-label="Me"><p class="tl-say">I&#x27;ll type from the dashboard.</p><pre><span class="note"># Open types into video-1</span>
+</pre></div></li><li class="tl-step l"><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><p class="tl-say">I&#x27;ll keep a copy of the work.</p><pre><span class="cmd">$ relay collect demo-remotion</span>
 <span class="out">collected: ~/agent-relay-archive/demo-remotion/…</span>
-</pre></div></li><li class="tl-step r"><span class="tl-dot" aria-hidden="true">16</span><div class="tl-bubble" aria-label="Me"><pre><span class="note"># collect does not need me</span>
-</pre></div></li><li class="tl-step l"><span class="tl-dot" aria-hidden="true">17</span><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><pre><span class="cmd">$ relay retire demo-remotion --as worker</span>
+</pre></div></li><li class="tl-step r"><div class="tl-bubble" aria-label="Me"><p class="tl-say">Collect does not need me.</p><pre><span class="note"># collect does not need me</span>
+</pre></div></li><li class="tl-step l"><div class="tl-bubble" aria-label="Grok Bot (via its worker)"><p class="tl-say">I&#x27;m retiring the team.</p><pre><span class="cmd">$ relay retire demo-remotion --as worker</span>
 <span class="out">4/4 marked retired</span>
 <span class="out">RETIRED: demo-remotion. Nothing was deleted.</span>
-</pre></div></li><li class="tl-step r"><span class="tl-dot" aria-hidden="true">18</span><div class="tl-bubble" aria-label="Me"><pre><span class="note"># hibernated; I have not removed it</span>
+</pre></div></li><li class="tl-step r"><div class="tl-bubble" aria-label="Me"><p class="tl-say">It&#x27;s still there. I have not removed it.</p><pre><span class="note"># hibernated; I have not removed it</span>
 </pre></div></li></ol></figure>
 <h2 id="what-still-applies">What still applies<a class="anchor" href="#what-still-applies" aria-label="Link to this section">#</a></h2>
 <p>A relay reaches only the sessions in its own sandbox. Xcode cannot run in a Linux sandbox, so that work is a shared host session (<code>doz run @mac</code>), isolated with macOS Seatbelt. Its prompt tells it to stop before signing or sending anything out. I leave tmux off in a sandbox. <code>relay collect</code> copies finished work onto the same Mac, and it is not a backup.</p>
