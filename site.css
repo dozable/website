@@ -586,7 +586,8 @@ body.diagram-open { overflow: hidden; }
 }
 .blog .tl-bubble {
   position: relative; z-index: 1;
-  width: fit-content; max-width: 80%; min-width: 0;
+  box-sizing: border-box;
+  width: 80%; min-width: 60%; max-width: 80%;
   border: 0; border-radius: 14px; box-shadow: none; padding: 8px 12px;
 }
 .blog .tl-step.l .tl-bubble { margin-right: auto; margin-left: 0; background: var(--accent); color: #111; }
@@ -598,10 +599,16 @@ body.diagram-open { overflow: hidden; }
   font: 12.5px/1.45 var(--mono);
   white-space: pre-wrap; overflow-wrap: anywhere;
 }
-.blog .tl-bubble .cmd { font-weight: 700; color: inherit; }
-.blog .tl-step.r .tl-bubble .cmd { color: var(--accent); }
-.blog .tl-step.l .tl-bubble .note { color: #1a1a1a; }
-.blog .tl-step.r .tl-bubble .note { color: #d4d4d8; }
+.blog .tl-step.l .tl-bubble pre { background: var(--accent); color: #111; }
+.blog .tl-step.r .tl-bubble pre { background: #111; color: #fff; }
+.blog .tl-bubble .out { color: inherit; }
+.blog .tl-bubble .cmd { font-weight: 700; }
+.blog .tl-step.l .tl-bubble .cmd,
+.blog .tl-step.l .tl-bubble .out,
+.blog .tl-step.l .tl-bubble .note { color: #111; }
+.blog .tl-step.r .tl-bubble .cmd { color: #fff; }
+.blog .tl-step.r .tl-bubble .out { color: #fff; }
+.blog .tl-step.r .tl-bubble .note { color: #e8e8e8; }
 .blog .tl-bubble::after {
   content: ""; position: absolute; top: 14px; width: 0; height: 0;
   border: 8px solid transparent;
