@@ -35,9 +35,9 @@ There's a third, quieter problem. A background session that asks a question has 
 
 ## What worked
 
-The fix was to stop treating the bot as a direct sender and give it a mailbox instead.
+The fix was to give the bot the ability to use Claude's peer session messaging. This is a very cool feature that lets Claude sessions talk to each other. But it's only Claude to Claude, which meant giving the bot its own Claude session to pass messages to the working Claude (which can also message back), like a **relay**.
 
-**The mailbox is another Claude Code session.** It's long-lived, it runs in the background, and it starts from a scratch directory rather than a work repo. Its only job is to send messages to work sessions and print what comes back.
+The relay is a long-lived Claude session that runs in the background, and it starts from a scratch directory rather than a work repo. Its only job is to send messages to work sessions and print what comes back. One relay can support all the Claude sessions that the bot is running.
 
 **Sending uses Claude Code's own cross-session messaging.** Inside the mailbox, Claude uses its built-in `SendMessage` tool to reach a work session. I address the target by its exact session name. In my probe, the short IDs that `claude agents` prints didn't match as addresses, and names stayed stable when processes were respawned. A reply arrives in the mailbox labelled `Message from @<sender-name>`. Claude Code's [cross-session messaging docs](https://code.claude.com/docs/en/cross-session-messaging.md) describe the same tools, `ListAgents` and `SendMessage`, and the same "Message from @name" preview.
 
