@@ -260,6 +260,8 @@ class Post(docs.Page):
     def code(self, b):
         if b['lang'] == 'diagram':
             return self.diagram(b)
+        if b['lang'] == 'sidebyside':
+            return self.sidebyside(b)
         if b['lang'] == 'mermaid':
             fail('%s:%d' % (self.name, b['ln']), 'no Mermaid diagrams in a post')
         return docs.Page.code(self, b)
@@ -284,6 +286,50 @@ class Post(docs.Page):
                 '<a href="%s">Open the diagram on its own page</a></p></figcaption>'
                 '<iframe src="%s" title="%s"></iframe></figure>'
                 % (esc(href), esc(href), esc(href), esc(title)))
+
+    def sidebyside(self, b):
+        """A fenced sidebyside block: two labelled columns of terminal steps, no JavaScript.
+        The first two lines are 'left: …' and 'right: …'. Later lines split on a '---' line into
+        alternating left and right steps."""
+        where = '%s:%d' % (self.name, b['ln'])
+        lines = b['text'].split('\n')
+        while lines and not lines[0].strip():
+            lines.pop(0)
+        while lines and not lines[-1].strip():
+            lines.pop()
+        if len(lines) < 2 or not lines[0].startswith('left:') or not lines[1].startswith('right:'):
+            fail(where, "a sidebyside block starts with 'left: …' and 'right: …'")
+        left_name, right_name = lines[0][5:].strip(), lines[1][6:].strip()
+        if not left_name or not right_name:
+            fail(where, 'a sidebyside block needs both column names')
+        chunks, cur = [], []
+        for line in lines[2:]:
+            if line.strip() == '---':
+                chunks.append('\n'.join(cur).strip('\n'))
+                cur = []
+            else:
+                cur.append(line)
+        chunks.append('\n'.join(cur).strip('\n'))
+        chunks = [c for c in chunks if c.strip()]
+        if not chunks or len(chunks) % 2:
+            fail(where, 'a sidebyside block needs left/right steps in pairs, split by a --- line')
+
+        def pane(text, who):
+            bits = ['<p class="side-kicker">%s</p><pre class="side-screen">' % esc(who)]
+            for line in text.split('\n'):
+                cls = 'cmd' if line.startswith('$ ') else 'note' if line.startswith('#') else 'out'
+                bits.append('<span class="%s">%s</span>\n' % (cls, esc(line) if line else ''))
+            bits.append('</pre>')
+            return ''.join(bits)
+
+        cells = []
+        for i, chunk in enumerate(chunks):
+            who = left_name if i % 2 == 0 else right_name
+            side = 'l' if i % 2 == 0 else 'r'
+            cells.append('<div class="side-cell %s">%s</div>' % (side, pane(chunk, who)))
+        return ('<figure class="sidebyside"><figcaption>An illustrative session, not a transcript.</figcaption>'
+                '<div class="side-grid"><div class="side-h">%s</div><div class="side-h">%s</div>%s</div></figure>'
+                % (esc(left_name), esc(right_name), ''.join(cells)))
 
     def image(self, b):
         where = '%s:%d' % (self.name, b['ln'])

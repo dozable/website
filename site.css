@@ -542,3 +542,29 @@ html { scroll-behavior: smooth; }
 .diagram-overlay-host { flex: 1; min-height: 0; }
 .diagram-overlay-host iframe { width: 100%; height: 100%; border: 0; display: block; background: #f5f4ef; }
 body.diagram-open { overflow: hidden; }
+
+/* A sidebyside fence: two terminal columns, static, no script. Wide enough to read; stacks on a phone. */
+.blog .sidebyside {
+  width: min(1120px, calc(100vw - 32px));
+  max-width: none;
+  margin: 1.6em 0 1.6em calc(50% - min(560px, 50vw - 16px));
+}
+.blog .sidebyside figcaption { margin: 0 0 8px; font-size: 15px; color: var(--ink-2); }
+.blog .side-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; align-items: stretch; }
+.blog .side-h { font: 600 13px/1.3 var(--mono); margin: 0; }
+.blog .side-kicker { display: none; margin: 0 0 6px; font: 600 12px/1.3 var(--mono); }
+.blog .side-screen {
+  margin: 0; min-height: 100%; box-sizing: border-box;
+  background: #141416; color: #f4f4f2; border: 1px solid #000; border-radius: 14px;
+  box-shadow: 0 4px 0 #000; padding: 12px 14px; overflow-x: auto;
+  font: 13px/1.45 var(--mono); white-space: pre;
+}
+.blog .side-screen .cmd { color: var(--accent); }
+.blog .side-screen .note { color: #a3a3a8; }
+.blog .side-screen .out { color: #f4f4f2; }
+@media (max-width: 700px) {
+  .blog .side-grid { grid-template-columns: 1fr; }
+  .blog .side-h { display: none; }
+  .blog .side-kicker { display: block; }
+  .blog .side-screen { font-size: 12px; white-space: pre-wrap; }
+}

@@ -27,7 +27,7 @@ Dozable was the right tool because of its session keeper. A session lives in the
 
 The other half is the boundary. A sandbox is a Linux virtual machine with its own kernel, so the tools for a workload are installed in its image and not on the Mac. They don't pollute the tools already there. For Remotion I save that image as a [template](https://dozable.com/docs/restore-points-duplicates-templates#templates), and the next team starts from it. A [recipe](https://dozable.com/docs/images-and-bases) is what bakes an agent's image, and a recipe cannot yet add the system packages this workload needs, so the template is the quick start I use.
 
-The same work is what led Dozable to put the session keeper on the Mac itself. Xcode and signing cannot run in a Linux sandbox, and a session there is held the same way: detach, come back, type from a script, from Terminal.app or the dashboard. Dozable now supports those shared host sessions. The isolation boundary is macOS Seatbelt: `sandbox-exec` and a sandbox profile. It is the same technique [Claude Code](https://code.claude.com/docs/en/sandboxing), the [Codex CLI](https://learn.chatgpt.com/docs/sandboxing) and the [Gemini CLI](https://geminicli.com/docs/cli/sandbox/) use for agent isolation on macOS. The commands are in [Letting another agent drive](https://dozable.com/docs/letting-another-agent-drive), [Terminals and sessions](https://dozable.com/docs/terminals-and-sessions) and [Sessions on this Mac](https://dozable.com/docs/sessions-on-this-mac).
+The same work is what led Dozable to put the session keeper on the Mac itself. Xcode and signing cannot run in a Linux sandbox, and a session there is held the same way: detach, come back, type from a script, from Terminal.app or the dashboard. Those shared host sessions are isolated with macOS Seatbelt: `sandbox-exec` and a sandbox profile. It is the same technique [Claude Code](https://code.claude.com/docs/en/sandboxing), the [Codex CLI](https://learn.chatgpt.com/docs/sandboxing) and the [Gemini CLI](https://geminicli.com/docs/cli/sandbox/) use for agent isolation on macOS. The commands are in [Letting another agent drive](https://dozable.com/docs/letting-another-agent-drive), [Terminals and sessions](https://dozable.com/docs/terminals-and-sessions) and [Sessions on this Mac](https://dozable.com/docs/sessions-on-this-mac).
 
 ## The relay command
 
@@ -81,21 +81,92 @@ Play walks one round trip. Expand fills the window, and the link opens the diagr
 
 On 10 November, Claude Code 2.1.321 had no `claude send`, and resuming a running session with extra flags started a copy. A session that skipped permission prompts held a message from one that did not, on a prompt that was still waiting about four minutes later. That evening a script typed `SEND R1`, then `SEND R2`, then `SEND R3` into a throwaway relay. Each reply came back, in about 29, 15 and 18 seconds, without a restart. It was one receiver, and nothing woke the bot. `relay ask`, the shared-session rule and the webhook closed those gaps. Inside a sandbox, Dozable's Claude wrapper skips permission prompts. The sandbox is the boundary.
 
-## Showing it to a new team member
+## A session, side by side
 
-On Friday 13 November 2026, in Sydney, I showed this setup to a new team member and used it for real. The quotes below come from a call transcript received at 13:04 Australia/Sydney. The transcription may be imperfect. These are lightly edited quotes. They have not yet been checked by the speaker:
+Sample output is marked with a `#`. Names are generic.
 
-> "this is really using it for real, right? So this sandbox is running. You can see there's three. So these are three sessions, three Claude sessions."
-
-> "see these messages here? ... these are from Grok bot."
-
-> "Sending the messages."
-
-> "So I can see them. I can jump in and interact. I've got full visibility and it's all kind of packaged in these sandboxes that are templated. So if the bot needs to spin up an environment for Remotion, it can do it really quickly."
+```sidebyside
+left: Grok Bot (via its worker)
+right: Me
+---
+$ relay team ls
+remotion-video	Several sessions, each making its own video with Remotion and rendering an MP4.
+go-react-web	One session building a Go web server that serves its own React front end from one binary.
+# illustrative: the real command also prints a proven line, omitted here
+---
+$ doz ui
+# the dashboard
+# Watch is read-only
+# Open attaches, and can type
+---
+$ relay up demo-remotion --team remotion-video --sessions 3 --workspace ~/work --as worker --primary-agent "Grok Bot"
+  image: starting from this Mac's saved image team-remotion-video (tools already inside)
+  video-1: started in ~/work/video-1
+  video-2: started in ~/work/video-2
+  video-3: started in ~/work/video-3
+  driver recorded: worker
+ready: demo-remotion — 3 sessions.
+---
+$ doz attach demo-remotion video-1
+# attached to video-1
+# the session keeps running when I leave
+---
+$ relay ask demo-remotion video-1 --file task.md --detach
+{"request": "1700000000-1001", "sandbox": "demo-remotion", "to": ["video-1"], "delivered": true, "next": "an event of kind 'reply' arrives when it is answered; then: relay result demo-remotion 1700000000-1001"}
+---
+# the task shows in this same terminal
+# I type a line of my own
+make the title two seconds longer
+---
+# an extra attached client is not a reason to stop
+---
+# Ctrl-]
+ doz: d detach · n next · p prev · s sessions · Esc back
+# Ctrl-] again detaches
+# the session keeps running
+---
+$ relay forward demo-remotion --once
+# a reply event is delivered and the bot wakes
+# illustrative: no address is shown
+---
+# I am detached
+# Watch on video-1 stays read-only
+---
+$ relay result demo-remotion 1700000000-1001
+status: complete
+# illustrative: the rest is the session's own reply
+---
+# I am not in the session
+# the reply is the bot's to read
+---
+$ relay rc demo-remotion video-1
+# prints one claude.ai/code/session_… link
+# illustrative: the link is not shown
+---
+# Open on the dashboard types into video-1
+---
+$ relay collect demo-remotion
+collected: ~/agent-relay-archive/demo-remotion/2026-11-13T120000
+# illustrative: a JSON report is printed too
+---
+# collect does not need me in the session
+---
+$ relay retire demo-remotion --as worker
+1/4 asking video-1, video-2, video-3 to wrap up
+2/4 collecting
+3/4 hibernating
+4/4 marked retired
+RETIRED: demo-remotion. Nothing was deleted.
+# illustrative: it also prints the archive path
+# and that doz rm is mine, later
+---
+# the sandbox is hibernated
+# I have not removed it
+```
 
 ## What still applies
 
-A relay reaches only the sessions in its own sandbox. Xcode cannot run in the Linux sandbox, so that work is a session on the Mac (`doz run @mac`), on the [stable channel](https://dozable.com/docs/install-upgrade-uninstall) as 0.37.46. The manual for that version still says that session runs as you, with no isolation at all: no virtual machine, no proxy, and your files and Keychain, and it does not describe a Seatbelt profile there. I treat it that way. Its prompt tells it to stop before signing or sending anything out. I leave tmux off in a sandbox. `relay collect` copies finished work onto the same Mac, and it is not a backup.
+A relay reaches only the sessions in its own sandbox. Xcode cannot run in a Linux sandbox, so that work is a shared host session (`doz run @mac`), isolated with macOS Seatbelt. Its prompt tells it to stop before signing or sending anything out. I leave tmux off in a sandbox. `relay collect` copies finished work onto the same Mac, and it is not a backup.
 
 ## The skill
 

@@ -153,6 +153,10 @@ JavaScript runs, that same control opens a full-window overlay (Close, or Escape
 one inline script for that overlay alone. Other posts do not get the script. The HTML file must be self-contained
 — no external script, stylesheet, web font or tracker — and the build refuses one that is not.
 
+A fenced block whose language is `sidebyside` is static HTML, with no script. The first two lines are
+`left:` and `right:` (the column names). A line that is only `---` splits the rest into left and right
+steps, alternating. The page draws them as two terminal columns that stack on a narrow screen.
+
 The order for a publish:
 `tools/docs-build.py` (if the manual changed), then `tools/blog-build.py`, then `tools/markdown-build.py`, then
 `tools/stamp.sh` (it fingerprints the links on `blog/*.html` too), then commit.

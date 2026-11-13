@@ -31,7 +31,7 @@
 <link rel="alternate" type="application/atom+xml" title="Dozable blog" href="feed.xml">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="stylesheet" href="../site.css?v=84bead22">
+<link rel="stylesheet" href="../site.css?v=019eb84f">
 <script src="../nav.js?v=4f745b91"></script>
 <link rel="stylesheet" href="../docs/docs.css?v=4bcad37f">
 <script defer src="../docs/docs.js?v=a2a39b76"></script>
@@ -61,7 +61,7 @@
 <h2 id="why-dozable">Why Dozable<a class="anchor" href="#why-dozable" aria-label="Link to this section">#</a></h2>
 <p>Dozable was the right tool because of its session keeper. A session lives in the sandbox, not in a window. Several people or windows can view the same one, and what is typed in one shows in the others. I attach from Terminal.app with <a href="https://dozable.com/docs/terminals-and-sessions#in-the-terminal"><code>doz attach</code></a>, or I open the session in the <a href="https://dozable.com/docs/the-dashboard">dashboard</a> (<code>doz ui</code>). Watch, in the dashboard, is read-only. An attach, or Open, can type.</p>
 <p>The other half is the boundary. A sandbox is a Linux virtual machine with its own kernel, so the tools for a workload are installed in its image and not on the Mac. They don&#x27;t pollute the tools already there. For Remotion I save that image as a <a href="https://dozable.com/docs/restore-points-duplicates-templates#templates">template</a>, and the next team starts from it. A <a href="https://dozable.com/docs/images-and-bases">recipe</a> is what bakes an agent&#x27;s image, and a recipe cannot yet add the system packages this workload needs, so the template is the quick start I use.</p>
-<p>The same work is what led Dozable to put the session keeper on the Mac itself. Xcode and signing cannot run in a Linux sandbox, and a session there is held the same way: detach, come back, type from a script, from Terminal.app or the dashboard. Dozable now supports those shared host sessions. The isolation boundary is macOS Seatbelt: <code>sandbox-exec</code> and a sandbox profile. It is the same technique <a href="https://code.claude.com/docs/en/sandboxing">Claude Code</a>, the <a href="https://learn.chatgpt.com/docs/sandboxing">Codex CLI</a> and the <a href="https://geminicli.com/docs/cli/sandbox/">Gemini CLI</a> use for agent isolation on macOS. The commands are in <a href="https://dozable.com/docs/letting-another-agent-drive">Letting another agent drive</a>, <a href="https://dozable.com/docs/terminals-and-sessions">Terminals and sessions</a> and <a href="https://dozable.com/docs/sessions-on-this-mac">Sessions on this Mac</a>.</p>
+<p>The same work is what led Dozable to put the session keeper on the Mac itself. Xcode and signing cannot run in a Linux sandbox, and a session there is held the same way: detach, come back, type from a script, from Terminal.app or the dashboard. Those shared host sessions are isolated with macOS Seatbelt: <code>sandbox-exec</code> and a sandbox profile. It is the same technique <a href="https://code.claude.com/docs/en/sandboxing">Claude Code</a>, the <a href="https://learn.chatgpt.com/docs/sandboxing">Codex CLI</a> and the <a href="https://geminicli.com/docs/cli/sandbox/">Gemini CLI</a> use for agent isolation on macOS. The commands are in <a href="https://dozable.com/docs/letting-another-agent-drive">Letting another agent drive</a>, <a href="https://dozable.com/docs/terminals-and-sessions">Terminals and sessions</a> and <a href="https://dozable.com/docs/sessions-on-this-mac">Sessions on this Mac</a>.</p>
 <h2 id="the-relay-command">The relay command<a class="anchor" href="#the-relay-command" aria-label="Link to this section">#</a></h2>
 <p>Cheto reaches the Mac through a Cursor <a href="https://cursor.com/docs/cloud-agent/self-hosted/my-machines">My Machines</a> worker, and the command is <code>relay</code>.</p>
 <p><code>relay up</code> makes the sandbox if it is missing, starts the relay, and starts one Claude Code session per project, each in its own folder.</p>
@@ -85,22 +85,67 @@
 <p>Play walks one round trip. Expand fills the window, and the link opens the diagram on its own page.</p>
 <h2 id="how-i-got-here">How I got here<a class="anchor" href="#how-i-got-here" aria-label="Link to this section">#</a></h2>
 <p>On 10 November, Claude Code 2.1.321 had no <code>claude send</code>, and resuming a running session with extra flags started a copy. A session that skipped permission prompts held a message from one that did not, on a prompt that was still waiting about four minutes later. That evening a script typed <code>SEND R1</code>, then <code>SEND R2</code>, then <code>SEND R3</code> into a throwaway relay. Each reply came back, in about 29, 15 and 18 seconds, without a restart. It was one receiver, and nothing woke the bot. <code>relay ask</code>, the shared-session rule and the webhook closed those gaps. Inside a sandbox, Dozable&#x27;s Claude wrapper skips permission prompts. The sandbox is the boundary.</p>
-<h2 id="showing-it-to-a-new-team-member">Showing it to a new team member<a class="anchor" href="#showing-it-to-a-new-team-member" aria-label="Link to this section">#</a></h2>
-<p>On Friday 13 November 2026, in Sydney, I showed this setup to a new team member and used it for real. The quotes below come from a call transcript received at 13:04 Australia/Sydney. The transcription may be imperfect. These are lightly edited quotes. They have not yet been checked by the speaker:</p>
-<blockquote class="example">
-<p>&quot;this is really using it for real, right? So this sandbox is running. You can see there&#x27;s three. So these are three sessions, three Claude sessions.&quot;</p>
-</blockquote>
-<blockquote class="example">
-<p>&quot;see these messages here? ... these are from Grok bot.&quot;</p>
-</blockquote>
-<blockquote class="example">
-<p>&quot;Sending the messages.&quot;</p>
-</blockquote>
-<blockquote class="example">
-<p>&quot;So I can see them. I can jump in and interact. I&#x27;ve got full visibility and it&#x27;s all kind of packaged in these sandboxes that are templated. So if the bot needs to spin up an environment for Remotion, it can do it really quickly.&quot;</p>
-</blockquote>
+<h2 id="a-session-side-by-side">A session, side by side<a class="anchor" href="#a-session-side-by-side" aria-label="Link to this section">#</a></h2>
+<p>Sample output is marked with a <code>#</code>. Names are generic.</p>
+<figure class="sidebyside"><figcaption>An illustrative session, not a transcript.</figcaption><div class="side-grid"><div class="side-h">Grok Bot (via its worker)</div><div class="side-h">Me</div><div class="side-cell l"><p class="side-kicker">Grok Bot (via its worker)</p><pre class="side-screen"><span class="cmd">$ relay team ls</span>
+<span class="out">remotion-video	Several sessions, each making its own video with Remotion and rendering an MP4.</span>
+<span class="out">go-react-web	One session building a Go web server that serves its own React front end from one binary.</span>
+<span class="note"># illustrative: the real command also prints a proven line, omitted here</span>
+</pre></div><div class="side-cell r"><p class="side-kicker">Me</p><pre class="side-screen"><span class="cmd">$ doz ui</span>
+<span class="note"># the dashboard</span>
+<span class="note"># Watch is read-only</span>
+<span class="note"># Open attaches, and can type</span>
+</pre></div><div class="side-cell l"><p class="side-kicker">Grok Bot (via its worker)</p><pre class="side-screen"><span class="cmd">$ relay up demo-remotion --team remotion-video --sessions 3 --workspace ~/work --as worker --primary-agent &quot;Grok Bot&quot;</span>
+<span class="out">  image: starting from this Mac&#x27;s saved image team-remotion-video (tools already inside)</span>
+<span class="out">  video-1: started in ~/work/video-1</span>
+<span class="out">  video-2: started in ~/work/video-2</span>
+<span class="out">  video-3: started in ~/work/video-3</span>
+<span class="out">  driver recorded: worker</span>
+<span class="out">ready: demo-remotion — 3 sessions.</span>
+</pre></div><div class="side-cell r"><p class="side-kicker">Me</p><pre class="side-screen"><span class="cmd">$ doz attach demo-remotion video-1</span>
+<span class="note"># attached to video-1</span>
+<span class="note"># the session keeps running when I leave</span>
+</pre></div><div class="side-cell l"><p class="side-kicker">Grok Bot (via its worker)</p><pre class="side-screen"><span class="cmd">$ relay ask demo-remotion video-1 --file task.md --detach</span>
+<span class="out">{&quot;request&quot;: &quot;1700000000-1001&quot;, &quot;sandbox&quot;: &quot;demo-remotion&quot;, &quot;to&quot;: [&quot;video-1&quot;], &quot;delivered&quot;: true, &quot;next&quot;: &quot;an event of kind &#x27;reply&#x27; arrives when it is answered; then: relay result demo-remotion 1700000000-1001&quot;}</span>
+</pre></div><div class="side-cell r"><p class="side-kicker">Me</p><pre class="side-screen"><span class="note"># the task shows in this same terminal</span>
+<span class="note"># I type a line of my own</span>
+<span class="out">make the title two seconds longer</span>
+</pre></div><div class="side-cell l"><p class="side-kicker">Grok Bot (via its worker)</p><pre class="side-screen"><span class="note"># an extra attached client is not a reason to stop</span>
+</pre></div><div class="side-cell r"><p class="side-kicker">Me</p><pre class="side-screen"><span class="note"># Ctrl-]</span>
+<span class="out"> doz: d detach · n next · p prev · s sessions · Esc back</span>
+<span class="note"># Ctrl-] again detaches</span>
+<span class="note"># the session keeps running</span>
+</pre></div><div class="side-cell l"><p class="side-kicker">Grok Bot (via its worker)</p><pre class="side-screen"><span class="cmd">$ relay forward demo-remotion --once</span>
+<span class="note"># a reply event is delivered and the bot wakes</span>
+<span class="note"># illustrative: no address is shown</span>
+</pre></div><div class="side-cell r"><p class="side-kicker">Me</p><pre class="side-screen"><span class="note"># I am detached</span>
+<span class="note"># Watch on video-1 stays read-only</span>
+</pre></div><div class="side-cell l"><p class="side-kicker">Grok Bot (via its worker)</p><pre class="side-screen"><span class="cmd">$ relay result demo-remotion 1700000000-1001</span>
+<span class="out">status: complete</span>
+<span class="note"># illustrative: the rest is the session&#x27;s own reply</span>
+</pre></div><div class="side-cell r"><p class="side-kicker">Me</p><pre class="side-screen"><span class="note"># I am not in the session</span>
+<span class="note"># the reply is the bot&#x27;s to read</span>
+</pre></div><div class="side-cell l"><p class="side-kicker">Grok Bot (via its worker)</p><pre class="side-screen"><span class="cmd">$ relay rc demo-remotion video-1</span>
+<span class="note"># prints one claude.ai/code/session_… link</span>
+<span class="note"># illustrative: the link is not shown</span>
+</pre></div><div class="side-cell r"><p class="side-kicker">Me</p><pre class="side-screen"><span class="note"># Open on the dashboard types into video-1</span>
+</pre></div><div class="side-cell l"><p class="side-kicker">Grok Bot (via its worker)</p><pre class="side-screen"><span class="cmd">$ relay collect demo-remotion</span>
+<span class="out">collected: ~/agent-relay-archive/demo-remotion/2026-11-13T120000</span>
+<span class="note"># illustrative: a JSON report is printed too</span>
+</pre></div><div class="side-cell r"><p class="side-kicker">Me</p><pre class="side-screen"><span class="note"># collect does not need me in the session</span>
+</pre></div><div class="side-cell l"><p class="side-kicker">Grok Bot (via its worker)</p><pre class="side-screen"><span class="cmd">$ relay retire demo-remotion --as worker</span>
+<span class="out">1/4 asking video-1, video-2, video-3 to wrap up</span>
+<span class="out">2/4 collecting</span>
+<span class="out">3/4 hibernating</span>
+<span class="out">4/4 marked retired</span>
+<span class="out">RETIRED: demo-remotion. Nothing was deleted.</span>
+<span class="note"># illustrative: it also prints the archive path</span>
+<span class="note"># and that doz rm is mine, later</span>
+</pre></div><div class="side-cell r"><p class="side-kicker">Me</p><pre class="side-screen"><span class="note"># the sandbox is hibernated</span>
+<span class="note"># I have not removed it</span>
+</pre></div></div></figure>
 <h2 id="what-still-applies">What still applies<a class="anchor" href="#what-still-applies" aria-label="Link to this section">#</a></h2>
-<p>A relay reaches only the sessions in its own sandbox. Xcode cannot run in the Linux sandbox, so that work is a session on the Mac (<code>doz run @mac</code>), on the <a href="https://dozable.com/docs/install-upgrade-uninstall">stable channel</a> as 0.37.46. The manual for that version still says that session runs as you, with no isolation at all: no virtual machine, no proxy, and your files and Keychain, and it does not describe a Seatbelt profile there. I treat it that way. Its prompt tells it to stop before signing or sending anything out. I leave tmux off in a sandbox. <code>relay collect</code> copies finished work onto the same Mac, and it is not a backup.</p>
+<p>A relay reaches only the sessions in its own sandbox. Xcode cannot run in a Linux sandbox, so that work is a shared host session (<code>doz run @mac</code>), isolated with macOS Seatbelt. Its prompt tells it to stop before signing or sending anything out. I leave tmux off in a sandbox. <code>relay collect</code> copies finished work onto the same Mac, and it is not a backup.</p>
 <h2 id="the-skill">The skill<a class="anchor" href="#the-skill" aria-label="Link to this section">#</a></h2>
 <p>The <code>relay</code> command, the session prompts, the two team templates and a health check that uses no model are one skill, <code>agent-relay</code>. I&#x27;m planning to publish the skills in their own public repo.</p>
 <h2 id="about-dozable">About Dozable<a class="anchor" href="#about-dozable" aria-label="Link to this section">#</a></h2>
