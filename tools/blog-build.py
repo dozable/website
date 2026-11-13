@@ -260,8 +260,8 @@ class Post(docs.Page):
     def code(self, b):
         if b['lang'] == 'diagram':
             return self.diagram(b)
-        if b['lang'] == 'sidebyside':
-            return self.sidebyside(b)
+        if b['lang'] == 'timeline':
+            return self.timeline(b)
         if b['lang'] == 'mermaid':
             fail('%s:%d' % (self.name, b['ln']), 'no Mermaid diagrams in a post')
         return docs.Page.code(self, b)
@@ -287,10 +287,10 @@ class Post(docs.Page):
                 '<iframe src="%s" title="%s"></iframe></figure>'
                 % (esc(href), esc(href), esc(href), esc(title)))
 
-    def sidebyside(self, b):
-        """A fenced sidebyside block: two labelled columns of terminal steps, no JavaScript.
-        The first two lines are 'left: …' and 'right: …'. Later lines split on a '---' line into
-        alternating left and right steps."""
+    def timeline(self, b):
+        """A fenced timeline: steps alternate left and right down a centre line. No JavaScript.
+        The first two lines are 'left: …' and 'right: …'. A '---' line starts the next step.
+        Odd steps are the left speaker, even steps the right."""
         where = '%s:%d' % (self.name, b['ln'])
         lines = b['text'].split('\n')
         while lines and not lines[0].strip():
@@ -298,10 +298,10 @@ class Post(docs.Page):
         while lines and not lines[-1].strip():
             lines.pop()
         if len(lines) < 2 or not lines[0].startswith('left:') or not lines[1].startswith('right:'):
-            fail(where, "a sidebyside block starts with 'left: …' and 'right: …'")
+            fail(where, "a timeline block starts with 'left: …' and 'right: …'")
         left_name, right_name = lines[0][5:].strip(), lines[1][6:].strip()
         if not left_name or not right_name:
-            fail(where, 'a sidebyside block needs both column names')
+            fail(where, 'a timeline block needs both speaker names')
         chunks, cur = [], []
         for line in lines[2:]:
             if line.strip() == '---':
@@ -311,25 +311,27 @@ class Post(docs.Page):
                 cur.append(line)
         chunks.append('\n'.join(cur).strip('\n'))
         chunks = [c for c in chunks if c.strip()]
-        if not chunks or len(chunks) % 2:
-            fail(where, 'a sidebyside block needs left/right steps in pairs, split by a --- line')
+        if not chunks:
+            fail(where, 'a timeline block needs at least one step')
 
-        def pane(text, who):
-            bits = ['<p class="side-kicker">%s</p><pre class="side-screen">' % esc(who)]
+        def bubble(text):
+            bits = ['<pre>']
             for line in text.split('\n'):
-                cls = 'cmd' if line.startswith('$ ') else 'note' if line.startswith('#') else 'out'
+                cls = 'cmd' if line.startswith('$ ') or line.startswith('  --') else 'note' if line.startswith('#') else 'out'
                 bits.append('<span class="%s">%s</span>\n' % (cls, esc(line) if line else ''))
             bits.append('</pre>')
             return ''.join(bits)
 
-        cells = []
+        steps = []
         for i, chunk in enumerate(chunks):
-            who = left_name if i % 2 == 0 else right_name
             side = 'l' if i % 2 == 0 else 'r'
-            cells.append('<div class="side-cell %s">%s</div>' % (side, pane(chunk, who)))
-        return ('<figure class="sidebyside"><figcaption>An illustrative session, not a transcript.</figcaption>'
-                '<div class="side-grid"><div class="side-h">%s</div><div class="side-h">%s</div>%s</div></figure>'
-                % (esc(left_name), esc(right_name), ''.join(cells)))
+            who = left_name if side == 'l' else right_name
+            steps.append('<li class="tl-step %s"><span class="tl-dot" aria-hidden="true">%d</span>'
+                         '<div class="tl-bubble" aria-label="%s">%s</div></li>'
+                         % (side, i + 1, esc(who), bubble(chunk)))
+        return ('<figure class="tl"><figcaption>An illustrative session, not a transcript.</figcaption>'
+                '<div class="tl-labels"><span>%s</span><span>%s</span></div><ol class="tl-list">%s</ol></figure>'
+                % (esc(left_name), esc(right_name), ''.join(steps)))
 
     def image(self, b):
         where = '%s:%d' % (self.name, b['ln'])

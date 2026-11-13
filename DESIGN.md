@@ -153,9 +153,10 @@ JavaScript runs, that same control opens a full-window overlay (Close, or Escape
 one inline script for that overlay alone. Other posts do not get the script. The HTML file must be self-contained
 — no external script, stylesheet, web font or tracker — and the build refuses one that is not.
 
-A fenced block whose language is `sidebyside` is static HTML, with no script. The first two lines are
-`left:` and `right:` (the column names). A line that is only `---` splits the rest into left and right
-steps, alternating. The page draws them as two terminal columns that stack on a narrow screen.
+A fenced block whose language is `timeline` is static HTML, with no script. The first two lines are
+`left:` and `right:` (who speaks). A line that is only `---` starts the next step. Steps alternate,
+left then right, one bubble each, down one centred area. A bubble is at most 80% of that area and may
+cross the centre line. The same rule holds on a narrow screen, where the line is thinner.
 
 The order for a publish:
 `tools/docs-build.py` (if the manual changed), then `tools/blog-build.py`, then `tools/markdown-build.py`, then

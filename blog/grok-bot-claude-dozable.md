@@ -81,87 +81,73 @@ Play walks one round trip. Expand fills the window, and the link opens the diagr
 
 On 10 November, Claude Code 2.1.321 had no `claude send`, and resuming a running session with extra flags started a copy. A session that skipped permission prompts held a message from one that did not, on a prompt that was still waiting about four minutes later. That evening a script typed `SEND R1`, then `SEND R2`, then `SEND R3` into a throwaway relay. Each reply came back, in about 29, 15 and 18 seconds, without a restart. It was one receiver, and nothing woke the bot. `relay ask`, the shared-session rule and the webhook closed those gaps. Inside a sandbox, Dozable's Claude wrapper skips permission prompts. The sandbox is the boundary.
 
-## A session, side by side
+## A session
 
 Sample output is marked with a `#`. Names are generic.
 
-```sidebyside
+```timeline
 left: Grok Bot (via its worker)
 right: Me
 ---
 $ relay team ls
-remotion-video	Several sessions, each making its own video with Remotion and rendering an MP4.
-go-react-web	One session building a Go web server that serves its own React front end from one binary.
-# illustrative: the real command also prints a proven line, omitted here
+remotion-video	Remotion videos
+go-react-web	Go and React
+# proven line omitted
 ---
 $ doz ui
-# the dashboard
 # Watch is read-only
-# Open attaches, and can type
+# Open can type
 ---
-$ relay up demo-remotion --team remotion-video --sessions 3 --workspace ~/work --as worker --primary-agent "Grok Bot"
-  image: starting from this Mac's saved image team-remotion-video (tools already inside)
-  video-1: started in ~/work/video-1
-  video-2: started in ~/work/video-2
-  video-3: started in ~/work/video-3
-  driver recorded: worker
+$ relay up demo-remotion \
+  --team remotion-video --sessions 3 \
+  --workspace ~/work --as worker \
+  --primary-agent "Grok Bot"
 ready: demo-remotion — 3 sessions.
 ---
 $ doz attach demo-remotion video-1
-# attached to video-1
-# the session keeps running when I leave
+# attached; it keeps running when I leave
 ---
-$ relay ask demo-remotion video-1 --file task.md --detach
-{"request": "1700000000-1001", "sandbox": "demo-remotion", "to": ["video-1"], "delivered": true, "next": "an event of kind 'reply' arrives when it is answered; then: relay result demo-remotion 1700000000-1001"}
+$ relay ask demo-remotion video-1 \
+  --file task.md --detach
+# request 1700000000-1001 delivered
+# then: relay result …
 ---
-# the task shows in this same terminal
-# I type a line of my own
 make the title two seconds longer
+# a line I type in the same terminal
 ---
-# an extra attached client is not a reason to stop
+# an attached client is not a reason to stop
 ---
-# Ctrl-]
- doz: d detach · n next · p prev · s sessions · Esc back
-# Ctrl-] again detaches
+# Ctrl-] twice detaches
+# doz: d detach · n next · p prev · s sessions
 # the session keeps running
 ---
 $ relay forward demo-remotion --once
-# a reply event is delivered and the bot wakes
-# illustrative: no address is shown
+# a reply event wakes the bot
+# no address is shown
 ---
-# I am detached
-# Watch on video-1 stays read-only
+# Watch on video-1, read-only
 ---
 $ relay result demo-remotion 1700000000-1001
 status: complete
-# illustrative: the rest is the session's own reply
+# the rest is the session's reply
 ---
-# I am not in the session
-# the reply is the bot's to read
+# I see the reply on the session
 ---
 $ relay rc demo-remotion video-1
-# prints one claude.ai/code/session_… link
-# illustrative: the link is not shown
+# prints a claude.ai link, not shown
 ---
-# Open on the dashboard types into video-1
+# Open types into video-1
 ---
 $ relay collect demo-remotion
-collected: ~/agent-relay-archive/demo-remotion/2026-11-13T120000
-# illustrative: a JSON report is printed too
+collected: ~/agent-relay-archive/demo-remotion/…
 ---
-# collect does not need me in the session
+# collect does not need me
 ---
 $ relay retire demo-remotion --as worker
-1/4 asking video-1, video-2, video-3 to wrap up
-2/4 collecting
-3/4 hibernating
 4/4 marked retired
 RETIRED: demo-remotion. Nothing was deleted.
-# illustrative: it also prints the archive path
-# and that doz rm is mine, later
 ---
-# the sandbox is hibernated
-# I have not removed it
+# hibernated; I have not removed it
 ```
 
 ## What still applies
