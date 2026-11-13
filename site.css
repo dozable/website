@@ -582,9 +582,9 @@ body.diagram-open { overflow: hidden; }
   width: 80%;
   max-width: 80%;
   border: 1px solid transparent;
-  border-radius: 6px;
+  border-radius: 18px;
   box-shadow: none;
-  padding: 8px 12px;
+  padding: 12px 18px;
 }
 .blog .tl-step.l .tl-bubble { margin-left: 0; margin-right: auto; background: #fff6cc; color: #111; border-color: rgb(0 0 0 / .12); }
 .blog .tl-step.r .tl-bubble { margin-left: auto; margin-right: 0; background: #f1f1f3; color: #111; border-color: rgb(0 0 0 / .1); }
@@ -615,7 +615,7 @@ body.diagram-open { overflow: hidden; }
 .blog .tl-bubble .cmd { font-weight: 700; color: #111; }
 .blog .tl-bubble .note { color: #3a3a3c; }
 .blog .tl-bubble::after {
-  content: ""; position: absolute; top: 12px; width: 0; height: 0;
+  content: ""; position: absolute; top: 20px; width: 0; height: 0;
   border: 6px solid transparent;
 }
 .blog .tl-bubble { position: relative; }
