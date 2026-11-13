@@ -1,0 +1,847 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dozable session messaging</title>
+<meta name="description" content="Isometric flow diagram: Grok Bot, a worker on the Mac, the agent-relay session and the project sessions, with every Claude session held in a Dozable sandbox and the human opening the same terminal.">
+<style>
+:root{
+  --bg:#f5f4ef; --surface:#ffffff; --ink:#1c1c1f; --muted:#66666d; --line:#dcd8ce; --halo:#f5f4ef;
+  --l-top:80%; --l-left:64%; --l-right:52%; --l-edge:30%;
+  --send:#2a64d6; --reply:#14946a; --john:#8446d0; --unv:#c9820a; --ctl:#55565e; --stop:#c8433a; --evt:#c2317f;
+  --code-bg:#f0eee7; --slab-top:#e3dfd4; --slab-l:#c9c3b4; --slab-r:#b3ac9c; --pad-top:#dfe3ea;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131316; --surface:#1c1c20; --ink:#ececf0; --muted:#9d9da6; --line:#33333a; --halo:#131316;
+    --l-top:44%; --l-left:32%; --l-right:24%; --l-edge:62%;
+    --send:#6e9bff; --reply:#3fcf98; --john:#b58bff; --unv:#f2b33d; --ctl:#b5b6bf; --stop:#ff7a6e; --evt:#ff86c8;
+    --code-bg:#24242a; --slab-top:#26262c; --slab-l:#1d1d22; --slab-r:#17171b; --pad-top:#22252c;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131316; --surface:#1c1c20; --ink:#ececf0; --muted:#9d9da6; --line:#33333a; --halo:#131316;
+  --l-top:44%; --l-left:32%; --l-right:24%; --l-edge:62%;
+  --send:#6e9bff; --reply:#3fcf98; --john:#b58bff; --unv:#f2b33d; --ctl:#b5b6bf; --stop:#ff7a6e; --evt:#ff86c8;
+  --code-bg:#24242a; --slab-top:#26262c; --slab-l:#1d1d22; --slab-r:#17171b; --pad-top:#22252c;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+code,pre,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.wrap{max-width:1180px;margin:0 auto;padding:32px 16px 64px}
+header{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between;margin-bottom:8px}
+h1{font-size:clamp(24px,4vw,34px);line-height:1.15;margin:0;letter-spacing:-.01em}
+.lede{color:var(--muted);max-width:70ch;margin:8px 0 0}
+.pill{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;border:1px solid var(--line);color:var(--muted);background:var(--surface);white-space:nowrap}
+.pill.warn{color:var(--unv);border-color:color-mix(in srgb,var(--unv) 45%,transparent)}
+.figure{background:var(--surface);border:1px solid var(--line);border-radius:16px;margin:20px 0 12px;overflow:hidden}
+.scroller{overflow-x:auto}
+svg#iso{display:block;width:100%;min-width:760px;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;padding:12px 18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{display:inline-block;width:28px;height:0;border-top:3px solid}
+.hint{font-size:13px;color:var(--muted);margin:0 0 28px}
+
+/* SVG faces: hue per kind, lightness per face & theme */
+.blk .top{fill:hsl(var(--h) var(--s) var(--l-top))}
+.blk .lft{fill:hsl(var(--h) var(--s) var(--l-left))}
+.blk .rgt{fill:hsl(var(--h) var(--s) var(--l-right))}
+.blk polygon{stroke:hsl(var(--h) var(--s) var(--l-edge));stroke-width:.8;stroke-linejoin:round}
+.blk .det{stroke:hsl(var(--h) var(--s) var(--l-edge));stroke-width:1.4;fill:none;stroke-linecap:round;opacity:.7}
+.k-slab{--h:40;--s:10%}
+.k-slab .top{fill:var(--slab-top)} .k-slab .lft{fill:var(--slab-l)} .k-slab .rgt{fill:var(--slab-r)}
+.k-pad .top{fill:var(--pad-top)}
+.k-pad{--h:220;--s:12%}
+.k-cheto{--h:218;--s:62%}
+.k-cursor{--h:228;--s:8%}
+.k-mail{--h:170;--s:48%}
+.k-work{--h:250;--s:52%}
+.k-term{--h:275;--s:35%}
+.k-gate{--h:38;--s:80%}
+.k-evt{--h:325;--s:58%}
+.k-sbx{--h:170;--s:30%}
+.k-sbx .top{fill:color-mix(in srgb,hsl(170 40% 50%) 14%,var(--pad-top))}
+.k-doz{--h:205;--s:22%}
+.k-doz .top{fill:color-mix(in srgb,hsl(205 50% 52%) 13%,var(--pad-top))}
+.k-belt{--h:38;--s:55%}
+.k-belt .top{fill:color-mix(in srgb,hsl(38 80% 52%) 20%,var(--pad-top))}
+.ghost polygon{fill:transparent!important;stroke:var(--muted);stroke-dasharray:4 4;stroke-width:1.2}
+.ghost .det{stroke:var(--muted)}
+.ico-claude{stroke:#d97757;stroke-width:3;stroke-linecap:round;fill:none}
+.ghost .ico-claude{opacity:.55}
+.blk .ico-cursor-bg{fill:#16150f;stroke:#16150f;stroke-width:1.2;stroke-linejoin:round}
+.blk .ico-cursor-cap{fill:#3a3934;stroke:none}
+.blk .ico-cursor-arrow{fill:#f1efe8;stroke:none}
+.scr .t{fill:#1d1f27;stroke:#3a3b44;stroke-width:.6}
+.scr .ln{stroke:#8fd3b0;stroke-width:1.2;stroke-linecap:round}
+.scr .bar{fill:#2a2c36}
+.scr .win{fill:#e9e9ee}
+.scr .wall{fill:#3b5bbd}
+.scr .cl{stroke:#d97757;stroke-width:2.4;stroke-linecap:round}
+.scr .glass{fill:#0d0e12;stroke:#3a3b44;stroke-width:1}
+.scr .w{fill:#f4f4f2}
+.scr .d{fill:#0b0b0d}
+.scr .m{fill:#3a3934}
+.orb .ball{fill:url(#orbG);stroke:#8a8b93;stroke-width:.8}
+.orb .shade{fill:#000;opacity:.18}
+.orb .eye{fill:#0b0b0d}
+.person .body{fill:hsl(var(--h) var(--s) calc(var(--l-left)));stroke:hsl(var(--h) var(--s) var(--l-edge));stroke-width:.8}
+.person .head{fill:hsl(var(--h) var(--s) var(--l-top));stroke:hsl(var(--h) var(--s) var(--l-edge));stroke-width:.8}
+
+.flow{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.f-send{stroke:var(--send)} .f-reply{stroke:var(--reply)} .f-john{stroke:var(--john)} .f-ctl{stroke:var(--ctl)}
+.f-evt{stroke:var(--evt)}
+.f-unv{stroke:var(--unv);stroke-dasharray:7 6;stroke-width:2.4}
+.f-stop{stroke:var(--stop);stroke-dasharray:3 6;stroke-width:2.4}
+.pkt{fill:none;stroke:var(--surface);stroke-width:3;stroke-linecap:round;stroke-dasharray:1 22;animation:run 1.6s linear infinite;opacity:.9}
+@keyframes run{to{stroke-dashoffset:-23}}
+@media (prefers-reduced-motion:reduce){.pkt{animation:none;display:none}}
+
+.lbl{font-size:13px;font-weight:700;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round}
+.sub{font-size:11px;fill:var(--muted);font-weight:400;paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round}
+.floor{font-size:11px;font-weight:600;letter-spacing:.01em}
+.floor.t-send{fill:var(--send)} .floor.t-reply{fill:var(--reply)} .floor.t-john{fill:var(--john)} .floor.t-unv{fill:var(--unv)} .floor.t-evt{fill:var(--evt)} .floor.t-ctl{fill:var(--muted)} .floor.t-stop{fill:var(--stop)}
+.slabname{font-size:15px;font-weight:800;fill:var(--muted);letter-spacing:.12em;opacity:.8}
+
+.badge{cursor:pointer}
+.badge circle{stroke:var(--surface);stroke-width:2.5}
+.badge text{font-size:11.5px;font-weight:800;fill:#fff;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.b-send circle{fill:var(--send)} .b-reply circle{fill:var(--reply)} .b-john circle{fill:var(--john)}
+.b-ctl circle{fill:var(--ctl)} .b-unv circle{fill:var(--unv)} .b-stop circle{fill:var(--stop)} .b-evt circle{fill:var(--evt)}
+:root[data-theme="dark"] .badge text{fill:#111}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .badge text{fill:#111}}
+
+[data-stage]{transition:opacity .18s}
+svg.focus [data-stage]:not(.hl){opacity:.14}
+
+/* stage cards */
+h2{font-size:20px;margin:36px 0 4px;letter-spacing:-.005em}
+.sec-sub{color:var(--muted);margin:0 0 16px;font-size:14px}
+.stages{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;outline:none;transition:border-color .15s,box-shadow .15s}
+.card:hover,.card:focus-visible,.card.on{border-color:var(--c,var(--ctl));box-shadow:0 0 0 3px color-mix(in srgb,var(--c,var(--ctl)) 18%,transparent)}
+.card h3{display:flex;align-items:center;gap:10px;font-size:15px;margin:0 0 6px}
+.num{flex:none;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--c,var(--ctl));color:#fff;font-size:12px;font-weight:800}
+:root[data-theme="dark"] .num{color:#111}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .num{color:#111}}
+.card p{margin:4px 0;font-size:13.5px;color:var(--muted)}
+.card pre{margin:8px 0 6px;background:var(--code-bg);border-radius:8px;padding:8px 10px;font-size:12px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:99px;margin-top:6px;border:1px solid currentColor}
+.tag.no{color:var(--stop)} .tag.ok{color:var(--reply)} .tag.doc{color:var(--muted)} .tag.unv{color:var(--unv)}
+.c-send{--c:var(--send)} .c-reply{--c:var(--reply)} .c-john{--c:var(--john)} .c-ctl{--c:var(--ctl)} .c-unv{--c:var(--unv)} .c-stop{--c:var(--stop)} .c-evt{--c:var(--evt)}
+
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
+.panel h3{margin:0 0 8px;font-size:15px}
+.panel ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--muted)}
+.panel li{margin:5px 0}
+.panel li b{color:var(--ink)}
+.panel.unv{border-color:color-mix(in srgb,var(--unv) 50%,var(--line))}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:4px}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.fact b{display:block;font-size:20px;letter-spacing:-.01em}
+.fact span{font-size:12.5px;color:var(--muted)}
+.player{display:flex;align-items:center;gap:10px 14px;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.pbtn{font:inherit;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:99px;padding:6px 14px;cursor:pointer}
+.pbtn.icon{padding:6px 11px}
+.pbtn:hover{border-color:var(--muted)}
+.pbtn.primary{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.cap{flex:1 1 280px;min-width:0}
+.cap-h{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+.cap-h .num{width:22px;height:22px;font-size:11px}
+.cap-t{font-size:13px;color:var(--muted);margin-top:2px}
+.prog{height:3px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:8px}
+.prog i{display:block;height:100%;width:0;background:var(--c,var(--ink))}
+.dots{display:flex;gap:5px;flex-wrap:wrap}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--line);border:0;padding:0;cursor:pointer}
+.dot.on{background:var(--ink)}
+.dot.done{background:var(--muted)}
+.tok{stroke:var(--surface);stroke-width:2.5}
+.pulse{fill:none;stroke-width:2.5;transform-box:fill-box;transform-origin:center;animation:pulse 1.5s ease-out infinite}
+@keyframes pulse{from{transform:scale(.35);opacity:.95}to{transform:scale(1.5);opacity:0}}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none;opacity:.8}}
+footer{margin-top:40px;font-size:12.5px;color:var(--muted)}
+.postback{margin:0;padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--line);font-size:14px}
+.postback a{color:inherit;font-weight:600}
+.theme{font:inherit;font-size:12px;border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:99px;padding:3px 10px;cursor:pointer}
+.still header,.still .hint,.still .facts,.still h2,.still .sec-sub,.still .stages,.still .cols,.still footer,.still .pbtn,.still .dots{display:none}
+.still .wrap{padding:12px 12px 12px;max-width:none}
+.still .figure{margin:0}
+.still .pulse{animation:none;opacity:.85}
+.still .pkt{animation:none}
+.still .prog{display:none}
+.still .cap-h{font-size:17px}
+.still .cap-t{font-size:14px}
+</style>
+</head>
+<body>
+<p class="postback" id="postback"><a href="../../grok-bot-claude-dozable.html">Back to the post</a></p>
+<script>if (window.top !== window.self) { var b = document.getElementById("postback"); if (b) b.hidden = true; }</script>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Dozable session messaging</h1>
+      <p class="lede">Claude Code sessions live in a Dozable sandbox, or, for macOS work, are held by Dozable on the Mac itself. Grok Bot's worker talks to a relay session, the relay messages each project session by name, and the human opens the very same terminal or uses remote control. Numbered stages match the runbook below. The bot's command for this is <code>relay</code>. On Dozable 0.37.44 and later, <code>relay</code> types and reads with <code>doz sessions send</code> and <code>doz sessions screen</code>.</p>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <span class="pill">The relay the bot runs</span>
+      <span class="pill">Verified with the real agent and worker · 12 Nov 2026</span>
+      <button class="theme" id="themeBtn" type="button">Theme</button>
+    </div>
+  </header>
+
+  <div class="figure">
+    <div class="player" id="player">
+      <button class="pbtn primary" id="pPlay" type="button" aria-label="Play the steps">▶ Play</button>
+      <button class="pbtn icon" id="pPrev" type="button" aria-label="Previous step">‹</button>
+      <button class="pbtn icon" id="pNext" type="button" aria-label="Next step">›</button>
+      <button class="pbtn" id="pReset" type="button" aria-label="Reset to the whole diagram">↺ Reset</button>
+      <div class="cap" aria-live="polite">
+        <div class="cap-h" id="capH">Walk through a round trip</div>
+        <div class="cap-t mono" id="capT">Press Play, or step through with ‹ ›.</div>
+        <div class="prog"><i id="prog"></i></div>
+      </div>
+      <div class="dots" id="dots"></div>
+    </div>
+    <div class="scroller">
+      <svg id="iso" role="img" aria-labelledby="isoTitle isoDesc" xmlns="http://www.w3.org/2000/svg">
+        <title id="isoTitle">Isometric message flow</title>
+        <desc id="isoDesc">Grok Bot launches a worker on the Mac. The worker uses doz to start one sandbox holding a relay session, agent-relay, and three project sessions, each in its own folder under the shared workspace. The worker types an instruction into the relay through a piped doz attach. The relay uses SendMessage by exact name to project-a, project-b and project-c, and the reply returns to the relay labelled with the sender. The worker reads the relay screen and returns it to Grok Bot. The human opens the same session with doz attach or the dashboard, or reaches it through claude.ai after /rc. A session in another sandbox cannot be reached by SendMessage. Project sessions also report to the relay unprompted; the relay writes event files, and a shell loop called relay-health writes health events; the worker collects both with relay watch. relay forward posts events on to Grok Bot's webhook, which wakes it.</desc>
+        <defs id="defs"></defs>
+        <g id="g-slab"></g>
+        <g id="g-floor"></g>
+        <g id="g-flows"></g>
+        <g id="g-blocks"></g>
+        <g id="g-air"></g>
+        <g id="g-labels"></g>
+        <g id="g-anim"></g>
+        <g id="g-badges"></g>
+      </svg>
+    </div>
+    <div class="legend">
+      <span><i style="border-color:var(--send)"></i>Send (Grok Bot → work session)</span>
+      <span><i style="border-color:var(--reply)"></i>Reply (back to Grok Bot)</span>
+      <span><i style="border-color:var(--john)"></i>Human: same terminal, or remote control</span>
+      <span><i style="border-color:var(--evt)"></i>Events (team → worker)</span>
+      <span><i style="border-color:var(--ctl)"></i>Direct keys, only when required</span>
+            <span><i style="border-color:var(--stop);border-top-style:dotted"></i>Tested: does not work</span>
+    </div>
+  </div>
+  <p class="hint">Play the walkthrough above, or hover a stage card (or tap a numbered badge) to isolate that part of the diagram.</p>
+
+  <div class="facts">
+    <div class="fact"><b>4 sessions</b><span>in one sandbox: a relay plus three projects, each in its own folder, all answering through the relay</span></div>
+    <div class="fact"><b>1 in 12</b><span>session starts showed Claude's folder-trust prompt; the worker accepted it with two keys</span></div>
+    <div class="fact"><b>4 links</b><span><code>/rc</code> active in every session at once, and still reported after hibernate and wake</span></div>
+    <div class="fact"><b>1 sandbox</b><span>is as far as SendMessage reaches; another sandbox was not found</span></div>
+  </div>
+
+  <h2>Runbook</h2>
+  <p class="sec-sub">Every command shape below was run on the Mac on 12 Nov 2026 against throwaway sandboxes, first with Claude Code playing the worker, then by the real primary agent and its Cursor worker. Names such as <code>agent-relay</code> are the proposed ones; the probe used <code>probe-…</code> and <code>proj-…</code> names. <code>project-a</code> stands for a real project folder.</p>
+  <div class="stages" id="stages"></div>
+
+  <h2>Rules of the road</h2>
+  <p class="sec-sub">What to keep, what to avoid, what is still open, and how remote control works.</p>
+  <div class="cols">
+    <div class="panel">
+      <h3>Keep</h3>
+      <ul>
+        <li><b>One sandbox per group of projects</b>, sharing their parent folder, with <b>one relay session inside it</b>. The relay can only reach sessions in its own sandbox.</li>
+        <li><b>Messages as the primary channel.</b> The worker types only into the relay. Work sessions get Claude-to-Claude messages, labelled by sender.</li>
+        <li><b>Names on every session</b>: <code>claude --name X</code> and <code>--session X</code>, the same word for both.</li>
+        <li><b>Read back after every send.</b> If the text is still sitting in the input box, send Enter again.</li>
+        <li><b>Hibernate when idle.</b> The next attach wakes the sandbox.</li>
+        <li><b>Save as you go.</b> Finished outputs in <code>deliverables/</code>, then <code>relay collect</code>. A result that exists only in a sandbox is not delivered.</li>
+        <li><b>Retire, never delete.</b> <code>relay retire</code> ends a team and deletes nothing. Removal is the human's.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Don't</h3>
+      <ul>
+        <li>Overwrite or submit unsent text on the input line that you did not write. An attached client, or a change in terminal size, is not a reason to stop. Direct keys into a work session stay limited to a blocked prompt or a slash command.</li>
+        <li>Rely on <code>doz sessions --screen</code> for a live read. It returns the last <i>saved</i> screen, and a fresh session has none.</li>
+        <li>Turn on tmux inside the sandbox. Dozable's docs say it hides agent status and limits Claude Code's keys.</li>
+        <li>Expect <code>/rc</code> to work in a stock sandbox. It needs the one-time setup first.</li>
+        <li>Widen a sandbox's network or sign in inside it without the human's say-so.</li>
+        <li>Run <code>doz attach</code> without a piped stdin from a worker. It waits for a keyboard.</li>
+      </ul>
+    </div>
+    <div class="panel unv">
+      <h3>Not yet verified</h3>
+      <ul>
+        <li><code>relay forward</code> as a standing launchd job. It was run by hand with <code>--once</code> for each test.</li>
+        <li>The human attaching from a real terminal, the <code>doz ui</code> dashboard, or <code>doz serve</code> on another device. The second viewer in the probe was another piped client.</li>
+        <li>Opening a remote-control link from another device, and <code>/rc</code> across a renewal of the Mac's login.</li>
+        <li>A blocked session: none blocked, so detecting and answering one was not exercised.</li>
+        <li>A real repo as the workspace, and pushing or opening a pull request from inside (needs a GitHub permission the human grants).</li>
+        <li>Long or multi-line instructions typed as keys.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Remote control (<code>/rc</code>)</h3>
+      <ul>
+        <li><b>Stock sandbox:</b> refused. Claude sees Dozable's placeholder in an environment variable and treats it as inference-only.</li>
+        <li><b>One-time setup:</b> a credentials file inside the sandbox that holds only the placeholder, and <code>claude</code> started without the variable. The Mac's default login is used; it never enters the sandbox, and no network permission was widened.</li>
+        <li><b>Result:</b> active in four sessions at once, and the same link was still reported after a 90-second hibernate.</li>
+        <li>This leans on behaviour neither Dozable nor Claude Code documents, so an update to either could break it.</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    The stages above are the 12 November 2026 walkthrough (doz 0.37.40, Claude Code 2.1.322 in the sandbox). The command the bot runs now is <code>relay</code>.
+  </footer>
+</div>
+
+<script>
+(function(){
+  const NS = 'http://www.w3.org/2000/svg';
+  const S = 34, C = Math.cos(Math.PI/6);
+  const iso = (x,y,z=0) => [(x-y)*C*S, (x+y)*0.5*S - z*S];
+  const pt = p => p[0].toFixed(1)+','+p[1].toFixed(1);
+  const $ = id => document.getElementById(id);
+  const svg = $('iso');
+
+  function el(tag, attrs, parent, text){
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) if (attrs[k] != null) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  const poly = (pts, cls, g) => el('polygon', {points: pts.map(pt).join(' '), class: cls}, g);
+
+  // ---- markers ----
+  const defs = $('defs');
+  [['send','var(--send)'],['reply','var(--reply)'],['john','var(--john)'],['unv','var(--unv)'],['ctl','var(--ctl)'],['stop','var(--stop)'],['evt','var(--evt)']].forEach(([k,c])=>{
+    const m = el('marker',{id:'ah-'+k,viewBox:'0 0 10 10',refX:'7',refY:'5',markerWidth:'4.2',markerHeight:'4.2',orient:'auto-start-reverse'},defs);
+    el('path',{d:'M0,0 L10,5 L0,10 z',style:'fill:'+c},m);
+  });
+
+  // ---- block ----
+  const Z0 = 0.35; // slab top
+  function block(o, parent){
+    const {x0,y0,x1,y1,z0=Z0,z1,kind,ghost,stage} = o;
+    const g = el('g',{class:'blk k-'+kind+(ghost?' ghost':''),'data-stage':stage},parent);
+    poly([iso(x0,y1,z0),iso(x1,y1,z0),iso(x1,y1,z1),iso(x0,y1,z1)],'lft',g);
+    poly([iso(x1,y0,z0),iso(x1,y1,z0),iso(x1,y1,z1),iso(x1,y0,z1)],'rgt',g);
+    poly([iso(x0,y0,z1),iso(x1,y0,z1),iso(x1,y1,z1),iso(x0,y1,z1)],'top',g);
+    return g;
+  }
+  function line3(a,b,cls,g){ el('line',{x1:iso(...a)[0],y1:iso(...a)[1],x2:iso(...b)[0],y2:iso(...b)[1],class:cls},g); }
+  // "terminal lines" on the +y (left) face
+  function termLines(o,g,n=3){
+    const {x0,x1,y1,z0=Z0,z1} = o;
+    for(let i=0;i<n;i++){
+      const z = z1 - (z1-z0)*(0.28 + i*0.2);
+      const len = (x1-x0)*(i===n-1?0.35:0.62 - i*0.1);
+      line3([x0+0.35,y1,z],[x0+0.35+len,y1,z],'det',g);
+    }
+  }
+  // envelope on top face
+  function envelope(o,g){
+    const {x0,y0,x1,y1,z1}=o, m=0.55;
+    const a=[x0+m,y0+m,z1],b=[x1-m,y0+m,z1],c=[x1-m,y1-m,z1],d=[x0+m,y1-m,z1];
+    el('polygon',{points:[a,b,c,d].map(p=>pt(iso(...p))).join(' '),class:'det'},g);
+    const mid=[(x0+x1)/2,(y0+y1)/2,z1];
+    line3(a,mid,'det',g); line3(mid,b,'det',g);
+  }
+  function person(x,y,z,kind,stage,parent){
+    const g = el('g',{class:'blk person k-'+kind,'data-stage':stage},parent);
+    const b = {x0:x-0.75,y0:y-0.75,x1:x+0.75,y1:y+0.75,z0:z,z1:z+0.18};
+    block({...b,kind},g);
+    const [px,py] = iso(x,y,z+0.18);
+    el('path',{class:'body',d:`M${px-13},${py-4} C${px-13},${py-34} ${px+13},${py-34} ${px+13},${py-4} Q${px},${py+4} ${px-13},${py-4}z`},g);
+    el('circle',{class:'head',cx:px,cy:py-40,r:10},g);
+    return g;
+  }
+
+  // The primary agent: a sphere with two eyes, standing on a small plate.
+  function orb(x,y,z,kind,stage,parent){
+    const g = el('g',{class:'blk orb k-'+kind,'data-stage':stage},parent);
+    block({x0:x-0.75,y0:y-0.75,x1:x+0.75,y1:y+0.75,z0:z,z1:z+0.18,kind},g);
+    const [px,py] = iso(x,y,z+0.18), R = 23, cy = py-R+3;
+    const gr = el('radialGradient',{id:'orbG',cx:'0.36',cy:'0.30',r:'0.80'},$('defs'));
+    [['0','#ffffff'],['0.62','#f6f6f4'],['1','#cfd0d6']].forEach(([o,c])=>el('stop',{offset:o,style:'stop-color:'+c},gr));
+    el('ellipse',{class:'shade',cx:px,cy:py+1,rx:R*0.8,ry:R*0.3},g);
+    el('circle',{class:'ball',cx:px,cy:cy,r:R},g);
+    // Two dark, tilted eyes set toward the upper right, as on the Grok Bot icon.
+    const eye=(dx,dy,w,h)=>el('rect',{class:'eye',x:px+dx-w/2,y:cy+dy-h/2,width:w,height:h,rx:w/2,transform:`rotate(-24 ${px+dx} ${cy+dy})`},g);
+    eye(3,-7,6.4,13.5); eye(14,-12,5.4,10.5);
+    return g;
+  }
+
+  // An upright screen: a thin standing panel whose large face looks toward the front left. `draw` paints on that face,
+  // in pixels from its top left corner (w across, h down), through the same skew the slab names use.
+  function screenFace(o,g,draw){
+    const [X,Y]=iso(o.x0,o.y1,o.z1), w=(o.x1-o.x0)*S, h=(o.z1-o.z0)*S;
+    const f=el('g',{class:'scr',transform:`matrix(${C} 0.5 0 1 ${X} ${Y})`},g);
+    el('rect',{class:'glass',x:3,y:3,width:w-6,height:h-6,rx:3},f);
+    draw(f,w,h);
+  }
+  const grokFace=(f,w,h)=>{ const cx=w/2, cy=h/2, R=Math.min(w,h)*0.3;
+    el('circle',{class:'w',cx,cy,r:R},f);
+    const eye=(dx,dy,ew,eh)=>el('rect',{class:'d',x:cx+dx-ew/2,y:cy+dy-eh/2,width:ew,height:eh,rx:ew/2,transform:`rotate(-24 ${cx+dx} ${cy+dy})`},f);
+    eye(R*0.13,-R*0.3,R*0.28,R*0.58); eye(R*0.6,-R*0.52,R*0.24,R*0.46); };
+  const cursorFace=(f,w,h)=>{ const cx=w/2, cy=h/2, r=Math.min(w,h)*0.32, k=0.866;
+    const P=(u,v)=>(cx+u*r).toFixed(1)+','+(cy+v*r).toFixed(1);
+    const T=[0,-1],TR=[k,-0.5],BR=[k,0.5],Bt=[0,1],BL=[-k,0.5],TL=[-k,-0.5],Cc=[0,0];
+    const shape=(pts,cls)=>el('polygon',{points:pts.map(q=>P(q[0],q[1])).join(' '),class:cls},f);
+    shape([T,TR,BR,Bt,BL,TL],'w'); shape([T,TR,TL],'m'); shape([TL,TR,Bt,Cc],'d'); };
+
+  // ---- flows ----
+  const PATHS = {};
+  function flow(points, kind, stage, opts={}){
+    const g = el('g',{'data-stage':stage},$('g-flows'));
+    const p = points.map(q=>iso(q[0],q[1],q[2]==null?Z0+0.01:q[2]));
+    let d = opts.d || ('M'+p.map(pt).join(' L'));
+    const pe = el('path',{d,class:'flow f-'+kind,'marker-end':'url(#ah-'+kind+')'},g);
+    if (opts.key) PATHS[opts.key] = {el:pe, kind};
+    if (kind==='send' || kind==='reply' || kind==='john' || kind==='evt') el('path',{d,class:'pkt'},g);
+    return g;
+  }
+  // text lying on the floor; dir 'x' runs along +x, 'y' runs along -y
+  function floorText(x,y,str,kind,stage,dir='x',anchor='middle',z=Z0){
+    const [X,Y] = iso(x,y,z+0.01);
+    const m = dir==='x' ? `matrix(${C} 0.5 ${-C} 0.5 ${X} ${Y})` : `matrix(${C} -0.5 ${C} 0.5 ${X} ${Y})`;
+    el('text',{transform:m,class:'floor mono t-'+kind,'text-anchor':anchor,'data-stage':stage},$('g-floor'),str);
+  }
+  function label(x,y,z,name,sub,stage,dy=0){
+    const [X,Y] = iso(x,y,z);
+    const g = el('g',{'data-stage':stage},$('g-labels'));
+    el('text',{x:X,y:Y-18+dy,class:'lbl','text-anchor':'middle'},g,name);
+    if (sub) el('text',{x:X,y:Y-4+dy,class:'sub mono','text-anchor':'middle'},g,sub);
+  }
+  function badge(x,y,z,n,kind,stage){
+    const [X,Y] = iso(x,y,z);
+    const g = el('g',{class:'badge b-'+kind,'data-stage':stage,tabindex:'0',role:'button','aria-label':'Stage '+n,'data-go':n},$('g-badges'));
+    el('circle',{cx:X,cy:Y,r:11.5},g);
+    el('text',{x:X,y:Y+0.5},g,String(n));
+  }
+
+  // ---- icons drawn flat on a block's top face ----
+  // Claude: a burst of rays. Cursor: a hexagon cut into three facets.
+  function claudeIcon(o,g,r=0.78){
+    const cx=(o.x0+o.x1)/2, cy=(o.y0+o.y1)/2, z=o.z1+0.005, n=12;
+    for(let i=0;i<n;i++){
+      const a=i*2*Math.PI/n+0.26, len=r*(i%2?0.78:1), r0=r*0.2;
+      const p=iso(cx+Math.cos(a)*r0,cy+Math.sin(a)*r0,z), q=iso(cx+Math.cos(a)*len,cy+Math.sin(a)*len,z);
+      el('line',{x1:p[0],y1:p[1],x2:q[0],y2:q[1],class:'ico-claude'},g);
+    }
+  }
+  // Logo space is flat 2D: u to the right, v downward, unit radius. It is laid on the
+  // top face with u along +x and v along +y, the same way the floor lettering runs,
+  // and then put through the isometric projection, so it foreshortens with the face.
+  function cursorIcon(o,g,r=0.92){
+    const cx=(o.x0+o.x1)/2, cy=(o.y0+o.y1)/2, z=o.z1+0.005, h=0.866;
+    const P=(u,v)=>pt(iso(cx+u*r,cy+v*r,z));
+    const T=[0,-1],TR=[h,-0.5],BR=[h,0.5],Bt=[0,1],BL=[-h,0.5],TL=[-h,-0.5],C=[0,0];
+    const shape=(pts,cls)=>el('polygon',{points:pts.map(q=>P(q[0],q[1])).join(' '),class:cls},g);
+    shape([T,TR,BR,Bt,BL,TL],'ico-cursor-bg');     // the hexagonal body
+    shape([T,TR,TL],'ico-cursor-cap');             // the upper facet
+    shape([TL,TR,Bt,C],'ico-cursor-arrow');        // the pointer: across the top, down the right, back to the centre
+  }
+
+  // ---- scene ----
+  const ZD = Z0 + 0.8;  // top of the Dozable layer, which carries every sandbox, the host sessions and the templates
+  const ZS = ZD + 0.25; // sandbox slab top
+  // Mac slab
+  block({x0:4.4,y0:-17.2,x1:25.2,y1:6.8,z0:-0.8,z1:Z0,kind:'slab'},$('g-slab'));
+  block({x0:11.0,y0:-16.9,x1:24.6,y1:6.6,z0:Z0,z1:ZD,kind:'doz'},$('g-slab'));
+  { const [X,Y]=iso(24.6,-16.3,Z0+0.17); el('text',{transform:`matrix(${C} -0.5 0 1 ${X} ${Y})`,class:'slabname','text-anchor':'end'},$('g-slab'),'DOZABLE'); }
+  { const [X,Y]=iso(5.0,6.8,-0.52); el('text',{transform:`matrix(${C} 0.5 0 1 ${X} ${Y})`,class:'slabname',style:'text-transform:none'},$('g-slab'),'macOS'); }
+  // Grok Bot pad + the human pad
+  block({x0:-1.7,y0:2.3,x1:1.7,y1:5.7,z0:0,z1:0.2,kind:'pad'},$('g-slab'));
+  block({x0:8.2,y0:11.9,x1:17.4,y1:19.4,z0:0,z1:0.2,kind:'pad'},$('g-slab'));   // the human, and the screens they watch from
+  block({x0:26.4,y0:2.3,x1:29.8,y1:5.7,z0:0,z1:0.2,kind:'pad'},$('g-slab'));   // claude.ai, off the right edge
+  // The sandbox, and a second sandbox that the relay cannot reach
+  block({x0:16.6,y0:-10.8,x1:23.8,y1:-6.6,z0:ZD,z1:ZS,kind:'sbx',ghost:true,stage:'11'},$('g-slab'));
+  block({x0:11.4,y0:-5.4,x1:23.8,y1:6.4,z0:ZD,z1:ZS,kind:'sbx',stage:'2 3 4 5 6 7 8 9 10 12 13 14 15 16 17'},$('g-slab'));
+  // The boundary around host sessions: a macOS seatbelt profile, not a virtual machine
+  block({x0:11.4,y0:-16.5,x1:20.2,y1:-12.4,z0:ZD,z1:ZS,kind:'belt',stage:'12 18'},$('g-slab'));
+  floorText(23.3,-1.0,'DOZABLE SANDBOX','ctl','3 10','y','middle',ZS);
+
+  const yS=3.5, yR=4.5;
+  const worker = {x0:5.8,y0:2.8,x1:8.2,y1:5.2,z1:Z0+1.1,kind:'cursor',stage:'1 2 3 4 6 9 13 14 15 16 17 18 19'};
+  const mail   = {x0:12.8,y0:2.8,x1:15.2,y1:5.2,z0:ZS,z1:ZS+1.5,kind:'mail',stage:'2 3 4 5 6 10 11 12 13 16'};
+  const tray   = {x0:11.8,y0:5.45,x1:13.0,y1:6.25,z0:ZS,z1:ZS+0.22,kind:'evt',stage:'13 14'};
+  const health = {x0:16.0,y0:5.45,x1:17.4,y1:6.25,z0:ZS,z1:ZS+0.45,kind:'cursor',stage:'3 14'};
+  const dfx    = {x0:19.7,y0:2.7,x1:22.3,y1:5.3,z0:ZS,z1:ZS+2.0,kind:'work',stage:'2 3 5 6 7 8 9 10 12 15 16'};
+  const projb  = {x0:19.7,y0:-0.75,x1:22.3,y1:1.85,z0:ZS,z1:ZS+1.7,kind:'work',stage:'2 3 8 10 12 13 15 16'};
+  const second = {x0:19.7,y0:-4.2,x1:22.3,y1:-1.6,z0:ZS,z1:ZS+1.5,kind:'work',stage:'2 3 8 10 12 15 16'};
+  const other  = {x0:19.7,y0:-10.0,x1:22.3,y1:-7.4,z0:ZS,z1:ZS+1.5,kind:'work',ghost:true,stage:'11'};
+  const store  = {x0:5.8,y0:-9.5,x1:8.2,y1:-7.1,z1:Z0+0.8,kind:'evt',stage:'15 16'};
+  const tmpl   = {x0:11.4,y0:-11.1,x1:13.5,y1:-9.9,z0:ZD,z1:ZD+0.55,kind:'cursor',stage:'17'};
+  const hrelay = {x0:11.6,y0:-15.6,x1:14.0,y1:-13.2,z0:ZS,z1:ZS+1.5,kind:'mail',stage:'12 18'};
+  const happ   = {x0:17.0,y0:-15.6,x1:19.4,y1:-13.2,z0:ZS,z1:ZS+1.8,kind:'work',stage:'12 18'};
+  const cloud  = {x0:26.9,y0:2.8,x1:29.3,y1:5.2,z0:0.2,z1:ZS+0.6,kind:'term',stage:'12 19'};
+  const zs = ZS+0.01, zm = Z0+0.01, zd = ZD+0.01, XD = 11.0;
+
+  // 1 / 6: Grok Bot ↔ worker
+  flow([[1.15,yS,0.21],[5.75,yS]],'send','1',{key:'s1'});
+  flow([[5.75,yR],[1.15,yR,0.21]],'reply','6',{key:'r-cheto'});
+  floorText(1.85,yR+0.95,'→ Cursor tool','send','1','x','start');
+  floorText(1.85,yR+1.5,'← returns reply','reply','6','x','start');
+  badge(4.05,yS,Z0,1,'send','1');
+
+  // 4 / 6: worker ↔ relay, stepping up onto the sandbox
+  flow([[8.25,yS,zm],[XD,yS,zm],[XD,yS,zd],[11.4,yS,zd],[11.4,yS,zs],[12.75,yS,zs]],'send','4',{key:'s4'});
+  flow([[12.75,yR,zs],[11.4,yR,zs],[11.4,yR,zd],[XD,yR,zd],[XD,yR,zm],[8.25,yR,zm]],'reply','6',{key:'r-read'});
+  floorText(8.5,4.15,'→ keys piped','send','4','x','start');
+  floorText(8.5,5.07,'← screen read','reply','6','x','start');
+  badge(10.3,yS,Z0,4,'send','4');
+  badge(10.3,yR,Z0,6,'reply','6');
+
+  // 5 / 6: relay ↔ work session
+  flow([[15.25,yS,zs],[19.65,yS,zs]],'send','5',{key:'s5'});
+  flow([[19.65,yR,zs],[15.25,yR,zs]],'reply','6',{key:'r-dfx'});
+  floorText(15.5,4.15,'→ SendMessage','send','5','x','start',ZS);
+  floorText(15.5,5.07,'← @project-a','reply','6','x','start',ZS);
+  badge(18.6,yS,ZS,5,'send','5');
+  badge(18.9,yR,ZS,6,'reply','6');
+
+  // 7: The human ↔ work session
+  // 8: relay → the other project sessions in the same sandbox
+  flow([[14.4,2.75,zs],[14.4,-2.9,zs],[19.6,-2.9,zs]],'send','8',{key:'route2'});
+  flow([[14.4,0.55,zs],[19.6,0.55,zs]],'send','8',{key:'route1'});
+  floorText(16.9,-3.25,'by exact name','send','8','x','middle',ZS);
+  // 13: events. A session tells the relay unprompted; the relay files an event; the worker collects it.
+  flow([[19.65,1.35,zs],[15.0,1.35,zs],[15.0,2.75,zs]],'evt','13',{key:'e-tell'});
+  flow([[14.0,5.25,zs],[14.0,5.65,zs],[13.05,5.65,zs]],'evt','13',{key:'e-file'});
+  flow([[11.75,5.85,zs],[11.4,5.85,zs],[11.4,5.85,zd],[XD,5.85,zd],[XD,5.85,zm],[7.6,5.85,zm],[7.6,5.25,zm]],'evt','13 14',{key:'e-watch'});
+  floorText(8.2,6.35,'← relay watch','evt','13 14','x','start');
+  flow([[5.75,3.0,zm],[1.15,3.0,0.21]],'evt','13',{key:'e-out'});
+  floorText(1.6,2.6,'relay forward → webhook','evt','13','x','start');
+  // 14: the health monitor files its own events, with no model
+  flow([[15.95,6.0,zs],[13.05,6.0,zs]],'evt','14',{key:'e-health'});
+  // 15: finished work leaves the sandbox's folder for the archive on the Mac; the worker runs the copy
+  flow([[19.65,-3.9,zs],[12.4,-3.9,zs],[12.4,-5.4,zs],[12.4,-5.4,zd],[12.4,-8.3,zd],[XD,-8.3,zd],[XD,-8.3,zm],[8.25,-8.3,zm]],'reply','15 16',{key:'keep'});
+  flow([[6.1,2.75,zm],[6.1,-7.05,zm]],'ctl','15 16',{key:'collect'});
+  floorText(10.2,-6.9,'deliverables/','reply','15 16','x','end');
+  floorText(5.75,-5.6,'relay collect','ctl','15 16','y');
+  floorText(17.4,-5.0,'doz rm · human only','stop','16','x','end',ZS);
+  // 17: a new sandbox is made from a team template and its pre-built image
+  flow([[13.55,-10.5,zd],[14.6,-10.5,zd],[14.6,-5.4,zd],[14.6,-5.4,zs],[14.6,-4.4,zs]],'ctl','17',{key:'tmpl'});
+  floorText(14.95,-7.0,'up --team','ctl','17','y','middle',ZD);
+  // 18: a team held by Dozable on the Mac itself (host sessions, @mac). No sandbox slab under it.
+  flow([[5.75,3.2,zm],[5.1,3.2,zm],[5.1,-14.9,zm],[XD,-14.9,zm],[XD,-14.9,zd],[11.4,-14.9,zd],[11.4,-14.9,zs],[11.55,-14.9,zs]],'send','18',{key:'h-send'});
+  flow([[14.05,-14.9,zs],[16.95,-14.9,zs]],'send','18',{key:'h-msg'});
+  flow([[16.95,-13.9,zs],[14.05,-13.9,zs]],'reply','18',{key:'h-reply'});
+  floorText(15.5,-12.95,'HOST SESSIONS · SEATBELT BOUNDARY','unv','18','x','middle',ZS);
+  floorText(5.45,-12.4,'relay ask mac:<team>','send','18','y');
+  // Lines from the human's screens run level, at the height of what they show, with square elbows; they do not step up the layers.
+  // 7: the Dozable screen ↔ a work session (doz ui in the browser, doz attach in a terminal)
+  flow([[14.3,12.6,zs],[14.3,7.25,zs],[20.6,7.25,zs],[20.6,5.4,zs]],'john','7 19',{key:'j-in'});
+  flow([[21.4,5.4,zs],[21.4,7.75,zs],[14.9,7.75,zs],[14.9,12.5,zs]],'john','7',{key:'j-out'});
+  // 12: remote control. Each session with /remote-control on connects out to claude.ai; the human's screen is served from there.
+  flow([[22.35,4.0,zs],[26.85,4.0,zs]],'john','12',{key:'rc-a'});
+  flow([[22.35,0.55,zs],[25.7,0.55,zs],[25.7,3.5,zs],[26.85,3.5,zs]],'john','12',{key:'rc-b'});
+  flow([[22.35,-2.9,zs],[26.3,-2.9,zs],[26.3,3.0,zs],[26.85,3.0,zs]],'john','12',{key:'rc-c'});
+  floorText(22.55,4.45,'/remote-control','john','12','x','start',ZS);
+  floorText(25.35,2.0,'/remote-control','john','12','y','middle',ZS);
+  floorText(25.95,-0.6,'/remote-control','john','12','y','middle',ZS);
+  // the relay session, and the two host sessions on the Mac, connect out the same way
+  flow([[15.0,5.25,zs],[15.0,6.3,zs],[25.1,6.3,zs],[25.1,4.6,zs],[26.85,4.6,zs]],'john','12',{key:'rc-r'});
+  floorText(17.6,5.93,'/remote-control','john','12','x','start',ZS);
+  flow([[19.45,-14.4,zs],[27.4,-14.4,zs],[27.4,2.75,zs]],'john','12',{key:'rc-h2'});
+  flow([[12.8,-15.65,zs],[12.8,-16.2,zs],[28.0,-16.2,zs],[28.0,2.75,zs]],'john','12',{key:'rc-h1'});
+  floorText(20.6,-14.85,'/remote-control','john','12','x','start',ZS);
+  floorText(20.6,-16.65,'/remote-control','john','12','x','start',ZS);
+  flow([[28.1,5.25,zs],[28.1,12.9,zs],[16.6,12.9,zs]],'john','12 19',{key:'rc-view'});
+  // 19: the other screens: Grok Bot (the primary agent), Cursor (the worker's run), the Mac's own desktop
+  flow([[9.0,16.3,0.21],[0,16.3,0.21],[0,5.75,0.21]],'john','19',{key:'p-grok'});
+  flow([[10.0,14.2,zm],[7.25,14.2,zm],[7.25,5.25,zm]],'john','19',{key:'p-cursor'});
+  flow([[12.2,13.1,zm],[12.2,6.3,zm]],'john','19',{key:'p-mac'});
+  // 11: relay → a session in another sandbox (tested: not found)
+  flow([[13.4,2.75,zs],[13.4,-5.4,zs],[13.4,-5.4,zd],[13.4,-8.7,zd],[16.45,-8.7,zd]],'stop','11',{key:'xsbx'});
+  floorText(13.05,-7.2,'not found','stop','11','y','middle',ZD);
+
+  // Blocks (back-to-front by x+y)
+  const B = $('g-blocks');
+  [ [other,s=>{termLines(other,s,3);claudeIcon(other,s)}], [second,s=>{termLines(second,s,3);claudeIcon(second,s)}], [projb,s=>{termLines(projb,s,3);claudeIcon(projb,s)}], [cloud,s=>claudeIcon(cloud,s)], [tray,null], [store,null], [tmpl,s=>termLines(tmpl,s,2)], [hrelay,s=>{termLines(hrelay,s,3);claudeIcon(hrelay,s)}], [happ,s=>{termLines(happ,s,3);claudeIcon(happ,s)}], [health,s=>termLines(health,s,1)], [worker,s=>{termLines(worker,s,2);cursorIcon(worker,s)}],
+    [mail,s=>{termLines(mail,s,3);claudeIcon(mail,s)}], [dfx,s=>{termLines(dfx,s,4);claudeIcon(dfx,s)}] ]
+  .sort((a,b)=>(a[0].x0+a[0].y0)-(b[0].x0+b[0].y0))
+  .forEach(([o,deco])=>{ const g=block(o,B); if(deco) deco(g); });
+  orb(0,4,0.2,'cheto','1 6 19',B);
+
+  // ---- the human, and a curved row of the screens they watch from ----
+  // Each screen is an upright panel standing on an arc around the human and facing them. The face is drawn through
+  // an affine map from its own pixels (w across, h down), so it foreshortens with the panel's angle.
+  const HUMAN = [14.8,18.0], ARC = 5.2, HW = 0.82, PH = 1.75;
+  function panel(deg,stage,draw){
+    const t=deg*Math.PI/180, cx=HUMAN[0]+ARC*Math.sin(t), cy=HUMAN[1]-ARC*Math.cos(t);
+    const tx=Math.cos(t), ty=Math.sin(t), nx=Math.sin(t)*0.14, ny=-Math.cos(t)*0.14;       // n points away from the human
+    const a=[cx-tx*HW,cy-ty*HW], b=[cx+tx*HW,cy+ty*HW], z0=0.2, z1=0.2+PH;
+    const g=el('g',{class:'blk k-term','data-stage':stage},B);
+    const q=(pts,cls)=>el('polygon',{points:pts.map(v=>pt(iso(v[0],v[1],v[2]))).join(' '),class:cls},g);
+    q([[b[0],b[1],z0],[b[0]+nx,b[1]+ny,z0],[b[0]+nx,b[1]+ny,z1],[b[0],b[1],z1]],'rgt');
+    q([[a[0],a[1],z1],[b[0],b[1],z1],[b[0]+nx,b[1]+ny,z1],[a[0]+nx,a[1]+ny,z1]],'top');
+    q([[a[0],a[1],z0],[b[0],b[1],z0],[b[0],b[1],z1],[a[0],a[1],z1]],'lft');
+    const A=iso(a[0],a[1],z1), Bp=iso(b[0],b[1],z1), w=2*HW*S, h=PH*S;
+    const f=el('g',{class:'scr',transform:`matrix(${((Bp[0]-A[0])/w).toFixed(4)} ${((Bp[1]-A[1])/w).toFixed(4)} 0 1 ${A[0].toFixed(1)} ${A[1].toFixed(1)})`},g);
+    el('rect',{class:'glass',x:3,y:3,width:w-6,height:h-6,rx:3},f);
+    draw(f,w,h);
+    return {x:cx,y:cy,z:z1,a,b};
+  }
+  const dozFace=(f,w,h)=>{ const m=6, gap=2.5, cols=3, rows=2, tw=(w-2*m-gap*(cols-1))/cols, th=(h-2*m-gap*(rows-1))/rows;   // a tiled grid of terminals
+    for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){ const x=m+c*(tw+gap), y=m+r*(th+gap);
+      el('rect',{class:'t',x,y,width:tw,height:th,rx:1.5},f);
+      [0.3,0.52,0.74].forEach((k,i)=>el('line',{class:'ln',x1:x+2.5,y1:y+th*k,x2:x+2.5+(tw-5)*[0.8,0.5,0.65][(i+r+c)%3],y2:y+th*k},f)); } };
+  const macFace=(f,w,h)=>{ el('rect',{class:'wall',x:5,y:5,width:w-10,height:h-10,rx:2},f);
+    el('rect',{class:'bar',x:5,y:5,width:w-10,height:5},f);
+    el('rect',{class:'win',x:w*0.18,y:h*0.26,width:w*0.44,height:h*0.36,rx:2},f);
+    el('rect',{class:'win',x:w*0.48,y:h*0.42,width:w*0.36,height:h*0.3,rx:2,style:'opacity:.8'},f);
+    el('rect',{class:'bar',x:w*0.22,y:h-13,width:w*0.56,height:6,rx:3},f); };
+  const claudeFace=(f,w,h)=>{ const cx=w/2, cy=h/2, r=Math.min(w,h)*0.3;
+    for(let i=0;i<12;i++){ const a=i*Math.PI/6+0.26, len=r*(i%2?0.78:1);
+      el('line',{class:'cl',x1:cx+Math.cos(a)*r*0.22,y1:cy+Math.sin(a)*r*0.22,x2:cx+Math.cos(a)*len,y2:cy+Math.sin(a)*len},f); } };
+  const pGrok=panel(-70,'19',grokFace), pCur=panel(-50,'19',cursorFace), pMac=panel(-30,'19',macFace),
+        pDoz=panel(-10,'7 19',dozFace), pClaude=panel(10,'12 19',claudeFace);
+  person(HUMAN[0],HUMAN[1],0.2,'term','7 12 19',B);
+  label(pGrok.x,pGrok.y,pGrok.z+0.55,'Grok Bot','','19');
+  label(pCur.x,pCur.y,pCur.z+1.1,'Cursor','','19');
+  label(pMac.x,pMac.y,pMac.z+0.55,'macOS desktop','','19');
+  label(pDoz.x,pDoz.y,pDoz.z+0.4,'doz ui · doz attach','','7 19');
+  label(pClaude.x,pClaude.y,pClaude.z+0.55,'claude.ai/code','','12 19');
+  { const [X,Y]=iso(HUMAN[0],HUMAN[1],0.2); const g=el('g',{'data-stage':'7 12 19'},$('g-labels'));
+    el('text',{x:X-46,y:Y-10,class:'lbl','text-anchor':'end'},g,'Human');
+    el('text',{x:X-46,y:Y+4,class:'sub mono','text-anchor':'end'},g,'watches, and joins in'); }
+
+  // Airborne: direct keys from the worker into a work session, only when required
+  {
+    const a = iso(7.4,3.4,worker.z1+0.02), b = iso(20.6,3.4,dfx.z1+0.02);
+    const cx=(a[0]+b[0])/2, cy=Math.min(a[1],b[1])-150;
+    const g = el('g',{'data-stage':'9'},$('g-air'));
+    const pe = el('path',{d:`M${pt(a)} Q${cx.toFixed(1)},${cy.toFixed(1)} ${pt(b)}`,class:'flow f-ctl','marker-end':'url(#ah-ctl)',style:'stroke-width:2.2'},g);
+    PATHS['direct'] = {el:pe, kind:'ctl'};
+    const ay=((a[1]+b[1])/2+cy)/2;
+    el('text',{x:cx,y:ay-20,class:'sub','text-anchor':'middle',style:'font-weight:700'},g,'direct keys — only to unblock or run a slash command');
+    const bg = el('g',{class:'badge b-ctl','data-stage':'9',tabindex:'0',role:'button','aria-label':'Stage 9','data-go':'9'},$('g-badges'));
+    el('circle',{cx:cx,cy:ay,r:11.5},bg); el('text',{x:cx,y:ay+0.5},bg,'9');
+  }
+
+  // Labels
+  label(0,4,0.2+1.95,'Grok Bot','primary agent','1 6 19',-8);
+  label(7,4,worker.z1+0.75,'worker','agent worker · runs doz','1 2 3 4 6 9');
+  label(14,4,mail.z1+0.75,'agent-relay','session · claude --name','2 3 4 5 6 10 11');
+  label(21,4,dfx.z1+0.75,'project-a','session · /workspace/project-a','2 3 5 6 7 8 9 10 12');
+  label(21,0.55,projb.z1+0.75,'project-b','/workspace/project-b','2 3 8 10');
+  label(21,-2.9,second.z1+0.75,'project-c','/workspace/project-c','2 3 8 10');
+  { const [X,Y]=iso(12.4,6.25,ZS); const g=el('g',{'data-stage':'13 14'},$('g-labels'));
+    el('text',{x:X-6,y:Y+22,class:'lbl','text-anchor':'middle',style:'font-size:12px'},g,'events');
+    el('text',{x:X-6,y:Y+35,class:'sub mono','text-anchor':'middle'},g,'files in /workspace'); }
+  { const [X,Y]=iso(16.7,6.25,ZS); const g=el('g',{'data-stage':'3 14'},$('g-labels'));
+    el('text',{x:X-4,y:Y+24,class:'lbl','text-anchor':'middle',style:'font-size:12px'},g,'relay-health');
+    el('text',{x:X-4,y:Y+37,class:'sub mono','text-anchor':'middle'},g,'shell loop · no model'); }
+  label(7,-8.3,store.z1+0.75,'archive','~/agent-relay-archive · on the Mac','15 16');
+  label(12.45,-10.5,tmpl.z1+0.75,'team templates','YAML + image · later a doz recipe','17');
+  label(28.1,4,cloud.z1+0.75,'claude.ai','Remote Control service','12 19');
+  label(12.8,-14.4,hrelay.z1+0.75,'<team>-relay','host session · doz run @mac','18');
+  label(18.2,-14.4,happ.z1+0.75,'<team>-app','macOS work · Swift, Xcode','18');
+  label(21,-8.7,other.z1+0.75,'<session in another sandbox>','SendMessage cannot reach it','11');
+
+  // Control / misc badges
+  badge(8.2,4.0,Z0+0.55,2,'ctl','2');
+  badge(12.1,-2.2,ZS,3,'ctl','3');
+  badge(9.5,-8.3,Z0,15,'reply','15');
+  badge(6.1,-6.2,Z0,16,'stop','16');
+  badge(14.1,-10.5,ZD,17,'ctl','17');
+  badge(8.4,-14.9,Z0,18,'send','18');
+  badge(19.5,7.25,ZS,7,'john','7');
+  badge(22.5,12.9,ZS,12,'john','12');
+  badge(4.2,16.3,0.2,19,'john','19');
+  badge(16.6,0.55,ZS,8,'send','8');
+  badge(23.2,-4.7,ZS,10,'ctl','10');
+  badge(15.2,-8.7,ZD,11,'stop','11');
+  badge(9.6,5.85,Z0,13,'evt','13');
+  badge(16.2,1.35,ZS,13,'evt','13');
+  badge(14.6,6.0,ZS,14,'evt','14');
+
+  // fit viewBox
+  const bb = svg.getBBox(), pad = 24;
+  svg.setAttribute('viewBox',[bb.x-pad,bb.y-pad,bb.width+pad*2,bb.height+pad*2].map(v=>v.toFixed(0)).join(' '));
+
+  // ---- stage cards ----
+  // ---- stage cards ----
+  const stages = [
+    {n:1,k:'send',t:'Worker access',p:'Grok Bot launches an agent on the Mac through the Cursor tool. The worker runs as the human on the Mac, so it can run <code>doz</code>.',tag:['doc','Unchanged from v1 · not re-tested']},
+    {n:2,k:'ctl',t:'Check sandboxes and sessions',c:'doz ls --json\ndoz sessions <sandbox> --json',p:'Lists each session with its name, pid, attached clients and the agent status Claude reports (<code>idle</code> and <code>done</code> were seen; <code>working</code> and <code>blocked</code> are documented).',tag:['ok','Verified']},
+    {n:3,k:'ctl',t:'Start the sandbox and its sessions',c:'doz create <sandbox> --image claude-code \\\n  --workspace <parent-folder> --memory 4G --json\ndoz exec <sandbox> -- sh -c "$(cat tools/doz-rc-setup.sh)"\ndoz run <sandbox> -d --session agent-relay --json -- \\\n  bash -lc \'unset CLAUDE_CODE_OAUTH_TOKEN;\n           exec claude --name agent-relay\'\ndoz run <sandbox> -d --session project-a \\\n  --workdir /workspace/project-a --json -- \\\n  bash -lc \'unset CLAUDE_CODE_OAUTH_TOKEN;\n           exec claude --name project-a\'',p:'One sandbox shares a parent folder; each project session starts in its own nested folder with <code>--workdir</code>. Four sessions ran side by side (relay plus three). Bypass permissions was already on. Claude\'s folder-trust prompt appeared on one start out of twelve; its default is "No, exit", so the worker sends Down then Enter. The <code>agent-relay</code> skill does all of this as <code>relay up</code>. The setup line and the <code>unset</code> are only needed for <code>/rc</code>.',tag:['ok','Verified · 4 sessions · trust prompt handled']},
+    {n:4,k:'send',t:'Type the instruction into the relay',c:'( printf \'%s\' "<instruction>"; sleep 0.5\n  printf \'\\r\'; sleep <wait>; printf \'\\035\' ) \\\n | doz attach <sandbox> agent-relay > screen.vt',p:'A piped <code>doz attach</code> delivers keys and returns the screen. <code>\\035</code> is Ctrl-], which detaches; without it the attach never returns. This closes v1\'s gap: every instruction went into a relay that was already running.',tag:['ok','Verified · 3 later instructions']},
+    {n:5,k:'send',t:'SendMessage by exact name',p:'The relay uses Claude\'s <b>SendMessage</b> tool, addressed to the name given with <code>claude --name</code>. Sessions in the same sandbox see each other with no extra setup.',tag:['ok','Verified']},
+    {n:6,k:'reply',t:'Read the reply',c:'( sleep 1; printf \'\\035\' ) \\\n | doz attach <sandbox> agent-relay > screen.vt\nuv run --with pyte python tools/dozscreen.py screen.vt',p:'The answer lands on the relay as <code>Message from @&lt;sender&gt;</code>. The worker reads the live screen and renders the terminal bytes to text with the small helper filed beside this page (<code>tools/dz read</code> does both).',tag:['ok','Verified']},
+    {n:7,k:'john',t:'The human opens the same terminal',c:'doz attach <sandbox> project-a\ndoz ui          # browser on the Mac\ndoz serve       # phone, tablet, other computers',p:'Several viewers share one session. A second attached client watched a relay message arrive and get answered, live. Detach with Ctrl-]; the session keeps running.',tag:['unv','Second client verified · person and browser not tried']},
+    {n:8,k:'send',t:'Route to every project session',p:'One instruction to the relay went to <code>proj-alpha</code>, <code>proj-beta</code> and <code>proj-gamma</code>. Each read a different file from its own folder and replied, and the relay printed all three answers with the right folder beside each.',tag:['ok','Verified · 3 targets, 3 folders']},
+    {n:9,k:'ctl',t:'Direct keys, only when required',c:'( printf \'%s\' "/rc"; sleep 0.5; printf \'\\r\'\n  sleep 5; printf \'\\035\' ) \\\n | doz attach <sandbox> project-a > screen.vt',p:'The same key channel works on any session, for a slash command or to answer a blocked prompt. Use it on a project session only for those, so the worker is not typing where the human types.',tag:['ok','Verified for slash commands · blocked prompt not exercised']},
+    {n:10,k:'ctl',t:'Hibernate and wake',c:'doz hibernate <sandbox>\n# the next doz attach wakes it',p:'Sessions and their conversation came back, twice. A session with <code>/rc</code> on was hibernated for 90 seconds; afterwards it answered a prompt and still reported the same remote-control link. After the first wake, one Enter did not submit and had to be sent again.',tag:['ok','Verified · re-send Enter if needed']},
+    {n:11,k:'stop',t:'Another sandbox is out of reach',p:'Asked to message a named session in a second sandbox, the relay reported it not found and listed only sessions in its own sandbox. Each sandbox therefore needs its own relay, and the worker picks the sandbox.',tag:['no','Tested · not delivered']},
+    {n:12,k:'john',t:'Human by remote control',c:'/rc        # typed by the worker, then Enter on the dialog',p:'That is every kind of session: the project sessions, the relay, and the host sessions on the Mac. Each session with <code>/remote-control</code> on connects out to <b>claude.ai</b>, and the human\'s claude.ai/code screen is served from there, on a phone or in a browser. After the one-time setup in stage 3, <code>/rc</code> went active in all four sessions at once, each printing its own <code>claude.ai/code/session_…</code> link, on the Mac\'s default login. The real login never enters the sandbox. In a stock sandbox <code>/rc</code> is refused.',tag:['unv','Active in 4 sessions · link not yet opened from another device']},
+    {n:13,k:'evt',t:'Events from the team',c:'relay watch <sandbox> [--timeout 300]\nrelay forward <sandbox>     # background job → webhook',p:'Sessions cannot reach Grok Bot. Each project session messages the relay unprompted when it finishes work that came from the human, is blocked, has a question, needs the human, or changes a shared tool. The relay files it as an event, and <code>relay watch</code> on the Mac prints it. A task typed into a session as the human came out as a <code>done</code> event. To wake Grok Bot, <code>relay forward</code> runs on the Mac and posts each event as JSON to its webhook, with the URL and header read from the Keychain. A real question from a session reached the real primary agent this way, and its answer came back through its worker to the session.',tag:['ok','Verified end to end · the forwarder is a launchd job']},
+    {n:14,k:'evt',t:'Health monitor',c:'relay health <sandbox>',p:'<code>relay-health</code> is a plain shell loop in the sandbox. Every minute it records memory, disk, load, ports and tool versions, and files an event when a threshold is crossed and when it clears. It uses no model. <code>relay health</code> joins that with what only the Mac knows: phase, session states, refused connections.',tag:['ok','Verified · alert and all-clear seen']},
+    {n:15,k:'reply',t:'Save work that must last',c:'relay collect <sandbox>      # → ~/agent-relay-archive/<sandbox>/<date-time>/',p:'A sandbox is temporary. Only <code>/workspace</code> is a folder on the Mac; conversations, installed tools and everything else end with the sandbox. Every project session is told to put finished outputs in <code>deliverables/</code> and to keep <code>HANDOVER.md</code> current. <code>relay collect</code> copies those, a source snapshot and the relay\'s records to the archive on the Mac, with a manifest of sizes and checksums. It reads the Mac side only, so it never wakes the sandbox, and it can be run after every accepted result.',tag:['ok','Verified 13 Nov · two sessions saved a render unprompted']},
+    {n:16,k:'stop',t:'Retire, then remove',c:'relay retire <sandbox> --as <name>\n# then, the human only:\ndoz rm <sandbox>',p:'<code>relay retire</code> sends every project session a wrap-up brief (stop, save, write the handover note, commit locally), collects, hibernates the sandbox and marks it retired, after which <code>relay ask</code> and <code>relay up</code> refuse it without waking it. It deletes nothing. Removing the sandbox is the human\'s step: <code>doz rm</code> deletes its disks, conversations, restore points and remote-control links, and leaves the team\'s folder and the archive on the Mac.',tag:['ok','Verified 13 Nov · folder and archive remained after doz rm']},
+    {n:17,k:'ctl',t:'Start from a team template',c:'relay team ls\nrelay up <owner>-<purpose> --team remotion-video \\\n  --sessions 3 --workspace <folder> --as <owner> [--save-image]',p:'A <b>team template</b> is one YAML file in the skill\'s <code>teams/</code> folder, kept in git: sandbox size, packages, checks, session names, the facts every session is told, pinned Claude Code skills, a work-order brief and acceptance checks. <code>relay up --team</code> turns it into a ready sandbox. With <code>--save-image</code> the installed tools are saved on that Mac as a Dozable template (<code>team-remotion-video-v1</code>), and later teams of that kind start from it in about 20 seconds with no install. The image is only a cache; the YAML is the portable truth. The intended end state is a Dozable recipe that Dozable itself bakes and versions as a pre-built image; recipes cannot yet add system packages to Claude Code, so that part is parked.',tag:['ok','Verified · 20 s from the saved image, about 2 min 30 s without']},
+    {n:18,k:'send',t:'A team on the Mac itself (host sessions)',c:'relay up mac:<team> <project> --workspace <folder> --as <owner>\nrelay ask mac:<team> <team>-<project> "…" --detach\ndoz sessions @mac --json      # doz attach @mac <session>',p:'Work that needs macOS (Swift, Xcode, signing) cannot run in a Linux sandbox. From Dozable 0.37.45 the same session holder runs on the Mac itself: the place is <code>@mac</code>, and <code>relay</code> calls a team there <code>mac:&lt;team&gt;</code>. It has its own relay session and project sessions, the same messages, events, Remote Control and archive, and the dashboard lists them under This Mac (0.37.46). <b>The boundary</b> around host sessions is a macOS seatbelt profile, with the login token supplied through a proxy so it never sits inside the session. It is a different kind of boundary from a sandbox: the same Mac and the same kernel, limited in what it may read, write and reach, not a separate machine. <b>That boundary is being built and is not in 0.37.46.</b> Until it ships, nothing isolates these sessions: they run as the human, and only their prompt holds them to their folder and makes them stop with <code>NEEDS-HUMAN:</code> before signing, pushing, deploying or any global install. Those stops stay after it ships. There is no hibernate and no health monitor; a host restart leaves the sessions running.',tag:['unv','Sessions verified (Agent Pop built and tested) · seatbelt boundary in development, not verified']},
+    {n:19,k:'john',t:'The human\'s screens',p:'The human watches the whole arrangement from five screens. <b>Grok Bot</b> is where they talk to the primary agent: work orders go in, and results, questions and <code>NEEDS-HUMAN</code> lines come back. <b>Cursor</b> shows each run of the agent worker as it happens, with the commands it ran on the Mac. The <b>macOS desktop</b> is the Mac itself: pages and files a session opens for them, and the apps a native team builds. <b>doz ui · doz attach</b> is Dozable\'s own view: every session as a tile in the dashboard, or one of them in a terminal (stage 7). <b>claude.ai/code</b> is Remote Control from a phone or browser (stage 12). Only the last two reach into a session; the first two show the ends that sit outside Dozable.',tag:['doc','How it is used today · Grok Bot and Cursor are not relay features']},
+  ];
+
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const host = $('stages');
+  stages.forEach(s=>{
+    const d = document.createElement('article');
+    d.className = 'card c-'+s.k; d.tabIndex = 0; d.id = 'stage-'+s.n; d.dataset.n = s.n;
+    d.innerHTML = `<h3><span class="num">${s.n}</span>${s.t}</h3>${s.c?`<pre><code>${esc(s.c)}</code></pre>`:''}<p>${s.p}</p><span class="tag ${s.tag[0]}">${s.tag[1]}</span>`;
+    host.appendChild(d);
+  });
+
+  // ---- linking ----
+  const all = svg.querySelectorAll('[data-stage]');
+  function focus(n){
+    svg.classList.toggle('focus', n!=null);
+    all.forEach(e=>e.classList.toggle('hl', n!=null && e.dataset.stage.split(' ').includes(String(n))));
+    host.querySelectorAll('.card').forEach(c=>c.classList.toggle('on', String(n)===c.dataset.n));
+  }
+  host.addEventListener('mouseover',e=>{const c=e.target.closest('.card'); if(c){ if(playing) pause(); focus(c.dataset.n);} });
+  host.addEventListener('mouseleave',()=>rest());
+  host.addEventListener('focusin',e=>{const c=e.target.closest('.card'); if(c) focus(c.dataset.n);});
+  host.addEventListener('focusout',()=>rest());
+  svg.querySelectorAll('.badge').forEach(b=>{
+    const go = ()=>{ if(playing) pause(); const n=b.dataset.go; focus(n); const c=$('stage-'+n); if(c) c.scrollIntoView({behavior:'smooth',block:'nearest'}); };
+    b.addEventListener('click',go);
+    b.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();go();} });
+    b.addEventListener('mouseenter',()=>focus(b.dataset.go));
+    b.addEventListener('mouseleave',()=>rest());
+  });
+
+  // ---- step player ----
+  // ---- step player ----
+  const NODES = {
+    cheto:[0,4,1.0,26], worker:[7,4,worker.z1,44], mail:[14,4,mail.z1,44], dfx:[21,4,dfx.z1,48],
+    second:[21,-2.9,second.z1,44], store:[7,-8.3,store.z1,44], tmpl:[12.45,-10.5,tmpl.z1,40], hrelay:[12.8,-14.4,hrelay.z1,44], cloud:[28.1,4,cloud.z1,44], happ:[18.2,-14.4,happ.z1,44], tray:[12.4,5.85,tray.z1,26], health:[16.7,5.85,health.z1,26], projb:[21,0.55,projb.z1,44], other:[21,-8.7,other.z1,44]
+  };
+  const STEPS = [
+    {st:1,k:'send',h:'Grok Bot launches the worker',t:'Cursor tool → agent on the Mac',paths:['s1'],pulse:['worker']},
+    {st:2,k:'ctl',h:'Worker checks sandboxes and sessions',t:'doz ls --json · doz sessions <sandbox> --json',pulse:['worker','mail','dfx']},
+    {st:3,k:'ctl',h:'Worker starts the sandbox and its sessions',t:'doz create … · doz run <sandbox> -d --session <name> --workdir /workspace/<name> -- claude --name <name>',pulse:['mail','dfx','projb','second']},
+    {st:4,k:'send',h:'Worker types the instruction into the relay',t:'keys piped into doz attach <sandbox> agent-relay, then Ctrl-] to detach',paths:['s4'],pulse:['mail']},
+    {st:5,k:'send',h:'Relay sends by exact name',t:'SendMessage → project-a, a session in the same sandbox',paths:['s5'],pulse:['dfx']},
+    {st:6,k:'reply',h:'project-a answers',t:'arrives on the relay as "Message from @project-a"',paths:['r-dfx'],pulse:['mail']},
+    {st:6,k:'reply',h:'Worker reads the relay screen',t:'piped doz attach again, rendered to text',paths:['r-read'],pulse:['worker']},
+    {st:6,k:'reply',h:'Reply returned to Grok Bot',t:'no approval prompt anywhere on the path',paths:['r-cheto'],pulse:['cheto']},
+    {st:7,k:'john',h:'The human opens the same terminal',t:'doz attach · doz ui · doz serve — Ctrl-] detaches, the session keeps running',paths:['j-in','j-out'],pulse:['dfx']},
+    {st:8,k:'send',h:'The same instruction reaches every project session',t:'three sessions, each in its own folder, all answered through the one relay',paths:['route1','route2'],pulse:['projb','second']},
+    {st:9,k:'ctl',h:'Direct keys, only when required',t:'to answer a blocked prompt or run a slash command such as /rc',paths:['direct'],pulse:['dfx']},
+    {st:10,k:'ctl',h:'Hibernate and wake',t:'doz hibernate <sandbox> — sessions, conversation and the /rc link came back; re-send Enter if needed',pulse:['mail','dfx','projb','second']},
+    {st:11,k:'stop',h:'Another sandbox is out of reach',t:'SendMessage did not find a session in a second sandbox — one relay per sandbox',paths:['xsbx'],pulse:['other']},
+    {st:12,k:'john',h:'Human by remote control',t:'each session with /remote-control on connects out to claude.ai; the human\'s claude.ai/code screen is served from there',paths:['rc-a','rc-b','rc-c','rc-r','rc-h1','rc-h2','rc-view'],pulse:['cloud','dfx','projb','second','mail','hrelay','happ']},
+    {st:13,k:'evt',h:'A session reports on its own',t:'project-b messages the relay unprompted: done, blocked, question, needs-human or tools-changed',paths:['e-tell'],pulse:['mail']},
+    {st:13,k:'evt',h:'The relay files an event; the worker collects it',t:'relay watch, or relay forward → Grok Bot\'s webhook, which wakes it with the event text',paths:['e-file','e-watch','e-out'],pulse:['tray','worker']},
+    {st:14,k:'evt',h:'The health monitor raises its own events',t:'a shell loop, no model: memory, disk, load, ports, tools — relay health joins it with the Mac\'s view',paths:['e-health','e-watch'],pulse:['health','tray']},
+    {st:15,k:'reply',h:'Finished work is copied out of the sandbox\'s folder',t:'relay collect — deliverables/, HANDOVER.md, source and the relay\'s records → the archive on the Mac, with checksums',paths:['keep','collect'],pulse:['store','second','projb','dfx']},
+    {st:16,k:'stop',h:'Retire, then the human removes the sandbox',t:'relay retire — wrap-up brief, collect, hibernate, mark retired; deletes nothing. doz rm is the human\'s: the folder and the archive stay',paths:['s4','keep'],pulse:['mail','store']},
+    {st:17,k:'ctl',h:'A new team starts from a template',t:'relay up --team — the YAML in git says what the sandbox needs; a pre-built image on the Mac makes it start in seconds (later: a doz recipe)',paths:['tmpl'],pulse:['tmpl','dfx','projb','second']},
+    {st:18,k:'send',h:'A team on the Mac itself: host sessions',t:'relay up mac:<team> — the same relay, messages and events, held by Dozable at @mac inside a macOS seatbelt boundary (in development; until then only the prompt\'s NEEDS-HUMAN stops)',paths:['h-send','h-msg','h-reply'],pulse:['hrelay','happ']},
+    {st:19,k:'john',h:'The human\'s screens',t:'Grok Bot (the primary agent) · Cursor (the worker\'s run) · the macOS desktop · doz ui and doz attach · claude.ai/code',zoom:true,paths:['p-grok','p-cursor','p-mac','j-in','rc-view'],pulse:['cheto','worker']},
+  ];
+
+  const KCOL = {send:'var(--send)',reply:'var(--reply)',john:'var(--john)',unv:'var(--unv)',ctl:'var(--ctl)',stop:'var(--stop)',evt:'var(--evt)'};
+  const still = /still/.test(location.hash); if (still) document.documentElement.classList.add('still'); { const th = /theme=(light|dark)/.exec(location.hash); if (th) document.documentElement.dataset.theme = th[1]; }
+  const reduce = still || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const anim = $('g-anim'), dots = $('dots'), prog = $('prog'), playBtn = $('pPlay');
+  const STEP_MS = 3400, TRAVEL_MS = 1300, GAP_MS = 450;
+  let cur = -1, playing = false, timer = null, raf = null, tokens = [], t0 = 0;
+
+  STEPS.forEach((s,i)=>{ const b=document.createElement('button'); b.className='dot'; b.type='button';
+    b.setAttribute('aria-label','Step '+(i+1)+': '+s.h); b.addEventListener('click',()=>{pause();show(i);}); dots.appendChild(b); });
+
+  function clearAnim(){ anim.textContent=''; tokens=[]; if(raf) cancelAnimationFrame(raf); raf=null; }
+  function tick(now){
+    const per = TRAVEL_MS + GAP_MS;
+    tokens.forEach(tk=>{
+      const f = reduce ? 0.6 : Math.min(1, ((now - t0) % per) / TRAVEL_MS);
+      const e = f<.5 ? 2*f*f : 1-Math.pow(-2*f+2,2)/2;
+      const p = tk.path.getPointAtLength(e*tk.len);
+      tk.c.setAttribute('cx',p.x); tk.c.setAttribute('cy',p.y);
+      tk.c.style.opacity = reduce ? 1 : (f>=1 ? 0 : Math.min(1, f*8, (1-f)*8+.15));
+    });
+    if (!reduce) raf = requestAnimationFrame(tick);
+  }
+  // ---- zoom: a step may ask for a close view of the human and their screens ----
+  const FULL = svg.getAttribute('viewBox').split(' ').map(Number);
+  const ZOOM = (()=>{ const pts=[[8.2,11.9,0],[17.4,11.9,0],[17.4,19.4,0],[8.2,19.4,0],[9.9,16.2,3.6],[10.8,14.7,3.9],[15.7,12.9,3.2]].map(q=>iso(q[0],q[1],q[2]));
+    let x0=Math.min(...pts.map(q=>q[0]))-24, x1=Math.max(...pts.map(q=>q[0]))+24, y0=Math.min(...pts.map(q=>q[1]))-24, y1=Math.max(...pts.map(q=>q[1]))+24;
+    const a=FULL[2]/FULL[3]; let w=x1-x0, h=y1-y0;                 // keep the full view's shape, so the page does not jump
+    if (w/h < a){ const nw=h*a; x0-=(nw-w)/2; w=nw; } else { const nh=w/a; y0-=(nh-h)/2; h=nh; }
+    return [x0,y0,w,h]; })();
+  let vbNow = FULL.slice(), vbRaf = null;
+  function zoomTo(target){
+    if (vbRaf) clearTimeout(vbRaf);
+    if (target.every((v,i)=>Math.abs(v-vbNow[i])<0.5)) return;
+    // The zoom always glides, even where the system asks for reduced motion: the owner asked for it. Stills jump.
+    const from = vbNow.slice(), t0z = performance.now(), D = still ? 0 : 750;
+    const step = ()=>{ const f = D ? Math.min(1,(performance.now()-t0z)/D) : 1, e = f<.5 ? 2*f*f : 1-Math.pow(-2*f+2,2)/2;
+      vbNow = from.map((v,i)=>v+(target[i]-v)*e); svg.setAttribute('viewBox', vbNow.map(v=>v.toFixed(1)).join(' '));
+      vbRaf = f<1 ? setTimeout(step,16) : null; };       // a timer, not a frame callback: it also runs where no frames are drawn
+    step();
+  }
+  function show(i){
+    clearAnim();
+    cur = i;
+    const s = STEPS[i];
+    zoomTo(s.zoom ? ZOOM : FULL);
+    focus(s.st);
+    const col = KCOL[s.k];
+    (s.pulse||[]).forEach(n=>{ const [x,y,z,r]=NODES[n]; const [X,Y]=iso(x,y,z);
+      el('ellipse',{cx:X,cy:Y,rx:r*1.7,ry:r*0.98,class:'pulse',style:'stroke:'+col},anim); });
+    (s.paths||[]).forEach(k=>{ const P=PATHS[k]; if(!P) return;
+      const c = el('circle',{r:7,class:'tok',style:'fill:'+KCOL[P.kind]},anim);
+      tokens.push({path:P.el,len:P.el.getTotalLength(),c}); });
+    t0 = performance.now(); tick(t0);
+    $('capH').innerHTML = `<span class="num" style="--c:${col};background:${col}">${s.st}</span>${s.h}<span style="margin-left:auto;font-weight:500;color:var(--muted);font-size:12px">${i+1} / ${STEPS.length}</span>`;
+    $('capT').textContent = s.t;
+    prog.style.setProperty('--c', col);
+    [...dots.children].forEach((d,j)=>{ d.classList.toggle('on',j===i); d.classList.toggle('done',j<i); });
+    restartProg();
+  }
+  function restartProg(){
+    prog.style.transition='none'; prog.style.width = playing ? '0%' : ((cur+1)/STEPS.length*100)+'%';
+    if (playing){ void prog.offsetWidth; prog.style.transition=`width ${STEP_MS}ms linear`; prog.style.width='100%'; }
+  }
+  function schedule(){ clearTimeout(timer); if(!playing) return;
+    timer = setTimeout(()=>{ if(cur < STEPS.length-1){ show(cur+1); schedule(); } else { pause(); } }, STEP_MS); }
+  function play(){ playing = true; playBtn.textContent='❚❚ Pause'; playBtn.setAttribute('aria-label','Pause');
+    show(cur < 0 || cur >= STEPS.length-1 ? 0 : cur+1); schedule(); }
+  function pause(){ playing = false; clearTimeout(timer); playBtn.textContent='▶ Play'; playBtn.setAttribute('aria-label','Play the steps'); restartProg(); }
+  function rest(){ if (cur>=0) focus(STEPS[cur].st); else focus(null); }
+  playBtn.addEventListener('click',()=> playing ? pause() : play());
+  const CAP_H = $('capH').innerHTML, CAP_T = $('capT').textContent;
+  function reset(){ pause(); clearAnim(); cur = -1; focus(null); zoomTo(FULL);
+    $('capH').innerHTML = CAP_H; $('capT').textContent = CAP_T;
+    prog.style.transition='none'; prog.style.width='0%';
+    [...dots.children].forEach(d=>d.classList.remove('on','done'));
+    if (location.hash.includes('step=')) history.replaceState(null,'',location.pathname+location.search); }
+  $('pReset').addEventListener('click',reset);
+  $('pNext').addEventListener('click',()=>{ pause(); show(Math.min(STEPS.length-1,cur+1)); });
+  $('pPrev').addEventListener('click',()=>{ pause(); show(Math.max(0,cur-1)); });
+  document.addEventListener('keydown',e=>{
+    if (e.target.closest && e.target.closest('input,textarea,button,[role=button],.card')) return;
+    if (e.key==='ArrowRight'){ pause(); show(Math.min(STEPS.length-1,cur+1)); }
+    if (e.key==='ArrowLeft'){ pause(); show(Math.max(0,cur-1)); }
+  });
+
+  { const m = /step=(\d+)/.exec(location.hash); if (m) show(Math.max(0, Math.min(STEPS.length-1, +m[1]-1))); }
+
+  // theme toggle
+  const root = document.documentElement;
+  try{ const t = localStorage.getItem('iso-theme'); if (t) root.dataset.theme = t; }catch(e){}
+  $('themeBtn').addEventListener('click',()=>{
+    const dark = root.dataset.theme ? root.dataset.theme==='dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    try{ localStorage.setItem('iso-theme', root.dataset.theme); }catch(e){}
+  });
+})();
+</script>
+</body>
+</html>

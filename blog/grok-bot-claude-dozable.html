@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>Working together with Grok Bot in a Claude Code session, enabled by Dozable — Dozable blog</title>
-<meta name="description" content="Claude Code superpowers granted to your Grok Bots.">
+<meta name="description" content="Grok Bot hands design and coding to Claude Code sessions in templated Dozable sandboxes, and I can watch the same session or type in it.">
 <link rel="canonical" href="https://dozable.com/blog/grok-bot-claude-dozable">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="Working together with Grok Bot in a Claude Code session, enabled by Dozable — Dozable blog">
-<meta property="og:description" content="Claude Code superpowers granted to your Grok Bots.">
+<meta property="og:description" content="Grok Bot hands design and coding to Claude Code sessions in templated Dozable sandboxes, and I can watch the same session or type in it.">
 <meta property="og:url" content="https://dozable.com/blog/grok-bot-claude-dozable">
 <meta property="og:image" content="https://dozable.com/og-image.png">
 <meta property="og:image:secure_url" content="https://dozable.com/og-image.png">
@@ -22,7 +22,7 @@
 <meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Working together with Grok Bot in a Claude Code session, enabled by Dozable — Dozable blog">
-<meta name="twitter:description" content="Claude Code superpowers granted to your Grok Bots.">
+<meta name="twitter:description" content="Grok Bot hands design and coding to Claude Code sessions in templated Dozable sandboxes, and I can watch the same session or type in it.">
 <meta name="twitter:image" content="https://dozable.com/og-image.png">
 <meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta property="article:published_time" content="2026-11-13">
@@ -31,7 +31,7 @@
 <link rel="alternate" type="application/atom+xml" title="Dozable blog" href="feed.xml">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="stylesheet" href="../site.css?v=3c6a0f06">
+<link rel="stylesheet" href="../site.css?v=84bead22">
 <script src="../nav.js?v=4f745b91"></script>
 <link rel="stylesheet" href="../docs/docs.css?v=4bcad37f">
 <script defer src="../docs/docs.js?v=a2a39b76"></script>
@@ -52,47 +52,38 @@
 <p class="crumbs"><a href="./">&lsaquo; All posts</a></p>
 <header class="post-head"><p class="post-meta"><time datetime="2026-11-13">13 November 2026</time> <span class="chip">Tips and tricks</span></p>
 <h1>Working together with Grok Bot in a Claude Code session, enabled by Dozable</h1>
-<p class="post-summary">Claude Code superpowers granted to your Grok Bots.</p></header>
+<p class="post-summary">Grok Bot hands design and coding to Claude Code sessions in templated Dozable sandboxes, and I can watch the same session or type in it.</p></header>
 <p>I quickly fell for Grok Bot&#x27;s charm and capabilities. From marketing to product management (I even have a librarian), my bots handle their daily duties well, and I now rely on them. But they can&#x27;t design, and they can&#x27;t code! At least not to the level I reliably get from Claude Code.</p>
 <p>So I decided they should be able to delegate that work to Claude Code on my Mac, using my own subscription, just like I do. If all you want is command-line access, that&#x27;s easy to set up in the Grok Bot app on your computer. The hard part came when I realised what I really wanted was for Grok Bot and me to work together in Claude Code.</p>
-<p>The goal was to give each of my Grok Bots its own Claude Code workspaces on my own Macs, so the bots and the people on my team can work together in them. The bots do the delegated work in their sessions. A person keeps full visibility of every session, and can watch one or jump in and type whenever they need to.</p>
-<p>I run Grok Bots with company roles. One of them, Cheto, is my CTO bot. A bot&#x27;s workspaces are long-lived Claude Code sessions on a Mac, one per workstream. For this to work, the bot has to be able to hand work to its own sessions and read the answers, without ever taking a session away from the person at the keyboard.</p>
-<p>That turned out to be two separate problems: how a bot gets a message into a session that is already running, and how the reply gets back out. This post covers what I tried, what worked, and the part that still doesn&#x27;t.</p>
-<figure class="shot"><div class="frame"><img src="images/grok-bot-claude-dozable/00-overview.png" alt="Overview diagram of a bot relay and a human path into one Claude Code work session" width="1600" height="1120" loading="lazy" decoding="async"></div></figure>
-<p>The pictures in this post are frames of an interactive diagram of the setup. A public page for the interactive version is not up yet, so the post uses the stills only.</p>
-<h2 id="the-problem">The problem<a class="anchor" href="#the-problem" aria-label="Link to this section">#</a></h2>
-<p>The obvious approach failed first. On the Claude Code version I had (2.1.321), there was no <code>claude send</code> command. Resuming a running background session with <code>--resume</code> and extra flags didn&#x27;t continue it. It started a copy with a new ID. So &quot;stop the session, resume it with the next instruction&quot; was the only way to deliver a message, and that is clumsy. It also put the session&#x27;s context at risk every time.</p>
-<p>Permissions caused the second problem. I ran my delegated sessions with permission prompts skipped. When a sender that wasn&#x27;t in that mode messaged one of those sessions, Claude Code held the message on a Deny / Deliver prompt. In a background session with no terminal attached, nobody sees that prompt. In my probe it was still waiting about four minutes later. That explained a run of approval requests I had been seeing.</p>
-<p>There&#x27;s a third, quieter problem. A background session that asks a question has no terminal to ask it in, so it sits there, blocked.</p>
-<h2 id="what-worked">What worked<a class="anchor" href="#what-worked" aria-label="Link to this section">#</a></h2>
+<p>Cheto, my CTO bot, now runs this in one Dozable sandbox per kind of work.</p>
 <p>The fix was to give the bot the ability to use Claude&#x27;s peer session messaging. This is a very cool feature that lets Claude sessions talk to each other. But it&#x27;s only Claude to Claude, which meant giving the bot its own Claude session to pass messages to the working Claude (which can also message back), like a <strong>relay</strong>.</p>
-<p>The relay is a long-lived Claude session that runs in the background, and it starts from a scratch directory rather than a work repo. Its only job is to send messages to work sessions and print what comes back. One relay can support all the Claude sessions that the bot is running.</p>
-<p><strong>Sending uses Claude Code&#x27;s own cross-session messaging.</strong> Inside the relay, Claude uses its built-in <code>SendMessage</code> tool to reach a work session. I address the target by its exact session name. In my probe, the short IDs that <code>claude agents</code> prints didn&#x27;t match as addresses, and names stayed stable when processes were respawned. A reply arrives in the relay labelled <code>Message from @&lt;sender-name&gt;</code>. Claude Code&#x27;s <a href="https://code.claude.com/docs/en/cross-session-messaging">cross-session messaging docs</a> describe the same tools, <code>ListAgents</code> and <code>SendMessage</code>, and the same &quot;Message from @name&quot; preview.</p>
-<p>The two frames below are from the later diagram, not from the 10 November probe. They show the worker typing the instruction into the relay, then the relay sending by exact name.</p>
-<figure class="shot"><div class="frame"><img src="images/grok-bot-claude-dozable/04-worker-types-the-instruction-into-the-relay.png" alt="A Cursor worker types the instruction into the relay session" width="1600" height="1120" loading="lazy" decoding="async"></div></figure>
-<figure class="shot"><div class="frame"><img src="images/grok-bot-claude-dozable/05-relay-sends-by-exact-name.png" alt="The relay sends the message to the work session by exact session name" width="1600" height="1120" loading="lazy" decoding="async"></div></figure>
-<p><strong>Matching permission modes avoids the held-message prompt.</strong> With both ends skipping permission prompts, messages were delivered with no approval prompt. The docs describe the default rule: a session that bypasses prompts holds messages from a session that doesn&#x27;t. A receiver started with <code>crossSessionInbound</code> set to <code>accept</code> admitted a non-bypass sender in my probe. I haven&#x27;t applied that setting to a real work session.</p>
-<p>Skipping permission prompts is a trade-off, not a recipe. With prompts off, a session acts without asking. I accepted that for disposable probe sessions in a scratch directory on a machine I control. For real work, the plan relies on other limits instead: a scoped brief, isolated worktrees, pull-request review, and stopping a session when needed. If those limits aren&#x27;t in place, don&#x27;t copy this setting.</p>
-<p><strong>Later messages go in by attaching to the relay and typing.</strong> This was the missing piece. On the evening of 10 November I started a throwaway relay and a throwaway receiver, then left both idle. A small <code>expect</code> script ran <code>claude attach</code> on the relay and typed one line: <code>SEND R1</code>. The relay sent the message, the receiver acknowledged it, and the reply showed up on the attached screen. I then did the same for <code>SEND R2</code> and <code>SEND R3</code>. Each line went in only after the previous reply had printed. The process IDs didn&#x27;t change across the three rounds, and nothing was restarted or resumed. From typing a line to seeing the reply took about 29, 15 and 18 seconds.</p>
-<p><strong>The human path is separate.</strong> A person&#x27;s way in doesn&#x27;t go through the bot or the relay. Claude Code documents <code>claude attach &lt;session&gt;</code> for opening a background session in a terminal, and detaching leaves the session running. Cheto&#x27;s path and a person&#x27;s are designed to meet only at the work session.</p>
-<figure class="shot"><div class="frame"><img src="images/grok-bot-claude-dozable/09-the-human-opens-the-same-terminal.png" alt="A person opens the same work session in a terminal, separately from the relay" width="1600" height="1120" loading="lazy" decoding="async"></div></figure>
-<p><strong>The bot reaches the Mac through a Cursor worker.</strong> For this workflow, Cheto reaches the Mac through a Cursor agent running there as a <a href="https://cursor.com/docs/cloud-agent/self-hosted/my-machines">My Machines worker</a>. Cursor&#x27;s docs describe the split: the agent loop runs in Cursor&#x27;s cloud, and terminal commands and file edits run on your machine over an outbound connection. That worker runs the <code>claude</code> commands. It checks what&#x27;s running with <code>claude agents --json --all</code>, attaches to the relay to type, and reads replies with <code>claude logs</code> when nobody is attached. The plan keeps supervision of real work in GitHub: delegated sessions open draft pull requests, and Cheto reviews those through the GitHub connector instead of pulling transcripts off the Mac.</p>
-<h2 id="why-this-is-interesting">Why this is interesting<a class="anchor" href="#why-this-is-interesting" aria-label="Link to this section">#</a></h2>
-<ul>
-<li><strong>No new plumbing on the Claude side.</strong> The relay is an ordinary Claude Code session using a built-in tool. I didn&#x27;t add a server or a custom protocol.</li>
-<li><strong>A bot and a person each have their own way in.</strong> That is what keeps the person&#x27;s visibility intact: the bot doesn&#x27;t need the person&#x27;s terminal, and the person doesn&#x27;t need the bot to see or type into a session. I haven&#x27;t tested whether both can use the same session at the same moment.</li>
-<li><strong>Supervision stays readable.</strong> In the plan, the record of real work is a draft pull request checked against acceptance criteria, not a scrape of a terminal.</li>
-</ul>
-<h2 id="limits-plainly">Limits, plainly<a class="anchor" href="#limits-plainly" aria-label="Link to this section">#</a></h2>
-<p>What I have proved is narrow: repeated exchanges between one relay and one receiver, on throwaway sessions, on one Mac and one Claude Code version (2.1.322). The real work session in the diagram wasn&#x27;t messaged. These things are not proved:</p>
-<ul>
-<li><strong>Return notifications.</strong> Nothing in the tested path wakes an idle Cursor worker or Cheto when a reply arrives. Something still has to attach or poll. A local hook on a separate relay did record unsolicited incoming messages to a file, but it notified no one. A webhook routine for a return bridge has been prepared. It isn&#x27;t connected, it hasn&#x27;t been live-tested, and it still needs its endpoint and a securely supplied key.</li>
-<li><strong>Routing to a second work session.</strong> A retarget line to a second receiver never became a turn in the relay.</li>
-<li><strong>A human attaching while the relay is messaging the same session.</strong> Not part of the 10 November probe. The demonstration below is a later account, from a transcript, and it is not a re-run of that probe.</li>
-<li><strong>The typing script as a bridge.</strong> The terminal UI breaks words up on screen, so the script&#x27;s simple text matching didn&#x27;t work reliably. It was good enough for a probe and isn&#x27;t a deployed integration.</li>
-</ul>
-<p>Claude Code is also moving quickly. Its current docs describe other routes I haven&#x27;t tried in this setup: replying from agent view&#x27;s peek panel, resuming a running session with a prompt, an idle notification option on <code>SendMessage</code>, and <a href="https://code.claude.com/docs/en/channels">channels</a> for pushing events into a session. Some of these may make parts of this setup simpler, or unnecessary. I&#x27;ll test them before I say so.</p>
-<p>So the 10 November probe is a narrow result, not a deployed system. It proved that a bot can hold a repeated exchange with a running session through a relay. A human attaching is a separate, documented way in. On that probe, using both on the same session at the same time, and getting a reply back to the bot without polling, were still untested.</p>
+<p>The relay is a long-lived Claude session that runs in the background, inside the sandbox, rather than in a project folder. It sends messages to the work sessions in that sandbox and prints what comes back, and it files the events those sessions raise. One relay serves every session in its sandbox. A second kind of work gets its own sandbox and its own relay, because a session cannot message a session in another sandbox.</p>
+<h2 id="why-dozable">Why Dozable<a class="anchor" href="#why-dozable" aria-label="Link to this section">#</a></h2>
+<p>Dozable was the right tool because of its session keeper. A session lives in the sandbox, not in a window. Several people or windows can view the same one, and what is typed in one shows in the others. I attach from Terminal.app with <a href="https://dozable.com/docs/terminals-and-sessions#in-the-terminal"><code>doz attach</code></a>, or I open the session in the <a href="https://dozable.com/docs/the-dashboard">dashboard</a> (<code>doz ui</code>). Watch, in the dashboard, is read-only. An attach, or Open, can type.</p>
+<p>The other half is the boundary. A sandbox is a Linux virtual machine with its own kernel, so the tools for a workload are installed in its image and not on the Mac. They don&#x27;t pollute the tools already there. For Remotion I save that image as a <a href="https://dozable.com/docs/restore-points-duplicates-templates#templates">template</a>, and the next team starts from it. A <a href="https://dozable.com/docs/images-and-bases">recipe</a> is what bakes an agent&#x27;s image, and a recipe cannot yet add the system packages this workload needs, so the template is the quick start I use.</p>
+<h2 id="the-relay-command">The relay command<a class="anchor" href="#the-relay-command" aria-label="Link to this section">#</a></h2>
+<p>Cheto reaches the Mac through a Cursor <a href="https://cursor.com/docs/cloud-agent/self-hosted/my-machines">My Machines</a> worker, and the command is <code>relay</code>.</p>
+<p><code>relay up</code> makes the sandbox if it is missing, starts the relay, and starts one Claude Code session per project, each in its own folder.</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>relay up &lt;sandbox&gt; --team remotion-video --sessions 3 --workspace &lt;parent-folder&gt; --as &lt;worker&gt; --primary-agent &quot;Grok Bot&quot;</code></pre></figure>
+<p><code>--as</code> names the one driver of that sandbox.</p>
+<p><code>relay ask</code> types a short line into the relay. The relay uses Claude Code&#x27;s <a href="https://code.claude.com/docs/en/cross-session-messaging"><code>SendMessage</code></a>, by exact session name, and the answer arrives labelled <code>Message from @&lt;sender-name&gt;</code>. The request and the replies are files under <code>.agent-relay/</code>, and the worker passes them to the bot word for word.</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>relay ask &lt;sandbox&gt; video-1,video-2 --file task.md --detach</code></pre></figure>
+<p><code>--detach</code> returns at once. When every named session has answered, <code>relay forward</code> posts a <code>reply</code> event to the bot&#x27;s webhook, the bot wakes, and <code>relay result</code> reads the text. The webhook address and its key stay in the Mac&#x27;s login Keychain. The worker never prints them.</p>
+<p>From <a href="https://dozable.com/docs/install-upgrade-uninstall">Dozable 0.37.44</a>, <code>relay</code> types and reads with <a href="https://dozable.com/docs/terminals-and-sessions#typing-into-a-session-and-reading-its-screen-from-a-script"><code>doz sessions send</code></a> and <code>doz sessions screen</code>. It does not attach, because an attach waits for a keyboard.</p>
+<h2 id="a-sandbox-from-a-template">A sandbox from a template<a class="anchor" href="#a-sandbox-from-a-template" aria-label="Link to this section">#</a></h2>
+<p>A team template is one YAML file: the size, the packages, the session names, the facts each session is told, a brief and the checks. <code>relay team ls</code> lists them. I have two. <code>remotion-video</code> is an 8G sandbox with 4 CPUs, Chromium, ffmpeg and fonts, and sessions named <code>video-1</code> onwards. <code>go-react-web</code> is a 4G sandbox with Go and Node, and one session named <code>app</code>, on the default base. The Go base refuses npm installs.</p>
+<p><code>--save-image</code>, the first time on a Mac, saves the tools as a <a href="https://dozable.com/docs/restore-points-duplicates-templates#templates">Dozable template</a>. The Remotion image is about 2.5 GiB, and the next team of that kind starts from it in about 20 seconds. I rebuild it when Claude Code moves on.</p>
+<p>Sessions in one sandbox share the tools, the memory, the CPUs and the network. A different toolchain is another sandbox. If the work needs more network than the standard set, <code>relay</code> says so and I decide.</p>
+<h2 id="watching-and-typing">Watching, and typing<a class="anchor" href="#watching-and-typing" aria-label="Link to this section">#</a></h2>
+<p>Ctrl-] detaches, and the session keeps running.</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz attach &lt;sandbox&gt; &lt;session&gt;</code></pre></figure>
+<p>A watcher is not a reason for the bot to stop. I set that rule on 13 November 2026. The bot stops typing only when I start: unsent text is on the line that it did not write, or I submit a line. It does not overwrite that text. When the line is clear, it carries on.</p>
+<p><code>relay rc</code> prints a claude.ai Remote Control link, for a phone or another browser. It depends on behaviour neither Dozable nor Claude Code documents, and an update to either can break it. <code>doz attach</code> is the way in I count on.</p>
+<h2 id="the-diagram">The diagram<a class="anchor" href="#the-diagram" aria-label="Link to this section">#</a></h2>
+<figure class="diagram-embed"><figcaption class="diagram-bar"><p>Play walks the stages. Expand fills the window. The other link opens the diagram on its own page, which is also the way in when a frame cannot be shown.</p><p class="diagram-actions"><a class="pill" href="images/grok-bot-claude-dozable/diagram.html" data-diagram-expand>Expand</a><a href="images/grok-bot-claude-dozable/diagram.html">Open the diagram on its own page</a></p></figcaption><iframe src="images/grok-bot-claude-dozable/diagram.html" title="Interactive diagram of Grok Bot, the relay and Claude Code sessions in a Dozable sandbox"></iframe></figure>
+<p>Play walks one round trip. Expand fills the window, and the link opens the diagram on its own page.</p>
+<h2 id="how-i-got-here">How I got here<a class="anchor" href="#how-i-got-here" aria-label="Link to this section">#</a></h2>
+<p>On 10 November, Claude Code 2.1.321 had no <code>claude send</code>, and resuming a running session with extra flags started a copy. A session that skipped permission prompts held a message from one that did not, on a prompt that was still waiting about four minutes later. That evening a script typed <code>SEND R1</code>, then <code>SEND R2</code>, then <code>SEND R3</code> into a throwaway relay. Each reply came back, in about 29, 15 and 18 seconds, without a restart. It was one receiver, and nothing woke the bot. <code>relay ask</code>, the shared-session rule and the webhook closed those gaps. Inside a sandbox, Dozable&#x27;s Claude wrapper skips permission prompts. The sandbox is the boundary.</p>
 <h2 id="showing-it-to-a-new-team-member">Showing it to a new team member<a class="anchor" href="#showing-it-to-a-new-team-member" aria-label="Link to this section">#</a></h2>
 <p>On Friday 13 November 2026, in Sydney, I showed this setup to a new team member and used it for real. The quotes below come from a call transcript received at 13:04 Australia/Sydney. The transcription may be imperfect. These are lightly edited quotes. They have not yet been checked by the speaker:</p>
 <blockquote class="example">
@@ -107,9 +98,12 @@
 <blockquote class="example">
 <p>&quot;So I can see them. I can jump in and interact. I&#x27;ve got full visibility and it&#x27;s all kind of packaged in these sandboxes that are templated. So if the bot needs to spin up an environment for Remotion, it can do it really quickly.&quot;</p>
 </blockquote>
-<figure class="shot"><div class="frame"><img src="images/grok-bot-claude-dozable/22-the-humans-screens.png" alt="Screens used to watch and type into the live Claude Code sessions" width="1600" height="1120" loading="lazy" decoding="async"></div></figure>
+<h2 id="what-still-applies">What still applies<a class="anchor" href="#what-still-applies" aria-label="Link to this section">#</a></h2>
+<p>A relay reaches only the sessions in its own sandbox. macOS work, such as Swift or signing, cannot run in the Linux sandbox. From <a href="https://dozable.com/docs/install-upgrade-uninstall">Dozable 0.37.45</a> the same commands can address sessions on the Mac itself, and nothing isolates those yet: the seatbelt boundary is not in <a href="https://dozable.com/docs/install-upgrade-uninstall">0.37.46</a>. They run as me, and their prompt tells them to stop before signing or sending anything out. I leave tmux off in a sandbox. <code>relay collect</code> copies finished work onto the same Mac, and it is not a backup.</p>
+<h2 id="the-skill">The skill<a class="anchor" href="#the-skill" aria-label="Link to this section">#</a></h2>
+<p>The <code>relay</code> command, the session prompts, the two team templates and a health check that uses no model are one skill, <code>agent-relay</code>. I&#x27;m planning to publish the skills in their own public repo.</p>
 <h2 id="how-this-relates-to-dozable">How this relates to Dozable<a class="anchor" href="#how-this-relates-to-dozable" aria-label="Link to this section">#</a></h2>
-<p>Dozable is what makes the goal practical: each bot&#x27;s Claude Code sessions run in templated sandboxes on my Macs, so a bot can have its own workspaces and a person can still see all of them. The same shape is in the setup I use now. Bots send prompts into live Claude Code sessions through Dozable&#x27;s relay, and the prompts are typed into the session. Dozable holds the terminal, so several clients can attach to one session with <a href="https://dozable.com/docs/terminals-and-sessions"><code>doz attach</code></a>. A person can watch live, and a watcher is not a reason for the bot to stop. If a person types, the bot yields and does not overwrite text it did not write. A Cursor worker handles the repository work. Approvals stay with a person. The setup also names a Remotion sandbox, <code>m3-remotion</code>, on m1max3. The speed in the quote is about a templated Remotion environment. This post is not adding a separate claim about how fast that named sandbox booted.</p>
+<p>The session keeper, the virtual machine and the saved template are the parts I use. The commands are in <a href="https://dozable.com/docs/letting-another-agent-drive">Letting another agent drive</a> and <a href="https://dozable.com/docs/terminals-and-sessions">Terminals and sessions</a>.</p>
 <h2 id="about-dozable">About Dozable<a class="anchor" href="#about-dozable" aria-label="Link to this section">#</a></h2>
 <p>Dozable gives each coding agent its own small Linux computer on your Mac, so you can let it work. A sandbox starts in about a third of a second, and your API keys stay on the Mac. Try it at <a href="https://dozable.com">dozable.com</a>.</p>
 </article>
@@ -150,5 +144,66 @@
   <p>Requires Apple silicon and macOS 26 or later.</p>
   <p>&copy; 2026 Johno Scott. Released under the MIT licence.</p>
 </div></footer>
+<div class="diagram-overlay" id="diagram-overlay" hidden role="dialog" aria-modal="true" aria-label="Expanded diagram">
+<div class="diagram-overlay-bar">
+<button type="button" class="pill diagram-close">Close</button>
+<a class="diagram-overlay-open" href="">Open on its own page</a>
+</div>
+<div class="diagram-overlay-host"></div>
+</div>
+<script>
+(function () {
+  var overlay = document.getElementById('diagram-overlay');
+  if (!overlay) return;
+  var host = overlay.querySelector('.diagram-overlay-host');
+  var closeBtn = overlay.querySelector('.diagram-close');
+  var own = overlay.querySelector('.diagram-overlay-open');
+  var openLink = null, frame = null, slot = null;
+  function shut() {
+    if (!frame || !slot) return;
+    slot.parentNode.insertBefore(frame, slot.nextSibling);
+    slot.parentNode.removeChild(slot);
+    overlay.hidden = true;
+    document.body.classList.remove('diagram-open');
+    if (openLink) { openLink.setAttribute('aria-expanded', 'false'); openLink.focus(); }
+    frame = null; slot = null;
+  }
+  function open(link, iframe) {
+    if (frame) shut();
+    openLink = link;
+    frame = iframe;
+    slot = document.createElement('span');
+    slot.hidden = true;
+    iframe.parentNode.insertBefore(slot, iframe);
+    host.appendChild(iframe);
+    own.href = link.getAttribute('href');
+    overlay.hidden = false;
+    document.body.classList.add('diagram-open');
+    link.setAttribute('aria-expanded', 'true');
+    closeBtn.focus();
+  }
+  document.querySelectorAll('.diagram-embed').forEach(function (fig) {
+    var link = fig.querySelector('[data-diagram-expand]');
+    var iframe = fig.querySelector('iframe');
+    if (!link || !iframe) return;
+    link.setAttribute('aria-expanded', 'false');
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      open(link, iframe);
+    });
+  });
+  closeBtn.addEventListener('click', shut);
+  document.addEventListener('keydown', function (e) {
+    if (overlay.hidden) return;
+    if (e.key === 'Escape') { e.preventDefault(); shut(); return; }
+    if (e.key !== 'Tab') return;
+    var nodes = overlay.querySelectorAll('button, a, iframe');
+    if (!nodes.length) return;
+    var first = nodes[0], last = nodes[nodes.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+})();
+</script>
 </body>
 </html>

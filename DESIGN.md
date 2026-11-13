@@ -143,7 +143,17 @@ Generated, like the docs: `python3 tools/blog-build.py <posts repo>` reads the p
 (served at `/blog/<slug>`), `blog/images/<slug>/`, `blog/feed.xml` (Atom, full content) and the blog entries of
 `sitemap.xml`. Only `status: published` posts are built; `--drafts --out <dir outside this repo>` previews drafts.
 The Markdown is rendered by `docs-build.py`'s renderer (imported), so code blocks, tables and images look like the
-docs'; the page chrome is the root pages' header and footer. Never edit `blog/` by hand. The order for a publish:
+docs'; the page chrome is the root pages' header and footer. Never edit `blog/` by hand.
+
+Blog pages load `nav.js`, `docs/docs.js` (the Copy buttons and the current-section marker) and `signup.js`. One
+exception: a post may contain a fenced block whose language is `diagram` and whose only line is a plain `.html`
+file name beside `index.md`. `blog-build.py` embeds that file in an iframe, wider than the 70ch column, with an
+Expand control. Expand is a link to the diagram's own page, so it works with no JavaScript and no iframe; when
+JavaScript runs, that same control opens a full-window overlay (Close, or Escape, returns) and the page carries
+one inline script for that overlay alone. Other posts do not get the script. The HTML file must be self-contained
+— no external script, stylesheet, web font or tracker — and the build refuses one that is not.
+
+The order for a publish:
 `tools/docs-build.py` (if the manual changed), then `tools/blog-build.py`, then `tools/markdown-build.py`, then
 `tools/stamp.sh` (it fingerprints the links on `blog/*.html` too), then commit.
 
