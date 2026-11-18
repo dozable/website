@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Dozable 0.51 - chat rooms, and fenced sessions on your Mac — Dozable blog</title>
+<meta name="description" content="Dozable 0.51 adds chat rooms for you and your agents, fences sessions on your Mac by default, keeps the daemon running with a menu bar app, and can publish the dashboard on your tailnet.">
+<link rel="canonical" href="https://dozable.com/blog/doz-v0.51">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Dozable">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Dozable 0.51 - chat rooms, and fenced sessions on your Mac — Dozable blog">
+<meta property="og:description" content="Dozable 0.51 adds chat rooms for you and your agents, fences sessions on your Mac by default, keeps the daemon running with a menu bar app, and can publish the dashboard on your tailnet.">
+<meta property="og:url" content="https://dozable.com/blog/doz-v0.51">
+<meta property="og:image" content="https://dozable.com/og-image.png">
+<meta property="og:image:secure_url" content="https://dozable.com/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dozable 0.51 - chat rooms, and fenced sessions on your Mac — Dozable blog">
+<meta name="twitter:description" content="Dozable 0.51 adds chat rooms for you and your agents, fences sessions on your Mac by default, keeps the daemon running with a menu bar app, and can publish the dashboard on your tailnet.">
+<meta name="twitter:image" content="https://dozable.com/og-image.png">
+<meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
+<meta property="article:published_time" content="2026-11-19">
+<meta property="article:tag" content="Release news">
+<link rel="alternate" type="text/markdown" href="https://dozable.com/blog/doz-v0.51.md">
+<link rel="alternate" type="application/atom+xml" title="Dozable blog" href="feed.xml">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../site.css?v=3c6a0f06">
+<script src="../nav.js?v=4f745b91"></script>
+<link rel="stylesheet" href="../docs/docs.css?v=4bcad37f">
+<script defer src="../docs/docs.js?v=a2a39b76"></script>
+<script defer src="../signup.js?v=4c5f91c5"></script>
+</head>
+<body class="docs blog">
+<a class="skip" href="#main">Skip to the post</a>
+<header class="nav"><div class="nav-in">
+  
+  <a class="nav-name" href="../">Dozable</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel" aria-label="Menu"><svg class="bars" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <nav id="nav-panel" aria-label="Site"><a href="../#speed">Speed</a><a href="../#cli">CLI</a><a href="../#tour">Web UI</a><a href="../#compare">Compare</a><a href="../#security">Security</a><a href="../#uses">Use cases</a><a href="../#features">Features</a><a href="../timeline.html">Timeline</a><a href="./" aria-current="page">Blog</a><a href="../docs/">Docs</a><a class="nav-extra" href="https://github.com/dozable/dozable">GitHub</a></nav>
+  <a class="nav-gh" href="https://github.com/dozable/dozable" aria-label="Source code on GitHub" title="Source code on GitHub"><svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg></a>
+  <a class="pill" href="../#install">Install</a>
+</div></header>
+<main id="main">
+<article class="prose article post">
+<p class="crumbs"><a href="./">&lsaquo; All posts</a></p>
+<header class="post-head"><p class="post-meta"><time datetime="2026-11-19">19 November 2026</time> <span class="chip">Release news</span></p>
+<h1>Dozable 0.51 - chat rooms, and fenced sessions on your Mac</h1>
+<p class="post-summary">Dozable 0.51 adds chat rooms for you and your agents, fences sessions on your Mac by default, keeps the daemon running with a menu bar app, and can publish the dashboard on your tailnet.</p></header>
+<p>It&#x27;s on the <a href="https://dozable.com/docs/install-upgrade-uninstall">stable channel</a> now, as 0.51.15. This post covers 0.40.0 to 0.51.15; <a href="https://dozable.com/blog/doz-v0.37">the 0.37 post</a> covers what came before. The changes come first by theme, then release by release in the <a href="#detailed-changelog">detailed changelog</a>.</p>
+<h2 id="chat-rooms-for-you-and-your-agents">Chat rooms for you and your agents<a class="anchor" href="#chat-rooms-for-you-and-your-agents" aria-label="Link to this section">#</a></h2>
+<p>Chat is a set of rooms on your Mac where you and your agents talk: you in the dashboard or a terminal, each agent with its own token. It is off until you turn it on, it listens on this Mac only, and everything is kept in your store.</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz chat on --name ada              <span class="c"># chat on; you are ada in chat</span>
+doz chat add bot1                   <span class="c"># an agent; its token is shown once</span>
+doz chat room room1 @bot1           <span class="c"># a room with bot1 and you</span>
+doz chat send room1 &quot;the build is green&quot;
+doz chat read room1 --follow        <span class="c"># the room as it happens</span></code></pre></figure>
+<ul>
+<li><strong>The Chat page</strong> in the dashboard has the rooms, messages as they arrive, <code>@</code> mentions, reactions, edit and delete, direct messages and attachments up to 20 MB.</li>
+<li><strong><code>dozchat</code></strong> is a small chat client on the PATH of every sandbox and fenced session. Give it its token as a secret (below) and the session only ever sees a placeholder.</li>
+<li><strong>Claude Code sessions on this Mac</strong> can take part: the chat server writes each message into the session&#x27;s own inbox, busy or idle (<code>doz chat add bot1 --inbox</code>). This works for sessions without a fence; a fenced one uses <code>dozchat</code>.</li>
+<li><strong>Webhook bots</strong> are called with each message instead of polling (<code>doz chat webhook set NAME</code>). The address and its secret are kept in your login keychain.</li>
+<li><strong>Agents on your other machines</strong> can join over Tailscale, as agents with their own token, never as you (<code>chat.remote_listen</code> and <code>chat.remote_agents</code>).</li>
+<li><strong><code>doz chat import</code></strong> brings in the history of another chat server from an export.</li>
+<li><strong>Your other browsers</strong> get no chat until you set <code>serve.chat</code> to <code>read</code> or <code>write</code>.</li>
+</ul>
+<h2 id="sessions-on-this-mac-are-fenced">Sessions on this Mac are fenced<a class="anchor" href="#sessions-on-this-mac-are-fenced" aria-label="Link to this section">#</a></h2>
+<p>In 0.37 a session on this Mac ran as you, with nothing around it. A new session is now <strong>fenced</strong>: macOS&#x27;s own sandbox keeps it to its project folder, its own temporary files and caches, and Dozable&#x27;s proxy for the network. Your Keychain, secrets and other folders are closed to it. <code>--unfenced</code> gives a session what it had before, and sessions you opened earlier keep their mode.</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz run @mac -d --session agent --folder ~/src/app -- claude   <span class="c"># Claude Code, fenced, on one folder</span>
+doz run @mac -d --xcode --folder ~/src/MyApp -- claude          <span class="c"># with Xcode&#x27;s build services</span>
+doz run @mac --dry-run -- claude                                <span class="c"># what it could do; starts nothing</span></code></pre></figure>
+<ul>
+<li><strong>Claude Code</strong> in a fenced session gets its own settings folder and its login through the proxy, so it never holds your token. Its conversations come back to <code>~/.claude/projects</code> when it ends.</li>
+<li><strong>Tools work through the fence:</strong> git and ssh, GitHub as you (<code>--github read|push</code>), your SSH agent (<code>--ssh-agent</code>), the package registries, Swift and Xcode builds (<code>--xcode</code>) and the Simulator (<code>--simulator</code>).</li>
+<li><strong>New session on this Mac…</strong> in the dashboard gives the exact command for five common setups, including the build commands that work inside the fence and when to go unfenced. Each session&#x27;s <strong>What it can do</strong> tab shows its permissions and switches them live.</li>
+<li><strong>A service on your Mac</strong>, such as a local API, is reachable from a sandbox or session with <code>--host-port 8790</code>, as <code>host.dozable.internal:8790</code>. Nothing else of the Mac opens.</li>
+<li><strong><code>--secret</code></strong> gives a session a token as a placeholder, which Dozable swaps for the real value only on requests to the host and port you name.</li>
+<li><strong>Site permissions can name ports:</strong> <code>doz net allow NAME site:example.com:8443</code>.</li>
+<li><strong>Sandboxes</strong> can no longer reach this Mac through any of its network addresses.</li>
+</ul>
+<p>The manual has the details: <a href="https://dozable.com/docs/sessions-on-this-mac">Sessions on this Mac</a>.</p>
+<h2 id="the-daemon-stays-running-with-a-menu-bar-app">The daemon stays running, with a menu bar app<a class="anchor" href="#the-daemon-stays-running-with-a-menu-bar-app" aria-label="Link to this section">#</a></h2>
+<p>Dozable&#x27;s background process is now called <strong>the daemon</strong>, and <code>doz host</code> is gone, with no alias:</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz daemon status
+doz daemon restart</code></pre></figure>
+<ul>
+<li><strong>It stays running</strong> (<code>daemon.always_on</code>, on by default), and when you upgrade it moves to the new version by itself once nothing is running.</li>
+<li><strong>It can start when you log in.</strong> Nothing is added until you ask: <code>doz daemon login-item on</code>.</li>
+<li><strong>The menu bar app</strong> shows the daemon&#x27;s state, with Start, Stop, Restart, Open Dashboard and Start at Login: <code>doz app install --open</code>.</li>
+<li><strong>An unattended Mac keeps its Claude login.</strong> <code>doz account keepalive always</code> renews it when it expires.</li>
+</ul>
+<h2 id="the-dashboard-on-your-tailnet">The dashboard on your tailnet<a class="anchor" href="#the-dashboard-on-your-tailnet" aria-label="Link to this section">#</a></h2>
+<p><code>doz ui publish tailscale</code> gives the dashboard its own https address, <code>https://dozable-&lt;your Mac&gt;.&lt;your tailnet&gt;.ts.net</code>, through a Tailscale node of Dozable&#x27;s own; your Mac&#x27;s own Tailscale is left alone. The address comes back after a restart of the Mac.</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>brew install tailscale          <span class="c"># once</span>
+doz ui publish tailscale        <span class="c"># sign in once, then it says the address</span>
+doz ui publish status           <span class="c"># check it</span></code></pre></figure>
+<p>Each browser on another device still needs an invite (<code>doz ui share</code>). See <a href="https://dozable.com/docs/doz-serve">The dashboard on your other devices</a>.</p>
+<p>The dashboard also follows upgrades now, and offers <strong>Restart dashboard</strong> when it is older than the doz you installed.</p>
+<h2 id="renamed">Renamed<a class="anchor" href="#renamed" aria-label="Link to this section">#</a></h2>
+<div class="tablewrap" tabindex="0" role="region" aria-label="Table: Renamed"><table>
+<thead><tr><th scope="col">before</th><th scope="col">now</th><th scope="col">since</th></tr></thead>
+<tbody>
+<tr><td><code>doz host start|stop|restart|status</code></td><td><code>doz daemon start|stop|restart|status</code></td><td>0.50</td></tr><tr><td><code>DOZ_HOST_IDLE</code></td><td><code>DOZ_DAEMON_IDLE</code></td><td>0.50</td></tr><tr><td><code>--workspace DIR</code></td><td><code>--folder DIR</code></td><td>0.51</td></tr><tr><td><code>doz run @mac --workdir DIR</code></td><td><code>doz run @mac --folder DIR</code></td><td>0.51</td></tr><tr><td><code>doz run NAME --workdir DIR</code>, <code>doz exec NAME --workdir DIR</code></td><td><code>--cwd DIR</code></td><td>0.51</td></tr><tr><td>the <code>doz ls</code> column WORKSPACE, <code>--json</code> key <code>workspace</code></td><td>FOLDER, <code>folder</code></td><td>0.51</td></tr><tr><td>settings <code>workspace.ignore_mode</code>, <code>workspace.view</code></td><td><code>folder.ignore_mode</code>, <code>folder.view</code></td><td>0.51</td></tr>
+</tbody></table></div>
+<p>The old names fail and say the new one. Settings under <code>host.*</code> move to <code>daemon.*</code> by themselves.</p>
+<h2 id="detailed-changelog">Detailed changelog<a class="anchor" href="#detailed-changelog" aria-label="Link to this section">#</a></h2>
+<p>Every release from 0.40.0 to 0.51.15, newest first. <strong>Stable</strong> marks the releases that reached the stable channel; the others were on canary only, and their changes reached stable with the next stable release. Numbers that are missing, such as 0.40.1, were never released.</p>
+<h3 id="05115---18-november-2026---stable">0.51.15 - 18 November 2026 - stable<a class="anchor" href="#05115---18-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Fixed: <code>doz ui publish tailscale</code> sets up the redirect from plain <code>http://</code> to the https address on a real Mac. A dashboard published with 0.51.14 is told to run <code>doz ui publish tailscale</code> again.</li>
+</ul>
+<h3 id="05114---18-november-2026">0.51.14 - 18 November 2026<a class="anchor" href="#05114---18-november-2026" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Added: <code>doz ui publish tailscale</code> gives the dashboard its own https address on your tailnet, through Dozable&#x27;s own Tailscale node (your Mac&#x27;s own Tailscale is left alone). <code>doz ui publish status</code> and <code>doz ui unpublish tailscale [--logout]</code>.</li>
+<li>Added: while it is published, the daemon keeps the dashboard running, until you run <code>doz ui stop</code>.</li>
+</ul>
+<h3 id="05113---18-november-2026---stable">0.51.13 - 18 November 2026 - stable<a class="anchor" href="#05113---18-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Changed: the dashboard follows upgrades. <code>doz ui</code> starts the doz installed now, and a dashboard in the background restarts into a new doz when nothing is open.</li>
+<li>Added: <strong>Restart dashboard</strong> in the dashboard when it is older than the installed doz (this Mac&#x27;s own browser only).</li>
+<li>Changed: the installable dashboard app is named after its Mac (&quot;Dozable – &lt;this Mac&gt;&quot;). A copy installed before may need installing again to pick up the name.</li>
+<li>Fixed: <code>doz doctor</code> no longer tells you to stop a newer daemon when the dashboard is the older one, and an update is never offered for the build already installed.</li>
+</ul>
+<h3 id="05112---18-november-2026---stable">0.51.12 - 18 November 2026 - stable<a class="anchor" href="#05112---18-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Fixed: a fenced Claude Code session started as <code>env NAME=VALUE … claude</code> works, and resumes with its variables.</li>
+<li>Changed: every fenced session gets its own temporary folder for Claude Code (<code>CLAUDE_CODE_TMPDIR</code>).</li>
+<li>Changed: the chat agent skills check that a started worker came up, and correct their advice on Claude Code&#x27;s read-only commands.</li>
+</ul>
+<h3 id="05111---18-november-2026---stable">0.51.11 - 18 November 2026 - stable<a class="anchor" href="#05111---18-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Fixed: <code>doz chat set … --session NAME</code> takes the name a Claude Code session shows, capitals and spaces included.</li>
+</ul>
+<h3 id="05110---18-november-2026---stable">0.51.10 - 18 November 2026 - stable<a class="anchor" href="#05110---18-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Added: chat writes each message straight into a Claude Code session&#x27;s inbox on this Mac (sessions without a fence). <code>doz chat who</code> shows <code>not running</code>, <code>idle</code> or <code>working</code>.</li>
+<li>Added: <code>doz chat set NAME --deliver inbox|poll|webhook</code> changes how a participant is reached, keeping its token, rooms and history; <code>doz chat add NAME --inbox</code>.</li>
+<li>Added: <code>dozchat</code> is on your Mac&#x27;s PATH, and reaches this Mac&#x27;s chat server by default.</li>
+<li>Fixed: the menu bar app restarts itself to update (&quot;Restart to Update&quot;).</li>
+<li>Changed: <code>doz chat send</code> lists each recipient once, with its latest state.</li>
+</ul>
+<h3 id="0519---17-november-2026---stable">0.51.9 - 17 November 2026 - stable<a class="anchor" href="#0519---17-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Added: <code>dozchat</code>, a small chat client in every sandbox and fenced session, with nothing to install and nothing to set. Its token is only ever a placeholder Dozable swaps.</li>
+<li>Added: a static <code>dozchat</code> for x86_64 Linux on the release page, for agents outside Dozable.</li>
+<li>Changed: the chat server&#x27;s messages name Dozable&#x27;s own commands.</li>
+</ul>
+<h3 id="0518---17-november-2026---stable">0.51.8 - 17 November 2026 - stable<a class="anchor" href="#0518---17-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Added: the chat protocol&#x27;s documents, a one-file Python client and three agent skills, in <code>docs/chat/</code> of the source repository, for agents that can install nothing.</li>
+<li>Changed: an agent with a valid token can always ask which rooms it is in.</li>
+</ul>
+<h3 id="0517---17-november-2026">0.51.7 - 17 November 2026<a class="anchor" href="#0517---17-november-2026" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Added: in the Chat page, reactions, edit, delete, revealing a direct message, typing indicators and attachments (clip, paste or drop; up to 20 MB).</li>
+<li>Added: <code>serve.chat</code> (<code>off</code>, <code>read</code>, <code>write</code>; default <code>off</code>) decides what your other browsers may do in chat.</li>
+<li>Added: <code>doz chat</code> is listed in <code>doz --help</code>, with completions and a manual chapter.</li>
+<li>Fixed: <code>doz chat status</code>, <code>doz daemon status</code> and <code>doz doctor</code> no longer report a new chat port before the chat server has moved to it.</li>
+</ul>
+<h3 id="0516---17-november-2026">0.51.6 - 17 November 2026<a class="anchor" href="#0516---17-november-2026" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Added: the Chat page in the dashboard, while chat is on: rooms, messages as they arrive, a composer with <code>@</code> mentions, who is here, and unread counts.</li>
+</ul>
+<h3 id="0515---17-november-2026---stable">0.51.5 - 17 November 2026 - stable<a class="anchor" href="#0515---17-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Added: webhook bots (<code>doz chat add NAME --webhook</code>, <code>doz chat webhook set|status|remove</code>), with the entry kept in your login keychain.</li>
+<li>Added: agents on other machines over Tailscale (<code>chat.remote_listen</code>, <code>chat.remote_agents</code>), as agents only.</li>
+<li>Added: <code>doz chat import COPY [--dry-run] [--add-missing] [--replace]</code>.</li>
+<li>Fixed: a long answer from the chat server, such as <code>doz chat read</code> of a long room, was sometimes cut short.</li>
+</ul>
+<h3 id="0514---17-november-2026---stable">0.51.4 - 17 November 2026 - stable<a class="anchor" href="#0514---17-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Added: the daemon runs the chat server when <code>chat.enabled</code> is on (off by default), on this Mac only.</li>
+<li>Added: the first <code>doz chat</code> commands: <code>on</code>, <code>off</code>, <code>status</code>, <code>add</code>, <code>remove</code>, <code>who</code>, <code>token</code>, <code>rooms</code>, <code>room</code>, <code>send</code>, <code>read</code>. You take part through a private socket and never have a token.</li>
+<li>Fixed: a settings line under an old <code>workspace.*</code> name was warned about even after the new name was set.</li>
+</ul>
+<h3 id="0513---17-november-2026---stable">0.51.3 - 17 November 2026 - stable<a class="anchor" href="#0513---17-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Groundwork for chat (attachments and delivery into Claude Code sessions); nothing visible yet.</li>
+</ul>
+<h3 id="0512---17-november-2026">0.51.2 - 17 November 2026<a class="anchor" href="#0512---17-november-2026" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Groundwork for chat (reactions and webhook delivery); nothing visible yet.</li>
+</ul>
+<h3 id="0511---17-november-2026">0.51.1 - 17 November 2026<a class="anchor" href="#0511---17-november-2026" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Groundwork for chat (posting and reading); nothing visible yet.</li>
+</ul>
+<h3 id="0510---17-november-2026">0.51.0 - 17 November 2026<a class="anchor" href="#0510---17-november-2026" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Changed: what a sandbox or a session works on is its <strong>folder</strong>. <code>--workspace DIR</code> is now <code>--folder DIR</code>, <code>--workspace-view</code> is <code>--folder-view</code>, <code>doz run @mac --workdir</code> is <code>--folder</code>, and <code>--workdir</code> on <code>doz run NAME</code> and <code>doz exec NAME</code> is <code>--cwd</code>. The old flags fail and name the new one.</li>
+<li>Changed: the <code>doz ls</code> column WORKSPACE is FOLDER, and <code>--json</code> keys <code>workspace…</code> are <code>folder…</code>. Settings <code>workspace.ignore_mode</code> and <code>workspace.view</code> are <code>folder.ignore_mode</code> and <code>folder.view</code>; <code>workspace_view:</code> in <code>doz_project.yaml</code> is <code>folder_view:</code>. &quot;Workspace rules&quot; are &quot;Folder rules&quot;.</li>
+<li>Changed: a 0.51 doz and an older daemon refuse each other. After upgrading, run <code>doz daemon stop</code> once.</li>
+<li>Changed: <code>daemon.idle_timeout_minutes</code> defaults to 5 again; it applies only when <code>daemon.always_on</code> is off.</li>
+</ul>
+<h3 id="0509---17-november-2026---stable">0.50.9 - 17 November 2026 - stable<a class="anchor" href="#0509---17-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Groundwork for chat; nothing visible yet.</li>
+</ul>
+<h3 id="0508---17-november-2026---stable">0.50.8 - 17 November 2026 - stable<a class="anchor" href="#0508---17-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Added: <strong>Start at Login</strong> in the menu bar app starts the daemon (and the menu) when you log in. It replaces doz&#x27;s own login item, so there is only ever one.</li>
+</ul>
+<h3 id="0507---16-november-2026---stable">0.50.7 - 16 November 2026 - stable<a class="anchor" href="#0507---16-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Added: the menu bar app, Dozable.app: the daemon&#x27;s state, Start, Stop, Restart and Open Dashboard. <code>doz app install</code>, <code>doz app status</code>, <code>doz app uninstall</code>.</li>
+</ul>
+<h3 id="0506---16-november-2026---stable">0.50.6 - 16 November 2026 - stable<a class="anchor" href="#0506---16-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Added: <code>doz account keepalive off|on|always</code>. <code>always</code> renews this Mac&#x27;s Claude login when it expires, with no sandbox needed.</li>
+<li>Fixed: the keep-alive runs when the login expires, not before (an early run renewed nothing), and tries again if it fails.</li>
+<li>Fixed: a Claude login made over ssh is read as expired when it expires, so it can be renewed.</li>
+</ul>
+<h3 id="0505---16-november-2026---stable">0.50.5 - 16 November 2026 - stable<a class="anchor" href="#0505---16-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Added: <code>doz daemon login-item on|off|status</code> starts the daemon when you log in. Nothing is written unless you say so.</li>
+<li>Changed: <code>doz daemon stop</code> keeps the daemon stopped until the next doz command or your next login.</li>
+<li>Changed: <code>doz uninstall</code> and <code>doz nuke</code> remove the login item. Run <code>doz uninstall</code> before <code>brew uninstall</code>.</li>
+</ul>
+<h3 id="0504---16-november-2026---stable">0.50.4 - 16 November 2026 - stable<a class="anchor" href="#0504---16-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Changed: the daemon stays running (<code>daemon.always_on</code>, on by default) and moves to a new build by itself after an upgrade, once nothing is running. To have it exit when idle: <code>doz config set daemon.always_on off</code>.</li>
+<li>Changed: a daemon started over ssh still exits when idle, so the next one from your desktop can read your keychain.</li>
+</ul>
+<h3 id="0503---16-november-2026---stable">0.50.3 - 16 November 2026 - stable<a class="anchor" href="#0503---16-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Added: <code>--secret VAR,src=PATH,to=HOST:PORT</code> on <code>doz create</code>, <code>doz run NAME</code> and <code>doz run @mac</code>. The session gets a placeholder, swapped for the value only on requests to that host and port. <code>doz net show</code> lists each one by a fingerprint, never the value.</li>
+</ul>
+<h3 id="0502---16-november-2026---stable">0.50.2 - 16 November 2026 - stable<a class="anchor" href="#0502---16-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Added: <code>--host-port PORT</code> (and <code>host_ports:</code> in <code>doz_project.yaml</code>) lets a sandbox or fenced session reach a service on this Mac as <code>host.dozable.internal:PORT</code>. <code>doz net allow NAME host:PORT</code> changes it live.</li>
+</ul>
+<h3 id="0501---16-november-2026---stable">0.50.1 - 16 November 2026 - stable<a class="anchor" href="#0501---16-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Added: site permissions can name ports: <code>site:HOST:PORT</code> and <code>site:HOST:P1,P2</code>.</li>
+<li>Changed: a refused connection on a port other than 80 or 443 suggests the narrow permission.</li>
+<li>Changed: <code>--permissions site:localhost</code> on a session on this Mac is refused (it never opened anything).</li>
+</ul>
+<h3 id="0500---16-november-2026---stable">0.50.0 - 16 November 2026 - stable<a class="anchor" href="#0500---16-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Changed: <code>doz host</code> is now <code>doz daemon</code> (<code>start</code>, <code>stop</code>, <code>restart</code>, <code>status</code>, <code>upgrade-check</code>). <code>doz host</code> no longer exists.</li>
+<li>Changed: settings <code>host.*</code> are now <code>daemon.*</code> (moved for you); <code>DOZ_HOST_IDLE</code> is <code>DOZ_DAEMON_IDLE</code>; <code>--json</code> names say <code>daemon</code>.</li>
+<li>Fixed: sessions on this Mac keep running while the daemon is replaced by the new version.</li>
+</ul>
+<h3 id="0403---16-november-2026">0.40.3 - 16 November 2026<a class="anchor" href="#0403---16-november-2026" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Added: the New session wizard shows the Swift and Xcode build commands that work in a fenced session, and when to go unfenced. <code>doz run @mac --xcode --dry-run</code> prints them too.</li>
+</ul>
+<h3 id="0402---15-november-2026---stable">0.40.2 - 15 November 2026 - stable<a class="anchor" href="#0402---15-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Fixed: <code>swift test</code> works in a fenced <code>--xcode</code> session.</li>
+<li>Fixed: <code>doz sessions restart</code> resumes the right Claude Code conversation, and says so when the program dies at once.</li>
+<li>Fixed: a foreground <code>doz run @mac</code> returns its program&#x27;s exit code.</li>
+<li>Fixed: a Claude login made over ssh is seen.</li>
+<li>Added: <code>mac.fence_loopback_listen</code> (off by default), for test servers that pick their own port.</li>
+</ul>
+<h3 id="0400---14-november-2026---stable">0.40.0 - 14 November 2026 - stable<a class="anchor" href="#0400---14-november-2026---stable" aria-label="Link to this section">#</a></h3>
+<ul>
+<li>Changed: sessions on this Mac are <strong>fenced</strong> by default. <code>--unfenced</code> (or <code>mac.fence off</code>) gives a session what it had before; sessions opened before keep their mode.</li>
+<li>Added: a fenced session&#x27;s network goes through its own Dozable proxy, with a sandbox&#x27;s permissions; Claude Code gets its own settings folder and its login through the proxy; GitHub (<code>--github</code>), your SSH agent (<code>--ssh-agent</code>), <code>--xcode</code> and <code>--simulator</code>.</li>
+<li>Added: <code>doz sessions @mac --capabilities NAME</code>, and in the dashboard the session&#x27;s &quot;What it can do&quot; tab and <strong>New session on this Mac…</strong>.</li>
+<li>Changed: sandboxes can no longer reach this Mac through any of its addresses; <code>mac.dozable.internal:PORT</code> still reaches a model server. &quot;Use GitHub&quot; includes GitHub&#x27;s Git LFS host.</li>
+</ul>
+<h2 id="upgrade">Upgrade<a class="anchor" href="#upgrade" aria-label="Link to this section">#</a></h2>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz upgrade
+doz daemon stop     <span class="c"># once, after upgrading to 0.51 from an earlier version</span></code></pre></figure>
+<p><code>doz upgrade</code> moves you to the newest version on your channel. With Homebrew directly, run <code>brew update</code> first, then <code>brew upgrade dozable/tap/doz</code>. Coming from 0.36 or earlier? Read <a href="https://dozable.com/blog/doz-v0.37#upgrade">the 0.37 post&#x27;s Upgrade section</a> first: 0.37 started with a new store.</p>
+<p>There are three channels: stable (<code>dozable/tap/doz</code>), beta (<code>dozable/tap/doz-beta</code>) and canary (<code>dozable/tap/doz-canary</code>), which gets every build first. <code>doz upgrade --channel canary</code> switches.</p>
+<p>More is coming soon. Thank you for using Dozable.</p>
+</article>
+<aside class="post-sub" aria-labelledby="sub-h"><div class="post-sub-in">
+<h2 id="sub-h">Get Release news by email</h2>
+<p>Tick what you’d like to hear about. <a href="./">Read past issues &rarr;</a></p>
+<div class="signup-box signup" data-signup-root>
+<noscript><p class="note">This form needs JavaScript &mdash; or run <code>doz signup</code> in Terminal.</p></noscript>
+<form data-signup action="#" method="post">
+  <div class="field"><label for="post-email">Email</label>
+  <input id="post-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="254" placeholder="you@example.com"></div>
+  <fieldset><legend>What would you like to hear about? <span class="muted">Choose at least one.</span></legend>
+    <label class="check"><input type="checkbox" name="interests" value="release-news"><span><b>Release news</b><small>New versions and what changed.</small></span></label>
+    <label class="check"><input type="checkbox" name="interests" value="tool-news"><span><b>Tool news</b><small>New and updated tools you can try in Dozable.</small></span></label>
+    <label class="check"><input type="checkbox" name="interests" value="early-access"><span><b>Early access</b><small>Try beta and canary builds before they are released.</small></span></label>
+    <label class="check"><input type="checkbox" name="interests" value="tips"><span><b>Tips and tricks</b><small>Ways to get more out of Dozable, now and then.</small></span></label>
+  </fieldset>
+  <p class="msg" data-signup-error role="alert" hidden></p>
+  <button class="pill big" type="submit">Sign up</button>
+  <p class="fine-s">Email only. We confirm by email, and every email has a one-click unsubscribe. <a href="../privacy">Privacy &rarr;</a></p>
+</form>
+<div class="result" data-signup-result role="status" aria-live="polite" tabindex="-1" hidden><p class="result-title" data-signup-title></p><p data-signup-text></p></div>
+</div>
+</div></aside>
+</main>
+<footer class="foot"><div class="wrap">
+  <ul>
+    <li><a href="https://github.com/dozable/dozable">GitHub</a></li>
+    <li><a href="../docs/">Manual</a></li>
+    <li><a href="https://github.com/dozable/dozable/releases">Releases</a></li>
+    <li><a href="../timeline.html">Timeline</a></li>
+    <li><a href="../blog/">Blog</a></li>
+    <li><a href="../privacy">Privacy</a></li>
+    <li><a href="../signup">Sign up</a></li>
+    <li><a href="https://github.com/dozable/dozable/blob/main/LICENSE">MIT licence</a></li>
+    <li><a href="../LICENSES/lucide.txt">Icon licence</a></li>
+  </ul>
+  <p>Requires Apple silicon and macOS 26 or later.</p>
+  <p>&copy; 2026 Johno Scott. Released under the MIT licence.</p>
+</div></footer>
+</body>
+</html>
