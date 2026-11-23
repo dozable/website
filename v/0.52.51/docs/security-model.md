@@ -1,0 +1,234 @@
+> Dozable 0.52.51 — canary; not the Homebrew stable release. The stable manual is https://dozable.com/docs/ (https://dozable.com/llms.txt).
+
+# Security model
+
+Dozable's job is to let an AI agent work freely — install things, run code, make a mess — without
+putting your Mac, your credentials or your data at risk. This page explains what protects you, what
+each boundary does and doesn't cover, and the few ways a sandbox can reach your Mac by design.
+
+## The boundaries
+
+### 1. A virtual machine, not a container
+
+Each sandbox is a real Linux VM with its own kernel, run by Apple's Virtualization framework. A
+program in it — root included — sees only the VM: its own disks, and nothing of your Mac except the one
+folder you chose to share at `/workspace`. An isolated sandbox shares nothing at all.
+
+- The shared folder is live in both directions: **the agent can change or delete anything in it.** Use
+  git (or `--isolated`, or a copy) for anything you can't afford to lose.
+- A sandbox's disks are its own files in the store; restore points copy them.
+
+### 2. No network card: everything goes through the proxy
+
+A proxied sandbox (the default for every image) has no network interface. Its only way out is Dozable's
+proxy, in the daemon on your Mac, which checks every connection — DNS included — against the sandbox's
+[permissions](../10-permissions-and-network.md), and logs it (host, verdict, bytes; never contents).
+
+- The agent can't change its own permissions, and root inside the VM can't get around them: there is
+  no route out but the proxy.
+- **Browse the web** and **Open** let the agent reach anything, so it could send your code anywhere.
+  They warn before you turn them on. Prefer `site:HOST` for what's really needed.
+- `--network nat` gives a sandbox a real network card, **not filtered or logged**; `--network none`
+  gives it none. Use `nat` only when you mean it.
+- **Your Mac's localhost is never reachable** through the proxy (`127.0.0.1`, `localhost`, `::1`), whatever
+  the permissions — Open included: what listens there (a database, a dev server, another sandbox's web
+  port) expects only your Mac's own programs. Nor are your Mac's other addresses (its Wi-Fi or Ethernet
+  address, a VPN's or Tailscale's), link-local addresses (`169.254.x.x`, `fe80::`) — among them the
+  cloud metadata address `169.254.169.254` — or the IPv6 forms of any of these. Other machines on your
+  network stay reachable when the permissions allow them. The one exception is chosen per sandbox: a model server on
+  your Mac, by its port, reached as `mac.dozable.internal:PORT` — that port only
+  ([Claude Code with other models](../32-claude-code-other-models.md)).
+
+### 3. Credentials never enter the sandbox
+
+The proxy holds your Claude login, token or API key and adds it to requests to Anthropic on their way
+out. Inside the sandbox the agent sees a placeholder (`doz_cred_…`), so there's nothing to steal:
+
+- a secret is never written into the VM, never a command-line argument, never in a log, an event or an
+  error message;
+- your Mac login's refresh token is never read — only the short-lived access token;
+- a credential the agent brings itself is flagged or refused (the [key policy](../09-agents-and-accounts.md#a-credential-the-agent-brings-itself));
+- accounts are stored in your login keychain, and the dashboard never shows a secret.
+
+**Codex's ChatGPT plan** works the same way ([Codex](../24-codex.md)): Dozable's own ChatGPT sign-in is kept in
+your login keychain; the sandbox's `~/.codex/auth.json` holds placeholders (and the sign-in's details
+without their signature); the proxy puts the access token into requests to `chatgpt.com` only, and
+renews it on your Mac — Codex's own renewal request is answered by the proxy, never sent on. Your
+Mac's own Codex login (`~/.codex`) is never read or changed.
+
+**Your GitHub login** works the same way, and only when you choose it — for new sandboxes in setup's
+Access step, or for one sandbox ([GitHub as you](../18-github.md)):
+
+- the token (your Mac's `gh` login, read when used and kept in the proxy's memory a few minutes, or a
+  token you gave the sandbox) never enters the VM, the store or a log — the sandbox's `GH_TOKEN` and
+  git's login are placeholders, swapped only on the way to `github.com`, `api.github.com`,
+  `uploads.github.com` and `codeload.github.com` (git's `Basic` login is decoded, swapped and
+  re-encoded there, and nowhere else);
+- **read-only is enforced by the proxy**, request by request: `git-receive-pack` (a push) is refused,
+  and so is every request to the API that isn't a read — except a GraphQL request whose document holds
+  only queries. Dozable reads that document conservatively: anything it can't tell is read-only is refused;
+- turning the permission off (or `gh auth logout` on the Mac) ends it at once: every placeholder already
+  issued is refused;
+- with **Push to GitHub** on, the agent can push and act on GitHub as you, within what your token may
+  do — so prefer a fine-grained token limited to the repositories it works on (`doz key set NAME
+  --github`). Every change it makes is in the network log;
+- with **SSH agent forwarding** on (`sandbox.ssh_agent`), the agent can ask your Mac's ssh-agent to sign
+  — and so authenticate as you to github.com — while it's on; your keys never leave the Mac, it can't
+  add, remove or lock keys in your agent (only list and sign get through), and only `github.com:22` is
+  reachable over SSH.
+
+**Access — every credential is a purposeful choice.** Setup's Access step (and `doz access`) puts the
+Claude account, GitHub as you and SSH agent forwarding side by side, each with what it means. GitHub
+and SSH are **off** until you choose them, and nothing is turned on silently — not by `doz onboard
+--yes`, not by the **Open** preset. Each choice is confirmed live, on your Mac:
+
+- GitHub: the real token is read the way a sandbox would get it and sent to `api.github.com` (`GET
+  /user`, plus `/user/repos` for a fine-grained token) over the proxy's own TLS connection, verified
+  against your Mac's trust store. The answer you see is the login and the scopes or a repository count —
+  never the token;
+- SSH: your agent is asked for its list of keys — nothing is signed;
+- the result is kept in `access.json` in the store: states and reasons only, never a secret. A pasted
+  GitHub token goes straight to the daemon and into your login keychain (`doz-github`) — the dashboard
+  takes it only while `ui.allow_secret_entry` is on, in a masked field it empties at once, and never
+  shows it again.
+
+A check that fails never turns anything on or off by itself: **Skip** keeps your choice, marked *not
+confirmed*; turning it off is yours to do.
+
+**A secret for a service** (`--secret`, [A secret for a service](../10-permissions-and-network.md#a-secret-for-a-service))
+works the same way: read from a file of yours alone by `doz`, sent once to the daemon, kept in a keychain item of its
+own — never in an argument, a record, the log, `--json`, or the session's environment and files (they hold only a
+placeholder). The proxy swaps it on requests to exactly the host and port you named; the placeholder sent anywhere else
+is refused and logged. Over plain HTTP that swap happens only to this Mac's ports and to Tailscale addresses (while your
+Mac is on Tailscale and `network.placeholders_plain_http` is on) — a plain-HTTP hop on your own Mac or your own private
+network, never the internet.
+
+**What the leak guard can and cannot see.** The proxy checks a placeholder wherever it reads the request: every plain-HTTP
+request, and the HTTPS hosts it decrypts (those it holds a credential for). Inside a tunnel it does not decrypt — an
+HTTPS connection to another host, a `CONNECT` to a port of your Mac — and on raw TCP to a host it allows, the placeholder
+passes unseen. What passes is only ever the placeholder, never the secret: it has no power anywhere but on the request
+the proxy swaps it on. Raw TCP to a secret's own destination is refused outright (the swap needs the proxy).
+
+### 4. Root inside is not root outside
+
+The agent has passwordless `sudo` inside its sandbox by default. That's deliberate: root inside the VM
+reaches no more than the agent does — the same proxy, no credentials, only the shared folder. It lets
+the agent install what it needs. Turn it off with `sandbox.agent_sudo` if you prefer.
+
+### 5. The daemon and the dashboard are yours alone
+
+- The daemon listens on a socket in your store, readable only by you.
+- The dashboard listens on your Mac's loopback only, signs a browser in with a one-use link, checks the
+  exact host and origin and a CSRF token on every change, and runs each terminal in an isolated frame:
+  whatever a sandbox prints can't reach the dashboard's session or other terminals.
+- The dashboard never sets a folder of your Mac from what the page sends: the projects folder's
+  **Choose…** opens your Mac's own folder picker, and the folder you pick there is what is saved
+  (never a folder inside the store, never `/`).
+- A dashboard link is a key: don't paste it anywhere.
+- The dashboard's LAN option (`doz ui --lan`, `ui.lan` — the dashboard for your other devices,
+  [its page](../25-doz-serve.md)) is off until you turn it on, on the Mac. Only a connection from this Mac to
+  `127.0.0.1:<port>` exactly, with no proxy in between, is your Mac's own browser (signed in by the link); any
+  other browser needs an invite to get in (a link, a code or a QR code — one browser each, five minutes) and stays
+  in until you remove it; every request's host and origin are checked against this Mac's names and addresses (or
+  your proxy's address, only from a proxy you named in `serve.trusted_proxies`); another browser can never type a
+  key or token over plain HTTP nor open a window on the Mac's screen; and a sandbox can never reach it — a sandbox
+  network's connection is dropped before anything is read, and the proxy refuses the dashboard's port on your Mac's
+  own addresses. What other browsers do is in `doz ui log`.
+- Chat ([its page](../36-chat.md)) has no token for you: you take part only through your own socket in the store, which
+  only your own programs can open — the dashboard and the `doz chat` commands. Every agent needs its own token, and
+  nothing that reaches the chat server's ports (on this Mac, or on its Tailscale address for the machines you named)
+  is ever you. Another browser of the dashboard gets chat only as `serve.chat` (set on the Mac, `off` by default)
+  allows; with `write` it acts as you in chat, and what it sends is in `doz ui log`. An attachment is served so that it
+  can never run as the dashboard: only PNG, JPEG, GIF and WebP pictures are shown, everything else is a download.
+
+## The bridges — deliberate ways in to your Mac
+
+A session's terminal lets a program in the sandbox do three things on your Mac, because agents need
+them. Each is announced every time it's used, rate-limited, works only while a terminal is attached,
+and can be turned off per sandbox or for all. All three travel the same way — a private escape
+sequence in the session's output, which Dozable's daemon takes out and decides on; the sandbox has no other
+channel to your Mac.
+
+| bridge | what the sandbox can do | what it can't | the risk | turn it off |
+|---|---|---|---|---|
+| **Clipboard** | put text on your Mac's clipboard (up to 1 MiB, 10 copies per 10 s) | **read** your clipboard — ever | an agent could plant a command for you to paste | `sandbox.clipboard = off` |
+| **Browser** | open an http(s) page in your default browser (3 per 10 s); during a sign-in, receive the redirect on one loopback port for up to 10 minutes | open `file:` or other schemes, reach your Mac's own `localhost`, forward any other port | an agent could open a misleading page | `sandbox.browser_bridge = off` |
+| **Files** | open a document from its shared `/workspace` in its default app, or in an app you listed in `bridges.open_apps`; open the shared folder or a folder in it in the Finder; show a file selected in its folder (`--reveal`) — 3 per 10 s | open anything outside the shared folder (paths are resolved on the Mac — `..` and links that lead out are refused), an app or package folder (not even in the Finder — only revealed), a folder as an app, an app, script, installer or link file, an executable, a program or `#!` script renamed as a document (the first bytes are checked), or an app you didn't list; anything at all in an isolated sandbox | an agent could open a misleading page or document (an html file runs its scripts in your browser, as a local page) | `sandbox.open_files = off` |
+
+The agent is told about all three, including that you see a notice every time.
+
+**Web ports** are not a bridge the sandbox uses: you choose them (a tool's declared port, or `doz ports add`). A
+forward lets your Mac's browser reach a program inside the sandbox, on `127.0.0.1` only and only while the sandbox
+runs; it never lets the sandbox reach anything, and no key crosses it — see [Web ports](../29-web-ports.md).
+
+One limit of the files bridge, stated plainly: the file is checked and then handed to macOS to open,
+so an agent racing that moment (a few milliseconds) could swap in another file from your shared
+folder. It can only ever name something the shared folder reaches, and macOS is only ever given a
+fully resolved path.
+
+## Things that run outside a sandbox
+
+- **Dockerfile builds** run in Apple's `container` builder, **outside Dozable's network policy**: their
+  `RUN` steps reach the internet directly. Only build Dockerfiles you trust. See
+  [Images and bases](../08-images-and-bases.md#your-own-dockerfile).
+- **Image preparation** runs in a temporary VM with the `bake` permissions (package registries only),
+  logged like any sandbox.
+- **Keep-alive**, when you turn it on, runs your Mac's own `claude` once when its login expires. It runs with no tools, no MCP servers
+  and no hooks, in an empty folder, with a short list of environment variables. Nothing from a sandbox reaches it. It never
+  runs while a Claude Code that is not fenced runs on your Mac. What it records (`keepalive.json` in the store) holds no token.
+- **Sessions on this Mac** (`doz run @mac`) are not in a sandbox: the program runs on your Mac, as you. A new one is
+  **fenced** by default — macOS's own sandbox holds it to its project folder, its own temp, caches and agent settings,
+  and a proxy of its own with the permissions above; your Keychain, secrets and other folders are closed, and its
+  logins reach it only as placeholders. The fence is not a virtual machine: its project files are its work, names
+  of files and other programs' command lines are visible to it, and the Simulator (`--simulator`) runs outside it.
+  `--unfenced` opts a session out: then it has your files, Keychain and network, and nothing of this page applies.
+  Dozable never bypasses an agent's permissions there unless the command you gave asks, and then says so. See
+  [Sessions on this Mac](../34-sessions-on-this-mac.md).
+
+## What leaves your Mac
+
+- **Anonymous usage statistics**, in official builds only: counts and ranges about how Dozable is used,
+  at most once a day, with a random install id — never anything from inside a sandbox, a name, path,
+  host, command argument, account or key. Off with `doz config set telemetry.send_anonymous_usage_stats
+  false`, `DO_NOT_TRACK=1`, or `--no-send-anonymous-usage-stats`; `doz telemetry show` prints exactly what
+  would be sent. Builds from the open-source repository send nothing. See
+  [Usage statistics and sign-up](../01-getting-started.md#usage-statistics-and-sign-up).
+- **The sign-up**, only if you sign up: your email and what you ticked.
+- **The update check**: Dozable's version and channel, at most once a day (`updates.mode off` stops it).
+- **Your agent's own traffic**, through the proxy, to what you allow.
+
+Nothing else: the history of this Mac (`doz timeline`) stays in your store. It keeps the host and port of each
+connection a sandbox made — never a path, query string, header or body — for 7 days by default (`timeline.egress`),
+hidden until you ask for it, and after that only counts per sandbox. See [History and retention](../40-history-and-retention.md).
+
+## What Dozable can't protect
+
+- **Your shared folder.** It's the agent's to change. Commit often. [Folder rules](../20-workspace-rules.md)
+  (`.dozignore`, `.dozreadonly`) keep an agent from stumbling into files there, but they are a convenience,
+  not a boundary: root in the sandbox can get around them. A secret that must not reach a sandbox does
+  not belong in the folder it shares.
+- **What you allow.** A permission or a site you allow is reachable; data can go there.
+- **What you paste or open.** Read clipboard, browser and file notices, and don't run what an agent put
+  on your clipboard without looking.
+- **Another agent driving `doz` on your Mac** has your permissions: brief it to leave permissions and
+  deletion to you ([Letting another agent drive Dozable](../14-letting-another-agent-drive.md)).
+- **Secrets you put on a sandbox's disk yourself** travel with its restore points and saved disks.
+- **A placeholder in a tunnel the proxy does not read** (above) is not refused — it reaches that host, as a meaningless
+  placeholder. A secret's own destination receives the real secret: give a secret only to a service you trust with it.
+
+## Settings
+
+| key | default | what it does |
+|---|---|---|
+| `defaults.permissions` | `standard` | What a new sandbox's agent may reach. |
+| `sandbox.clipboard` | `write` | The clipboard bridge. |
+| `sandbox.browser_bridge` | `on` | The browser bridge. |
+| `sandbox.open_files` | `on` | The files bridge. |
+| `bridges.open_apps` | `""` | The apps a sandbox may name for the files bridge (none: default apps only). |
+| `defaults.github` | `off` | "Use GitHub as you" for new sandboxes: `off`, `read` or `push`. |
+| `github.credentials` | `gh` | Where "Use GitHub as you" gets your login: `gh`, `key` or `off`. |
+| `sandbox.ssh_agent` | `off` | Forward your Mac's ssh-agent (github.com:22 only). |
+| `sandbox.agent_sudo` | `true` | The agent's sudo inside its sandbox. |
+| `ui.allow_secret_entry` | `true` | The dashboard may take a key or token. |
+| `recipes.anthropic.claude-code.approvals` | `skip` | Claude Code's own permission prompts (`ask` to keep them). |
+| `telemetry.send_anonymous_usage_stats` | `true` | Official builds: anonymous usage statistics (`false`, or `DO_NOT_TRACK=1`, turns them off). |
