@@ -1,0 +1,121 @@
+> Dozable 0.52.57 — canary; not the Homebrew stable release. The stable manual is https://dozable.com/docs/ (https://dozable.com/llms.txt).
+
+# Resources and disk space
+
+Dozable keeps everything in one folder, the **store**. `doz resources` — and the dashboard's
+**Resources** page — accounts for every byte of it, shows the memory, CPUs and network your sandboxes
+use, and deletes what can safely go.
+
+## Concepts
+
+- **Sizes are real disk use.** Dozable's disks are APFS clones: a sandbox shares most of its blocks with
+  its image, and a restore point with its sandbox. So each row shows three numbers:
+  - **size** — the disk space it occupies, counted in full;
+  - **freed if deleted** — what deleting it would actually give back (only the blocks nobody else
+    shares);
+  - **used by** — what depends on it.
+- **Everything adds up.** The rows add up to the total that `du` reports for the store. A last row,
+  **unattributed**, is what no row explains; it should be 0.
+- **Re-creatable vs. yours.** A download cache, an unused baked image or an old kernel can be made
+  again (it costs time and network later). A sandbox, a restore point or a saved disk can't — those are
+  yours.
+
+## See it — in the terminal
+
+```sh
+doz resources               # every byte of the store, then memory, CPUs, traffic and kernels
+doz resources --json
+```
+
+The groups: **Sandboxes** (each one's system disk, state disk, sleep snapshot, restore points, saved
+screens and boot logs), **Images & saved disks**, **Caches** (the download cache, base disks, the boot
+disk, kernels, preparation leftovers, and the **tools layer** — `gh`, downloaded once for sandboxes with
+GitHub as you; see [Managed tools](19-the-tools-layer.md)), **Logs & metrics**, **Stray files**, Dozable's own records — and
+**Outside the store**: your settings file, keychain entries by name, the `doz` program, project
+folders and Apple's `container` storage. Those outside rows are shown, never deleted here.
+
+## Free space
+
+```sh
+doz resources clean --dry-run          # what Clean up would delete, and what each frees
+doz resources clean                    # asks once
+doz resources rm cache:downloads kernel:6.12.1 --dry-run
+doz resources rm point:web/3           # by id, as doz resources lists them
+```
+
+- **Clean up** deletes what is **re-creatable and unused**: the download cache, the tools layer's cache, base disks, kernels
+  nothing needs, images no sandbox was made from in the last `resources.clean_unused_days` (30) days,
+  and leftovers. It **never** deletes saved disks, sandboxes, restore points, settings or keys; logs,
+  metrics and the history file are kept too (select them yourself to clear them). Clearing the metrics clears
+  their part of the history; deleting the **history** item (`timeline.sqlite`) has the daemon make it again from the
+  records (see [History and retention](40-history-and-retention.md)).
+- **`rm`** deletes what you name, after showing the plan: each item, what it frees, what it costs
+  later ("prepared again when next needed, about 3 min, needs network"), and anything refused and why.
+- **Nothing breaks a sandbox.** Refused, always: a sandbox's own disks (remove the sandbox instead);
+  the kernel and boot disk while any sandbox is asleep or running (their snapshots need them); an
+  image being prepared; a folder that is a sandbox's shared folder; anything outside the store.
+- The deletion waits until nothing that uses the disks is under way (a start, a wake, a preparation),
+  and runs as one operation.
+
+## In the dashboard
+
+**Resources** in the sidebar (its total is shown beside it). The bar on top splits Dozable's total into
+what it keeps, what **Clean up** would free and the blocks clones share, with the disk's free space
+beside it; under it, a strip that jumps to each group (with its size) — a group's heading folds it, and
+the dashboard remembers which you folded. Then the rows, each linking to where it's managed: an image to **Images**, a
+sandbox's parts to **its page**, accounts to **Accounts & keys**.
+
+1. Tick what should go, or **Select all re-creatable**.
+2. **Delete selected…** — one confirmation lists each item, what it frees and what it costs later.
+3. Or **Clean up…** for the safe set.
+
+The page measures when you open it, on **Refresh**, and when an operation ends.
+
+![The Resources page](https://github.com/dozable/dozable/blob/v0.52.57/docs/manual/images/resources.png)
+
+## Memory, CPUs, traffic and kernels
+
+The same report shows the memory each running sandbox holds (and the daemon's and the dashboard's),
+the CPUs given to sandboxes, each sandbox's network traffic through the proxy (today and in all), and
+the Linux kernels. **Use this kernel** (or `doz resources kernel kernel:VERSION`, or `pinned` for
+this version's own) picks the kernel **new** sandboxes boot; existing ones keep theirs.
+
+## Apple's `container` storage
+
+If you build Dockerfile bases, Apple's `container` tool keeps its own images and data outside Dozable's
+store. The Resources page shows it as an **Outside** row — its data folder by part, the program, and
+the images Dozable built with it — so you know where the space went. Dozable never deletes it; manage it
+with Apple's `container` command.
+
+## A second store
+
+`--store DIR` (or `DOZ_STORE`) runs Dozable on another store — a test store beside your own, say. A second store is a
+second Dozable: its own daemon, sandboxes, workspaces and chat server, with its own rooms, participants and **tokens** (a
+token of one store means nothing to another). Three things to know:
+
+- **Its chat ports.** Your settings file (`~/.config/doz/doz.toml`) is shared by every store unless you give the second
+  its own settings folder (`XDG_CONFIG_HOME`); two chat servers cannot share a port, so give each store its own settings
+  folder, or its own `chat.page_port` and `chat.line_port`. `doz chat status --store DIR` shows the ports it uses. An agent
+  Dozable starts is given its own store's address (`CHAT_URL`); one you start yourself must be told it.
+- **It keeps running.** `daemon.always_on` is on by default, for every store: the second store's daemon stays up after
+  its last sandbox stops, until `doz daemon stop --store DIR`.
+- **The menu bar app is for the default store only** (the one `doz` uses with no `--store`), its Start at Login
+  included. A second store's daemon starts when a command needs it, or at login with a login item of its own
+  (`doz daemon login-item on --store DIR`).
+
+## Settings
+
+| key | default | what it does |
+|---|---|---|
+| `resources.clean_unused_days` | `30` | Clean up removes a baked image no sandbox was made from in this many days (1–3650). It's baked again when next needed. |
+| `daemon.boot_logs_kept` | `5` | Boots kept per sandbox. |
+| `store.path` | `~/Library/Application Support/doz` | Where the store is. |
+
+## Troubleshooting
+
+| symptom | what to do |
+|---|---|
+| The **unattributed** row isn't 0 | Something in the store no row explains. `doz resources --json` lists it under stray files; report it if it keeps growing. |
+| "refused: … a sandbox's disk" | Remove or reset the sandbox instead; Resources never deletes a live sandbox's disks. |
+| Clean up freed less than the sizes suggested | Sizes count shared blocks in full; "freed" counts only what nothing else shares. |
+| The Mac's disk is still full | Look at **Outside the store**: Apple's container storage and your project folders are yours to manage. |
