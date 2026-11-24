@@ -321,8 +321,44 @@ def signup_box(prefix):
                 + box('tips', 'Tips and tricks', 'Ways to get more out of Dozable, now and then.'))
 
 
+ZOOM_GLYPH = ('<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" '
+              'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>')
+
+
+def zoom_gallery(html_body):
+    """The post page's CSS-only zoom: each image gets an expand link in its corner (shown on hover or focus) to a
+    full-screen view (`:target`) with previous / next between the post's images and a close that returns to the
+    image. Only on the post page — the feed and the email keep the plain figures."""
+    figs = list(re.finditer(r'<figure class="shot"><div class="frame">(<img src="([^"]+)" alt="([^"]*)" '
+                            r'width="(\d+)" height="(\d+)"[^>]*>)</div></figure>', html_body))
+    if not figs:
+        return html_body, ''
+    n = len(figs)
+    out, last, views = [], 0, []
+    for i, m in enumerate(figs, 1):
+        src, alt = m.group(2), m.group(3)
+        out.append(html_body[last:m.start()])
+        out.append('<figure class="shot zoomable" id="fig-%d"><div class="frame">%s'
+                   '<a class="zoom-open" href="#zoom-%d" aria-label="Enlarge: %s">%s</a></div></figure>'
+                   % (i, m.group(1), i, alt, ZOOM_GLYPH))
+        last = m.end()
+        nav = ''
+        if n > 1:
+            nav = ('<a class="zoom-prev" href="#zoom-%d" aria-label="Previous image">&lsaquo;</a>'
+                   '<a class="zoom-next" href="#zoom-%d" aria-label="Next image">&rsaquo;</a>'
+                   '<span class="zoom-count">%d / %d</span>' % ((i - 2) % n + 1, i % n + 1, i, n))
+        views.append('<div class="zoom-view" id="zoom-%d" role="dialog" aria-label="%s">'
+                     '<a class="zoom-backdrop" href="#fig-%d" aria-label="Close" tabindex="-1"></a>'
+                     '<figure><img src="%s" alt="%s" loading="lazy" decoding="async"><figcaption>%s</figcaption></figure>'
+                     '<a class="zoom-close" href="#fig-%d" aria-label="Close">&times;</a>%s</div>'
+                     % (i, alt, i, src, alt, alt, i, nav))
+    out.append(html_body[last:])
+    return ''.join(out), '<div class="zoom-views">%s</div>\n' % ''.join(views)
+
+
 def post_page(p, header, footer):
     f = p['fm']
+    body, views = zoom_gallery(p['html'])
     url = BASE + 'blog/' + p['slug']
     title = '%s — Dozable blog' % f['title']
     extra = ('<meta property="article:published_time" content="%s">\n' % f['date']
@@ -339,9 +375,9 @@ def post_page(p, header, footer):
             '<p class="post-summary">%s</p></header>\n%s\n</article>\n'
             '<aside class="post-sub" aria-labelledby="sub-h"><div class="post-sub-in">\n'
             '<h2 id="sub-h">%s</h2>\n'
-            '<p>Tick what you\u2019d like to hear about. <a href="./">Read past issues &rarr;</a></p>\n%s\n</div></aside>\n</main>\n%s\n</body>\n</html>\n'
-            % (f['date'], fmt_date(f['date']), chips(f['topics']), esc(f['title']), esc(f['summary']), p['html'],
-               esc(sub_h), signup_box('post-'), footer))
+            '<p>Tick what you\u2019d like to hear about. <a href="./">Read past issues &rarr;</a></p>\n%s\n</div></aside>\n</main>\n%s\n%s</body>\n</html>\n'
+            % (f['date'], fmt_date(f['date']), chips(f['topics']), esc(f['title']), esc(f['summary']), body,
+               esc(sub_h), signup_box('post-'), footer, views))
 
 
 def index_page(posts, header, footer):
