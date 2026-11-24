@@ -103,6 +103,16 @@ accent stays `#ffd60a` (the picker is local to the home page and not loaded in t
 | `--tint` | accent 55% | current chapter, table header, warning panel, card hover |
 | `--tint-soft` | accent 24% | inline code, code caption, example quote, target flash |
 
+Dark mode follows the system (`prefers-color-scheme`), and a moon/sun button at the right of the header
+(after Install; on a phone it stays in the bar, beside the menu) switches and remembers the choice.
+The button is a `<button class="theme-toggle">` with `aria-pressed` and an `aria-label`, and two inline
+SVGs (moon in light mode, sun in dark) stroked with `currentColor`. With JavaScript off the button is
+hidden and the page follows the system. A one-line script at the top of `<head>` reads `localStorage`
+(`doz-theme`) and sets `data-theme` on `<html>` before paint; `theme.js` does the click. The accent stays
+`#ffd60a` and text on it stays black. In the dark sheet the page is black, text and borders are white, and
+the bands mix the accent into black (44% for `--tint`, 18% for `--tint-soft`) so light text keeps WCAG AA.
+The share image (`og/og-image.html`) and printed pages stay light.
+
 ## 6. URLs and structure
 
 - `/docs/` = contents page (`docs/index.html`). Chapters: `/docs/<slug>` (clean, no `.html`, like the blog; the file is `docs/<slug>.html`), where slug = the Markdown file name
