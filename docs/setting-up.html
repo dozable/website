@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>Setting up this Mac — Dozable docs</title>
-<meta name="description" content="Setup — onboarding — is what you do once after installing: it checks your Mac, prepares the base image every tool is added to, adds the keys your tools use, chooses and confirms what sandboxes may use as you (Access: GitHub, your SSH agent), explains workspace rules and lets you choose what they do, writes your settings, and makes your first sandbox.">
+<meta name="description" content="Setup — onboarding — is what you do once after installing: it checks your Mac, prepares the base image every tool is added to, adds the keys your tools use, chooses and confirms what sandboxes may use as you (Access: GitHub, your SSH agent), explains folder rules and lets you choose what they do, writes your settings, and makes your first sandbox.">
 <link rel="canonical" href="https://dozable.com/docs/setting-up">
 <link rel="alternate" type="text/markdown" href="https://dozable.com/docs/setting-up.md">
 <meta name="theme-color" content="#ffffff">
@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="Setting up this Mac — Dozable docs">
-<meta property="og:description" content="Setup — onboarding — is what you do once after installing: it checks your Mac, prepares the base image every tool is added to, adds the keys your tools use, chooses and confirms what sandboxes may use as you (Access: GitHub, your SSH agent), explains workspace rules and lets you choose what they do, writes your settings, and makes your first sandbox.">
+<meta property="og:description" content="Setup — onboarding — is what you do once after installing: it checks your Mac, prepares the base image every tool is added to, adds the keys your tools use, chooses and confirms what sandboxes may use as you (Access: GitHub, your SSH agent), explains folder rules and lets you choose what they do, writes your settings, and makes your first sandbox.">
 <meta property="og:url" content="https://dozable.com/docs/setting-up">
 <meta property="og:image" content="https://dozable.com/og-image.png">
 <meta property="og:image:secure_url" content="https://dozable.com/og-image.png">
@@ -23,12 +23,12 @@
 <meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Setting up this Mac — Dozable docs">
-<meta name="twitter:description" content="Setup — onboarding — is what you do once after installing: it checks your Mac, prepares the base image every tool is added to, adds the keys your tools use, chooses and confirms what sandboxes may use as you (Access: GitHub, your SSH agent), explains workspace rules and lets you choose what they do, writes your settings, and makes your first sandbox.">
+<meta name="twitter:description" content="Setup — onboarding — is what you do once after installing: it checks your Mac, prepares the base image every tool is added to, adds the keys your tools use, chooses and confirms what sandboxes may use as you (Access: GitHub, your SSH agent), explains folder rules and lets you choose what they do, writes your settings, and makes your first sandbox.">
 <meta name="twitter:image" content="https://dozable.com/og-image.png">
 <meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="stylesheet" href="../site.css?v=3c6a0f06">
+<link rel="stylesheet" href="../site.css?v=2545262c">
 <script src="../nav.js?v=4f745b91"></script>
 <link rel="stylesheet" href="docs.css?v=4bcad37f">
 <script defer src="docs.js?v=a2a39b76"></script>
@@ -53,51 +53,61 @@
   <nav class="chapters-body" aria-label="Chapters">
 <h2>Start here</h2><ol>
 <li><a href="getting-started">Getting started</a></li>
-<li><a href="sandboxes-and-lifecycle">Sandboxes and their lifecycle</a></li>
-<li><a href="terminals-and-sessions">Terminals and sessions</a></li>
-<li><a href="permissions-and-network">What the agent can do</a></li>
-</ol>
-<h2>Install and set up</h2><ol>
 <li><a href="install-upgrade-uninstall">Install, upgrade, uninstall</a></li>
 <li><a href="setting-up" aria-current="page">Setting up this Mac</a></li>
-<li><a href="projects">Projects</a></li>
-</ol>
-<h2>Using Dozable</h2><ol>
-<li><a href="the-dashboard">The dashboard</a></li>
-<li><a href="doz-serve">The dashboard on other devices</a></li>
-<li><a href="images-and-bases">Images and bases</a></li>
-<li><a href="agents-and-accounts">Agents and accounts</a></li>
-<li><a href="claude-code-other-models">Claude Code with other models</a></li>
-<li><a href="try-and-search">Trying agents</a></li>
-<li><a href="more-agents">More agents</a></li>
-<li><a href="ai-tools">Other AI tools</a></li>
-<li><a href="your-own-recipes">Your own recipes</a></li>
-<li><a href="codex">Codex</a></li>
-<li><a href="web-ports">Web ports</a></li>
-<li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
-<li><a href="github">GitHub as you</a></li>
-<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
-</ol>
-<h2>Files and tools</h2><ol>
-<li><a href="the-tools-layer">The tools layer</a></li>
-<li><a href="dotfiles">Your dotfiles</a></li>
-<li><a href="workspace-rules">Workspace rules</a></li>
-<li><a href="the-workspace-view">The workspace view</a></li>
+<li><a href="letting-another-agent-drive">Letting another agent drive</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
 </ol>
-<h2>Looking after sandboxes</h2><ol>
-<li><a href="restore-points-duplicates-templates">Restore points, duplicates, templates</a></li>
+<h2>Workspaces, rooms and agents</h2><ol>
+<li><a href="workspaces">Workspaces</a></li>
+<li><a href="chat">Chat</a></li>
+<li><a href="agents-and-bots">Agents / Bots</a></li>
+<li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="space-files">Space files</a></li>
+<li><a href="history-and-retention">History and retention</a></li>
+<li><a href="runs-the-journal-and-lessons">Runs, the journal and lessons</a></li>
+<li><a href="bring-your-own-process">Bring your own process</a></li>
+<li><a href="feeds-and-notices">Feeds and notices</a></li>
+<li><a href="tokens-and-identity">Tokens and identity</a></li>
+</ol>
+<h2>Where agents run</h2><ol>
+<li><a href="sandboxes-and-lifecycle">Sandboxes and their lifecycle</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
+<li><a href="permissions-and-network">What the agent can do</a></li>
+<li><a href="security-model">Security model</a></li>
+<li><a href="terminals-and-sessions">Terminals and sessions</a></li>
+<li><a href="workspace-rules">Folder rules</a></li>
+<li><a href="the-workspace-view">The folder view</a></li>
+<li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
+<li><a href="web-ports">Web ports</a></li>
+</ol>
+<h2>Agents, tools and accounts</h2><ol>
+<li><a href="try-and-search">Trying agents</a></li>
+<li><a href="more-agents">More agents</a></li>
+<li><a href="codex">Codex</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
+<li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="github">GitHub as you</a></li>
+<li><a href="the-tools-layer">Managed tools</a></li>
+</ol>
+<h2>Images, recipes and setup</h2><ol>
+<li><a href="images-and-bases">Images and bases</a></li>
+<li><a href="projects">Projects</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
+<li><a href="restore-points-duplicates-templates">Restore points, duplicates, saved disks</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
+<li><a href="sound">Sound</a></li>
 <li><a href="resources-and-disk-space">Resources and disk space</a></li>
-<li><a href="letting-another-agent-drive">Letting another agent drive</a></li>
+</ol>
+<h2>The dashboard and apps</h2><ol>
+<li><a href="the-dashboard">The dashboard</a></li>
+<li><a href="doz-serve">The dashboard on other devices</a></li>
+<li><a href="the-menu-bar-app">The menu bar app</a></li>
 </ol>
 <h2>Reference</h2><ol>
 <li><a href="settings-reference">Settings reference</a></li>
-<li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
 <li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
-</ol>
-<h2>Experimental</h2><ol>
-<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -108,7 +118,7 @@
 <header class="chead">
 <p class="eyebrow">Chapter 3</p>
 <h1>Setting up this Mac</h1>
-<p class="summary">Setup — <strong>onboarding</strong> — is what you do once after installing: it checks your Mac, prepares the <strong>base image</strong> every tool is added to, adds the <strong>keys</strong> your tools use, chooses and confirms what sandboxes may use as you (<strong>Access</strong>: GitHub, your SSH agent), explains <strong>workspace rules</strong> and lets you choose what they do, writes your settings, and makes your <strong>first sandbox</strong>.</p>
+<p class="summary">Setup — <strong>onboarding</strong> — is what you do once after installing: it checks your Mac, prepares the <strong>base image</strong> every tool is added to, adds the <strong>keys</strong> your tools use, chooses and confirms what sandboxes may use as you (<strong>Access</strong>: GitHub, your SSH agent), explains <strong>folder rules</strong> and lets you choose what they do, writes your settings, and makes your <strong>first sandbox</strong>.</p>
 </header>
 <details class="toc-m"><summary>On this page</summary>
 <ol>
@@ -134,14 +144,15 @@
 </details>
 <div class="prose">
 <!-- manual text -->
-<p>Setup — <strong>onboarding</strong> — is what you do once after installing: it checks your Mac, prepares the <strong>base image</strong> every tool is added to, adds the <strong>keys</strong> your tools use, chooses and confirms what sandboxes may use as you (<strong>Access</strong>: GitHub, your SSH agent), explains <strong>workspace rules</strong> and lets you choose what they do, writes your settings, and makes your <strong>first sandbox</strong>. You can do it in the terminal (<code>doz onboard</code>) or in the browser (the dashboard&#x27;s setup wizard). Both are safe to run again.</p>
+<p>Setup — <strong>onboarding</strong> — is what you do once after installing: it checks your Mac, prepares the <strong>base image</strong> every tool is added to, adds the <strong>keys</strong> your tools use, chooses and confirms what sandboxes may use as you (<strong>Access</strong>: GitHub, your SSH agent), explains <strong>folder rules</strong> and lets you choose what they do, writes your settings, and makes your <strong>first sandbox</strong>. You can do it in the terminal (<code>doz onboard</code>) or in the browser (the dashboard&#x27;s setup wizard). Both are safe to run again.</p>
 <h2 id="concepts">Concepts<a class="anchor" href="#concepts" aria-label="Link to this section">#</a></h2>
 <ul>
 <li><strong>The base image</strong> is the Linux system every tool runs on: Node.js on Debian by default (<code>doz base ls</code> lists the others). It is downloaded and prepared <strong>once</strong>; each tool you try — Claude Code, pi, OpenCode … — is added to it as a layer, so a second tool downloads only itself. The store&#x27;s base is the setting <code>defaults.base</code>. See <a href="images-and-bases">Images and bases</a>.</li>
-<li><strong>Preparation runs in the host</strong>, not in your terminal. Setup starts the base&#x27;s download at the Base image step and goes on asking; you can close the terminal or leave the wizard and it carries on. A tool prepared while the base is still being prepared waits for it instead of downloading it a second time.</li>
+<li><strong>Preparation runs in the daemon</strong>, not in your terminal. Setup starts the base&#x27;s download at the Base image step and goes on asking; you can close the terminal or leave the wizard and it carries on. A tool prepared while the base is still being prepared waits for it instead of downloading it a second time.</li>
 <li><strong>An account</strong> is how a tool pays for its AI model: your Mac&#x27;s Claude Code or Codex login, a long-lived token, or a key of a provider (Anthropic, OpenAI, xAI, Google) or a gateway (OpenRouter). The secret stays on your Mac; a sandbox only ever sees a stand-in. See <a href="agents-and-accounts">Agents and accounts</a>.</li>
+<li><strong>Onboard uses this Mac&#x27;s Claude Code login by default.</strong> When Claude Code is signed in on this Mac, that login — the account <code>mac</code> — is what your agents use, with nothing to paste; the Models &amp; keys step shows it. To set up with another account instead, give it: <code>doz onboard --key setup-token</code> (or another provider&#x27;s key) adds that one and runs no Claude Code checks. To set up <strong>without</strong> the Mac&#x27;s login at all, say so: <code>doz onboard --claude-account none --yes</code> leaves no account <code>mac</code> (the default account is then none; nothing of the Mac&#x27;s is read), <code>--claude-account later</code> changes nothing, and <code>--claude-account mac</code> (or later <code>doz account default mac</code>) takes it back. After onboarding, <code>doz account default none --decline-mac</code> declines it the same way. A declined store never uses the Mac&#x27;s login: agents fenced on this Mac use the store&#x27;s default account, or none. That login <strong>expires</strong> after some hours, and only the Mac&#x27;s own Claude Code renews it: <code>doz account keepalive always</code> has Dozable run it when the login expires (not for a daemon started over SSH), and a setup-token account (<code>claude setup-token</code>, valid a year) suits long unattended work. See <a href="agents-and-accounts#how-the-mac-login-stays-fresh">How the Mac login stays fresh</a>.</li>
 <li><strong>Access</strong> is every other credential a sandbox may use as you — <strong>GitHub as you</strong> (<a href="github">GitHub</a>) and <strong>SSH agent forwarding</strong>. Each is a choice of yours (both are off until you choose them), and each is <strong>confirmed live</strong> when you choose it. A credential that can&#x27;t be confirmed can be <strong>skipped</strong>: the choice is kept, marked <em>not confirmed</em>, and setup goes on. The choices are the defaults for new sandboxes; <code>doz access</code> and <strong>Settings</strong> › <strong>Access</strong> check them again later.</li>
-<li><strong>Workspace rules</strong> are two small files you can put in a project folder: <code>.dozignore</code> (paths the agent must not use) and <code>.dozreadonly</code> (paths it may read but not change). Setup explains them and asks one question: should a <code>.dozignore</code> <strong>lock</strong> the paths it lists (still listed, but nothing can open them — the default) or <strong>hide</strong> them (not there at all)? See <a href="workspace-rules">Workspace rules</a>.</li>
+<li><strong>Folder rules</strong> are two small files you can put in a project folder: <code>.dozignore</code> (paths the agent must not use) and <code>.dozreadonly</code> (paths it may read but not change). Setup explains them and asks one question: should a <code>.dozignore</code> <strong>lock</strong> the paths it lists (still listed, but nothing can open them — the default) or <strong>hide</strong> them (not there at all)? See <a href="workspace-rules">Folder rules</a>.</li>
 </ul>
 <h2 id="in-the-terminal">In the terminal<a class="anchor" href="#in-the-terminal" aria-label="Link to this section">#</a></h2>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz onboard
@@ -150,7 +161,7 @@ doz onboard --no-color      <span class="c"># the same, without colour (doz conf
 <ol>
 <li><p><strong>Welcome</strong> — what Dozable is and what these steps set up; <kbd>Enter</kbd> starts.</p></li>
 <li><p><strong>This Mac</strong> — the same checks as <code>doz doctor</code>. The required ones stop setup when they fail: Apple silicon, macOS 26 or later, virtualization, the signed program, the store on an APFS disk with room for the base (about 2 GB with a first sandbox), and a store path short enough. The rest only warn: Claude Code missing or signed out (you can add a key instead), and the NAT network helper (only <code>--network nat</code> needs it). Setup waits here for <kbd>Enter</kbd>, so you can read them.</p></li>
-<li><p><strong>Base image</strong> — every base, with its size and what it is for; Node.js (<code>node:22-bookworm</code>, ↓ 381 MiB) is selected. <kbd>Enter</kbd> starts its download and preparation in the host at once, and the next questions follow straight away; <strong>None now</strong> prepares none (each tool&#x27;s first start prepares its own).</p></li>
+<li><p><strong>Base image</strong> — every base, with its size and what it is for; Node.js (<code>node:22-bookworm</code>, ↓ 381 MiB) is selected. <kbd>Enter</kbd> starts its download and preparation in the daemon at once, and the next questions follow straight away; <strong>None now</strong> prepares none (each tool&#x27;s first start prepares its own).</p></li>
 <li><p><strong>Models &amp; keys</strong> — the sign-ins found on this Mac (Claude Code, Codex), then <strong>Add a key?</strong>: every provider and gateway, each with the tools it serves, asked again until <strong>No more keys</strong>. A key is pasted at a hidden prompt and added exactly as <code>doz account add</code> adds it: checked with one tiny request and stored in your login keychain. An OpenRouter key works for every tool that can use OpenRouter (pi, OpenCode). <strong>Claude subscription token</strong> adds one (from <code>claude setup-token</code>); <strong>Sign in with ChatGPT</strong> signs Codex in (official builds). An Anthropic key becomes the store&#x27;s default only when Claude Code is not signed in on this Mac — it never quietly replaces your subscription.</p></li>
 <li><p><strong>GitHub &amp; SSH</strong> — what sandboxes may use as you, each offered and never done behind your back:</p>
 <ul>
@@ -162,8 +173,8 @@ doz onboard --no-color      <span class="c"># the same, without colour (doz conf
 ✓ GitHub as you         read (gh login)  confirmed — signed in as you — scopes: repo, read:org (from this Mac&#x27;s gh login)
 ✗ SSH agent forwarding  on               not confirmed — this Mac has no ssh-agent to forward</code></pre></figure>
 <p>A failure says why, and offers <strong>Skip</strong> (keep the choice, not confirmed — <code>doz access</code> checks again later), <strong>Turn it off</strong>, or <strong>Check again</strong>. Setup is never blocked by it.</p></li>
-<li><p><strong>Workspace rules</strong> — what <code>.dozignore</code> and <code>.dozreadonly</code> do, in a few lines: the benefit (keep an agent out of your secrets, or stop it changing some files, without moving anything), and the consequences — <strong>lock</strong> keeps a path listed but unreadable, so the agent knows it exists; <strong>hide</strong> removes it altogether; only a folder with one of the files changes, and nothing costs anything without them; the first look through many files is a little slower when rules exist; and it is <strong>not a security boundary</strong> (root in the sandbox can get round it). Then: <em>Lock</em> (recommended) or <em>Hide</em> — the default for every sandbox (the setting <code>workspace.ignore_mode</code>; a sandbox can choose its own).</p></li>
-<li><p><strong>Settings</strong> — <code>doz.toml</code> (every setting at its default, plus your answers) and <code>agent-prompt.md</code> beside it, each written <strong>only if it doesn&#x27;t exist yet</strong>. Your base (when it is not Node.js), Access and Workspace rules answers are then set in it — only the ones you chose.</p></li>
+<li><p><strong>Folder rules</strong> — what <code>.dozignore</code> and <code>.dozreadonly</code> do, in a few lines: the benefit (keep an agent out of your secrets, or stop it changing some files, without moving anything), and the consequences — <strong>lock</strong> keeps a path listed but unreadable, so the agent knows it exists; <strong>hide</strong> removes it altogether; only a folder with one of the files changes, and nothing costs anything without them; the first look through many files is a little slower when rules exist; and it is <strong>not a security boundary</strong> (root in the sandbox can get round it). Then: <em>Lock</em> (recommended) or <em>Hide</em> — the default for every sandbox (the setting <code>folder.ignore_mode</code>; a sandbox can choose its own).</p></li>
+<li><p><strong>Settings</strong> — <code>doz.toml</code> (every setting at its default, plus your answers) and <code>agent-prompt.md</code> beside it, each written <strong>only if it doesn&#x27;t exist yet</strong>. Your base (when it is not Node.js), Access and Folder rules answers are then set in it — only the ones you chose.</p></li>
 </ol>
 <p>Then, in an official build, two questions:</p>
 <ul>
@@ -177,7 +188,7 @@ doz onboard --no-color      <span class="c"># the same, without colour (doz conf
 <p>Without a first sandbox, setup waits for the base at the end. Press <kbd>Ctrl</kbd>-<kbd>C</kbd> to leave it running in the background. Then:</p>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz onboard --status      <span class="c"># show the base and follow a preparation that is running</span>
 doz onboard --cancel      <span class="c"># stop the base being prepared</span></code></pre></figure>
-<p>When the base is ready, the store is marked as set up — even if you&#x27;d detached. Setup then sums up what it set up (the base, sign-ins, keys added, GitHub, the SSH agent, the workspace rules, the settings file) and, without a first sandbox, what to run next.</p>
+<p>When the base is ready, the store is marked as set up — even if you&#x27;d detached. Setup then sums up what it set up (the base, sign-ins, keys added, GitHub, the SSH agent, the folder rules, the settings file) and, without a first sandbox, what to run next.</p>
 <h3 id="without-questions-scripts">Without questions (scripts)<a class="anchor" href="#without-questions-scripts" aria-label="Link to this section">#</a></h3>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz onboard --yes                                     <span class="c"># the Node.js base, no key, no sandbox</span>
 doz onboard --base python --yes
@@ -192,7 +203,7 @@ doz onboard --github push --github-key-stdin --yes &lt; github-token.txt</code><
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Without questions (scripts)"><table>
 <thead><tr><th scope="col">option</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>--base ID</code></td><td>The base image without asking: <code>node</code> (the default), <code>python</code>, <code>go</code> … (<code>doz base ls</code>). Sets <code>defaults.base</code>.</td></tr><tr><td><code>--no-base</code></td><td>Prepare no base now (each tool&#x27;s first start prepares its own).</td></tr><tr><td><code>--key PROVIDER</code></td><td>Add a key without asking: <code>anthropic</code>, <code>openai</code>, <code>xai</code>, <code>google</code>, <code>openrouter</code>, or <code>setup-token</code> (the Claude Code checks are then skipped).</td></tr><tr><td><code>--key-name NAME</code> · <code>--plan PLAN</code> · <code>--force</code></td><td>For the key: its name (default: the provider&#x27;s name), a setup token&#x27;s plan (<code>max</code>, <code>pro</code>, <code>team</code>, <code>enterprise</code>), replace an existing account.</td></tr><tr><td><code>--first AGENT|none</code></td><td>The first sandbox without asking: <code>claude</code>, <code>pi</code>, <code>opencode</code>, <code>codex</code> (any tool <code>doz try</code> takes), or <code>none</code>.</td></tr><tr><td><code>--openai-account mac|chatgpt|openai-key|later</code></td><td>Codex&#x27;s account without asking.</td></tr><tr><td><code>--github off|read|push</code></td><td>Answer &quot;GitHub as you&quot; (the setting <code>defaults.github</code>).</td></tr><tr><td><code>--github-source gh|key</code> · <code>--github-key-stdin</code></td><td>Where the GitHub token comes from: this Mac&#x27;s <code>gh</code> login, or a token read from standard input (kept in the login keychain as <code>doz-github</code>).</td></tr><tr><td><code>--ssh-agent on|off</code></td><td>Answer &quot;SSH agent forwarding&quot; (the setting <code>sandbox.ssh_agent</code>).</td></tr><tr><td><code>--ignore-mode lock|hide</code></td><td>Answer the Workspace rules step (the setting <code>workspace.ignore_mode</code>).</td></tr><tr><td><code>--usage-stats on|off</code></td><td>Answer the Usage statistics step (official builds; the setting <code>telemetry.send_anonymous_usage_stats</code>, written only when it changes).</td></tr><tr><td><code>--status</code> · <code>--cancel</code></td><td>Follow · stop the preparation.</td></tr>
+<tr><td><code>--base ID</code></td><td>The base image without asking: <code>node</code> (the default), <code>python</code>, <code>go</code> … (<code>doz base ls</code>). Sets <code>defaults.base</code>.</td></tr><tr><td><code>--no-base</code></td><td>Prepare no base now (each tool&#x27;s first start prepares its own).</td></tr><tr><td><code>--key PROVIDER</code></td><td>Add a key without asking: <code>anthropic</code>, <code>openai</code>, <code>xai</code>, <code>google</code>, <code>openrouter</code>, or <code>setup-token</code> (the Claude Code checks are then skipped).</td></tr><tr><td><code>--key-name NAME</code> · <code>--plan PLAN</code> · <code>--force</code></td><td>For the key: its name (default: the provider&#x27;s name), a setup token&#x27;s plan (<code>max</code>, <code>pro</code>, <code>team</code>, <code>enterprise</code>), replace an existing account.</td></tr><tr><td><code>--first AGENT|none</code></td><td>The first sandbox without asking: <code>claude</code>, <code>pi</code>, <code>opencode</code>, <code>codex</code> (any tool <code>doz try</code> takes), or <code>none</code>.</td></tr><tr><td><code>--openai-account mac|chatgpt|openai-key|later</code></td><td>Codex&#x27;s account without asking.</td></tr><tr><td><code>--github off|read|push</code></td><td>Answer &quot;GitHub as you&quot; (the setting <code>defaults.github</code>).</td></tr><tr><td><code>--github-source gh|key</code> · <code>--github-key-stdin</code></td><td>Where the GitHub token comes from: this Mac&#x27;s <code>gh</code> login, or a token read from standard input (kept in the login keychain as <code>doz-github</code>).</td></tr><tr><td><code>--ssh-agent on|off</code></td><td>Answer &quot;SSH agent forwarding&quot; (the setting <code>sandbox.ssh_agent</code>).</td></tr><tr><td><code>--ignore-mode lock|hide</code></td><td>Answer the Folder rules step (the setting <code>folder.ignore_mode</code>).</td></tr><tr><td><code>--usage-stats on|off</code></td><td>Answer the Usage statistics step (official builds; the setting <code>telemetry.send_anonymous_usage_stats</code>, written only when it changes).</td></tr><tr><td><code>--status</code> · <code>--cancel</code></td><td>Follow · stop the preparation.</td></tr>
 </tbody></table></div>
 <h2 id="in-the-dashboard">In the dashboard<a class="anchor" href="#in-the-dashboard" aria-label="Link to this section">#</a></h2>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz ui</code></pre></figure>
@@ -202,7 +213,7 @@ doz onboard --github push --github-key-stdin --yes &lt; github-token.txt</code><
 <li><strong>Base image</strong> — one card, <strong>Node.js</strong> (recommended), how each tool is added to it as a layer, and <strong>Another base</strong> folded (Python, Go, Rust, …). <strong>Download and continue</strong> starts its download and preparation in the host and moves on at once.</li>
 <li><strong>Models &amp; keys</strong> — two columns. On the left the sign-ins found on this Mac (Claude Code, Codex) and <strong>Tools you can use now</strong>; on the right the keys by <strong>Providers</strong> (Anthropic, OpenAI, xAI, Google), <strong>Gateways</strong> (OpenRouter) and <strong>No key</strong> (OpenCode Zen&#x27;s free models), each row naming the tools it serves. <strong>Add a key</strong> opens a masked field under its row; the key is checked once and kept in the login keychain, and the tools it serves turn ready. <strong>Decide later</strong> moves on.</li>
 <li><strong>GitHub &amp; SSH</strong> — <strong>GitHub as you</strong> (off, read-only, read and push — from this Mac&#x27;s <code>gh</code> login or a token in a masked field) and <strong>SSH agent forwarding</strong>, each with its consequence. <strong>Next</strong> confirms each one: <em>confirmed</em> with what was found, or <em>not confirmed</em> with the reason and <strong>Skip</strong> · <strong>Turn it off</strong> · <strong>Check again</strong>.</li>
-<li><strong>Workspace rules</strong> — the same description as in the terminal, and the same choice: <strong>Lock</strong> (recommended) or <strong>Hide</strong>. Its <strong>Next</strong> writes the settings (the base too, when it is not Node.js).</li>
+<li><strong>Folder rules</strong> — the same description as in the terminal, and the same choice: <strong>Lock</strong> (recommended) or <strong>Hide</strong>. Its <strong>Next</strong> writes the settings (the base too, when it is not Node.js).</li>
 <li><strong>Usage statistics</strong> (official builds) — the same text as in the terminal and one switch, <strong>Send anonymous usage statistics</strong>, on. <strong>Next</strong> saves it only if you changed it.</li>
 <li><strong>Stay in touch</strong> (optional, official builds) — an email and what you&#x27;d like; <strong>Skip</strong> moves on.</li>
 <li><strong>First sandbox</strong> — the tools&#x27; cards (one you cannot use yet is dimmed, with what it needs) and its plan: a <strong>Name</strong> (the tool&#x27;s: <code>claude</code>), its folder — <strong>a new empty folder</strong> (<code>~/doz-workspaces/claude</code>, the default) or <strong>a project folder on this Mac</strong> (typed, or <strong>Choose…</strong>) — then Model, Network (Standard), Image, what Delete does, and <strong>Same in Terminal</strong> (<code>doz new claude --agent claude-code</code>). <strong>Open what it makes on this Mac</strong> is on (the setting <code>sandbox.open_files</code>). <strong>Create and start claude</strong> makes it and opens its page; <strong>Finish without a sandbox</strong> goes to Sandboxes. <strong>What setup wrote</strong> (folded) says what went where.</li>
@@ -226,7 +237,7 @@ doz access set --ssh-agent off</code></pre></figure>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Settings"><table>
 <thead><tr><th scope="col">key</th><th scope="col">default</th><th scope="col">what it does</th></tr></thead>
 <tbody>
-<tr><td><code>defaults.image</code></td><td><code>lab</code></td><td>The image <code>doz up NAME</code>, <code>doz init</code> and the dashboard&#x27;s New sandbox use when you don&#x27;t name one. Onboarding sets it to <code>claude-code</code>.</td></tr><tr><td><code>defaults.base</code></td><td><code>node</code></td><td>The store&#x27;s base: the base a quick-made sandbox&#x27;s tool is added to (Quick try, <code>doz try</code>, the first sandbox). The Base image step&#x27;s choice.</td></tr><tr><td><code>defaults.projects_dir</code></td><td><code>~/doz-workspaces</code></td><td>Your projects folder: Quick add, <code>doz new</code> and New sandbox make each new sandbox&#x27;s folder in it. <code>doz onboard</code> says where it is; the dashboard&#x27;s <strong>Settings</strong> › <strong>Choose…</strong> or <code>doz config set defaults.projects_dir DIR</code> moves it.</td></tr><tr><td><code>defaults.account</code></td><td><code>mac</code></td><td>The account of a store that hasn&#x27;t chosen one. <code>doz account default</code> decides for a store once it has.</td></tr><tr><td><code>defaults.github</code></td><td><code>off</code></td><td>&quot;GitHub as you&quot; for new sandboxes: <code>off</code>, <code>read</code> or <code>push</code>. The Access step&#x27;s choice.</td></tr><tr><td><code>github.credentials</code></td><td><code>gh</code></td><td>Where the GitHub token comes from: <code>gh</code> (this Mac&#x27;s login), <code>key</code> (a token you gave), <code>off</code>.</td></tr><tr><td><code>sandbox.ssh_agent</code></td><td><code>off</code></td><td>Forward this Mac&#x27;s ssh-agent into sandboxes (github.com only).</td></tr><tr><td><code>workspace.ignore_mode</code></td><td><code>lock</code></td><td>What a <code>.dozignore</code> does to the paths it lists: <code>lock</code> or <code>hide</code>. The Workspace rules step&#x27;s choice.</td></tr><tr><td><code>ui.allow_secret_entry</code></td><td><code>true</code></td><td>The dashboard may take an API key or setup token in a masked field. <code>false</code>: it shows the <code>doz account add</code> command instead. The dashboard can turn this off, never on.</td></tr><tr><td><code>recipes.anthropic.claude-code.version</code> · <code>recipes.earendil-works.pi.version</code></td><td><code>latest</code></td><td>Which agent version its image is baked with. See <a href="agents-and-accounts#agent-versions">Agents and accounts</a>.</td></tr>
+<tr><td><code>defaults.image</code></td><td><code>lab</code></td><td>The image <code>doz up NAME</code>, <code>doz init</code> and the dashboard&#x27;s New sandbox use when you don&#x27;t name one. Onboarding sets it to <code>claude-code</code>.</td></tr><tr><td><code>defaults.base</code></td><td><code>node</code></td><td>The store&#x27;s base: the base a quick-made sandbox&#x27;s tool is added to (Quick try, <code>doz try</code>, the first sandbox). The Base image step&#x27;s choice.</td></tr><tr><td><code>defaults.projects_dir</code></td><td><code>~/doz-workspaces</code></td><td>Your projects folder: Quick add, <code>doz new</code> and New sandbox make each new sandbox&#x27;s folder in it. <code>doz onboard</code> says where it is; the dashboard&#x27;s <strong>Settings</strong> › <strong>Choose…</strong> or <code>doz config set defaults.projects_dir DIR</code> moves it.</td></tr><tr><td><code>defaults.account</code></td><td><code>mac</code></td><td>The account of a store that hasn&#x27;t chosen one. <code>doz account default</code> decides for a store once it has.</td></tr><tr><td><code>defaults.github</code></td><td><code>off</code></td><td>&quot;GitHub as you&quot; for new sandboxes: <code>off</code>, <code>read</code> or <code>push</code>. The Access step&#x27;s choice.</td></tr><tr><td><code>github.credentials</code></td><td><code>gh</code></td><td>Where the GitHub token comes from: <code>gh</code> (this Mac&#x27;s login), <code>key</code> (a token you gave), <code>off</code>.</td></tr><tr><td><code>sandbox.ssh_agent</code></td><td><code>off</code></td><td>Forward this Mac&#x27;s ssh-agent into sandboxes (github.com only).</td></tr><tr><td><code>folder.ignore_mode</code></td><td><code>lock</code></td><td>What a <code>.dozignore</code> does to the paths it lists: <code>lock</code> or <code>hide</code>. The Folder rules step&#x27;s choice.</td></tr><tr><td><code>ui.allow_secret_entry</code></td><td><code>true</code></td><td>The dashboard may take an API key or setup token in a masked field. <code>false</code>: it shows the <code>doz account add</code> command instead. The dashboard can turn this off, never on.</td></tr><tr><td><code>recipes.anthropic.claude-code.version</code> · <code>recipes.earendil-works.pi.version</code></td><td><code>latest</code></td><td>Which agent version its image is baked with. See <a href="agents-and-accounts#agent-versions">Agents and accounts</a>.</td></tr>
 </tbody></table></div>
 <h2 id="limits-and-notes">Limits and notes<a class="anchor" href="#limits-and-notes" aria-label="Link to this section">#</a></h2>
 <ul>
@@ -246,7 +257,7 @@ doz access set --ssh-agent off</code></pre></figure>
 <li class="prev"><a href="install-upgrade-uninstall" rel="prev"><small>&larr; Previous</small><b>Installing, upgrading and uninstalling</b></a></li>
 <li class="next"><a href="projects" rel="next"><small>Next &rarr;</small><b>Projects</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/03-setting-up.md">Edit this page on GitHub</a> &middot; Chapter 3 of 34</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/03-setting-up.md">Edit this page on GitHub</a> &middot; Chapter 3 of 44</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">

@@ -4,7 +4,7 @@ description: "This Mac's settings are in one file, ~/.config/doz/doz.toml (under
 url: https://dozable.com/docs/settings-reference
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-13
+updated: 2026-11-25
 chapter: 15
 ---
 # Settings reference
@@ -24,7 +24,7 @@ For each setting, the first of these that says something wins:
 
 1. **a command-line flag** (for the settings that have one — `--store`, `--progress`, `--color`/`--no-color`,
    `doz create --cpus`, `doz create --approvals`, …);
-2. **its environment variable** (`DOZ_STORE`, `DOZ_PROGRESS`, `DOZ_COLOR`, `DOZ_HOST_IDLE`, `DOZ_SCREEN_CAPTURE`,
+2. **its environment variable** (`DOZ_STORE`, `DOZ_PROGRESS`, `DOZ_COLOR`, `DOZ_DAEMON_IDLE`, `DOZ_SCREEN_CAPTURE`,
    `DOZ_BOOT_LOGS`, `DOZ_SUBNET`, `DOZ_KERNEL`, `DOZ_KERNEL_CACHE`);
 3. **the sandbox's own value** (a setting one sandbox can have, below);
 4. **its project's** (`doz_project.yaml`: when the sandbox is made, and again at every `doz up`);
@@ -111,7 +111,7 @@ base with no agent (`python`, `go`) keeps the memory and network it had: `defaul
   is ignored, the default applies). A file that doesn't parse at all is ignored — with the line that's
   wrong — and never overwritten until you fix it.
 - **When a change applies** is part of each setting: at once, for the next command, the next sandbox
-  created, the next session, the next start or wake, or after `doz host stop`.
+  created, the next session, the next start or wake, or after `doz daemon stop`.
 
 ## Not settable, on purpose
 
@@ -131,7 +131,7 @@ This table is generated from `doz config show` and checked against it on every b
 | `ui.boot_view_on_start` | `false` | boolean | at once | — | After Start the page stays on its Console tab (the kernel and vminitd), and marks the agent's tab when it is ready; false (the default): it switches to the agent's tab as soon as that has drawn its screen. |
 | `ui.confirm_shutdown` | `true` | boolean | at once | — | Shut Down asks first (its dialog's "don't ask again" sets this to false). Reset and Remove always ask with a box to tick. |
 | `ui.explain_tab_close` | `true` | boolean | at once | — | Closing an agent's tab returns to the sandbox's Home, which says the agent is still running and that End stops it (its "Don't say this again" sets this to false). false: Home does not say it. |
-| `ui.nav_thumbnails` | `true` | boolean | at once | — | Hovering a session in the sidebar shows a screen icon; resting on it for half a second shows the session's live picture (moving to another session then shows its picture at once). false: no icon, no picture. |
+| `ui.nav_thumbnails` | `true` | boolean | at once | — | The sidebar's pictures. Hovering a session shows a screen icon; resting on it for half a second shows the session's live picture (moving to another session then shows its picture at once). An unfolded workspace that a space file made shows a small picture of it, drawn from its file and its live state. false: no icon and no picture (Home and a workspace's page still show theirs). |
 | `ui.split_default` | `shell` | shell \| watch \| attach \| dialog | at once | — | What a terminal's Split opens: shell (a new shell session), watch (a read-only view of the left terminal's session), attach (a second, shared view of it), dialog (choose each time). |
 | `ui.terminals` | `true` | boolean | at once | — | Terminals in the browser. false: the UI opens none and refuses a terminal ticket (Terminal.app still works). |
 | `ui.terminal_title` | `{sandbox} · {session} · {time}` | a title with {sandbox} {session} {image} {time} {phase} ("" = leave the title alone) | at once | — | The title doz attach gives your terminal (window or tab) while attached, and a doz ui terminal's tab: {sandbox} {session} {image} {time} (this Mac's, HH:MM, refreshed each minute) {phase}. The terminal's own title comes back when you detach (where the terminal keeps a title stack: iTerm2, Ghostty, kitty, xterm). While doz sets it, a session's own title is not shown; "" leaves the title to the session. |
@@ -140,10 +140,10 @@ This table is generated from `doz config show` and checked against it on every b
 | `ui.density` | `comfortable` | comfortable \| compact | at once | — | The UI's spacing: comfortable, or compact — tighter rows, tabs, controls and page margins; the text stays the same size. |
 | `ui.notifications` | `cards` | cards \| pills \| bell | at once | — | Where the UI shows its notifications, in its top right corner: cards (a bell, and a column hanging below it, each with its full text and buttons and, for a success, a countdown that waits while the pointer is on any card), pills (one line each along the top, the newest at the right; click one for the rest), or bell (a count; the newest shows beside it for a few seconds; click for the list). Successes go by themselves; a failure stays until you close it. The Notifications page lists every one this tab showed. |
 | `ui.details_open` | `true` | boolean | at once | — | A sandbox's page shows its details panel (restore points, network, keys) beside the terminals; false: collapsed. |
-| `ui.allow_secret_entry` | `true` | boolean | at once | — | The web UI takes an Anthropic API key or a Claude setup token in a masked field — an account (the setup wizard, Accounts & keys: stored exactly as doz account add stores it, the login keychain) or a sandbox's own key (its page: exactly as doz key set does, held by the host) — sent once, in a request body. false: the pages show the command instead. The UI can turn this off, never on. |
+| `ui.allow_secret_entry` | `true` | boolean | at once | — | The web UI takes an Anthropic API key or a Claude setup token in a masked field — an account (the setup wizard, Accounts & keys: stored exactly as doz account add stores it, the login keychain) or a sandbox's own key (its page: exactly as doz key set does, held by the daemon) — sent once, in a request body. false: the pages show the command instead. The UI can turn this off, never on. |
 | `ui.open_browser` | `auto` | auto \| always \| never | next command | — | When doz ui opens a browser tab: auto (only when no page of this store's UI is open — an open page reconnects by itself instead), always (every start), never (it prints the address; doz ui link opens a page). --open and --no-open override it. |
 | `ui.port` | `0` | integer 0–65535 | ui-restart | `$DOZ_UI_PORT`, `--port N` | The ONE port the dashboard (doz ui) listens on — this Mac's browser at http://127.0.0.1:<port>, and with ui.lan your other browsers at http://<this Mac>.local:<port>. 0 = automatic: without ui.lan, the port this store's last doz ui had when it is free (else one the system picks, and doz ui says so); with ui.lan, serve.port (7443), which never moves. Or a fixed port 1024–65535 (doz ui refuses to start, naming the program, when another holds it). An installed dashboard app belongs to one port: keep it fixed for one. |
-| `ui.lan` | `false` | boolean | ui-restart | `$DOZ_UI_LAN`, `doz ui --lan \| --no-lan` | Also serve the dashboard to the other browsers of your network (every network interface of this Mac and Tailscale, never a sandbox's network) on the same port: each gets in once with an invite (doz ui share). false (the default): this Mac only. Where it listens and your reverse proxy: the `serve.*` settings. |
+| `ui.lan` | `false` | boolean | ui-restart | `$DOZ_UI_LAN`, `doz ui --lan \| --no-lan` | Also serve the dashboard to the other browsers of your network (every network interface of this Mac and Tailscale, never a sandbox's network) on the same port: each gets in once with an invite (doz ui share). false (the default): this Mac only. Where it listens and your reverse proxy: the serve.* settings. |
 | `ui.grid_live_tiles` | `12` | integer 1–12 | at once | — | No longer used — every session picture is live (painted from its screen, no terminal per picture). Kept so that an older settings file still reads without a warning. |
 | `ui.grid_tile_size` | `medium` | small \| medium \| large | at once | — | All sessions: the size of a tile. |
 | `ui.grid_refresh_ms` | `500` | integer 200–10000 | at once | — | How often the session pictures (All sessions, All sandboxes, a sandbox's Home) are brought up to date, in milliseconds. Only pictures on screen are asked for, only while the browser tab is shown, and a screen that did not change costs almost nothing. Lower looks livelier and costs more. |
@@ -159,23 +159,83 @@ This table is generated from `doz config show` and checked against it on every b
 | `serve.bind` | `lan` | lan \| loopback \| the Mac's addresses, comma-separated | ui-restart | `$DOZ_SERVE_BIND`, `doz ui --lan --bind lan\|loopback\|ADDRESSES` | Where the dashboard listens for your other browsers with ui.lan: lan (every network interface of this Mac and Tailscale — never a sandbox's network), loopback (127.0.0.1 and ::1 only: for a reverse proxy on this Mac), or this Mac's own addresses separated by commas (for a reverse proxy elsewhere on your network). This Mac's own browser is served at 127.0.0.1 in every case. |
 | `serve.public_origins` | `""` | origins like https://doz.home.example, comma-separated ("" = none) | ui-restart | — | The addresses your reverse proxy serves the dashboard at, like https://doz.home.example (comma-separated). A browser may use one only through a proxy listed in serve.trusted_proxies. Over https, keys and tokens may be typed in the dashboard; over plain http they never are (except in this Mac's own browser). |
 | `serve.trusted_proxies` | `""` | addresses or networks like 127.0.0.1, 192.168.1.0/24, comma-separated ("" = none) | ui-restart | — | The reverse proxies whose X-Forwarded-Proto, X-Forwarded-Host and X-Forwarded-For the dashboard believes — their addresses or networks, comma-separated (a proxy on this Mac: 127.0.0.1, ::1). From anyone else those headers are ignored. |
-| `serve.mac_sessions` | `off` | off \| watch \| interactive | at once | — | With ui.lan, what your other browsers may do with the sessions on this Mac (doz run @mac — no isolation: your files, Keychain and network): off (they do not see them), watch (list them and watch their screens, read-only) or interactive (also type into them, end and restart them). This Mac's own browser always has them. |
+| `serve.mac_sessions` | `off` | off \| watch \| interactive | at once | — | With ui.lan, what your other browsers may do with the sessions on this Mac (doz run @mac — they run as you, an unfenced one with your files, Keychain and network): off (they do not see them), watch (list them and watch their screens, read-only) or interactive (also type into them, end and restart them). This Mac's own browser always has them. |
+| `serve.chat` | `off` | off \| read \| write | at once | — | With ui.lan, what your other browsers may do with chat: off (they do not see it), read (read the rooms, with nothing they can send or change) or write (also post, react, edit, delete, reveal direct messages and attach files). A browser that may write acts as you in chat, the verified human: your agents take its words as yours. Each thing it sends is a line in the dashboard's audit log (never what it said). This Mac's own browser always has chat. |
 | `serve.advertise` | `true` | boolean | ui-restart | — | With ui.lan, announce the dashboard on your network with Bonjour ("Dozable on <this Mac>", http://<this Mac>.local:<port>), so other Macs and phones can find it. |
 
-### `[host]`
+### `[mac]`
 
 | key | default | values | applies | overridden by | what it does |
 |---|---|---|---|---|---|
-| `host.idle_timeout_minutes` | `5` | integer 0–10080 | after `doz host stop` | `$DOZ_HOST_IDLE`, `doz host start --idle-timeout` | Minutes with nothing running before the host exits; 0 = never. |
-| `host.screen_capture_minutes` | `5` | integer 0–1440 | after `doz host stop` | `$DOZ_SCREEN_CAPTURE` | Every this many minutes, save the screen of each running sandbox's sessions that printed something since (what a sleep or hibernation falls back on); 0 = only when it pauses, sleeps or hibernates. |
-| `host.boot_logs_kept` | `5` | integer 1–50 | next boot | `$DOZ_BOOT_LOGS` | How many boots of each sandbox to keep (its steps and kernel console — the web UI's Boot log, doz console --boot N); the oldest goes. |
-| `host.keepalive` | `false` | boolean | a store that hasn't chosen | — | Near a Mac login's expiry, while a sandbox uses it and no Claude Code runs, the host runs the Mac's claude once to renew it. |
+| `mac.fence` | `on` | off \| on | next session | `$DOZ_MAC_FENCE`, `doz run @mac --fenced \| --unfenced` | Whether a new session on this Mac (doz run @mac) runs fenced: held to its folder, its own temp and caches, your Keychain, secrets and other folders closed, its network only through Dozable's proxy (on, the default), or with no isolation at all (off). doz run @mac --fenced or --unfenced decides for one session; a session keeps its mode when it is restarted. |
+| `mac.keychain` | `off` | off \| on | next session | `doz run @mac --keychain` | Whether a fenced session on this Mac may use your Keychain (signing, notarisation — and so, reading your saved logins). doz run @mac --keychain opens it for one session. |
+| `mac.fence_read` | `""` | paths relative to your home, comma-separated, like "notes, src/shared" ("" = none) | next session | — | Folders or files in your home a fenced session on this Mac may read (never write), relative to your home and separated by commas, like notes, src/shared. Your secrets (~/.ssh, ~/.config, ~/Library) stay closed. |
+| `mac.permissions` | `standard` | standard \| locked \| open | next session | `doz run @mac --permissions` | What a fenced session on this Mac may reach through Dozable's proxy: standard (its AI model, its own updates, GitHub, error reports and the Node, Python, Go, Rust and Swift package registries), locked (its AI model only — and no certificate checks on its behalf) or open (any site). This Mac's own addresses are never reachable. doz run @mac --permissions decides for one session; doz net allow\|deny @mac --session S changes a running one. |
+| `mac.agent_config` | `private` | private \| shared | next session | `doz run @mac --agent-config` | A fenced agent's settings folder on this Mac: private (its own; your instructions and skills read-only) or shared (your own ~/.claude: less isolated). |
+| `mac.account` | `mac` | mac \| none | next session | `doz run @mac --account` | The Claude login a fenced Claude Code gets through Dozable's proxy: mac (this Mac's login) or none. --account NAME picks an account. |
+| `mac.agent_prompt` | `fenced` | fenced \| always \| off | next session | — | Tell Claude Code on this Mac where it runs (a facts block in its prompt): fenced sessions, always, or off. |
+| `mac.open_url` | `on` | on \| off | next session | `doz run @mac --open-url` | A fenced session may open web pages in your browser, each announced (on, off). |
+| `mac.open_files` | `on` | on \| off | next session | `doz run @mac --open-files` | A fenced session may open documents of its folder in your apps, each announced (on, off). |
+| `mac.clipboard` | `write` | write \| off | next session | `doz run @mac --clipboard` | A fenced session may put text on your clipboard, never read it; each copy announced (write, off). |
+| `mac.fence_loopback_listen` | `off` | off \| on | next session | — | Whether a fenced session on this Mac may listen on ANY port (a dev server, a test server on a free port), not only its --local-port ones (on, off). macOS's sandbox cannot keep such a server to this Mac's loopback: one that listens on every address is reachable from your network too (your firewall decides). The program still cannot connect to its own server from inside (its only way out is Dozable's proxy) — use --local-port N for that. From the next session (or restart). |
+
+### `[network]`
+
+| key | default | values | applies | overridden by | what it does |
+|---|---|---|---|---|---|
+| `network.host_ports_live` | `true` | boolean | next command | — | Whether doz net allow NAME host:PORT may open a port of this Mac to a sandbox or a fenced session while it runs (true), or this Mac's ports are fixed when it starts — doz create/run --host-port PORT (false). Taking a port away (doz net deny NAME host:PORT) always works. |
+| `network.placeholders_plain_http` | `true` | boolean | next session | — | Whether a secret given with --secret may travel over plain HTTP — only ever to this Mac's ports (host.dozable.internal) and Tailscale addresses (100.64.0.0/10), never elsewhere. |
+
+### `[chat]`
+
+| key | default | values | applies | overridden by | what it does |
+|---|---|---|---|---|---|
+| `chat.enabled` | `false` | boolean | at once | — | Run the chat server: the doz daemon keeps it running on this Mac (127.0.0.1 only) while this is on. Turn it on and off with doz chat on\|off; while it is on, the dashboard (this Mac's own browser) shows Chat. An early feature (doz chat --help). |
+| `chat.page_port` | `8790` | integer 1024–65535 | at once | — | The chat server's HTTP port on 127.0.0.1: agents call /agent/… on it with their own token. Nothing on it acts as you. When it changes, the daemon restarts the chat server within a few seconds. |
+| `chat.line_port` | `8791` | integer 1024–65535 | at once | — | The chat server's line port on 127.0.0.1 (one JSON message per line). Every caller needs a token. When it changes, the daemon restarts the chat server within a few seconds. |
+| `chat.remote_listen` | `""` | Tailscale addresses like 100.100.1.2, comma-separated, each one exactly ("" = none) | at once | — | This Mac's own Tailscale addresses (100.64.0.0/10) on which the chat server also listens, both ports, for agents on other machines. Only agents, each with its own token; never you. Plain HTTP: Tailscale encrypts it; any other address is refused. |
+| `chat.remote_agents` | `""` | Tailscale addresses like 100.100.1.2, comma-separated, each one exactly ("" = none) | at once | — | The Tailscale addresses of the other machines that may connect to the chat server (each exactly; no range). Each is always an agent: it must send its token; it gets /agent/… and files with its token, never your page or /api. |
+| `chat.refusal_reasons` | `false` | boolean | at once | — | Give a refused post its reason as an extra field (reason: space-down when the room's workspace is finished), beside the refusal the chat server always gives. Off by default: clients made for the reference never see it. |
+| `chat.asks` | `true` | boolean | at once | — | Asks in chat: an agent may post a question that waits for a decision by you (or a participant you made a decider with doz chat set NAME --role decider). Off: an ask, /decide and /withdraw are refused, and open asks stay as they are until asks are on again. The chat server restarts to take it. |
+| `chat.ask_max_open` | `1` | integer 1–20 | at once | — | How many open asks one participant may have in one room at once (1 to 20). The chat server restarts to take it. |
+| `chat.ask_expiry_seconds` | `86400` | integer 60–604800 | at once | — | How long an ask stays open when it names no expiry of its own, in seconds (60 to 604800, a week); then its answer is decline. The chat server restarts to take it. |
+| `chat.ask_cooldown_seconds` | `600` | integer -1–86400 | at once | — | How long after an ask is declined or expires its asker may not ask about the same thing again, in seconds (0 to 86400; -1 turns it off). The chat server restarts to take it. |
+
+### `[daemon]`
+
+| key | default | values | applies | overridden by | what it does |
+|---|---|---|---|---|---|
+| `daemon.always_on` | `true` | boolean | at once | `$DOZ_DAEMON_ALWAYS_ON` | Keep the doz daemon running when nothing runs, so sessions and sandboxes are answered at once (default on). While this is on, daemon.idle_timeout_minutes (the next setting) has no effect: the daemon does not switch itself off by idling. Off: the daemon exits once it has had nothing running for daemon.idle_timeout_minutes, and when that is 0 it never does. A new doz installed under it takes over by itself once nothing runs. A daemon started where the login keychain is locked (over ssh) is never kept running: it exits after 5 minutes with nothing running, whatever these two settings say. |
+| `daemon.idle_timeout_minutes` | `5` | integer 0–10080 | after `doz daemon stop` | `$DOZ_DAEMON_IDLE`, `doz daemon start --idle-timeout` | Minutes with nothing running before the daemon exits (default 5). It is read only when daemon.always_on (the previous setting) is off; while always-on is on, the daemon keeps running and this has no effect. 0 disables the timeout: with always-on off, the daemon then never switches off by idling. |
+| `daemon.login_item` | `ask` | ask \| on \| off | at once | — | Start the doz daemon when you log in, from your desktop session: one login item in ~/Library/LaunchAgents, removed by off and by doz uninstall. ask: not installed; doz offers it once. Set on this Mac (doz daemon login-item on\|off), never from the dashboard. |
+| `daemon.screen_capture_minutes` | `5` | integer 0–1440 | after `doz daemon stop` | `$DOZ_SCREEN_CAPTURE` | Every this many minutes, save the screen of each running sandbox's sessions that printed something since (what a sleep or hibernation falls back on); 0 = only when it pauses, sleeps or hibernates. |
+| `daemon.boot_logs_kept` | `5` | integer 1–50 | next boot | `$DOZ_BOOT_LOGS` | How many boots of each sandbox to keep (its steps and kernel console — the web UI's Boot log, doz console --boot N); the oldest goes. |
+| `daemon.mac_name` | `this Mac` | a name of 1–63 letters, digits, spaces or hyphens | at once | `$DOZ_MAC_NAME` | The name this Mac goes by in its history and in a space's state, e.g. "studio". It is shown, never looked up on the network. |
+| `daemon.keepalive` | `false` | boolean | a store that hasn't chosen | — | When a Mac login expires, while a sandbox or fenced session uses it and no unfenced Claude Code runs, the daemon runs the Mac's claude once to renew it (doz account keepalive always: also with nothing using it). |
+
+### `[timeline]`
+
+| key | default | values | applies | overridden by | what it does |
+|---|---|---|---|---|---|
+| `timeline.sample_seconds` | `60` | integer 0–3600 | at once | `$DOZ_TIMELINE_SAMPLE_SECONDS` | How often, in seconds, each running sandbox's CPU, memory and disk use are kept for its history (10–3600); 0 = never. Read from this Mac, never inside the sandbox. |
+| `timeline.actions` | `30/30/365/kept` | days EVENTS/1M/1H/1D, each a number of days or kept, like 30/30/365/kept | at once | — | Days the history keeps actions: single events, then counts by minute, hour and day (kept = until you delete it). |
+| `timeline.sessions` | `30/30/365/kept` | days EVENTS/1M/1H/1D, each a number of days or kept, like 30/30/365/kept | at once | — | Days the history keeps sessions: single events, then counts by minute, hour and day (kept = until you delete it). |
+| `timeline.daemon` | `30/30/365/kept` | days EVENTS/1M/1H/1D, each a number of days or kept, like 30/30/365/kept | at once | — | Days the history keeps daemon runs: single events, then counts by minute, hour and day (kept = until you delete it). |
+| `timeline.network` | `30/30/365/kept` | days EVENTS/1M/1H/1D, each a number of days or kept, like 30/30/365/kept | at once | — | Days the history keeps network, per minute: single events, then counts by minute, hour and day (kept = until you delete it). |
+| `timeline.workspace` | `90/90/365/kept` | days EVENTS/1M/1H/1D, each a number of days or kept, like 30/30/365/kept | at once | — | Days the history keeps workspace log: single events, then counts by minute, hour and day (kept = until you delete it). |
+| `timeline.grants` | `365/365/365/kept` | days EVENTS/1M/1H/1D, each a number of days or kept, like 30/30/365/kept | at once | — | Days the history keeps permission decisions: single events, then counts by minute, hour and day (kept = until you delete it). |
+| `timeline.runs` | `kept/kept/kept/kept` | days EVENTS/1M/1H/1D, each a number of days or kept, like 30/30/365/kept | at once | — | Days the history keeps workspace runs and space frames: single events, then counts by minute, hour and day (kept = until you delete it). A run's frames are its record, kept as the run folder is. |
+| `timeline.chat` | `30/30/365/kept` | days EVENTS/1M/1H/1D, each a number of days or kept, like 30/30/365/kept | at once | — | Days the history keeps chat times and ask outcomes: single events, then counts by minute, hour and day (kept = until you delete it). |
+| `timeline.daemon_events` | `7/30/365/kept` | days EVENTS/1M/1H/1D, each a number of days or kept, like 30/30/365/kept | at once | — | Days the history keeps the daemon's event stream: single events, then counts by minute, hour and day (kept = until you delete it). |
+| `timeline.egress` | `7/7/90/365` | days EVENTS/1M/1H/1D, each a number of days or kept, like 30/30/365/kept | at once | — | Days the history keeps egress, per connection: single events, then counts by minute, hour and day (kept = until you delete it). Single connections name the hosts a sandbox reached; their counts per sandbox (never a host) are what the longer parts keep. |
+| `timeline.resources` | `7/7/365/kept` | days EVENTS/1M/1H/1D, each a number of days or kept, like 30/30/365/kept | at once | — | Days the history keeps cpu, memory and disk samples: single events, then counts by minute, hour and day (kept = until you delete it). |
+| `timeline.keys` | `30/30/365/kept` | days EVENTS/1M/1H/1D, each a number of days or kept, like 30/30/365/kept | at once | — | Days the history keeps key and proxy use: single events, then counts by minute, hour and day (kept = until you delete it). |
 
 ### `[store]`
 
 | key | default | values | applies | overridden by | what it does |
 |---|---|---|---|---|---|
-| `store.path` | `~/Library/Application Support/doz` | path ("" = automatic) | next command | `$DOZ_STORE`, `--store` | The store: images, kernels, sandboxes and the host's files. |
+| `store.path` | `~/Library/Application Support/doz` | path ("" = automatic) | next command | `$DOZ_STORE`, `--store` | The store: images, kernels, sandboxes and the daemon's files. |
 
 ### `[defaults]`
 
@@ -187,7 +247,7 @@ This table is generated from `doz config show` and checked against it on every b
 | `defaults.nat_subnet` | `""` | IPv4 subnet, a.b.c.d/nn ("" = a free one) | new sandboxes | `$DOZ_SUBNET`, `doz create --subnet` | The vmnet subnet of a new --network nat sandbox. |
 | `defaults.image` | `lab` | lab \| claude-code \| pi \| codex, or an agent or tool's id (doz try lists them) | new sandboxes | `doz create --image` | The image of a new sandbox when none is named (doz up NAME, doz init, the UI's New sandbox). doz onboard writes the one you chose. |
 | `defaults.base` | `node` | node \| python \| go \| rust \| java \| ruby \| dotnet \| debian \| ubuntu \| alpine | new sandboxes | `doz try --base` | The base image of this store: every tool you try (Quick try, doz try, the setup's first sandbox) is added to it as a layer when no base is named, so a second tool downloads nothing more. doz onboard sets it. New sandbox and doz_project.yaml keep a tool's own default base unless you choose one. |
-| `defaults.projects_dir` | `~/doz-workspaces` | path ("" = automatic) | new sandboxes | — | The base folder of new sandboxes' workspaces: the web UI's New sandbox and Quick add, and doz new, share <projects_dir>/<sandbox name> (created when missing, like any workspace). doz create is isolated unless --workspace; doz init uses the folder it runs in. In the web UI, Settings › Choose… sets it with the Mac's folder picker. |
+| `defaults.projects_dir` | `~/doz-workspaces` | path ("" = automatic) | new sandboxes | — | The base folder of new sandboxes' folders: the web UI's New sandbox and Quick add, and doz new, share <projects_dir>/<sandbox name> (created when missing, like any folder given with --folder). doz create is isolated unless --folder; doz init uses the folder it runs in. In the web UI, Settings › Choose… sets it with the Mac's folder picker. |
 | `defaults.account` | `mac` | mac \| none | a store that hasn't chosen | — | The Anthropic account of a store that has not chosen one: mac (this Mac's Claude Code login) or none. doz account default decides for a store once it has. |
 | `defaults.permissions` | `standard` | standard \| locked \| open, or permissions like +web,-error-reports (doz net permissions) | new sandboxes | `doz create --allow / --network` | What a new sandbox's agent may do (its network, as permissions — doz net permissions): standard (talk to its AI model, update itself, install system packages and its base's language packages, use GitHub, send error reports), locked (its AI model only), open (everything, the web included), or standard with changes like +web,-error-reports. Stored by name: a Dozable update that adds a host to a permission reaches every sandbox that has it. |
 | `defaults.github` | `off` | off \| read \| push | new sandboxes | `doz create --github off\|read\|push` | "Use GitHub as you" for new sandboxes: off, read (git and gh signed in as you on GitHub, read-only) or push (also push and make changes) — the Access step's choice (doz access set --github). A sandbox can differ: doz create --github, github: in doz_project.yaml, or its permissions later (doz net allow\|deny NAME github:as-you). Proxied sandboxes only. |
@@ -203,7 +263,7 @@ This table is generated from `doz config show` and checked against it on every b
 
 | key | default | values | applies | overridden by | what it does |
 |---|---|---|---|---|---|
-| `updates.mode` | `notify` | off \| notify \| auto | next command | `$DOZ_UPDATES` | Updates: notify (at most once a day, and when doz ui opens, look for a newer doz and say how to upgrade — one line on a terminal, a banner on the dashboard), auto (also install it: brew upgrade, or the signed download for a tarball install — only while no sandbox runs and no session is attached, else it notifies; then: restart to apply, doz host restart), or off (never look). Never a downgrade; a feed that does not verify is ignored. |
+| `updates.mode` | `notify` | off \| notify \| auto | next command | `$DOZ_UPDATES` | Updates: notify (at most once a day, and when doz ui opens, look for a newer doz and say how to upgrade — one line on a terminal, a banner on the dashboard), auto (also install it: brew upgrade, or the signed download for a tarball install — only while no sandbox runs and no session is attached, else it notifies; then: restart to apply, doz daemon restart), or off (never look). Never a downgrade; a feed that does not verify is ignored. |
 | `updates.channel` | `stable` | stable \| beta \| canary | next command | — | Which releases you are offered: stable, beta (beta and stable) or canary (every build, first). A Homebrew install's own formula (doz, doz-beta, doz-canary) decides while this is not set; doz upgrade --channel switches both. |
 
 ### `[telemetry]`
@@ -226,7 +286,7 @@ This table is generated from `doz config show` and checked against it on every b
 | `sandbox.timezone` | `mac` | mac, or a time zone like Australia/Sydney | next start or wake | — | The sandboxes' time zone: mac (this Mac's, read again at every boot and wake — a laptop that travels while a sandbox sleeps is followed) or a zone like Australia/Sydney. Written to the guest's /etc/localtime; the agent's facts say it. |
 | `sandbox.clipboard` | `write` | write \| off | at once | `doz create --clipboard write\|off` | The clipboard bridge: a program in a sandbox that copies (OSC 52 — Claude Code, vim, tmux) puts the text on this Mac's clipboard, and every copy shows a notice (SANDBOX copied N chars) in doz attach and doz ui. At most 1 MiB a copy and 10 copies in 10 s. A sandbox can never READ the Mac clipboard. The risk: an agent could put a command there for you to paste — off turns the bridge off (copies are dropped, and said). A sandbox's own choice (doz config set --sandbox NAME, clipboard in doz_project.yaml) wins over this. |
 | `sandbox.browser_bridge` | `on` | on \| off | at once | `doz create --browser-bridge on\|off` | The browser bridge: xdg-open (and $BROWSER, open, sensible-browser) in a sandbox opens an http or https URL in this Mac's default browser, with a notice every time (at most 3 in 10 s). A sign-in whose redirect is the sandbox's localhost (Claude Code's /login) gets that port forwarded from the Mac into the sandbox for up to 10 minutes, so the login completes. Never file: or other schemes, never the Mac's own localhost. off: nothing opens (said). A sandbox's own choice (doz config set --sandbox NAME, browser_bridge in doz_project.yaml) wins over this. |
-| `sandbox.open_files` | `on` | on \| off | at once | `doz create --open-files on\|off` | Open workspace files on this Mac: xdg-open PATH (and open PATH, doz-open PATH) in a sandbox opens a document from its /workspace in the Mac's default app — an html page in your browser, markdown in your editor — or a folder (the workspace itself, open .) in the Finder, and doz-open --reveal PATH shows a file selected in its folder; a notice every time (at most 3 in 10 s). Only the shared folder's own files (a link or .. that leads out is refused), only documents (html, md, pdf, images, txt, csv, json, yaml, xml…) — never an app or package folder, a script, an installer or an executable. An isolated sandbox has no file to open. An app other than the default only when it is in bridges.open_apps. off: nothing opens (said). A sandbox's own choice (doz config set --sandbox NAME, open_files in doz_project.yaml) wins over this. |
+| `sandbox.open_files` | `on` | on \| off | at once | `doz create --open-files on\|off` | Open the shared folder's files on this Mac: xdg-open PATH (and open PATH, doz-open PATH) in a sandbox opens a document from its /workspace in the Mac's default app — an html page in your browser, markdown in your editor — or a folder (the shared folder itself, open .) in the Finder, and doz-open --reveal PATH shows a file selected in its folder; a notice every time (at most 3 in 10 s). Only the shared folder's own files (a link or .. that leads out is refused), only documents (html, md, pdf, images, txt, csv, json, yaml, xml…) — never an app or package folder, a script, an installer or an executable. An isolated sandbox has no file to open. An app other than the default only when it is in bridges.open_apps. off: nothing opens (said). A sandbox's own choice (doz config set --sandbox NAME, open_files in doz_project.yaml) wins over this. |
 | `sandbox.ssh_agent` | `off` | off \| on | at once | `doz create --ssh-agent on\|off` | Forward this Mac's SSH agent into the sandbox (proxied sandboxes): ssh and git over SSH there can ask your agent to sign — your keys never enter the sandbox — and only github.com:22 is reachable over SSH. A notice on first use. While it is on, the agent can authenticate as you to github.com. A sandbox's own choice (doz create --ssh-agent on, ssh_agent in doz_project.yaml, doz config set --sandbox NAME) wins over this. |
 | `sandbox.dotfiles` | `""` | a git repository's https:// URL, or a folder on this Mac that is one ("" = none) | new sandboxes | `doz create --dotfiles URL\|PATH\|none` | Your dotfiles in every new sandbox: a git repository (https://github.com/you/dotfiles — fetched on this Mac with its own git login, so a private one works and no credential enters the sandbox) or a folder on this Mac that is a git repository. A sandbox gets the commit it was made at, recorded; doz dotfiles NAME --update moves it on. At its first start, as its user: the repository's install script runs (the first of install.sh, install, bootstrap.sh, bootstrap, script/bootstrap, setup.sh, setup, script/setup — at most 5 minutes, its output in the boot log), or, with none, every dotfile and dot-folder at the top of the repository is linked into the home — never over a file that is there (only over the image's stock copy, kept as NAME.doz-stock), never over Dozable's own (the agents' settings and launchers). doz asks once per repository and commit before it is applied — it is code that runs in the sandbox. "" (the default): none. A sandbox's own choice (doz create --dotfiles, dotfiles in doz_project.yaml) wins over this. |
 | `sandbox.audio` | `off` | off \| speakers \| on | new sandboxes | `doz create --sound off\|speakers\|on (--audio = on)` | Sound in new sandboxes: off, speakers (this Mac's speakers) or on (its speakers and microphone). A sandbox with sound has a sound device and boots Dozable's sound kernel, so it is chosen at create; its own choice (doz create --sound, New sandbox › Sound) wins over this. Later a sandbox can move between speakers and on (doz config set --sandbox NAME sandbox.audio on), from its next start. It records from the Mac's microphone only if macOS allowed it before the sandbox started (else silence); sandbox.microphone_ask says when doz asks. |
@@ -242,14 +302,14 @@ This table is generated from `doz config show` and checked against it on every b
 
 | key | default | values | applies | overridden by | what it does |
 |---|---|---|---|---|---|
-| `bridges.open_apps` | `""` | app names, comma-separated, like "Typora, Visual Studio Code" ("" = none) | at once | — | The Mac apps a sandbox may name to open a workspace file in (doz-open --app NAME FILE, or open -a NAME FILE in the sandbox), comma-separated — e.g. "Typora, Visual Studio Code". Empty: a file opens only in its default app, and naming an app is refused. Never a path, only an app's name. For every sandbox. |
+| `bridges.open_apps` | `""` | app names, comma-separated, like "Typora, Visual Studio Code" ("" = none) | at once | — | The Mac apps a sandbox may name to open a file of its folder in (doz-open --app NAME FILE, or open -a NAME FILE in the sandbox), comma-separated — e.g. "Typora, Visual Studio Code". Empty: a file opens only in its default app, and naming an app is refused. Never a path, only an app's name. For every sandbox. |
 
-### `[workspace]`
+### `[folder]`
 
 | key | default | values | applies | overridden by | what it does |
 |---|---|---|---|---|---|
-| `workspace.ignore_mode` | `lock` | lock \| hide | next start or wake | `doz create --ignore-mode lock\|hide` | What a .dozignore at the root of a sandbox's workspace folder does to the paths it lists (Docker's .dockerignore syntax): lock (they stay listed, shown with no permissions, and every read, write, rename or delete of them is refused — so a program that bumps into one by name sees why) or hide (they are not there at all). A .dozreadonly beside it (same syntax) makes paths visible but read-only; doz_project.yaml, .git/hooks and the two rule files are read-only too. Without either file the folder is shared as it is. A convenience mask, not a security boundary: root in the sandbox can get around it. A sandbox's own choice (doz create --ignore-mode, ignore_mode in doz_project.yaml, doz config set --sandbox NAME) wins over this. |
-| `workspace.view` | `on` | on \| off | next-start | `doz create --workspace-view on\|off` | How a sandbox's workspace folder reaches it. on: through Dozable's live view of the folder, so a program working in /workspace (an agent, a shell) keeps its folder when the sandbox wakes from hibernation or after a host restart. The view costs a little: the first scan of a big folder after a start or a wake is slower (e.g. git status on a large repository, or find), later ones are about as fast as without it. off: the folder is shared directly (a little faster) — but a program working inside /workspace loses its folder at such a wake and must be restarted (Codex says "invalid cwd"). A folder with a .dozignore or .dozreadonly always uses the view. Changes take effect at the sandbox's next start. A sandbox's own choice (doz create --workspace-view, workspace_view in doz_project.yaml, doz config set --sandbox NAME) wins over this. |
+| `folder.ignore_mode` | `lock` | lock \| hide | next start or wake | `doz create --ignore-mode lock\|hide` | What a .dozignore at the root of a sandbox's folder does to the paths it lists (Docker's .dockerignore syntax): lock (they stay listed, shown with no permissions, and every read, write, rename or delete of them is refused — so a program that bumps into one by name sees why) or hide (they are not there at all). A .dozreadonly beside it (same syntax) makes paths visible but read-only; doz_project.yaml, .git/hooks and the two rule files are read-only too. Without either file the folder is shared as it is. A convenience mask, not a security boundary: root in the sandbox can get around it. A sandbox's own choice (doz create --ignore-mode, ignore_mode in doz_project.yaml, doz config set --sandbox NAME) wins over this. |
+| `folder.view` | `on` | on \| off | next-start | `doz create --folder-view on\|off` | How a sandbox's folder reaches it. on: through Dozable's live view of the folder, so a program working in /workspace (an agent, a shell) keeps its folder when the sandbox wakes from hibernation or after a daemon restart. The view costs a little: the first scan of a big folder after a start or a wake is slower (e.g. git status on a large repository, or find), later ones are about as fast as without it. off: the folder is shared directly (a little faster) — but a program working inside /workspace loses its folder at such a wake and must be restarted (Codex says "invalid cwd"). A folder with a .dozignore or .dozreadonly always uses the view. Changes take effect at the sandbox's next start. A sandbox's own choice (doz create --folder-view, folder_view in doz_project.yaml, doz config set --sandbox NAME) wins over this. |
 
 ### `[github]`
 
@@ -261,7 +321,7 @@ This table is generated from `doz config show` and checked against it on every b
 
 | key | default | values | applies | overridden by | what it does |
 |---|---|---|---|---|---|
-| `images.lab.memory_mib` | `1024` | integer 256–262144 | new sandboxes | `doz create --memory` | Memory (MiB) of a new lab sandbox (a template follows the image it was saved from). |
+| `images.lab.memory_mib` | `1024` | integer 256–262144 | new sandboxes | `doz create --memory` | Memory (MiB) of a new lab sandbox (a saved disk follows the image it was saved from). |
 | `images.lab.network` | `bake` | agent \| bake \| locked \| open \| nat \| none | new sandboxes | `doz create --network` | The network of a new lab sandbox: agent, bake, locked, open (proxied presets), nat or none. |
 
 ### `[kernel]`
@@ -279,9 +339,10 @@ Every recipe's agent has these, each recipe with its own defaults (`doz config s
 |---|---|---|---|---|---|
 | `recipes.VENDOR.PRODUCT.version` | `latest` | latest, or an exact version like 2.1.227 | new sandboxes | `doz create --agent claude-code@VERSION` | The Claude Code a new sandbox of this recipe gets (and every base's baked image of it): latest (looked up when its image is baked, then installed at that exact version, integrity-checked; a newer one is only said — doz image bake rebuilds when you choose), or an exact version like 2.1.227. A sandbox keeps the version it was made with; doz reset NAME moves it to the current one. |
 | `recipes.VENDOR.PRODUCT.approvals` | `skip` | skip \| ask | next session | `-e DOZ_CLAUDE_PERMISSIONS=… on run/exec, --approvals on create` | Claude Code's own approval prompts: skip them (the sandbox is the boundary) or ask, as on a Mac. A sandbox (doz config set --sandbox NAME approvals ask) or its project (approvals: in doz_project.yaml) can choose its own. |
-| `recipes.VENDOR.PRODUCT.memory_mib` | `2048` | integer 256–262144 | new sandboxes | `doz create --memory` | Memory (MiB) of a new sandbox of this recipe (a template follows the image it was saved from). |
+| `recipes.VENDOR.PRODUCT.memory_mib` | `2048` | integer 256–262144 | new sandboxes | `doz create --memory` | Memory (MiB) of a new sandbox of this recipe (a saved disk follows the image it was saved from). |
 | `recipes.VENDOR.PRODUCT.network` | `agent` | agent \| bake \| locked \| open \| nat \| none | new sandboxes | `doz create --network` | The network of a new sandbox of this recipe: agent, bake, locked, open (proxied presets), nat or none. |
 | `recipes.VENDOR.PRODUCT.history` | `follow` | follow \| keep \| agent-default | next start or wake | — | Claude Code's conversation history: follow (agent.history, Dozable's choice), keep, or agent-default. keep: cleanupPeriodDays = 36500 in ~/.claude/settings.json, only where it is not set. agent-default: that key is taken back where it still holds Dozable's value — Claude Code deletes conversations older than 30 days. |
+| `recipes.VENDOR.PRODUCT.mac_config` | `follow` | follow \| private \| shared | next session | `doz run @mac --agent-config` | Claude Code's settings folder in a fenced session on this Mac: follow (mac.agent_config), private (the session's own ~/.claude — your instructions and skills read-only, settings copied from a short list) or shared (your own ~/.claude: less isolated). doz run @mac --agent-config decides for one session. |
 | `recipes.openai.codex.keep_alive` | `false` | boolean | at once | — | Codex sandboxes on the account mac (this Mac's own Codex login): when its access token is about to expire and a sandbox used it in the last 15 minutes, run this Mac's codex doctor once — no model call — which renews the login the way Codex itself does. Off: the login renews only while Codex (the app or a codex session) runs on this Mac; when it has expired, Codex in a sandbox says so. |
 
 ### The names before 0.37.34 (still read, and taken by `doz config`)
@@ -300,6 +361,27 @@ Every recipe's agent has these, each recipe with its own defaults (`doz config s
 
 
 
+**`daemon.always_on` and `daemon.idle_timeout_minutes` decide together.** They are listed side by side, and each
+description names the other:
+
+| `daemon.always_on` | `daemon.idle_timeout_minutes` | the daemon |
+|---|---|---|
+| on (the default) | any | stays running; the timeout is ignored |
+| off | N greater than 0 (the default is 5) | exits after N minutes with nothing running |
+| off | 0 | never exits by idling — warned |
+
+The last row earns a warning in `doz config show`, after `doz config set` or `unset` of either setting, under both rows
+of the Settings page, in `doz daemon status` and in `doz doctor`: *Warning: daemon.always_on is off and
+daemon.idle_timeout_minutes is 0, so the daemon will not switch off by idling. Once it is stopped it does not come back
+until the next doz command runs.* A daemon started where the login keychain is locked (over ssh) is never kept running
+whatever the two say: it exits after 5 minutes with nothing running.
+
+**`daemon.login_item` and the menu bar app.** When the menu bar app's **Start at Login** is on, the app holds the login
+item: it sets `daemon.login_item` to `on`, and doz removes its own plist from `~/Library/LaunchAgents` and adds none while
+the app's item is there — `doz daemon login-item` (and `doz daemon status --json`'s `loginItem.owner`, `app`) says the menu
+bar app starts the daemon at login. Turning Start at Login off sets it to `off`. With the app removed, its item counts as
+gone: `doz daemon login-item on` adds doz's own again. ([The menu bar app](https://dozable.com/docs/the-menu-bar-app.md#start-at-login).)
+
 ## Environment variables
 
 | variable | overrides | |
@@ -307,9 +389,10 @@ Every recipe's agent has these, each recipe with its own defaults (`doz config s
 | `DOZ_STORE` | `store.path` | the store folder |
 | `DOZ_PROGRESS` | `ui.progress` | `animated` or `plain` progress |
 | `DOZ_COLOR` | `ui.color` | `auto`, `always` or `never` colour in the CLI |
-| `DOZ_HOST_IDLE` | `host.idle_timeout_minutes` | host idle timeout, minutes (fractions allowed) |
-| `DOZ_SCREEN_CAPTURE` | `host.screen_capture_minutes` | how often screens are saved |
-| `DOZ_BOOT_LOGS` | `host.boot_logs_kept` | boots kept per sandbox |
+| `DOZ_DAEMON_ALWAYS_ON` | `daemon.always_on` | keep the daemon running with nothing open (on/off) |
+| `DOZ_DAEMON_IDLE` | `daemon.idle_timeout_minutes` | daemon idle timeout, minutes (fractions allowed; only with `daemon.always_on` off) |
+| `DOZ_SCREEN_CAPTURE` | `daemon.screen_capture_minutes` | how often screens are saved |
+| `DOZ_BOOT_LOGS` | `daemon.boot_logs_kept` | boots kept per sandbox |
 | `DOZ_SUBNET` | `defaults.nat_subnet` | subnet of a new `nat` sandbox |
 | `DOZ_KERNEL` · `DOZ_KERNEL_CACHE` | `kernel.path` · `kernel.cache` | an explicit kernel · a shared kernel cache |
 | `XDG_CONFIG_HOME` | — | where `doz/doz.toml` is (default `~/.config`) |

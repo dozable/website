@@ -4,7 +4,7 @@ description: "Every sandbox starts from a baked image: a disk with a Linux syste
 url: https://dozable.com/docs/images-and-bases
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-13
+updated: 2026-11-25
 chapter: 8
 ---
 # Images and bases
@@ -21,7 +21,7 @@ baked images and their size.
 - **An image is two choices: an agent and a base.**
   - The **agent** (what a recipe installs): **Claude Code**, **pi**, **Codex** ([Codex](https://dozable.com/docs/codex.md)), or **none** (a shell only).
   - The **base**: the Linux system underneath — one of the **recommended bases** (below), **your own
-    Dockerfile**, or a **template** you saved from a sandbox.
+    Dockerfile**, or a **saved disk** — a sandbox's disk you saved with `doz image save`.
 - **Image names** follow the pair: `<base>-<agent>`, for example `python-claude-code` or `go-pi`, and
   just `<base>` with no agent (`debian`). Three names predate the choice and stay:
 
@@ -74,7 +74,7 @@ Node.js store, and `doz try opencode` needs no `--base`. A tool that cannot run 
 tool on Alpine) keeps its recipe's own; `--base BASE` (or the Quick try's base choice) picks another for one
 sandbox.
 
-Onboarding prepares the base in the host as soon as you choose it: the base image pulled, then its disk
+Onboarding prepares the base in the daemon as soon as you choose it: the base image pulled, then its disk
 flattened — the same two steps a tool's first preparation would take. A tool prepared meanwhile **waits** for it
 ("waited for the Node.js base") instead of downloading the same layers a second time. `doz onboard --status`
 shows it (`base node ready`); Operations in the dashboard shows it as "prepare the Node.js base".
@@ -85,11 +85,11 @@ the same on every Mac.
 ## Choose an image — in the terminal
 
 ```sh
-doz create web --image claude-code --workspace ~/code/web              # Node · Claude Code
-doz create api --agent claude-code --base python --workspace ~/code/api
+doz create web --image claude-code --folder ~/code/web              # Node · Claude Code
+doz create api --agent claude-code --base python --folder ~/code/api
 doz create tools --agent none --base go --isolated                      # a Go shell, no agent
 doz create mine --agent pi --dockerfile ~/code/mine/Dockerfile          # your own base
-doz create tpl-copy --image my-template                                 # a template
+doz create tpl-copy --image my-disk                                     # a saved disk (doz image save)
 ```
 
 `--image` is shorthand for `--agent` and `--base`. `doz up` takes the same options.
@@ -97,10 +97,10 @@ doz create tpl-copy --image my-template                                 # a temp
 ## Choose an image — in the dashboard
 
 **New sandbox** shows two rows: **Agent** and **Base**. The agent is chosen in two steps: **Coding agents**,
-**AI tools** or **No agent**, then one of that section's (Claude Code, pi, Codex, Grok Build … · Fabric, llm,
+**AI tools** or **No agent**, then one of that section's (Claude Code, Codex, OpenCode, pi · Fabric, llm,
 promptfoo …). Choosing one that cannot run on the base chosen (Alpine, for a tool built for glibc only) moves the base
 to its own. **Base**: **Recommended** (a card per base, with its download and time), **Dockerfile** (**Choose
-Dockerfile…** opens the Mac's file picker) or **Template**. The line under them names the image the pair makes.
+Dockerfile…** opens the Mac's file picker) or **Saved disk**. The line under them names the image the pair makes.
 
 ![Choosing agent and base](https://dozable.com/docs/images/new-sandbox-base.png)
 
@@ -123,7 +123,7 @@ baseline and the agent on top as usual.
 - **The build runs outside Dozable's network policy.** The Dockerfile's `RUN` steps run in Apple's
   builder and reach the internet directly, without Dozable's proxy or permissions. Only build
   Dockerfiles you trust. The sandbox made from the image is under your permissions as usual.
-- The Dockerfile's folder is the build context, and the sandbox's workspace unless you give one.
+- The Dockerfile's folder is the build context, and the sandbox's shared folder unless you give one.
 - An unchanged Dockerfile prepares again in seconds. When it changes, Dozable says "Dockerfile changed —
   rebuild available"; `doz image bake df-…` rebuilds (the image's name is shown in `doz image ls`),
   and `doz reset NAME` moves a sandbox onto it.
@@ -137,8 +137,9 @@ Each image's **STATUS** (also on the Images page, and `status` in `--json`) is o
 prepared** (it's prepared the first time it's needed) or **preparing**.
 
 ```sh
-doz image ls                   # every image and template: baked here?, its agent version, status
-doz image ls --tree            # the lineage: base → image → template → sandboxes, with sizes
+doz image ls                   # every image and saved disk: baked here?, its agent version, status
+doz image ls --tree            # the lineage: base → image → saved disk → sandboxes, with sizes
+doz image save my-app my-disk  # a sandbox's system disk saved as an image (never its state disk)
 doz image bake claude-code     # prepare (or rebuild) now rather than at the first start
 doz image rm python-pi         # remove an image's prepared disk (sandboxes made from it keep working)
 ```
@@ -169,14 +170,16 @@ Either way, **Dozable never rebuilds an image without you.** It says so:
 
 Rebuilding never touches existing sandboxes: they keep their disks. To move a sandbox onto the new
 image, `doz reset NAME` — it keeps the agent's own state (`~/.claude`, `~/.pi`) and `/workspace`, and
-drops everything else installed on its system disk (take a [template](https://dozable.com/docs/restore-points-duplicates-templates.md#templates)
-first if you want that).
+drops everything else installed on its system disk (save its disk first — [`doz image save`](https://dozable.com/docs/restore-points-duplicates-templates.md#saved-disks)
+— if you want that).
 
-## Templates
+## Saved disks
 
-A **template** is a sandbox's system disk saved as an image: set a sandbox up the way you like, then
-make new sandboxes from it. It never includes the agent's state disk (logins, history). See
-[Restore points, duplicates and templates](https://dozable.com/docs/restore-points-duplicates-templates.md#templates).
+A **saved disk** is a sandbox's system disk saved as an image (`doz image save SANDBOX NAME`): set a sandbox up the way
+you like, then make new sandboxes from it. It never includes the agent's state disk (logins, history). `doz image ls`
+lists it (BASE · AGENT says **saved disk**) and `doz image rm NAME` removes it. These were `doz template create | ls | rm`,
+which forward here for one release. See
+[Restore points, duplicates and saved disks](https://dozable.com/docs/restore-points-duplicates-templates.md#saved-disks).
 
 ## Settings
 

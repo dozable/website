@@ -1,24 +1,24 @@
 ---
-title: "The workspace view (dozview) — Dozable docs"
+title: "The folder view (dozview) — Dozable docs"
 description: "/workspace inside a sandbox is not your shared folder itself: it is a live view of it, served by a small Dozable program, dozview."
 url: https://dozable.com/docs/the-workspace-view
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-13
+updated: 2026-11-25
 chapter: 21
 ---
-# The workspace view (`dozview`)
+# The folder view (`dozview`)
 
 `/workspace` inside a sandbox is not your shared folder itself: it is a live view of it, served by a small
 Dozable program, **`dozview`**. This page is what that program is, what it does, and how to look inside it.
 When the folder holds a `.dozignore` or a `.dozreadonly`, the view also applies those rules — see
-[Workspace rules](https://dozable.com/docs/workspace-rules.md). Without either file it applies nothing: every file is there, as on
+[Folder rules](https://dozable.com/docs/workspace-rules.md). Without either file it applies nothing: every file is there, as on
 your Mac.
 
-## Why every workspace goes through it
+## Why every shared folder goes through it
 
 A program working inside `/workspace` — an agent, a shell, a dev server — **keeps its folder when the
-sandbox wakes from hibernation** (and after a host restart, which hibernates). The plain share cannot do
+sandbox wakes from hibernation** (and after a daemon restart, which hibernates). The plain share cannot do
 that: a hibernation disconnects it, and the sandbox has to connect it again on wake, so a program that was
 inside it is left in a folder that no longer exists. Codex then fails every turn with
 `invalid cwd: No such file or directory`; a shell says `No such file or directory` for `ls .`. The view is
@@ -37,9 +37,9 @@ a wake is slower — measured on 2,000 small files:
 So a `git status` on a big repository, right after a start or a wake, takes noticeably longer the first
 time; after that it is about as fast as before.
 
-**Turning it off.** `doz config set workspace.view off` (every sandbox), or for one sandbox
-`doz create … --workspace-view off`, `workspace_view: off` in its `doz_project.yaml`, or
-`doz config set --sandbox NAME workspace.view off`. The folder is then shared directly — a little faster,
+**Turning it off.** `doz config set folder.view off` (every sandbox), or for one sandbox
+`doz create … --folder-view off`, `folder_view: off` in its `doz_project.yaml`, or
+`doz config set --sandbox NAME folder.view off`. The folder is then shared directly — a little faster,
 but a program working inside `/workspace` loses its folder at every wake from hibernation and has to be
 restarted ([Restart session](https://dozable.com/docs/terminals-and-sessions.md#restarting-or-ending-a-session)). A folder with a
 `.dozignore` or `.dozreadonly` always uses the view.
@@ -50,8 +50,8 @@ its next wake from hibernation (whose wake would have cut its programs off anywa
 still the old one; restart the session if a program complains.
 
 **If the view cannot start**, the folder is shared directly instead (never an empty `/workspace`): the
-start says so, and `doz doctor` warns "workspace view" for that sandbox. `doz ls --json` reports how each
-running sandbox's workspace is served (`workspaceView`: `live`, `rules`, `direct`, `next-start` or
+start says so, and `doz doctor` warns "folder view" for that sandbox. `doz ls --json` reports how each
+running sandbox's folder is served (`folderView`: `live`, `rules`, `direct`, `next-start` or
 `fallback`).
 
 ## Who can write
@@ -62,7 +62,7 @@ you may read included. Root can too. On your Mac, everything the sandbox writes 
 before.
 
 Any **other** user inside the sandbox (for example `node`, or `doz exec --user NAME`) can read the folder but
-not write it through the view. With `workspace.view` off the plain share lets every user in the sandbox
+not write it through the view. With `folder.view` off the plain share lets every user in the sandbox
 write, as your Mac account.
 
 **Sandboxes started before Dozable 0.33.1** run an older view, under which the agent could not write
@@ -84,9 +84,10 @@ Sleeping and waking such a sandbox keeps the old view (the wake says so); shut i
   | in `.dozreadonly` | listed and readable; every change is refused (an ordinary user sees "Permission denied", root "Read-only file system") |
   | anything else | passed straight through to your Mac folder, both ways |
 
-- **Always read-only**, whatever the rules say: `.dozignore` and `.dozreadonly` themselves (an agent cannot
-  edit its own rules), and — unless your `.dozreadonly` says `!name` — `doz_project.yaml`,
-  `doz_project.yml` and `.git/hooks`.
+- **Always read-only to the agent's user**, whatever the rules say: `.dozignore` and `.dozreadonly` themselves (an
+  agent cannot edit its own rules), and — unless your `.dozreadonly` says `!name` — `doz_project.yaml`,
+  `doz_project.yml` and `.git/hooks`. Root in the VM can lift it (a mask, not the boundary); a fenced session on the Mac
+  guards `.git/hooks` and `.git/config` with its fence instead.
 - **Rules are read from the shared folder itself.** Edit `.dozignore` on the Mac and the sandbox follows
   within about a quarter of a second; `dozview` also drops anything the sandbox's kernel had cached about
   the affected names.
@@ -150,4 +151,4 @@ A small static Linux program written in C, with no outside libraries — it spea
 itself rather than using the usual FUSE library (whose licence would complicate shipping it inside Dozable).
 The copy Dozable ships is checked to rebuild byte for byte from its source.
 
-See also: [Workspace rules](https://dozable.com/docs/workspace-rules.md) · [Troubleshooting and FAQ](https://dozable.com/docs/troubleshooting-and-faq.md).
+See also: [Folder rules](https://dozable.com/docs/workspace-rules.md) · [Troubleshooting and FAQ](https://dozable.com/docs/troubleshooting-and-faq.md).

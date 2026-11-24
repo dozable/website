@@ -1,13 +1,13 @@
 ---
-title: "Workspace rules: .dozignore and .dozreadonly — Dozable docs"
+title: "Folder rules: .dozignore and .dozreadonly — Dozable docs"
 description: "A sandbox's /workspace is your Mac folder, live. Often you want the agent to see most of it but not everything: not secrets.env, not your doz_project.yaml, not a folder of build output it would only wade through."
 url: https://dozable.com/docs/workspace-rules
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-13
+updated: 2026-11-25
 chapter: 20
 ---
-# Workspace rules: `.dozignore` and `.dozreadonly`
+# Folder rules: `.dozignore` and `.dozreadonly`
 
 A sandbox's `/workspace` is your Mac folder, live. Often you want the agent to see most of it but not
 everything: not `secrets.env`, not your `doz_project.yaml`, not a folder of build output it would only
@@ -15,13 +15,13 @@ wade through. Two files at the root of the shared folder say so:
 
 - **`.dozignore`** lists paths the agent must not use. By default they stay **listed but locked**: shown
   with no permissions (`----------`), and every read, write, rename or delete of them is refused — so a
-  program that bumps into one by name sees why. With `workspace.ignore_mode = hide` they are **not there
+  program that bumps into one by name sees why. With `folder.ignore_mode = hide` they are **not there
   at all**.
 - **`.dozreadonly`** lists paths the agent may read but not change.
 
 Your Mac is never touched: you keep editing every file as before, and the sandbox sees your changes. With
 neither file, every file is there as it is on your Mac (the folder still goes through
-[the workspace view](https://dozable.com/docs/the-workspace-view.md), which keeps programs in it working across a wake).
+[the folder view](https://dozable.com/docs/the-workspace-view.md), which keeps programs in it working across a wake).
 
 > **A convenience, not a security boundary.** The rules keep an agent from stumbling into files. Root in
 > the sandbox — and the agent has `sudo` by default — can get around them. Anything that must not reach
@@ -42,12 +42,12 @@ logs
 build/*.tmp
 ```
 
-Line by line: `secrets.env` at the **top** of the workspace (not deeper); the folder `logs` and
+Line by line: `secrets.env` at the **top** of the folder (not deeper); the folder `logs` and
 everything in it; except `logs/keep.txt`, which stays usable; any `.key` file at any depth; every
 `node_modules` folder; `.tmp` files directly in `build` (`*` and `?` never cross a `/`). A `#` later in
 a line is part of the pattern, as in Docker.
 
-- **Patterns are anchored at the root of the workspace.** `node_modules` means only the top one —
+- **Patterns are anchored at the root of the folder.** `node_modules` means only the top one —
   unlike `.gitignore`. Write `**/node_modules` for every depth. `doz` warns when a name you wrote this
   way also exists deeper.
 - A pattern matches a path **or any folder above it**, so listing a folder covers everything inside.
@@ -66,7 +66,10 @@ would.
 
 ## Always read-only
 
-While a sandbox's rules apply, these are read-only even if your `.dozreadonly` does not list them:
+While a sandbox's rules apply, these are read-only to the agent's user in the micro VM even if your `.dozreadonly` does
+not list them (root in the VM can lift it: the rules are a mask, not the boundary — the VM is). A fenced session on your
+Mac has its own guard: `.git/hooks` and `.git/config` are kept from it by the fence ([Sessions on this
+Mac](34-sessions-on-this-mac.md)).
 
 | path | why |
 |---|---|
@@ -77,16 +80,16 @@ While a sandbox's rules apply, these are read-only even if your `.dozreadonly` d
 ## Lock or hide
 
 ```bash
-doz config set workspace.ignore_mode hide                  # for every sandbox
-doz config set --sandbox my-app workspace.ignore_mode lock  # for one
-doz create my-app --workspace ~/code/app --ignore-mode hide
+doz config set folder.ignore_mode hide                  # for every sandbox
+doz config set --sandbox my-app folder.ignore_mode lock  # for one
+doz create my-app --folder ~/code/app --ignore-mode hide
 ```
 
 or `ignore_mode: hide` in `doz_project.yaml` (`doz init --ignore-mode hide` writes it).
 
 Setting up this Mac asks the same question once — **Lock** (recommended) or **Hide** — for the default
 (`doz onboard --ignore-mode hide`, or the dashboard's setup wizard), and only writes the setting when you
-choose; the **New sandbox** wizard and `doz init` have a **Workspace rules** step that shows what the
+choose; the **New sandbox** wizard and `doz init` have a **Folder rules** step that shows what the
 chosen folder already has and asks for that sandbox.
 
 | | **lock** (the default) | **hide** |
@@ -109,9 +112,9 @@ denied* for an ordinary user (their write bits are not shown).
 - A sandbox that **gains** its first rule file gets the rules at its next session start, wake or start.
   A program already inside `/workspace` keeps what it has open until it changes directory.
 - Removing **both** files takes effect at the next start: until then the folder is served with no rules.
-- A new `workspace.ignore_mode` applies at the next session start, wake or start.
+- A new `folder.ignore_mode` applies at the next session start, wake or start.
 - Pausing, sleeping, hibernating and waking keep the rules — and so does a sandbox restored after the
-  host restarts.
+  daemon restarts.
 
 The agent is told: its facts say that files shown with no permissions are blocked by your `.dozignore`
 and must not be read or recreated, and which paths are read-only.
@@ -123,7 +126,7 @@ doz ignore check my-app secrets.env logs/old.log /workspace/config/app.yaml
 doz ignore show my-app
 ```
 
-`doz ignore check` says, for each path (relative to the workspace, `/workspace/…`, or the Mac path), what
+`doz ignore check` says, for each path (relative to the folder, `/workspace/…`, or the Mac path), what
 it is in the sandbox and which line of which file decides — no virtual machine is needed:
 
 ```
@@ -148,7 +151,7 @@ stop) when:
 
 In the dashboard, a sandbox with rules shows **rules** beside its name, and its details say how many
 patterns each file has and whether they are in force. A sandbox whose folder has no rule file says
-*Workspace rules: none — the folder is shared as is*; an isolated sandbox shares no folder, so says
+*Folder rules: none — the folder is shared as is*; an isolated sandbox shares no folder, so says
 nothing.
 
 ## How it works
@@ -159,7 +162,7 @@ it is looked up — so a file created later, on either side, is covered at once.
 metadata-heavy work: walking a tree of 2,000 files for the first time takes about 0.1 s more, reading
 everything about 1.8× as long as without rules; once looked at, it is close to the plain share — and
 hiding a big folder often makes a whole-tree walk faster than before. Without a rule file none of this
-runs. [The workspace view](https://dozable.com/docs/the-workspace-view.md) has the details.
+runs. [The folder view](https://dozable.com/docs/the-workspace-view.md) has the details.
 
 ## Troubleshooting
 

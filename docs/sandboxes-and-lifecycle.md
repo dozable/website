@@ -4,19 +4,28 @@ description: "A sandbox is one Linux virtual machine with its own disks."
 url: https://dozable.com/docs/sandboxes-and-lifecycle
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-13
+updated: 2026-11-25
 chapter: 5
 ---
 # Sandboxes and their lifecycle
 
 A **sandbox** is one Linux virtual machine with its own disks. This page covers making one, the
 states it can be in — running, paused, asleep, hibernated, shut down — and moving between them, and
-the background **host** that runs them all.
+the background **daemon** that runs them all.
+
+A sandbox can also be adopted into a workspace, with other agents, a room and a brief — see
+[Workspaces](https://dozable.com/docs/workspaces.md); adopting it changes nothing of the sandbox itself. A workspace's `doz workspace sleep`
+hibernates its sandboxes (the same as `doz hibernate`, all at once) and `wake` wakes them; `finish` shuts them down, keeping
+their disks — a workspace never removes a sandbox unless you say so (`--remove-sandboxes`, and never one you adopted).
+
+A sandbox is one of three places an agent can run — a micro VM; the other two are fenced and unfenced sessions on this
+Mac. [Where an agent runs: the three choices](https://dozable.com/docs/sessions-on-this-mac.md#where-an-agent-runs-the-three-choices) compares
+them (what each reaches, its memory, its start time, when to pick it).
 
 ## Concepts
 
 - **Name.** 1–40 characters of `a-z 0-9 -`, unique in the store.
-- **Image.** What the sandbox starts from (Claude Code, pi, a plain shell, a template…). See
+- **Image.** What the sandbox starts from (Claude Code, pi, a plain shell, a saved disk…). See
   [Images and bases](https://dozable.com/docs/images-and-bases.md).
 - **Three kinds of storage**, each kept differently:
 
@@ -24,15 +33,15 @@ the background **host** that runs them all.
   |---|---|---|
   | the **root disk** | the system and anything installed or written outside the next two | shutdown; gone with `reset` (back to the image) and `rm` |
   | the **state disk** (agent images) | the agent's own settings, logins and history (`~/.claude`, `~/.pi/agent`) | shutdown **and** reset; gone with `rm` |
-  | the **workspace** | your Mac folder shared at `/workspace` | everything — it's on your Mac |
+  | the **folder** | your Mac folder, shared live — it appears inside the sandbox at `/workspace` | everything — it's on your Mac |
 
 - **Isolated.** A sandbox with no shared folder: `/workspace` is a folder on its own disk, and nothing
   on your Mac is shared. `doz ls` shows `isolated`, and the agent is told.
 - **Sessions.** The terminal programs running inside (a shell, `claude`, `pi`). They survive pause,
   sleep and hibernate. See [Terminals and sessions](https://dozable.com/docs/terminals-and-sessions.md).
-- **The host.** One background `doz` process per store. It owns every running VM, the network proxy
-  and the credentials. The first command that needs it starts it, and it exits when idle, so you
-  normally never think about it.
+- **The daemon.** One background `doz` process per store. It owns every running VM, the network proxy
+  and the credentials. The first command that needs it starts it, and it keeps running (`daemon.always_on`),
+  so you normally never think about it.
 
 ## The states
 
@@ -67,7 +76,7 @@ asleep or hibernated sandbox and resumes a paused one, so it's the one command t
 |---|---|---|---|---|
 | `doz start NAME` | boots (or wakes it if asleep, resumes it if paused) | ~0.4 s (a first start may prepare the image) | used as needed | start fresh |
 | `doz pause NAME` · `doz resume NAME` | the CPU stops | ~1 ms | kept | frozen, then carry on |
-| `doz sleep NAME` · `doz wake NAME` | paused **and** saved to disk — survives a crash of the host | ~0.3 s | kept | carry on |
+| `doz sleep NAME` · `doz wake NAME` | paused **and** saved to disk — survives a crash of the daemon | ~0.3 s | kept | carry on |
 | `doz hibernate NAME` · `doz wake NAME` | saved to disk, then the VM stops | ~0.35 s / ~0.3 s | **given back** | carry on: same processes, same screens |
 | `doz shutdown NAME` | a cold stop; the disks are kept | | given back | end |
 | `doz down NAME` | the opposite of `up`: hibernate (`--sleep`: sleep; `--shutdown`: shut down) | as those | as those | as those |
@@ -82,7 +91,7 @@ sessions come back where they were with `doz up` (in its project folder), `doz a
 (`-y` skips the question).
 
 **The folder Dozable made goes with it.** When a sandbox's folder did not exist and Dozable made it (`doz new`, New
-sandbox and Quick add in the dashboard, `doz try`, a `--workspace` that was not there yet), `doz rm` — and the
+sandbox and Quick add in the dashboard, `doz try`, a `--folder` that was not there yet), `doz rm` — and the
 dashboard's **Remove…** — removes that folder too while it is empty. When it holds files, `doz rm` asks (the default
 keeps it and says where); off a terminal and in the dashboard it is kept. A folder that was there before is never
 touched, and neither is the folder of a duplicate.
@@ -105,7 +114,7 @@ doz start website
 
 It refuses while the sandbox runs, sleeps, hibernates or is busy — shut it down first — and refuses a name that is
 already taken or is not 1–40 characters of a-z, 0-9 and `-`. Its folder on your Mac keeps its own name and place —
-Dozable never moves your files. Templates saved from it keep saying which
+Dozable never moves your files. Disks saved from it keep saying which
 sandbox they came from, and past numbers on the Metrics page stay under the old name.
 
 In the dashboard: **Rename…** in a sandbox's ⋯ menu — in the sidebar (on the sandbox's line) and on its page's
@@ -122,7 +131,7 @@ One click in the dashboard, or one command, makes a sandbox with every default a
 - the image is the setting `defaults.image` (onboarding sets it to the image you chose);
 - the name is the image's — `claude-sandbox`, `pi-sandbox`, `lab-sandbox` — or the next free one
   (`claude-sandbox-2`, …) when a sandbox has that name, or its folder already has something in it;
-- its workspace is a folder of its own in your **projects folder**, the setting
+- its folder is a folder of its own in your **projects folder**, the setting
   `defaults.projects_dir` (`~/doz-workspaces` unless you change it):
   `~/doz-workspaces/claude-sandbox`, made for it;
 - the account and what the agent can do are the defaults.
@@ -149,7 +158,7 @@ running). Each option changes just that one thing:
 | `--name` | Your own name (refused if a sandbox has it). |
 | `--isolated` | Share no folder. |
 | `-d` · `--detach` | Create and start it, but don't attach. |
-| `--json` | Answer `{name, image, workspace, phase, session, milliseconds}` instead of attaching. |
+| `--json` | Answer `{name, image, folder, phase, session, milliseconds}` instead of attaching. |
 
 **When one click can't decide.** Some things need your choice first: pi needs an Anthropic API key,
 and an image an older doz prepared can be used as it is or rebuilt. Then **Quick add** opens the
@@ -167,16 +176,16 @@ New sandboxes from Quick add, **New sandbox** and `doz new` use it; existing one
 ```sh
 doz create my-box --image lab --isolated            # made, and off
 doz start my-box
-doz create my-app --image claude-code --workspace ~/code/my-app --start
-doz create my-pi --image pi --workspace ~/code/my-pi --prepare   # made and off, its image ready
+doz create my-app --image claude-code --folder ~/code/my-app --start
+doz create my-pi --image pi --folder ~/code/my-pi --prepare   # made and off, its image ready
 doz up my-app                                        # create if missing, start or wake, attach
 ```
 
 | option | what it does |
 |---|---|
-| `--image` | `lab`, `claude-code`, `pi`, a base × agent image, or a template. Or `--agent` with `--base` / `--dockerfile` ([Images and bases](https://dozable.com/docs/images-and-bases.md)). |
-| `--workspace DIR` | Share this Mac folder at `/workspace`. Made if it doesn't exist; refused for your home folder itself, system locations and the store. |
-| `--isolated` | Share nothing (the default without `--workspace`; this says it on purpose). |
+| `--image` | `lab`, `claude-code`, `pi`, a base × agent image, or a saved disk (`doz image save`). Or `--agent` with `--base` / `--dockerfile` ([Images and bases](https://dozable.com/docs/images-and-bases.md)). |
+| `--folder DIR` | Share this Mac folder at `/workspace`. Made if it doesn't exist; refused for your home folder itself, system locations and the store. |
+| `--isolated` | Share nothing (the default without `--folder`; this says it on purpose). |
 | `--cpus` · `--memory` | Virtual CPUs (default 2) · RAM (`2G`, `512M`; default 1 GiB for lab, 2 GiB for an agent image). |
 | `--network` · `--allow` | What the agent may reach ([What the agent can do](https://dozable.com/docs/permissions-and-network.md)). |
 | `--account` | Which Claude account it uses ([Agents and accounts](https://dozable.com/docs/agents-and-accounts.md)). |
@@ -191,7 +200,7 @@ does all that without attaching. On an existing sandbox, create options are igno
 ## Create and start — in the dashboard
 
 1. **Sandboxes** › **New sandbox** — a wizard, step by step: the **project folder** (a new one in
-   your projects folder, or one you have), the **Agent** and the **Base** (or a **Template**), the
+   your projects folder, or one you have), the **Agent** and the **Base** (or a **Saved disk**), the
    account, access (GitHub, SSH agent), what the agent can do, CPUs and memory, the bridges, and the
    session. Each step is filled in from your settings; **Skip to review** keeps the rest.
 2. **Review** shows the `doz_project.yaml` it writes into the folder; **Write and create** writes it,
@@ -222,13 +231,13 @@ doz sessions my-app     # its terminal sessions
 ```
 
 **RAM held** is what the VM costs your Mac right now: its allocation, less what it handed back after
-a wake. It shows `—` for a sandbox that is off or hibernated. Looking never starts a host: with none
+a wake. It shows `—` for a sandbox that is off or hibernated. Looking never starts a daemon: with none
 running, these commands read the store directly.
 
 ## Saved screens
 
 Before a sandbox pauses, sleeps or hibernates, Dozable saves the screen of each of its sessions — and
-every `host.screen_capture_minutes` (5) while it runs, for sessions that printed something since. So
+every `daemon.screen_capture_minutes` (5) while it runs, for sessions that printed something since. So
 you can see what a sleeping sandbox was doing without waking it:
 
 ```sh
@@ -258,23 +267,28 @@ In the dashboard: **⋯** › **Boot log** on the sandbox's page (it works in an
 
 ![A kept boot](https://dozable.com/docs/images/boot-log.png)
 
-## The host
+## The daemon
 
 ```sh
-doz host status          # is one running, and what does it hold? (never starts one)
-doz host stop            # hibernate everything that runs, then stop the host
-doz events               # follow what the host does, live (Ctrl-C stops)
+doz daemon status          # is one running, and what does it hold? (never starts one)
+doz daemon stop            # hibernate everything that runs, then stop the daemon
+doz events               # follow what the daemon does, live (Ctrl-C stops)
 doz events my-app        # only this sandbox
 ```
 
-- **Idle exit.** The host exits after `host.idle_timeout_minutes` (5) with nothing running, paused
-  or asleep and nobody attached. The next command starts a new one.
-- **`doz host stop`** shows each sandbox as it hibernates, then a summary. Everything wakes on the
+- **Always on.** The daemon keeps running with nothing open (`daemon.always_on`, on by default; `doz daemon
+  status` says so). When a new doz is installed, it replaces itself with the new version once nothing is running
+  and nobody is attached — no command needed.
+- **Idle exit**, with `doz config set daemon.always_on off`: the daemon exits after `daemon.idle_timeout_minutes`
+  with nothing running, paused or asleep and nobody attached (default 5; `0` disables it — and is warned, since the
+  daemon then never switches off by idling). While `daemon.always_on` is on, the timeout has no effect. The next
+  command starts a new one. A daemon started over ssh always exits after 5 minutes idle.
+- **`doz daemon stop`** shows each sandbox as it hibernates, then a summary. Everything wakes on the
   next `wake`, `attach`, `up` or `exec`, sessions and all.
-- **If the host crashes**, the next command starts a new one. Sleeping sandboxes come back with their
+- **If the daemon crashes**, the next command starts a new one. Sleeping sandboxes come back with their
   sessions; hibernated ones are untouched. Ones that were running are marked as having died with the
-  host (`doz ls`), and their disk is checked at the next start.
-- **Logs** are in `<store>/host.log`. `doz metrics` shows how long each kind of action takes.
+  daemon (`doz ls`), and their disk is checked at the next start.
+- **Logs** are in `<store>/daemon.log`. `doz metrics` shows how long each kind of action takes.
 
 ## Time zone
 
@@ -295,9 +309,10 @@ newer doz fixes, without a restart.
 | `images.lab.memory_mib` · `recipes.anthropic.claude-code.memory_mib` · `recipes.earendil-works.pi.memory_mib` | `1024` · `2048` · `2048` | Memory of a new sandbox of each image (`--memory`); other images follow the one they're based on. |
 | `defaults.projects_dir` | `~/doz-workspaces` | Your projects folder: where Quick add, `doz new` and the dashboard's New sandbox make a new sandbox's own folder (`<projects_dir>/NAME`). **Settings** › **Choose…** picks it. |
 | `sandbox.timezone` | `mac` | `mac` (follow this Mac) or a zone like `Australia/Sydney`. Applies at each start or wake. |
-| `host.idle_timeout_minutes` | `5` | Minutes with nothing running before the host exits; `0` = never (`$DOZ_HOST_IDLE`). |
-| `host.screen_capture_minutes` | `5` | How often a running sandbox's changed screens are saved; `0` = only at pause, sleep and hibernate. |
-| `host.boot_logs_kept` | `5` | Boots kept per sandbox (1–50). |
+| `daemon.always_on` | `true` | Keep the daemon running with nothing open (`$DOZ_DAEMON_ALWAYS_ON`). |
+| `daemon.idle_timeout_minutes` | `5` | With `daemon.always_on` off: minutes with nothing running before the daemon exits; `0` disables it (`$DOZ_DAEMON_IDLE`). |
+| `daemon.screen_capture_minutes` | `5` | How often a running sandbox's changed screens are saved; `0` = only at pause, sleep and hibernate. |
+| `daemon.boot_logs_kept` | `5` | Boots kept per sandbox (1–50). |
 | `ui.boot_view_on_start` | `false` | After the dashboard's Start, stay on the Console tab rather than switch to the agent's tab. |
 | `ui.confirm_shutdown` | `true` | The dashboard's Shut down asks first. |
 
@@ -314,6 +329,6 @@ newer doz fixes, without a restart.
 |---|---|
 | The first start is slow | It's preparing the image, once per store. `doz onboard` or `doz image bake NAME` does it ahead of time; `-v` shows the steps. |
 | A start or wake failed | `doz console NAME --list`, then `doz console NAME --steps`: the failing step is marked ✕, with why. |
-| A wake fails again and again | `doz host stop`, then wake again (a failed wake keeps its snapshot). Last resort: `doz shutdown NAME` then `doz start NAME` — programs end, the disks are kept. For Claude Code, `claude --continue` picks the conversation back up. |
-| A sandbox shows as died | The host crashed while it ran. `doz start NAME` checks its disk and boots it. |
+| A wake fails again and again | `doz daemon stop`, then wake again (a failed wake keeps its snapshot). Last resort: `doz shutdown NAME` then `doz start NAME` — programs end, the disks are kept. For Claude Code, `claude --continue` picks the conversation back up. |
+| A sandbox shows as died | The daemon crashed while it ran. `doz start NAME` checks its disk and boots it. |
 | "not possible in this phase" | The action doesn't fit the sandbox's state (e.g. `resume` on one that isn't paused). `doz ls` shows its state. |

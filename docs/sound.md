@@ -4,7 +4,7 @@ description: "A sandbox can have sound: programs in it play through your Mac's s
 url: https://dozable.com/docs/sound
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-13
+updated: 2026-11-25
 chapter: 23
 ---
 # Sound
@@ -96,7 +96,7 @@ sandbox is always safe, whatever macOS's answer.
 
 ## Across pause, sleep and hibernation
 
-Sound keeps going across Pause, Sleep and Hibernate, and after the host restarted: a program that was playing or
+Sound keeps going across Pause, Sleep and Hibernate, and after the daemon restarted: a program that was playing or
 recording when the sandbox went to sleep carries on when it wakes, with nothing to restart.
 
 ## Known limitations

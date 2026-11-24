@@ -4,7 +4,7 @@ description: "Claude Code talks to Anthropic by default: this Mac's Claude login
 url: https://dozable.com/docs/claude-code-other-models
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-13
+updated: 2026-11-25
 chapter: 32
 ---
 # Claude Code with other models — a gateway, or a model server on your Mac
@@ -73,13 +73,18 @@ A sandbox has no network of its own: everything it sends goes through Dozable's 
 - **One name, one port.** The sandbox reaches your server as `http://mac.dozable.internal:PORT`, for the port it was
   made with — the proxy sends that to `127.0.0.1:PORT` on your Mac. Any other port of that name is refused, and a
   sandbox made without a port cannot resolve the name at all.
-- **Nothing else on your Mac's localhost.** `127.0.0.1`, `localhost` and `::1` through the proxy are refused for
-  every sandbox, whatever its network — Open included. (Inside the sandbox, `localhost` is the sandbox's own.)
+- **Nothing else on your Mac.** `127.0.0.1`, `localhost` and `::1` through the proxy are refused for every sandbox,
+  whatever its network — Open included — and so are your Mac's other addresses (a server listening on all of them is
+  still reached only by the name above) and link-local addresses. (Inside the sandbox, `localhost` is the sandbox's own.)
 - It is not a network permission: no preset or edit widens it. The sandbox's Network tab says it ("This Mac: port
   11434 only"), and so does the agent's own description of its sandbox.
 - `doz doctor` checks that something answers on each such port.
 
-The port is chosen when the sandbox is made; for another port, make another sandbox.
+The port is chosen when the sandbox is made. It is one entry of the sandbox's list of this Mac's ports: other
+services on your Mac can be opened beside it (`--host-port PORT`, `doz net allow NAME host:PORT`), and
+`host.dozable.internal` is the same route as `mac.dozable.internal` — see
+[This Mac's ports](https://dozable.com/docs/permissions-and-network.md#this-macs-ports). The model server's own port belongs to its model
+source: it stays open as long as the sandbox uses it.
 
 ## In the dashboard
 

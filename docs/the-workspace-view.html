@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>The workspace view (dozview) — Dozable docs</title>
+<title>The folder view (dozview) — Dozable docs</title>
 <meta name="description" content="/workspace inside a sandbox is not your shared folder itself: it is a live view of it, served by a small Dozable program, dozview.">
 <link rel="canonical" href="https://dozable.com/docs/the-workspace-view">
 <link rel="alternate" type="text/markdown" href="https://dozable.com/docs/the-workspace-view.md">
@@ -12,7 +12,7 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="The workspace view (dozview) — Dozable docs">
+<meta property="og:title" content="The folder view (dozview) — Dozable docs">
 <meta property="og:description" content="/workspace inside a sandbox is not your shared folder itself: it is a live view of it, served by a small Dozable program, dozview.">
 <meta property="og:url" content="https://dozable.com/docs/the-workspace-view">
 <meta property="og:image" content="https://dozable.com/og-image.png">
@@ -22,13 +22,13 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The workspace view (dozview) — Dozable docs">
+<meta name="twitter:title" content="The folder view (dozview) — Dozable docs">
 <meta name="twitter:description" content="/workspace inside a sandbox is not your shared folder itself: it is a live view of it, served by a small Dozable program, dozview.">
 <meta name="twitter:image" content="https://dozable.com/og-image.png">
 <meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="stylesheet" href="../site.css?v=3c6a0f06">
+<link rel="stylesheet" href="../site.css?v=2545262c">
 <script src="../nav.js?v=4f745b91"></script>
 <link rel="stylesheet" href="docs.css?v=4bcad37f">
 <script defer src="docs.js?v=a2a39b76"></script>
@@ -53,66 +53,76 @@
   <nav class="chapters-body" aria-label="Chapters">
 <h2>Start here</h2><ol>
 <li><a href="getting-started">Getting started</a></li>
-<li><a href="sandboxes-and-lifecycle">Sandboxes and their lifecycle</a></li>
-<li><a href="terminals-and-sessions">Terminals and sessions</a></li>
-<li><a href="permissions-and-network">What the agent can do</a></li>
-</ol>
-<h2>Install and set up</h2><ol>
 <li><a href="install-upgrade-uninstall">Install, upgrade, uninstall</a></li>
 <li><a href="setting-up">Setting up this Mac</a></li>
-<li><a href="projects">Projects</a></li>
-</ol>
-<h2>Using Dozable</h2><ol>
-<li><a href="the-dashboard">The dashboard</a></li>
-<li><a href="doz-serve">The dashboard on other devices</a></li>
-<li><a href="images-and-bases">Images and bases</a></li>
-<li><a href="agents-and-accounts">Agents and accounts</a></li>
-<li><a href="claude-code-other-models">Claude Code with other models</a></li>
-<li><a href="try-and-search">Trying agents</a></li>
-<li><a href="more-agents">More agents</a></li>
-<li><a href="ai-tools">Other AI tools</a></li>
-<li><a href="your-own-recipes">Your own recipes</a></li>
-<li><a href="codex">Codex</a></li>
-<li><a href="web-ports">Web ports</a></li>
-<li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
-<li><a href="github">GitHub as you</a></li>
-<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
-</ol>
-<h2>Files and tools</h2><ol>
-<li><a href="the-tools-layer">The tools layer</a></li>
-<li><a href="dotfiles">Your dotfiles</a></li>
-<li><a href="workspace-rules">Workspace rules</a></li>
-<li><a href="the-workspace-view" aria-current="page">The workspace view</a></li>
+<li><a href="letting-another-agent-drive">Letting another agent drive</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
 </ol>
-<h2>Looking after sandboxes</h2><ol>
-<li><a href="restore-points-duplicates-templates">Restore points, duplicates, templates</a></li>
+<h2>Workspaces, rooms and agents</h2><ol>
+<li><a href="workspaces">Workspaces</a></li>
+<li><a href="chat">Chat</a></li>
+<li><a href="agents-and-bots">Agents / Bots</a></li>
+<li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="space-files">Space files</a></li>
+<li><a href="history-and-retention">History and retention</a></li>
+<li><a href="runs-the-journal-and-lessons">Runs, the journal and lessons</a></li>
+<li><a href="bring-your-own-process">Bring your own process</a></li>
+<li><a href="feeds-and-notices">Feeds and notices</a></li>
+<li><a href="tokens-and-identity">Tokens and identity</a></li>
+</ol>
+<h2>Where agents run</h2><ol>
+<li><a href="sandboxes-and-lifecycle">Sandboxes and their lifecycle</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
+<li><a href="permissions-and-network">What the agent can do</a></li>
+<li><a href="security-model">Security model</a></li>
+<li><a href="terminals-and-sessions">Terminals and sessions</a></li>
+<li><a href="workspace-rules">Folder rules</a></li>
+<li><a href="the-workspace-view" aria-current="page">The folder view</a></li>
+<li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
+<li><a href="web-ports">Web ports</a></li>
+</ol>
+<h2>Agents, tools and accounts</h2><ol>
+<li><a href="try-and-search">Trying agents</a></li>
+<li><a href="more-agents">More agents</a></li>
+<li><a href="codex">Codex</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
+<li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="github">GitHub as you</a></li>
+<li><a href="the-tools-layer">Managed tools</a></li>
+</ol>
+<h2>Images, recipes and setup</h2><ol>
+<li><a href="images-and-bases">Images and bases</a></li>
+<li><a href="projects">Projects</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
+<li><a href="restore-points-duplicates-templates">Restore points, duplicates, saved disks</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
+<li><a href="sound">Sound</a></li>
 <li><a href="resources-and-disk-space">Resources and disk space</a></li>
-<li><a href="letting-another-agent-drive">Letting another agent drive</a></li>
+</ol>
+<h2>The dashboard and apps</h2><ol>
+<li><a href="the-dashboard">The dashboard</a></li>
+<li><a href="doz-serve">The dashboard on other devices</a></li>
+<li><a href="the-menu-bar-app">The menu bar app</a></li>
 </ol>
 <h2>Reference</h2><ol>
 <li><a href="settings-reference">Settings reference</a></li>
-<li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
 <li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
-</ol>
-<h2>Experimental</h2><ol>
-<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
 
 <article class="article">
 <!--email_off-->
-<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="./">Docs</a></li><li aria-current="page">The workspace view (<code>dozview</code>)</li></ol></nav>
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="./">Docs</a></li><li aria-current="page">The folder view (<code>dozview</code>)</li></ol></nav>
 <header class="chead">
 <p class="eyebrow">Chapter 21</p>
-<h1>The workspace view (<code>dozview</code>)</h1>
+<h1>The folder view (<code>dozview</code>)</h1>
 <p class="summary"><code>/workspace</code> inside a sandbox is not your shared folder itself: it is a live view of it, served by a small Dozable program, <strong><code>dozview</code></strong>.</p>
 </header>
 <details class="toc-m"><summary>On this page</summary>
 <ol>
-<li><a href="#why-every-workspace-goes-through-it">Why every workspace goes through it</a>
+<li><a href="#why-every-shared-folder-goes-through-it">Why every shared folder goes through it</a>
 </li>
 <li><a href="#who-can-write">Who can write</a>
 </li>
@@ -134,33 +144,33 @@
 </details>
 <div class="prose">
 <!-- manual text -->
-<p><code>/workspace</code> inside a sandbox is not your shared folder itself: it is a live view of it, served by a small Dozable program, <strong><code>dozview</code></strong>. This page is what that program is, what it does, and how to look inside it. When the folder holds a <code>.dozignore</code> or a <code>.dozreadonly</code>, the view also applies those rules — see <a href="workspace-rules">Workspace rules</a>. Without either file it applies nothing: every file is there, as on your Mac.</p>
-<h2 id="why-every-workspace-goes-through-it">Why every workspace goes through it<a class="anchor" href="#why-every-workspace-goes-through-it" aria-label="Link to this section">#</a></h2>
-<p>A program working inside <code>/workspace</code> — an agent, a shell, a dev server — <strong>keeps its folder when the sandbox wakes from hibernation</strong> (and after a host restart, which hibernates). The plain share cannot do that: a hibernation disconnects it, and the sandbox has to connect it again on wake, so a program that was inside it is left in a folder that no longer exists. Codex then fails every turn with <code>invalid cwd: No such file or directory</code>; a shell says <code>No such file or directory</code> for <code>ls .</code>. The view is never disconnected — it reconnects to your folder underneath — so nothing inside notices the wake.</p>
+<p><code>/workspace</code> inside a sandbox is not your shared folder itself: it is a live view of it, served by a small Dozable program, <strong><code>dozview</code></strong>. This page is what that program is, what it does, and how to look inside it. When the folder holds a <code>.dozignore</code> or a <code>.dozreadonly</code>, the view also applies those rules — see <a href="workspace-rules">Folder rules</a>. Without either file it applies nothing: every file is there, as on your Mac.</p>
+<h2 id="why-every-shared-folder-goes-through-it">Why every shared folder goes through it<a class="anchor" href="#why-every-shared-folder-goes-through-it" aria-label="Link to this section">#</a></h2>
+<p>A program working inside <code>/workspace</code> — an agent, a shell, a dev server — <strong>keeps its folder when the sandbox wakes from hibernation</strong> (and after a daemon restart, which hibernates). The plain share cannot do that: a hibernation disconnects it, and the sandbox has to connect it again on wake, so a program that was inside it is left in a folder that no longer exists. Codex then fails every turn with <code>invalid cwd: No such file or directory</code>; a shell says <code>No such file or directory</code> for <code>ls .</code>. The view is never disconnected — it reconnects to your folder underneath — so nothing inside notices the wake.</p>
 <p><strong>What it costs.</strong> Most of the time nothing you would notice. The first look at many files after a start or a wake is slower — measured on 2,000 small files:</p>
-<div class="tablewrap" tabindex="0" role="region" aria-label="Table: Why every workspace goes through it"><table>
+<div class="tablewrap" tabindex="0" role="region" aria-label="Table: Why every shared folder goes through it"><table>
 <thead><tr><th scope="col"></th><th scope="col">through the view</th><th scope="col">the plain share</th></tr></thead>
 <tbody>
 <tr><td>the first <code>find</code> of the tree after a start</td><td>about 0.19 s</td><td>about 0.02 s</td></tr><tr><td><code>stat</code> of 1,000 files not looked at in the last second</td><td>about 0.1 s</td><td>about 0.02 s</td></tr><tr><td>reading every file</td><td>about 0.4 s</td><td>about 0.25 s</td></tr><tr><td>the same <code>find</code> again, or 8 programs reading at once</td><td>about the same</td><td></td></tr>
 </tbody></table></div>
 <p>So a <code>git status</code> on a big repository, right after a start or a wake, takes noticeably longer the first time; after that it is about as fast as before.</p>
-<p><strong>Turning it off.</strong> <code>doz config set workspace.view off</code> (every sandbox), or for one sandbox <code>doz create … --workspace-view off</code>, <code>workspace_view: off</code> in its <code>doz_project.yaml</code>, or <code>doz config set --sandbox NAME workspace.view off</code>. The folder is then shared directly — a little faster, but a program working inside <code>/workspace</code> loses its folder at every wake from hibernation and has to be restarted (<a href="terminals-and-sessions#restarting-or-ending-a-session">Restart session</a>). A folder with a <code>.dozignore</code> or <code>.dozreadonly</code> always uses the view.</p>
+<p><strong>Turning it off.</strong> <code>doz config set folder.view off</code> (every sandbox), or for one sandbox <code>doz create … --folder-view off</code>, <code>folder_view: off</code> in its <code>doz_project.yaml</code>, or <code>doz config set --sandbox NAME folder.view off</code>. The folder is then shared directly — a little faster, but a program working inside <code>/workspace</code> loses its folder at every wake from hibernation and has to be restarted (<a href="terminals-and-sessions#restarting-or-ending-a-session">Restart session</a>). A folder with a <code>.dozignore</code> or <code>.dozreadonly</code> always uses the view.</p>
 <p><strong>When it takes effect.</strong> At the sandbox&#x27;s next start — never under programs that are running. A sandbox that was already running when you upgraded (or turned the setting on) changes over at its next start, or at its next wake from hibernation (whose wake would have cut its programs off anyway). Its first such wake is still the old one; restart the session if a program complains.</p>
-<p><strong>If the view cannot start</strong>, the folder is shared directly instead (never an empty <code>/workspace</code>): the start says so, and <code>doz doctor</code> warns &quot;workspace view&quot; for that sandbox. <code>doz ls --json</code> reports how each running sandbox&#x27;s workspace is served (<code>workspaceView</code>: <code>live</code>, <code>rules</code>, <code>direct</code>, <code>next-start</code> or <code>fallback</code>).</p>
+<p><strong>If the view cannot start</strong>, the folder is shared directly instead (never an empty <code>/workspace</code>): the start says so, and <code>doz doctor</code> warns &quot;folder view&quot; for that sandbox. <code>doz ls --json</code> reports how each running sandbox&#x27;s folder is served (<code>folderView</code>: <code>live</code>, <code>rules</code>, <code>direct</code>, <code>next-start</code> or <code>fallback</code>).</p>
 <h2 id="who-can-write">Who can write<a class="anchor" href="#who-can-write" aria-label="Link to this section">#</a></h2>
 <p>Inside the sandbox, every file in <code>/workspace</code> appears to belong to the sandbox&#x27;s own user — <code>agent</code> in the agent images — and that user can change whatever your Mac account can change in the folder, files only you may read included. Root can too. On your Mac, everything the sandbox writes belongs to you, as before.</p>
-<p>Any <strong>other</strong> user inside the sandbox (for example <code>node</code>, or <code>doz exec --user NAME</code>) can read the folder but not write it through the view. With <code>workspace.view</code> off the plain share lets every user in the sandbox write, as your Mac account.</p>
+<p>Any <strong>other</strong> user inside the sandbox (for example <code>node</code>, or <code>doz exec --user NAME</code>) can read the folder but not write it through the view. With <code>folder.view</code> off the plain share lets every user in the sandbox write, as your Mac account.</p>
 <p><strong>Sandboxes started before Dozable 0.33.1</strong> run an older view, under which the agent could not write <code>/workspace</code> at all: &quot;Permission denied&quot;, and git refused the repository (&quot;detected dubious ownership&quot;). Sleeping and waking such a sandbox keeps the old view (the wake says so); shut it down and start it again (<code>doz shutdown NAME</code> then <code>doz start NAME</code>) and it gets the new one.</p>
 <h2 id="what-it-does">What it does<a class="anchor" href="#what-it-does" aria-label="Link to this section">#</a></h2>
 <ul>
 <li><p>Your Mac folder reaches the sandbox as usual, but it is mounted privately at <code>/run/doz/raw/&lt;id&gt;</code>, inside a folder only root can enter.</p></li>
 <li><p><code>dozview</code> presents that folder at <code>/workspace</code> (Linux FUSE — a program acting as a file system). Every file operation in <code>/workspace</code> goes through it, and it checks the path against the rules first:</p>
-<div class="tablewrap" tabindex="0" role="region" aria-label="Table: The workspace view (`dozview`)"><table>
+<div class="tablewrap" tabindex="0" role="region" aria-label="Table: The folder view (`dozview`)"><table>
 <thead><tr><th scope="col">the path is</th><th scope="col">what happens</th></tr></thead>
 <tbody>
 <tr><td>in <code>.dozignore</code>, mode <strong>lock</strong> (the default)</td><td>listed as <code>----------</code>; every read, write, rename and listing is refused — &quot;Permission denied&quot;, for root too</td></tr><tr><td>in <code>.dozignore</code>, mode <strong>hide</strong></td><td>not listed; &quot;No such file or directory&quot;</td></tr><tr><td>in <code>.dozreadonly</code></td><td>listed and readable; every change is refused (an ordinary user sees &quot;Permission denied&quot;, root &quot;Read-only file system&quot;)</td></tr><tr><td>anything else</td><td>passed straight through to your Mac folder, both ways</td></tr>
 </tbody></table></div></li>
-<li><p><strong>Always read-only</strong>, whatever the rules say: <code>.dozignore</code> and <code>.dozreadonly</code> themselves (an agent cannot edit its own rules), and — unless your <code>.dozreadonly</code> says <code>!name</code> — <code>doz_project.yaml</code>, <code>doz_project.yml</code> and <code>.git/hooks</code>.</p></li>
+<li><p><strong>Always read-only to the agent&#x27;s user</strong>, whatever the rules say: <code>.dozignore</code> and <code>.dozreadonly</code> themselves (an agent cannot edit its own rules), and — unless your <code>.dozreadonly</code> says <code>!name</code> — <code>doz_project.yaml</code>, <code>doz_project.yml</code> and <code>.git/hooks</code>. Root in the VM can lift it (a mask, not the boundary); a fenced session on the Mac guards <code>.git/hooks</code> and <code>.git/config</code> with its fence instead.</p></li>
 <li><p><strong>Rules are read from the shared folder itself.</strong> Edit <code>.dozignore</code> on the Mac and the sandbox follows within about a quarter of a second; <code>dozview</code> also drops anything the sandbox&#x27;s kernel had cached about the affected names.</p></li>
 <li><p><strong>On a case-insensitive Mac volume</strong> (every default one), matching ignores case and Unicode form, so <code>cat SECRET.ENV</code> does not read a locked <code>secret.env</code>. That only ever covers more than Docker would.</p></li>
 </ul>
@@ -193,20 +203,20 @@
 <p>Root in the sandbox can stop <code>dozview</code>, or reach the private share directly. The view keeps an agent from stumbling into files you listed; the virtual machine is the boundary. See <a href="security-model">Security model</a>.</p>
 <h2 id="about-the-program">About the program<a class="anchor" href="#about-the-program" aria-label="Link to this section">#</a></h2>
 <p>A small static Linux program written in C, with no outside libraries — it speaks the kernel&#x27;s FUSE protocol itself rather than using the usual FUSE library (whose licence would complicate shipping it inside Dozable). The copy Dozable ships is checked to rebuild byte for byte from its source.</p>
-<p>See also: <a href="workspace-rules">Workspace rules</a> · <a href="troubleshooting-and-faq">Troubleshooting and FAQ</a>.</p>
+<p>See also: <a href="workspace-rules">Folder rules</a> · <a href="troubleshooting-and-faq">Troubleshooting and FAQ</a>.</p>
 <!-- /manual text -->
 </div>
 <ul class="pager">
-<li class="prev"><a href="workspace-rules" rel="prev"><small>&larr; Previous</small><b>Workspace rules: <code>.dozignore</code> and <code>.dozreadonly</code></b></a></li>
+<li class="prev"><a href="workspace-rules" rel="prev"><small>&larr; Previous</small><b>Folder rules: <code>.dozignore</code> and <code>.dozreadonly</code></b></a></li>
 <li class="next"><a href="prompts-for-your-agent" rel="next"><small>Next &rarr;</small><b>Prompts for your agent</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/21-the-workspace-view.md">Edit this page on GitHub</a> &middot; Chapter 21 of 34</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/21-the-workspace-view.md">Edit this page on GitHub</a> &middot; Chapter 21 of 44</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">
 <h2>On this page</h2>
 <ol>
-<li><a href="#why-every-workspace-goes-through-it">Why every workspace goes through it</a>
+<li><a href="#why-every-shared-folder-goes-through-it">Why every shared folder goes through it</a>
 </li>
 <li><a href="#who-can-write">Who can write</a>
 </li>

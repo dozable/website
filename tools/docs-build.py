@@ -24,8 +24,9 @@ TEMPLATE = os.path.join(SITE, 'tools', 'docs-template.html')
 DIAGRAMS = os.path.join(SITE, 'tools', 'docs-diagrams')
 BASE_URL = 'https://dozable.com/docs/'
 REPO = 'https://github.com/dozable/dozable'
-INDEX_DESCRIPTION = ('The user manual for Dozable: install, set up, and run AI coding agents in fast, resumable '
-                     'Linux sandboxes on your Mac, with the doz command or its dashboard.')
+INDEX_DESCRIPTION = ('The user manual for Dozable, which runs teams of AI coding agents on your Mac: install, set up, '
+                     'make workspaces, and run each agent in its own micro VM or held to its folder, with the doz '
+                     'command or its dashboard.')
 
 # A blockquote whose bold lead-in is one of these is a warning callout (DESIGN.md §4); any other bold lead-in is a
 # note, and a quote with no bold lead-in is an example. Compared without the trailing full stop.
@@ -36,22 +37,27 @@ WARNING_LEADS = (
     'Experimental, and temporary in parts',       # 23 Audio
     'Not a security boundary',
 )
-# The sidebar: the groups and short labels of DESIGN.md §2 (the manual's README has no groups). Every chapter must
-# be in exactly one group; a new chapter fails the build until it is placed here.
+# The sidebar: the groups and short labels of DESIGN.md §2, in the order of the manual README's own groups (a chapter
+# the README lists twice is placed where it has its own line). Every chapter must be in exactly one group; a new
+# chapter fails the build until it is placed here.
 GROUPS = [
-    ('Start here', [(1, 'Getting started'), (5, 'Sandboxes and their lifecycle'), (7, 'Terminals and sessions'),
-                    (10, 'What the agent can do')]),
-    ('Install and set up', [(2, 'Install, upgrade, uninstall'), (3, 'Setting up this Mac'), (4, 'Projects')]),
-    ('Using Dozable', [(6, 'The dashboard'), (25, 'The dashboard on other devices'), (8, 'Images and bases'),
-                     (9, 'Agents and accounts'), (32, 'Claude Code with other models'), (26, 'Trying agents'), (27, 'More agents'),
-                     (28, 'Other AI tools'), (30, 'Your own recipes'), (24, 'Codex'), (29, 'Web ports'), (11, 'Signing in from a sandbox'),
-                     (18, 'GitHub as you'), (34, 'Sessions on this Mac')]),
-    ('Files and tools', [(19, 'The tools layer'), (31, 'Your dotfiles'), (20, 'Workspace rules'), (21, 'The workspace view'),
-                         (22, 'Prompts for your agent')]),
-    ('Looking after sandboxes', [(12, 'Restore points, duplicates, templates'), (13, 'Resources and disk space'),
-                                 (14, 'Letting another agent drive')]),
-    ('Reference', [(15, 'Settings reference'), (16, 'Security model'), (17, 'Troubleshooting and FAQ'), (33, 'Bundling doz in an app')]),
-    ('Experimental', [(23, 'Sound')]),
+    ('Start here', [(1, 'Getting started'), (2, 'Install, upgrade, uninstall'), (3, 'Setting up this Mac'),
+                    (14, 'Letting another agent drive'), (22, 'Prompts for your agent')]),
+    ('Workspaces, rooms and agents', [(37, 'Workspaces'), (36, 'Chat'), (38, 'Agents / Bots'), (9, 'Agents and accounts'),
+                                      (39, 'Space files'), (40, 'History and retention'),
+                                      (41, 'Runs, the journal and lessons'), (42, 'Bring your own process'),
+                                      (44, 'Feeds and notices'), (43, 'Tokens and identity')]),
+    ('Where agents run', [(5, 'Sandboxes and their lifecycle'), (34, 'Sessions on this Mac'), (10, 'What the agent can do'),
+                          (16, 'Security model'), (7, 'Terminals and sessions'), (20, 'Folder rules'),
+                          (21, 'The folder view'), (11, 'Signing in from a sandbox'), (29, 'Web ports')]),
+    ('Agents, tools and accounts', [(26, 'Trying agents'), (27, 'More agents'), (24, 'Codex'),
+                                    (32, 'Claude Code with other models'), (28, 'Other AI tools'), (18, 'GitHub as you'),
+                                    (19, 'Managed tools')]),
+    ('Images, recipes and setup', [(8, 'Images and bases'), (4, 'Projects'), (30, 'Your own recipes'),
+                                   (12, 'Restore points, duplicates, saved disks'), (31, 'Your dotfiles'), (23, 'Sound'),
+                                   (13, 'Resources and disk space')]),
+    ('The dashboard and apps', [(6, 'The dashboard'), (25, 'The dashboard on other devices'), (35, 'The menu bar app')]),
+    ('Reference', [(15, 'Settings reference'), (17, 'Troubleshooting and FAQ'), (33, 'Bundling doz in an app')]),
 ]
 # The chapter header's summary is the opening sentence of the page (see summary_of); these pages open with a notice.
 SUMMARY = {}
@@ -150,7 +156,8 @@ class Inline:
                 after = s[j] if j < n else ' '
                 lf = not after.isspace() and (after not in PUNCT or before.isspace() or before in PUNCT)
                 rf = not before.isspace() and (before not in PUNCT or after.isspace() or after in PUNCT)
-                flush(); toks.append(('d', {'n': j - i, 'open': lf, 'close': rf, 'pre': '', 'post': '', 'at': i}))
+                flush(); toks.append(('d', {'n': j - i, 'open': lf, 'close': rf, 'pre': '', 'post': '', 'at': i,
+                                           'before': before}))
                 i = j
             elif c == '<' and s.startswith('<!--', i):
                 fail(self.where, 'an HTML comment inside text')
@@ -224,6 +231,9 @@ class Inline:
             k += 1
         for t in toks:
             if t[0] == 'd' and t[1]['n'] and (t[1]['open'] or t[1]['close']):
+                # a lone * straight after a dot is a wildcard (`the serve.* settings`): literal, as CommonMark has it
+                if t[1]['n'] == 1 and not t[1]['open'] and t[1]['before'] == '.':
+                    continue
                 fail(self.where, 'an unmatched * (emphasis that does not close)')
 
 

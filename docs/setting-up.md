@@ -1,17 +1,17 @@
 ---
 title: "Setting up this Mac — Dozable docs"
-description: "Setup — onboarding — is what you do once after installing: it checks your Mac, prepares the base image every tool is added to, adds the keys your tools use, chooses and confirms what sandboxes may use as you (Access: GitHub, your SSH agent), explains workspace rules and lets you choose what they do, writes your settings, and makes your first sandbox."
+description: "Setup — onboarding — is what you do once after installing: it checks your Mac, prepares the base image every tool is added to, adds the keys your tools use, chooses and confirms what sandboxes may use as you (Access: GitHub, your SSH agent), explains folder rules and lets you choose what they do, writes your settings, and makes your first sandbox."
 url: https://dozable.com/docs/setting-up
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-13
+updated: 2026-11-25
 chapter: 3
 ---
 # Setting up this Mac
 
 Setup — **onboarding** — is what you do once after installing: it checks your Mac, prepares the **base image**
 every tool is added to, adds the **keys** your tools use, chooses and confirms what sandboxes may use as you
-(**Access**: GitHub, your SSH agent), explains **workspace rules** and lets you choose what they do, writes your
+(**Access**: GitHub, your SSH agent), explains **folder rules** and lets you choose what they do, writes your
 settings, and makes your **first sandbox**. You can do it in the terminal (`doz onboard`) or in the browser (the
 dashboard's setup wizard). Both are safe to run again.
 
@@ -21,21 +21,30 @@ dashboard's setup wizard). Both are safe to run again.
   the others). It is downloaded and prepared **once**; each tool you try — Claude Code, pi, OpenCode … — is added
   to it as a layer, so a second tool downloads only itself. The store's base is the setting `defaults.base`. See
   [Images and bases](https://dozable.com/docs/images-and-bases.md).
-- **Preparation runs in the host**, not in your terminal. Setup starts the base's download at the Base image step
+- **Preparation runs in the daemon**, not in your terminal. Setup starts the base's download at the Base image step
   and goes on asking; you can close the terminal or leave the wizard and it carries on. A tool prepared while the
   base is still being prepared waits for it instead of downloading it a second time.
 - **An account** is how a tool pays for its AI model: your Mac's Claude Code or Codex login, a long-lived token, or
   a key of a provider (Anthropic, OpenAI, xAI, Google) or a gateway (OpenRouter). The secret stays on your Mac; a
   sandbox only ever sees a stand-in. See [Agents and accounts](https://dozable.com/docs/agents-and-accounts.md).
+- **Onboard uses this Mac's Claude Code login by default.** When Claude Code is signed in on this Mac, that login —
+  the account `mac` — is what your agents use, with nothing to paste; the Models & keys step shows it. To set up with
+  another account instead, give it: `doz onboard --key setup-token` (or another provider's key) adds that one and runs
+  no Claude Code checks. To set up **without** the Mac's login at all, say so: `doz onboard --claude-account none --yes`
+  leaves no account `mac` (the default account is then none; nothing of the Mac's is read), `--claude-account later`
+  changes nothing, and `--claude-account mac` (or later `doz account default mac`) takes it back. After onboarding, `doz account default none --decline-mac` declines it the same way. A declined store never uses the Mac's login: agents fenced on this Mac use the store's default account, or none. That login **expires** after some
+  hours, and only the Mac's own Claude Code renews it: `doz account keepalive always` has Dozable run it when the login
+  expires (not for a daemon started over SSH), and a setup-token account (`claude setup-token`, valid a year) suits long
+  unattended work. See [How the Mac login stays fresh](https://dozable.com/docs/agents-and-accounts.md#how-the-mac-login-stays-fresh).
 - **Access** is every other credential a sandbox may use as you — **GitHub as you**
   ([GitHub](https://dozable.com/docs/github.md)) and **SSH agent forwarding**. Each is a choice of yours (both are off until you choose
   them), and each is **confirmed live** when you choose it. A credential that can't be confirmed can be
   **skipped**: the choice is kept, marked *not confirmed*, and setup goes on. The choices are the defaults for new
   sandboxes; `doz access` and **Settings** › **Access** check them again later.
-- **Workspace rules** are two small files you can put in a project folder: `.dozignore` (paths the agent
+- **Folder rules** are two small files you can put in a project folder: `.dozignore` (paths the agent
   must not use) and `.dozreadonly` (paths it may read but not change). Setup explains them and asks one
   question: should a `.dozignore` **lock** the paths it lists (still listed, but nothing can open them —
-  the default) or **hide** them (not there at all)? See [Workspace rules](https://dozable.com/docs/workspace-rules.md).
+  the default) or **hide** them (not there at all)? See [Folder rules](https://dozable.com/docs/workspace-rules.md).
 
 ## In the terminal
 
@@ -58,7 +67,7 @@ it looks the same without colour; with its output in a pipe (`doz onboard | cat`
    Code missing or signed out (you can add a key instead), and the NAT network helper (only `--network nat`
    needs it). Setup waits here for **Enter**, so you can read them.
 3. **Base image** — every base, with its size and what it is for; Node.js (`node:22-bookworm`, ↓ 381 MiB) is
-   selected. **Enter** starts its download and preparation in the host at once, and the next questions follow
+   selected. **Enter** starts its download and preparation in the daemon at once, and the next questions follow
    straight away; **None now** prepares none (each tool's first start prepares its own).
 4. **Models & keys** — the sign-ins found on this Mac (Claude Code, Codex), then **Add a key?**: every provider and
    gateway, each with the tools it serves, asked again until **No more keys**. A key
@@ -82,16 +91,16 @@ it looks the same without colour; with its output in a pipe (`doz onboard | cat`
 
    A failure says why, and offers **Skip** (keep the choice, not confirmed — `doz access` checks
    again later), **Turn it off**, or **Check again**. Setup is never blocked by it.
-6. **Workspace rules** — what `.dozignore` and `.dozreadonly` do, in a few lines: the benefit (keep an
+6. **Folder rules** — what `.dozignore` and `.dozreadonly` do, in a few lines: the benefit (keep an
    agent out of your secrets, or stop it changing some files, without moving anything), and the
    consequences — **lock** keeps a path listed but unreadable, so the agent knows it exists; **hide**
    removes it altogether; only a folder with one of the files changes, and nothing costs anything without
    them; the first look through many files is a little slower when rules exist; and it is **not a security
    boundary** (root in the sandbox can get round it). Then: *Lock* (recommended) or *Hide* — the default
-   for every sandbox (the setting `workspace.ignore_mode`; a sandbox can choose its own).
+   for every sandbox (the setting `folder.ignore_mode`; a sandbox can choose its own).
 7. **Settings** — `doz.toml` (every setting at its default, plus your answers) and `agent-prompt.md`
    beside it, each written **only if it doesn't exist yet**. Your base (when it is not Node.js), Access and
-   Workspace rules answers are then set in it — only the ones you chose.
+   Folder rules answers are then set in it — only the ones you chose.
 
 Then, in an official build, two questions:
 
@@ -125,7 +134,7 @@ doz onboard --cancel      # stop the base being prepared
 ```
 
 When the base is ready, the store is marked as set up — even if you'd detached. Setup then sums up what it set up
-(the base, sign-ins, keys added, GitHub, the SSH agent, the workspace rules, the settings file) and, without a first
+(the base, sign-ins, keys added, GitHub, the SSH agent, the folder rules, the settings file) and, without a first
 sandbox, what to run next.
 
 ### Without questions (scripts)
@@ -159,7 +168,7 @@ token); it is never a command-line argument. Each credential chosen is still con
 | `--github off\|read\|push` | Answer "GitHub as you" (the setting `defaults.github`). |
 | `--github-source gh\|key` · `--github-key-stdin` | Where the GitHub token comes from: this Mac's `gh` login, or a token read from standard input (kept in the login keychain as `doz-github`). |
 | `--ssh-agent on\|off` | Answer "SSH agent forwarding" (the setting `sandbox.ssh_agent`). |
-| `--ignore-mode lock\|hide` | Answer the Workspace rules step (the setting `workspace.ignore_mode`). |
+| `--ignore-mode lock\|hide` | Answer the Folder rules step (the setting `folder.ignore_mode`). |
 | `--usage-stats on\|off` | Answer the Usage statistics step (official builds; the setting `telemetry.send_anonymous_usage_stats`, written only when it changes). |
 | `--status` · `--cancel` | Follow · stop the preparation. |
 
@@ -186,7 +195,7 @@ centred over a column of the step's own width — narrow for a switch or a form,
 4. **GitHub & SSH** — **GitHub as you** (off, read-only, read and push — from this Mac's `gh` login or a token in a
    masked field) and **SSH agent forwarding**, each with its consequence. **Next** confirms each one: *confirmed* with
    what was found, or *not confirmed* with the reason and **Skip** · **Turn it off** · **Check again**.
-5. **Workspace rules** — the same description as in the terminal, and the same choice: **Lock** (recommended) or
+5. **Folder rules** — the same description as in the terminal, and the same choice: **Lock** (recommended) or
    **Hide**. Its **Next** writes the settings (the base too, when it is not Node.js).
 6. **Usage statistics** (official builds) — the same text as in the terminal and one switch, **Send anonymous usage
    statistics**, on. **Next** saves it only if you changed it.
@@ -245,7 +254,7 @@ again**; the choices themselves are the settings `defaults.github`, `github.cred
 | `defaults.github` | `off` | "GitHub as you" for new sandboxes: `off`, `read` or `push`. The Access step's choice. |
 | `github.credentials` | `gh` | Where the GitHub token comes from: `gh` (this Mac's login), `key` (a token you gave), `off`. |
 | `sandbox.ssh_agent` | `off` | Forward this Mac's ssh-agent into sandboxes (github.com only). |
-| `workspace.ignore_mode` | `lock` | What a `.dozignore` does to the paths it lists: `lock` or `hide`. The Workspace rules step's choice. |
+| `folder.ignore_mode` | `lock` | What a `.dozignore` does to the paths it lists: `lock` or `hide`. The Folder rules step's choice. |
 | `ui.allow_secret_entry` | `true` | The dashboard may take an API key or setup token in a masked field. `false`: it shows the `doz account add` command instead. The dashboard can turn this off, never on. |
 | `recipes.anthropic.claude-code.version` · `recipes.earendil-works.pi.version` | `latest` | Which agent version its image is baked with. See [Agents and accounts](https://dozable.com/docs/agents-and-accounts.md#agent-versions). |
 

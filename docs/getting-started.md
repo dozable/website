@@ -1,27 +1,57 @@
 ---
 title: "Getting started — Dozable docs"
-description: "Dozable runs AI coding agents, such as Claude Code, in small Linux virtual machines on your Mac."
+description: "Dozable runs teams of AI coding agents on your Mac."
 url: https://dozable.com/docs/getting-started
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-13
+updated: 2026-11-25
 chapter: 1
 ---
 # Getting started
 
-Dozable runs AI coding agents, such as Claude Code, in small Linux virtual machines on your
-Mac. Each agent gets its own **sandbox**: its own disk, a network that only reaches what you allow,
-and (if you want) one project folder shared in. A sandbox pauses in about a millisecond, sleeps or
-hibernates to disk, and wakes in about a third of a second with the agent still where you left it.
+Dozable runs teams of AI coding agents on your Mac. A **workspace** holds the agents, their chat room, the folders they
+work in and a brief that says what the work is for. Agents from any vendor (Claude Code, Codex and more) take on the
+work one **unit of work** at a time; each is recorded in a journal, and the lessons you approve carry into the next. You
+watch, talk to them in the room and decide what matters. You work through `doz`, a command-line tool, and a web
+dashboard (`doz ui`).
 
-This page takes you from nothing installed to talking to Claude in a sandbox in about 15 minutes.
-Most of that is a one-off download that you can leave running in the background.
+Where each agent runs is one setting of the workspace, not the first thing you decide: in its own Linux micro VM, held
+by macOS's sandbox to its folder on your Mac (**fenced**, the default for a workspace's agents), or as you. Start with
+the default; [Sessions on this Mac](https://dozable.com/docs/sessions-on-this-mac.md) and [Sandboxes](https://dozable.com/docs/sandboxes-and-lifecycle.md) compare
+the choices.
+
+**What you'll have in about 15 minutes:** a workspace with an agent in it, a chat room where you talk to it, and a
+folder it works in. Most of the time is a one-off download.
+
+**Know three things before you start:**
+
+- **Agents need an account.** `doz onboard` uses this Mac's own Claude Code login by default. That login expires after
+  some hours unless the Mac's Claude Code renews it; for unattended work, add a setup-token account
+  ([Agents and accounts](https://dozable.com/docs/agents-and-accounts.md)).
+- **Workers talk through chat.** Turn it on with `doz chat on`. Without it you drive the agents yourself.
+- **Long jobs need room.** `doz exec` stops a command after 120 s unless you pass `--timeout`; start a long one in the
+  background with `doz run NAME -d`.
+
+```sh
+brew trust --tap dozable/tap && brew install dozable/tap/doz
+doz onboard --first none        # this Mac: the checks, the base image, your agents' account
+doz chat on --name ada          # rooms for you and your agents; ada is your name there
+doz workspace new hello --preset blank --brief "Read this project and write NOTES.md: what it is and how to build it" --folder ~/code/my-app --worker "Do what the brief asks" --dry-run
+doz workspace new hello --preset blank --brief "Read this project and write NOTES.md: what it is and how to build it" --folder ~/code/my-app --worker "Do what the brief asks"
+doz workspace start hello       # the brief posted in the room, the first unit of work open, the worker started
+doz ui                          # watch it, and talk to it in the room
+```
+
+The steps, one at a time, are below: [Your first workspace](#your-first-workspace).
+
+> **If you are an agent setting this up for someone,** read [Workspaces](https://dozable.com/docs/workspaces.md) and then [Letting another
+> agent drive Dozable](14-letting-another-agent-drive.md) first.
 
 **On this page:** [What you need](#what-you-need) · [Install](#install) ·
-[Set up this Mac](#set-up-this-mac) · [Your first project](#your-first-project) ·
-[Talk to your agent](#talk-to-your-agent) · [Day to day](#day-to-day) ·
-[When the agent needs a website](#when-the-agent-needs-a-website) · [Undo](#undo-with-restore-points) ·
-[Next steps](#next-steps)
+[Set up this Mac](#set-up-this-mac) · [Your first workspace](#your-first-workspace) ·
+[A sandbox on its own](#a-sandbox-on-its-own) · [Talk to your agent](#talk-to-your-agent) ·
+[Day to day](#day-to-day) · [When the agent needs a website](#when-the-agent-needs-a-website) ·
+[Undo](#undo-with-restore-points) · [Next steps](#next-steps)
 
 ## What you need
 
@@ -32,6 +62,13 @@ Most of that is a one-off download that you can leave running in the background.
 - **Optional:** [Claude Code](https://claude.com/claude-code) installed and signed in on your Mac.
   Your sandboxes can then use that login, with nothing to paste. You can use an API key or a
   long-lived token instead, or decide later.
+  That login (the account `mac`) gives out access that **expires** after some hours, and only the Mac's
+  own Claude Code renews it — Dozable never does. `doz account keepalive always` keeps it fresh: when it
+  expires, Dozable runs the Mac's own `claude` once to renew it. It can't do that for a daemon started
+  over SSH (the login keychain is locked there). For long unattended work, use a **setup-token**
+  account instead: `claude setup-token` makes a token valid for a year, and
+  `doz account add NAME --setup-token` adds it
+  ([Agents and accounts](https://dozable.com/docs/agents-and-accounts.md)).
 
 ## Install
 
@@ -67,7 +104,7 @@ At each question the recommended answer is already selected: press **Enter** to 
    380 MB) in the background, once; every tool you try is added to it. The next questions come at once.
 3. **Models & keys.** The sign-ins Dozable found on this Mac (Claude Code, Codex), then a key if you want
    one — Anthropic, OpenAI, xAI, Google or an OpenRouter key (it is never echoed). **Enter** adds none.
-4. **Access**, **Workspace rules** and **Settings** — GitHub and your SSH agent (off unless you choose
+4. **Access**, **Folder rules** and **Settings** — GitHub and your SSH agent (off unless you choose
    them), what `.dozignore` does, and the settings file. See [Setting up this Mac](https://dozable.com/docs/setting-up.md).
 5. **Usage statistics.** What an official build sends — counts and ranges about how Dozable is used,
    never names, paths, contents or anything inside a sandbox — and where to see it exactly
@@ -77,7 +114,8 @@ At each question the recommended answer is already selected: press **Enter** to 
    with **Enter**. See [Usage statistics and sign-up](#usage-statistics-and-sign-up).
 7. **Your first sandbox.** `claude`, `pi` or `opencode` — a name (`claude`) and a new empty folder
    (`~/doz-workspaces/claude`). Dozable waits for the base if it is still downloading (**Ctrl-C** leaves it
-   running; `doz onboard --status` shows it again), adds the tool and attaches you to it.
+   running; `doz onboard --status` shows it again), adds the tool and attaches you to it. Going straight to a
+   workspace? Answer **none** here (or run `doz onboard --first none`).
 
 **In your browser:**
 
@@ -98,14 +136,51 @@ Details: [Setting up](https://dozable.com/docs/setting-up.md).
 
 - **Each sandbox is a small Linux virtual machine,** not a container, with its own kernel and disk.
   It can't see your Mac's files, apart from the one project folder you share at `/workspace`.
-- **The Dozable host runs the sandboxes.** It's a background program that starts when you need it and
-  exits when nothing is running. `doz` and the dashboard are remote controls for it.
-- **Sandboxes sit behind a network proxy on your Mac.** They have no network card of their own:
+- **A workspace's agents run fenced on this Mac by default** — no VM: macOS's own sandbox holds each one to its
+  project folder, its own temp and caches, and Dozable's proxy for the network, with your Keychain closed. A preset or
+  `--worker-isolation vm` puts them in micro VMs instead; [Where an agent runs](https://dozable.com/docs/sessions-on-this-mac.md#where-an-agent-runs-the-three-choices)
+  compares the three choices.
+- **The Dozable daemon runs the sandboxes and sessions.** It's a background program that the first command starts, and
+  it keeps running when nothing is (the setting `daemon.always_on`, on by default; off, it exits once nothing runs).
+  `doz` and the dashboard are remote controls for it.
+- **Sandboxes and fenced sessions sit behind a network proxy on your Mac.** A sandbox has no network card of its own:
   every connection goes through the proxy, which allows only what you permit, and logs it.
-- **Your credentials never enter a sandbox.** The agent sees a stand-in; the proxy adds your real
-  login as each request leaves for Anthropic.
+- **Your credentials never enter a sandbox or a fenced session.** The agent sees a stand-in; the proxy adds your real
+  login as each request leaves for Anthropic. An unfenced agent is the exception: it acts as you.
 - **Two files hold your choices:** `~/.config/doz/doz.toml` (your settings for this Mac)
-  and a project's `doz_project.yaml` (its sandbox). Everything else is kept by the host.
+  and a project's `doz_project.yaml` (its sandbox). Everything else is kept by the daemon.
+
+## Your first workspace
+
+Four steps: set up this Mac, make the workspace, start it, and then give it its next unit of work.
+
+1. **`doz onboard`** checks this Mac and sets up the account your agents use (above). Once per Mac.
+2. **`doz workspace new NAME --preset …`** says what the work is: the brief, the folders, the workers, and a preset for
+   where they run and what network they get — `blank` (choose yourself: fenced on this Mac, a locked network), `research`,
+   `swift-tests`, `mac-admin` or `remotion-video` ([what each sets up](https://dozable.com/docs/workspaces.md#presets)). Add `--dry-run` first:
+   it shows what would be made, what would be refused and what the start would still need, each with its fix, and makes
+   nothing. A worker needs chat on (`doz chat on`).
+
+   ```sh
+   doz workspace new hello --preset blank --brief "Read this project and write NOTES.md" --folder ~/code/my-app --worker "Do what the brief asks" --dry-run
+   ```
+
+3. **`doz workspace start NAME`** runs the set-up check (it lists every gap with the command that fixes it), posts your
+   brief as your first message in the workspace's room, opens the first unit of work and starts the worker, in the place
+   the preset chose. Watch it on the dashboard (`doz ui`, then the workspace on **Home**), or follow its room from a
+   terminal: `doz chat read hello --follow`. Write in the room to talk to it.
+4. **When it is done, finish it and go on.** `doz workspace finish NAME` closes the unit of work and archives it — the
+   room's messages, the agents' conversations, its journal. `doz workspace run NAME "next goal"` opens the next one,
+   with every lesson you approved from the ones before:
+
+   ```sh
+   doz workspace finish hello
+   doz workspace retro hello --propose --addendum "Keep NOTES.md under one page"   # a lesson; you decide it in the room
+   doz workspace run hello "Now add a section on running the tests"
+   ```
+
+More: [Workspaces](https://dozable.com/docs/workspaces.md), [Runs, the journal and lessons](https://dozable.com/docs/runs-the-journal-and-lessons.md), and a worked
+example of a whole process in [Bring your own process](https://dozable.com/docs/bring-your-own-process.md).
 
 ## Usage statistics and sign-up
 
@@ -114,7 +189,7 @@ what to fix and improve: at most once a day, counts and ranges about how Dozable
 commands ran and how often they failed (by exit code), which agents, bases and network presets new
 sandboxes use, the size of your setup as ranges, typical start and wake times rounded to 50 ms, how long
 sandboxes ran and slept and how long agents worked (as ranges), which features you used (the dashboard,
-the installed app, the dashboard on your network (`doz ui --lan`), workspace rules, GitHub access, restore points, templates), which built-in
+the installed app, the dashboard on your network (`doz ui --lan`), folder rules, GitHub access, restore points, saved disks), which built-in
 image-preparation step failed, and your Mac's macOS version, chip family, memory and cores as ranges — with
 a random install id. **Never**
 a sandbox, image or project name, a file or folder name or path, anything inside a sandbox, anything
@@ -142,9 +217,10 @@ one-click unsubscribe, and your email is never linked to the statistics.
 official builds only and is not open source; this repository holds the list of what may be sent and
 every switch. The full policy: [dozable.com/privacy](https://dozable.com/privacy).
 
-## Your first project
+## A sandbox on its own
 
-A sandbox works on one project folder, shared into it at `/workspace`: the agent's changes appear on
+You don't need a workspace to use one agent: a sandbox on its own is a single agent in its own micro VM, which you
+attach to and talk to in your terminal. A sandbox works on one project folder, shared into it at `/workspace`: the agent's changes appear on
 your Mac at once, and your editor sees them live.
 
 ```sh
@@ -250,7 +326,7 @@ doz point fork my-app before-refactor try-2    # or try again in a new sandbox, 
 ```
 
 Restore points cover the sandbox's own disk. Your project folder is on your Mac, so use git for that.
-Details: [Restore points, duplicates and templates](https://dozable.com/docs/restore-points-duplicates-templates.md).
+Details: [Restore points, duplicates and saved disks](https://dozable.com/docs/restore-points-duplicates-templates.md).
 
 ## Next steps
 

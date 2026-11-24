@@ -26,8 +26,8 @@ the rules in words; where they differ, `DESIGN.html` and `docs/docs.css` are the
   - Under 860px: one column with 16px gutters. The sidebar becomes a `<details class="chapters">` button
     ("Chapters", a pill with a +/-), closed by default. No JavaScript. On wide screens the same element is shown
     open via `::details-content`; a browser without it simply keeps the button.
-- **Sidebar**: chapters grouped as the manual's README does (Start here, Install and set up, Using Dozable, Files
-  and tools, Looking after sandboxes, Reference, Experimental). Group names are 12px small caps. The current
+- **Sidebar**: chapters grouped as the manual's README does (Start here; Workspaces, rooms and agents; Where agents
+  run; Agents, tools and accounts; Images, recipes and setup; The dashboard and apps; Reference). Group names are 12px small caps. The current
   chapter: `--tint` background, bold, a 3px black bar on its left, `aria-current="page"`. Hover: `--tint-soft`.
 - **On this page**: all `h2`/`h3`, grey with a hairline rail; the section in view is black, bold with a 3px bar
   (script; harmless without it). Omitted when a chapter has under three headings.

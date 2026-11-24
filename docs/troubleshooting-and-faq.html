@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>Troubleshooting and FAQ — Dozable docs</title>
-<meta name="description" content="doz doctor checks everything Dozable depends on — macOS and Apple silicon, the virtualization permission, the Linux kernel, the NAT helper, disk space, the host, your Claude login and your images — and says what to do about anything that fails.">
+<meta name="description" content="doz doctor first; then find your error below by its words.">
 <link rel="canonical" href="https://dozable.com/docs/troubleshooting-and-faq">
 <link rel="alternate" type="text/markdown" href="https://dozable.com/docs/troubleshooting-and-faq.md">
 <meta name="theme-color" content="#ffffff">
@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="Troubleshooting and FAQ — Dozable docs">
-<meta property="og:description" content="doz doctor checks everything Dozable depends on — macOS and Apple silicon, the virtualization permission, the Linux kernel, the NAT helper, disk space, the host, your Claude login and your images — and says what to do about anything that fails.">
+<meta property="og:description" content="doz doctor first; then find your error below by its words.">
 <meta property="og:url" content="https://dozable.com/docs/troubleshooting-and-faq">
 <meta property="og:image" content="https://dozable.com/og-image.png">
 <meta property="og:image:secure_url" content="https://dozable.com/og-image.png">
@@ -23,12 +23,12 @@
 <meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Troubleshooting and FAQ — Dozable docs">
-<meta name="twitter:description" content="doz doctor checks everything Dozable depends on — macOS and Apple silicon, the virtualization permission, the Linux kernel, the NAT helper, disk space, the host, your Claude login and your images — and says what to do about anything that fails.">
+<meta name="twitter:description" content="doz doctor first; then find your error below by its words.">
 <meta name="twitter:image" content="https://dozable.com/og-image.png">
 <meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="stylesheet" href="../site.css?v=3c6a0f06">
+<link rel="stylesheet" href="../site.css?v=2545262c">
 <script src="../nav.js?v=4f745b91"></script>
 <link rel="stylesheet" href="docs.css?v=4bcad37f">
 <script defer src="docs.js?v=a2a39b76"></script>
@@ -53,51 +53,61 @@
   <nav class="chapters-body" aria-label="Chapters">
 <h2>Start here</h2><ol>
 <li><a href="getting-started">Getting started</a></li>
-<li><a href="sandboxes-and-lifecycle">Sandboxes and their lifecycle</a></li>
-<li><a href="terminals-and-sessions">Terminals and sessions</a></li>
-<li><a href="permissions-and-network">What the agent can do</a></li>
-</ol>
-<h2>Install and set up</h2><ol>
 <li><a href="install-upgrade-uninstall">Install, upgrade, uninstall</a></li>
 <li><a href="setting-up">Setting up this Mac</a></li>
-<li><a href="projects">Projects</a></li>
-</ol>
-<h2>Using Dozable</h2><ol>
-<li><a href="the-dashboard">The dashboard</a></li>
-<li><a href="doz-serve">The dashboard on other devices</a></li>
-<li><a href="images-and-bases">Images and bases</a></li>
-<li><a href="agents-and-accounts">Agents and accounts</a></li>
-<li><a href="claude-code-other-models">Claude Code with other models</a></li>
-<li><a href="try-and-search">Trying agents</a></li>
-<li><a href="more-agents">More agents</a></li>
-<li><a href="ai-tools">Other AI tools</a></li>
-<li><a href="your-own-recipes">Your own recipes</a></li>
-<li><a href="codex">Codex</a></li>
-<li><a href="web-ports">Web ports</a></li>
-<li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
-<li><a href="github">GitHub as you</a></li>
-<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
-</ol>
-<h2>Files and tools</h2><ol>
-<li><a href="the-tools-layer">The tools layer</a></li>
-<li><a href="dotfiles">Your dotfiles</a></li>
-<li><a href="workspace-rules">Workspace rules</a></li>
-<li><a href="the-workspace-view">The workspace view</a></li>
+<li><a href="letting-another-agent-drive">Letting another agent drive</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
 </ol>
-<h2>Looking after sandboxes</h2><ol>
-<li><a href="restore-points-duplicates-templates">Restore points, duplicates, templates</a></li>
+<h2>Workspaces, rooms and agents</h2><ol>
+<li><a href="workspaces">Workspaces</a></li>
+<li><a href="chat">Chat</a></li>
+<li><a href="agents-and-bots">Agents / Bots</a></li>
+<li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="space-files">Space files</a></li>
+<li><a href="history-and-retention">History and retention</a></li>
+<li><a href="runs-the-journal-and-lessons">Runs, the journal and lessons</a></li>
+<li><a href="bring-your-own-process">Bring your own process</a></li>
+<li><a href="feeds-and-notices">Feeds and notices</a></li>
+<li><a href="tokens-and-identity">Tokens and identity</a></li>
+</ol>
+<h2>Where agents run</h2><ol>
+<li><a href="sandboxes-and-lifecycle">Sandboxes and their lifecycle</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
+<li><a href="permissions-and-network">What the agent can do</a></li>
+<li><a href="security-model">Security model</a></li>
+<li><a href="terminals-and-sessions">Terminals and sessions</a></li>
+<li><a href="workspace-rules">Folder rules</a></li>
+<li><a href="the-workspace-view">The folder view</a></li>
+<li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
+<li><a href="web-ports">Web ports</a></li>
+</ol>
+<h2>Agents, tools and accounts</h2><ol>
+<li><a href="try-and-search">Trying agents</a></li>
+<li><a href="more-agents">More agents</a></li>
+<li><a href="codex">Codex</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
+<li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="github">GitHub as you</a></li>
+<li><a href="the-tools-layer">Managed tools</a></li>
+</ol>
+<h2>Images, recipes and setup</h2><ol>
+<li><a href="images-and-bases">Images and bases</a></li>
+<li><a href="projects">Projects</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
+<li><a href="restore-points-duplicates-templates">Restore points, duplicates, saved disks</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
+<li><a href="sound">Sound</a></li>
 <li><a href="resources-and-disk-space">Resources and disk space</a></li>
-<li><a href="letting-another-agent-drive">Letting another agent drive</a></li>
+</ol>
+<h2>The dashboard and apps</h2><ol>
+<li><a href="the-dashboard">The dashboard</a></li>
+<li><a href="doz-serve">The dashboard on other devices</a></li>
+<li><a href="the-menu-bar-app">The menu bar app</a></li>
 </ol>
 <h2>Reference</h2><ol>
 <li><a href="settings-reference">Settings reference</a></li>
-<li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq" aria-current="page">Troubleshooting and FAQ</a></li>
 <li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
-</ol>
-<h2>Experimental</h2><ol>
-<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -108,17 +118,20 @@
 <header class="chead">
 <p class="eyebrow">Chapter 17</p>
 <h1>Troubleshooting and FAQ</h1>
-<p class="summary"><code>doz doctor</code> checks everything Dozable depends on — macOS and Apple silicon, the virtualization permission, the Linux kernel, the NAT helper, disk space, the host, your Claude login and your images — and says what to do about anything that fails.</p>
+<p class="summary"><code>doz doctor</code> first; then find your error below by its words.</p>
 </header>
 <details class="toc-m"><summary>On this page</summary>
 <ol>
 <li><a href="#start-here">Start here</a>
+</li>
+<li><a href="#the-common-five">The common five</a>
 </li>
 <li><a href="#common-problems">Common problems</a>
 <ol>
 <li><a href="#installing-and-upgrading">Installing and upgrading</a></li>
 <li><a href="#starting-and-waking">Starting and waking</a></li>
 <li><a href="#agents-and-accounts">Agents and accounts</a></li>
+<li><a href="#workspaces-and-chat">Workspaces and chat</a></li>
 <li><a href="#network">Network</a></li>
 <li><a href="#terminals-and-the-dashboard">Terminals and the dashboard</a></li>
 <li><a href="#images-and-disk-space">Images and disk space</a></li>
@@ -130,34 +143,47 @@
 </details>
 <div class="prose">
 <!-- manual text -->
+<p><code>doz doctor</code> first; then find your error below by its words. The failures people meet most, by name: <strong>this Mac&#x27;s Claude login expired</strong>, <strong>connection refused</strong> on a chat port, <strong>an Ask nobody answered</strong>, <strong>a command timed out</strong> (exit 124), and <strong>a refused host</strong> that looks like a DNS error. Each has its row in <a href="#the-common-five">The common five</a>.</p>
 <h2 id="start-here">Start here<a class="anchor" href="#start-here" aria-label="Link to this section">#</a></h2>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz doctor</code></pre></figure>
-<p><code>doz doctor</code> checks everything Dozable depends on — macOS and Apple silicon, the virtualization permission, the Linux kernel, the NAT helper, disk space, the host, your Claude login and your images — and says what to do about anything that fails. The dashboard&#x27;s <strong>Doctor</strong> page shows the same.</p>
+<p><code>doz doctor</code> checks everything Dozable depends on — macOS and Apple silicon, the virtualization permission, the Linux kernel, the NAT helper, disk space, the daemon, your Claude login and your images — and says what to do about anything that fails. The dashboard&#x27;s <strong>Doctor</strong> page shows the same.</p>
 <p>Then, depending on what&#x27;s wrong:</p>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Start here"><table>
 <thead><tr><th scope="col">to see</th><th scope="col">run</th></tr></thead>
 <tbody>
-<tr><td>What the host is doing, live</td><td><code>doz events</code> (or <code>doz events NAME</code>), or the dashboard&#x27;s <strong>Activity</strong></td></tr><tr><td>How a start or wake went</td><td><code>doz console NAME --list</code>, then <code>doz console NAME --steps</code> — or <strong>⋯</strong> › <strong>Boot log</strong> on the sandbox&#x27;s page</td></tr><tr><td>What the agent was refused</td><td><code>doz net NAME</code> (the suggestions), <code>doz net log NAME --denied</code></td></tr><tr><td>Everything about a sandbox</td><td><code>doz inspect NAME</code></td></tr><tr><td>What the agent is told</td><td><code>doz inspect NAME --prompt</code></td></tr><tr><td>The host&#x27;s log</td><td><code>&lt;store&gt;/host.log</code> (the store is <code>~/Library/Application Support/doz</code> by default)</td></tr><tr><td>Where the disk went</td><td><code>doz resources</code></td></tr>
+<tr><td>What the daemon is doing, live</td><td><code>doz events</code> (or <code>doz events NAME</code>), or the dashboard&#x27;s <strong>Activity</strong></td></tr><tr><td>How a start or wake went</td><td><code>doz console NAME --list</code>, then <code>doz console NAME --steps</code> — or <strong>⋯</strong> › <strong>Boot log</strong> on the sandbox&#x27;s page</td></tr><tr><td>What the agent was refused</td><td><code>doz net NAME</code> (the suggestions), <code>doz net log NAME --denied</code></td></tr><tr><td>Everything about a sandbox</td><td><code>doz inspect NAME</code></td></tr><tr><td>What the agent is told</td><td><code>doz inspect NAME --prompt</code></td></tr><tr><td>The daemon&#x27;s log</td><td><code>&lt;store&gt;/daemon.log</code> (the store is <code>~/Library/Application Support/doz</code> by default)</td></tr><tr><td>Where the disk went</td><td><code>doz resources</code></td></tr>
 </tbody></table></div>
 <p>Add <code>-v</code> to any command to see every step it takes.</p>
+<h2 id="the-common-five">The common five<a class="anchor" href="#the-common-five" aria-label="Link to this section">#</a></h2>
+<div class="tablewrap" tabindex="0" role="region" aria-label="Table: The common five"><table>
+<thead><tr><th scope="col">what you see</th><th scope="col">why</th><th scope="col">what to do</th></tr></thead>
+<tbody>
+<tr><td>&quot;this Mac&#x27;s Claude login expired at 04:59&quot; (or a 401 from the model)</td><td>The Mac&#x27;s Claude Code login lasts about 8 hours, and only the Mac&#x27;s Claude Code renews it.</td><td>Run <code>claude</code> on the Mac once (any prompt), or <code>doz account keepalive always</code>. A daemon started over SSH cannot renew it: start it from the Mac&#x27;s desktop, or use a setup-token account (<code>doz account add NAME --setup-token</code>). See <a href="agents-and-accounts#how-the-mac-login-stays-fresh">Agents and accounts</a>.</td></tr><tr><td>&quot;connection refused&quot; from <code>dozchat</code>, or no answer on 8790</td><td>Chat is off, its server is restarting, or the agent is talking to another port — each store has its own (a second store, a moved port).</td><td><code>doz chat status</code> (on, ready, its ports). An agent Dozable starts is given the right address (<code>CHAT_URL</code>); one you started yourself needs <code>CHAT_URL=http://host.dozable.internal:PORT</code> (in a sandbox or fenced session) or <code>http://127.0.0.1:PORT</code> (on this Mac), with the page port <code>doz chat status</code> shows. On another machine, see <a href="tokens-and-identity#agents-on-other-machines-and-a-machine-without-a-token">Tokens and identity</a>.</td></tr><tr><td>An agent waits and nothing happens</td><td>It asked a question nobody answered: an Ask waits for a decision, and expires to decline (in 24 hours unless it says sooner).</td><td><code>doz chat asks</code> lists the open ones; answer in the room or with <code>doz chat decide ROOM N OPTION</code>. <code>doz workspace state W</code> lists what waits for you.</td></tr><tr><td>exit 124, &quot;timed out&quot;</td><td><code>doz exec</code> stops a command after 120 s by default (a <code>wait</code> or <code>dozchat journal wait</code> after its <code>--timeout</code>); what the command left running is reaped, never left <code>&lt;defunct&gt;</code>.</td><td><code>--timeout SECONDS</code> for a long command, or <code>doz run NAME -d</code> to run it in the background (<a href="terminals-and-sessions">Terminals and sessions</a>).</td></tr><tr><td><code>403</code> with &quot;refused by Dozable&#x27;s network policy&quot;, or <code>ENOTFOUND</code> inside a sandbox</td><td>The host is not allowed. A program that uses the proxy (curl, npm, pip, git) is told so; one that looks names up itself (Node&#x27;s own <code>https</code>) sees a DNS error.</td><td><code>doz net NAME</code> names the host and the allow command; in a workspace, <code>doz workspace show W --network</code>. See <a href="permissions-and-network">the network</a>.</td></tr>
+</tbody></table></div>
 <h2 id="common-problems">Common problems<a class="anchor" href="#common-problems" aria-label="Link to this section">#</a></h2>
 <h3 id="installing-and-upgrading">Installing and upgrading<a class="anchor" href="#installing-and-upgrading" aria-label="Link to this section">#</a></h3>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Installing and upgrading"><table>
 <thead><tr><th scope="col">symptom</th><th scope="col">what to do</th></tr></thead>
 <tbody>
-<tr><td><code>doz: command not found</code></td><td><code>brew list doz</code>, then open a new terminal window.</td></tr><tr><td>&quot;cannot boot a VM&quot;, or about the entitlement</td><td><code>doz doctor</code>; <code>brew reinstall doz</code>. A self-built copy must be signed (<code>make install-cli</code>).</td></tr><tr><td>&quot;this host&#x27;s program … is gone — an upgrade removed it&quot;</td><td><code>doz host stop</code>, then retry.</td></tr><tr><td>&quot;this host&#x27;s program was updated underneath it&quot;</td><td><code>doz host stop</code>, then retry.</td></tr><tr><td>&quot;note: the doz host is X (this doz is Y)&quot;</td><td>A host of the previous version still runs and answered: <code>doz host stop</code> (sandboxes hibernate, and wake on the new version).</td></tr>
+<tr><td><code>doz: command not found</code></td><td><code>brew list doz</code>, then open a new terminal window.</td></tr><tr><td><code>Error: … unexpected arguments: &#x27;host&#x27;, …</code></td><td>The old command name <code>host</code> is now <code>daemon</code> (<code>doz daemon start|stop|restart|status|upgrade-check</code>); the old command no longer exists. A 0.40 store and settings are carried over automatically, once. See <a href="install-upgrade-uninstall">Upgrading</a>.</td></tr><tr><td>&quot;cannot boot a VM&quot;, or about the entitlement</td><td><code>doz doctor</code>; <code>brew reinstall doz</code>. A self-built copy must be signed (<code>make install-cli</code>).</td></tr><tr><td>&quot;this daemon&#x27;s program … is gone — an upgrade removed it&quot;</td><td><code>doz daemon stop</code>, then retry.</td></tr><tr><td>&quot;this daemon&#x27;s program was updated underneath it&quot;</td><td><code>doz daemon stop</code>, then retry.</td></tr><tr><td>&quot;note: the doz daemon is X (this doz is Y)&quot;</td><td>A daemon of the previous version still runs and answered: <code>doz daemon stop</code> (sandboxes hibernate, and wake on the new version).</td></tr><tr><td>The menu bar app says &quot;doz is not installed&quot;</td><td>It looks for doz at <code>/opt/homebrew/bin/doz</code>, <code>/usr/local/bin/doz</code> and <code>~/.local/bin/doz</code>. Install doz with Homebrew (or <code>make install-cli</code>, which puts it in <code>~/.local/bin</code>). See <a href="the-menu-bar-app">The menu bar app</a>.</td></tr><tr><td>The menu bar app says doz is older than it needs</td><td><code>doz upgrade -y</code>. Until then the menu still shows the daemon&#x27;s state and offers Start, Stop, Restart and Open Dashboard.</td></tr><tr><td>The menu bar app says &quot;Daemon started from ssh — it cannot read your Keychain&quot;</td><td>The daemon was started over ssh, so it cannot read your Claude login. Choose <strong>Restart Daemon</strong> in the menu (or <code>doz daemon restart</code> in Terminal on the Mac): the new one starts in your desktop session.</td></tr><tr><td>The menu bar app says &quot;Daemon runs an older build&quot;</td><td>doz was upgraded while the daemon ran. <strong>Restart Daemon</strong> switches it (running sandboxes hibernate and wake on the new version).</td></tr><tr><td><code>doz app install</code> says the copy &quot;does not verify&quot;</td><td>The app beside doz was changed after it was signed. Reinstall doz (<code>brew reinstall doz</code>, or a fresh tarball), then <code>doz app install</code> again.</td></tr>
 </tbody></table></div>
 <h3 id="starting-and-waking">Starting and waking<a class="anchor" href="#starting-and-waking" aria-label="Link to this section">#</a></h3>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Starting and waking"><table>
 <thead><tr><th scope="col">symptom</th><th scope="col">what to do</th></tr></thead>
 <tbody>
-<tr><td>The first start takes minutes</td><td>It&#x27;s preparing the image, once. <code>doz onboard --status</code> shows it.</td></tr><tr><td>A start fails</td><td><code>doz console NAME --steps</code>: the failing step is marked ✕, with why.</td></tr><tr><td>A wake fails</td><td><code>doz host stop</code>, then wake again (a failed wake keeps its snapshot). If it says it was put to sleep by another version in a machine this one can&#x27;t rebuild, wake it with that version, or shut it down.</td></tr><tr><td>Last resort for a stuck sandbox</td><td><code>doz shutdown NAME</code> then <code>doz start NAME</code>: programs end, the disks are kept. <code>claude --continue</code> resumes Claude Code&#x27;s last conversation.</td></tr><tr><td>A sandbox shows as died</td><td>The host crashed while it ran; <code>doz start NAME</code> checks its disk and boots it.</td></tr><tr><td>&quot;not possible in this phase&quot;</td><td><code>doz ls</code> shows its state; e.g. <code>resume</code> only works on a paused sandbox.</td></tr>
+<tr><td>The first start takes minutes</td><td>It&#x27;s preparing the image, once. <code>doz onboard --status</code> shows it.</td></tr><tr><td>A start fails</td><td><code>doz console NAME --steps</code>: the failing step is marked ✕, with why.</td></tr><tr><td>A wake fails</td><td><code>doz daemon stop</code>, then wake again (a failed wake keeps its snapshot). If it says it was put to sleep by another version in a machine this one can&#x27;t rebuild, wake it with that version, or shut it down.</td></tr><tr><td>Last resort for a stuck sandbox</td><td><code>doz shutdown NAME</code> then <code>doz start NAME</code>: programs end, the disks are kept. <code>claude --continue</code> resumes Claude Code&#x27;s last conversation.</td></tr><tr><td>A sandbox shows as died</td><td>The daemon crashed while it ran; <code>doz start NAME</code> checks its disk and boots it.</td></tr><tr><td>&quot;not possible in this phase&quot;</td><td><code>doz ls</code> shows its state; e.g. <code>resume</code> only works on a paused sandbox.</td></tr>
 </tbody></table></div>
 <h3 id="agents-and-accounts">Agents and accounts<a class="anchor" href="#agents-and-accounts" aria-label="Link to this section">#</a></h3>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Agents and accounts"><table>
 <thead><tr><th scope="col">symptom</th><th scope="col">what to do</th></tr></thead>
 <tbody>
-<tr><td>The agent says it has no key, or gets 401</td><td><code>doz account ls</code>, <code>doz key ls NAME</code>. A typed key is gone after the host stopped.</td></tr><tr><td>&quot;this Mac&#x27;s Claude login expired&quot;</td><td>Run <code>claude</code> on your Mac once, or <code>doz account keepalive on</code>.</td></tr><tr><td>pi can&#x27;t be created</td><td>pi needs an API key account: <code>doz account add NAME --api-key</code>.</td></tr><tr><td>&quot;the agent prompt does not render&quot;</td><td><code>doz inspect NAME --prompt</code> names the unknown <code>{{variable}}</code>; fix it or <code>doz config set agent.prompt false</code>.</td></tr><tr><td><code>sudo apt-get install</code> fails with a network error</td><td><code>doz net NAME</code>: system packages need <code>install:system</code> (on in Standard).</td></tr>
+<tr><td>The agent says it has no key, or gets 401</td><td><code>doz account ls</code>, <code>doz key ls NAME</code>. A typed key is gone after the daemon stopped.</td></tr><tr><td>&quot;this Mac&#x27;s Claude login expired&quot;</td><td>Run <code>claude</code> on your Mac once, or <code>doz account keepalive always</code>.</td></tr><tr><td><code>doz account ls</code>: &quot;keep-alive … skipped: Claude Code (pid N, …) holds its own copy&quot;</td><td>A Claude Code that is not fenced runs on this Mac; renewing would cancel its copy of the login. It renews when that Claude Code is next used.</td></tr><tr><td><code>doz account ls</code>: &quot;keep-alive … FAILED (exit 1: …)&quot;</td><td>Run <code>claude</code> on the Mac (any prompt) to see why it cannot renew: a sign-in may be needed.</td></tr><tr><td>pi can&#x27;t be created</td><td>pi needs an API key account: <code>doz account add NAME --api-key</code>.</td></tr><tr><td>&quot;the agent prompt does not render&quot;</td><td><code>doz inspect NAME --prompt</code> names the unknown <code>{{variable}}</code>; fix it or <code>doz config set agent.prompt false</code>.</td></tr><tr><td><code>sudo apt-get install</code> fails with a network error</td><td><code>doz net NAME</code>: system packages need <code>install:system</code> (on in Standard).</td></tr>
+</tbody></table></div>
+<h3 id="workspaces-and-chat">Workspaces and chat<a class="anchor" href="#workspaces-and-chat" aria-label="Link to this section">#</a></h3>
+<div class="tablewrap" tabindex="0" role="region" aria-label="Table: Workspaces and chat"><table>
+<thead><tr><th scope="col">symptom</th><th scope="col">what to do</th></tr></thead>
+<tbody>
+<tr><td><code>doz workspace start</code> lists gaps</td><td>Each comes with the command that fixes it: chat on, a room (<code>doz workspace edit W --make-room</code>), a folder gone, a bot not ready.</td></tr><tr><td><code>doz workspace run</code> is refused, <code>run-open</code></td><td>A unit of work is still open — <code>doz workspace reopen</code> opens one too. <code>doz workspace finish W</code> first.</td></tr><tr><td><code>dozchat journal add</code> exits 4, naming <code>journal.write</code></td><td>An agent writes the journal only once you grant it: <code>doz grant AGENT reviewer --in W</code>.</td></tr><tr><td>An entry is refused, <code>no-open-run</code></td><td>The journal takes entries only while a unit of work is open: <code>doz workspace run W</code>.</td></tr><tr><td>An adopted agent hears nothing in the room</td><td>A session already running when it was adopted has no chat token until it restarts (<code>adopt</code> printed the command that hands it over now); and nothing tells it to listen: say in its prompt to run <code>dozchat receive</code>.</td></tr><tr><td>A worker never starts: &quot;needs chat&quot;</td><td><code>doz chat on</code>, then <code>doz workspace start W</code> again.</td></tr>
 </tbody></table></div>
 <h3 id="network">Network<a class="anchor" href="#network" aria-label="Link to this section">#</a></h3>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Network"><table>
@@ -169,7 +195,7 @@
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Terminals and the dashboard"><table>
 <thead><tr><th scope="col">symptom</th><th scope="col">what to do</th></tr></thead>
 <tbody>
-<tr><td>Ctrl-] doesn&#x27;t detach</td><td>Once opens the menu on the bottom row; press it again (or <code>d</code>).</td></tr><tr><td>&quot;Sign in with a new link&quot;</td><td>Paste a link from <code>doz ui link --print-url</code> into the page, or open one with <code>doz ui link</code>.</td></tr><tr><td>A browser terminal says &quot;Disconnected&quot;</td><td>It was silent a long time or could not reattach: <strong>Reconnect</strong>. After <code>doz ui</code> restarts it reattaches by itself.</td></tr><tr><td>The installed dashboard app says &quot;Dozable isn&#x27;t running on this Mac&quot;</td><td>Run <code>doz ui</code>; the window comes back by itself.</td></tr><tr><td>The dashboard is paused under an overlay</td><td><code>doz ui</code> stopped: start it again and the page reconnects.</td></tr><tr><td>Open in Terminal does nothing</td><td>Make a terminal app the handler for <code>.command</code> files (Finder › Get Info › Open with › Change All…).</td></tr><tr><td>A copy didn&#x27;t reach the clipboard</td><td>Look at the notice (off, too big, too many); <code>doz config show --sandbox NAME</code>.</td></tr><tr><td>A sign-in page didn&#x27;t open</td><td>Is a terminal attached? Is <code>sandbox.browser_bridge</code> on? See <a href="signing-in-from-a-sandbox#troubleshooting">Signing in from a sandbox</a>.</td></tr><tr><td>A workspace file didn&#x27;t open on the Mac</td><td>Read the notice (and the program&#x27;s own message): outside <code>/workspace</code>, not a document type, executable, an app not in <code>bridges.open_apps</code>, an isolated sandbox, or <code>sandbox.open_files</code> off. See <a href="terminals-and-sessions#opening-workspace-files-on-your-mac">Opening workspace files</a>.</td></tr>
+<tr><td>Ctrl-] doesn&#x27;t detach</td><td>Once opens the menu on the bottom row; press it again (or <code>d</code>).</td></tr><tr><td>&quot;Sign in with a new link&quot;</td><td>Paste a link from <code>doz ui link --print-url</code> into the page, or open one with <code>doz ui link</code>.</td></tr><tr><td>A browser terminal says &quot;Disconnected&quot;</td><td>It was silent a long time or could not reattach: <strong>Reconnect</strong>. After <code>doz ui</code> restarts it reattaches by itself.</td></tr><tr><td>The installed dashboard app says &quot;Dozable isn&#x27;t running on this Mac&quot;</td><td>Run <code>doz ui</code>; the window comes back by itself.</td></tr><tr><td>The dashboard is paused under an overlay</td><td><code>doz ui</code> stopped: start it again and the page reconnects.</td></tr><tr><td>Open in Terminal does nothing</td><td>Make a terminal app the handler for <code>.command</code> files (Finder › Get Info › Open with › Change All…).</td></tr><tr><td>A copy didn&#x27;t reach the clipboard</td><td>Look at the notice (off, too big, too many); <code>doz config show --sandbox NAME</code>.</td></tr><tr><td>A sign-in page didn&#x27;t open</td><td>Is a terminal attached? Is <code>sandbox.browser_bridge</code> on? See <a href="signing-in-from-a-sandbox#troubleshooting">Signing in from a sandbox</a>.</td></tr><tr><td>A file of the sandbox&#x27;s folder didn&#x27;t open on the Mac</td><td>Read the notice (and the program&#x27;s own message): outside <code>/workspace</code>, not a document type, executable, an app not in <code>bridges.open_apps</code>, an isolated sandbox, or <code>sandbox.open_files</code> off. See <a href="terminals-and-sessions#opening-your-folders-files-on-your-mac">Opening your folder&#x27;s files</a>.</td></tr>
 </tbody></table></div>
 <h3 id="images-and-disk-space">Images and disk space<a class="anchor" href="#images-and-disk-space" aria-label="Link to this section">#</a></h3>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Images and disk space"><table>
@@ -181,7 +207,7 @@
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Sessions after a wake"><table>
 <thead><tr><th scope="col">symptom</th><th scope="col">what to do</th></tr></thead>
 <tbody>
-<tr><td>Codex: <code>turn/start failed: invalid cwd: No such file or directory</code> after a wake; a shell&#x27;s <code>ls .</code> says <code>No such file or directory</code></td><td>The program&#x27;s folder was cut off by a wake from hibernation — a sandbox still on the plain share (<code>workspace.view</code> off, or started before 0.30.0). Restart the session: <code>doz sessions restart NAME SESSION</code> (the conversation continues), or <strong>⋯ › Restart session</strong> on its tab. From its next start the sandbox uses <a href="the-workspace-view">the workspace view</a> and this does not happen again.</td></tr><tr><td>The agent gets &quot;Permission denied&quot; writing <code>/workspace</code>, or git says &quot;detected dubious ownership&quot;</td><td>The sandbox runs a workspace view from before Dozable 0.33.1, under which the sandbox&#x27;s user could not write the shared folder. <code>doz shutdown NAME</code> and <code>doz start NAME</code> give it the current view (a wake keeps the old one). Another user than the sandbox&#x27;s own cannot write through the view — see <a href="the-workspace-view#who-can-write">Who can write</a>.</td></tr><tr><td><code>doz doctor</code> warns &quot;workspace view&quot;</td><td>The live view of <code>/workspace</code> could not start, so the folder is shared directly. <code>doz console NAME --steps</code> shows why; <code>doz shutdown NAME</code> and <code>doz start NAME</code> try again.</td></tr><tr><td>A program is stuck</td><td><code>doz sessions restart NAME SESSION</code>, or <code>doz sessions end NAME SESSION</code>.</td></tr>
+<tr><td>Codex: <code>turn/start failed: invalid cwd: No such file or directory</code> after a wake; a shell&#x27;s <code>ls .</code> says <code>No such file or directory</code></td><td>The program&#x27;s folder was cut off by a wake from hibernation — a sandbox still on the plain share (<code>folder.view</code> off, or started before 0.30.0). Restart the session: <code>doz sessions restart NAME SESSION</code> (the conversation continues), or <strong>⋯ › Restart session</strong> on its tab. From its next start the sandbox uses <a href="the-workspace-view">the folder view</a> and this does not happen again.</td></tr><tr><td>The agent gets &quot;Permission denied&quot; writing <code>/workspace</code>, or git says &quot;detected dubious ownership&quot;</td><td>The sandbox runs a folder view from before Dozable 0.33.1, under which the sandbox&#x27;s user could not write the shared folder. <code>doz shutdown NAME</code> and <code>doz start NAME</code> give it the current view (a wake keeps the old one). Another user than the sandbox&#x27;s own cannot write through the view — see <a href="the-workspace-view#who-can-write">Who can write</a>.</td></tr><tr><td><code>doz doctor</code> warns &quot;folder view&quot;</td><td>The live view of <code>/workspace</code> could not start, so the folder is shared directly. <code>doz console NAME --steps</code> shows why; <code>doz shutdown NAME</code> and <code>doz start NAME</code> try again.</td></tr><tr><td>A program is stuck</td><td><code>doz sessions restart NAME SESSION</code>, or <code>doz sessions end NAME SESSION</code>.</td></tr>
 </tbody></table></div>
 <h2 id="faq">FAQ<a class="anchor" href="#faq" aria-label="Link to this section">#</a></h2>
 <p><strong>Is a sandbox a container?</strong> No. Each is a Linux virtual machine with its own kernel, run by Apple&#x27;s Virtualization framework.</p>
@@ -191,18 +217,25 @@
 <p><strong>Can the agent see my other files, my keychain or my clipboard?</strong> No. It sees only the folder you shared, never a credential, and never your clipboard (it can only <em>write</em> to it, with a notice, if you let it).</p>
 <p><strong>Can I use Dozable offline?</strong> Mostly. Sandboxes start, sleep and wake offline; preparing an image needs the internet the first time, and <code>latest</code> agent versions need it to be resolved (set an exact version to avoid that). The agent itself needs its AI model, of course.</p>
 <p><strong>Can I move a sandbox to another Mac?</strong> Not yet with a command. A snapshot (sleep, hibernate) is encrypted with a key specific to this Mac.</p>
-<p><strong>Why does <code>doz</code> say &quot;the next command starts a new host&quot;?</strong> The host is a background process that runs your sandboxes and exits when idle. You never need to start it: any command that needs it does.</p>
+<p><strong>Why does <code>doz</code> say &quot;the next command starts a new daemon&quot;?</strong> The daemon is a background process that runs your sandboxes; it keeps running (<code>daemon.always_on</code>) and replaces itself after an update. You never need to start it: any command that needs it does — after <code>doz daemon stop</code>, after it exited idle (with <code>daemon.always_on</code> off, after <code>daemon.idle_timeout_minutes</code>, 5 by default), or when it was started over ssh and exited after 5 idle minutes.</p>
+<p><strong>Why does <code>doz</code> say &quot;the running daemon is …, this doz is …&quot;?</strong> The daemon running now is of a version that does not speak this doz&#x27;s language (0.51 renamed what a sandbox works on to its <em>folder</em>, and the two would misread each other). Run <code>doz daemon stop</code>: your sandboxes hibernate, and the next command starts a daemon of this version, which wakes them.</p>
+<p><strong><code>doz</code> says &quot;Unknown option &#x27;--workspace&#x27;&quot; (or <code>--workdir</code>).</strong> Renamed in 0.51: <code>--workspace</code> is <code>--folder</code>, <code>--workspace-view</code> is <code>--folder-view</code>; <code>--workdir</code> is <code>--folder</code> on <code>doz run @mac</code> and <code>--cwd</code> in a sandbox (<code>doz run NAME</code>, <code>doz exec NAME</code>). The error says the new name. A settings line <code>[workspace] ignore_mode</code> or <code>view</code> is not read any more — say <code>[folder]</code> (every command warns until you do), and <code>workspace_view:</code> in <code>doz_project.yaml</code> is <code>folder_view:</code>.</p>
 <p><strong>How do I start completely fresh?</strong> <code>doz uninstall</code>, then <code>brew uninstall doz</code>, <code>brew trust --tap dozable/tap</code>, <code>brew install dozable/tap/doz</code> and <code>doz onboard</code>. Your project folders and keychain are untouched.</p>
-<p><strong>The account <code>mac</code> is &quot;unreadable&quot;, though <code>claude</code> works on this Mac?</strong> The doz host reads your Claude login in the session it was started from. A host started over ssh (or from another session with no login) cannot read the login keychain — <code>doz account ls</code>, <code>doz ls</code> and <code>doz doctor</code> say so, naming the host. Run <code>doz host restart</code> from your logged-in session (a terminal on the Mac itself). A command over ssh that has to start the host warns first; <code>doz image bake</code> over ssh stops the host it started once nothing runs.</p>
-<p><strong>Everything is slow — a wake takes a minute?</strong> Run <code>doz doctor</code>. When <code>doz</code> was started at macOS background priority (by <code>taskpolicy -b</code>, or by a tool or agent that runs in the background), it and everything it starts run many times slower; doctor&#x27;s <code>priority</code> line says so and how to move it out. A host started that way leaves the background priority by itself (<code>host priority</code> in doctor).</p>
-<p><strong>Exit codes?</strong> <code>0</code> ok · <code>1</code> failed · <code>2</code> not found · <code>3</code> not possible in this state · <code>4</code> already exists · <code>5</code> not confirmed · <code>6</code> host unavailable · <code>7</code> not implemented yet · <code>64</code> usage. <code>exec</code>, <code>run</code> and <code>attach</code> exit with the program&#x27;s own code (<code>125</code> when <code>doz</code> itself failed; <code>exec</code>&#x27;s <code>124</code> when its <code>--timeout</code> passed — <code>--json</code> adds <code>&quot;timedOut&quot;: true</code>).</p>
+<p><strong>The account <code>mac</code> is &quot;unreadable&quot;, though <code>claude</code> works on this Mac?</strong> The doz daemon reads your Claude login in the session it was started from. A daemon started over ssh (or from another session with no login) cannot read the login keychain — <code>doz account ls</code>, <code>doz ls</code> and <code>doz doctor</code> say so, naming the daemon. Run <code>doz daemon restart</code> from your logged-in session (a terminal on the Mac itself). A command over ssh that has to start the daemon warns first; <code>doz image bake</code> over ssh stops the daemon it started once nothing runs. With the login item (<code>doz daemon login-item on</code>) a command over ssh starts the daemon in your desktop session instead (&quot;doz: started the daemon in your desktop session (login item)&quot;), so it can read the login.</p>
+<p><strong><code>doz daemon restart</code> over ssh says &quot;not restarted&quot;?</strong> The running daemon was started from your desktop and can read your login Keychain; one started over ssh could not. Run it from Terminal on the Mac — or add the login item once (<code>doz daemon login-item on</code>, from the Mac), after which a restart over ssh starts the new daemon in your desktop session. <code>doz daemon stop</code> over ssh always works.</p>
+<p><strong>macOS said &quot;Background Items Added: doz&quot;?</strong> That is the login item <code>doz daemon login-item on</code> (or &quot;Start Dozable when you log in?&quot; in <code>doz onboard</code>) added: one plist in <code>~/Library/LaunchAgents</code> that starts the doz daemon when you log in. <code>doz daemon login-item</code> shows it; <code>doz daemon login-item off</code> removes it. Switched off in System Settings › General › Login Items, it stays off — <code>doz doctor</code> says so.</p>
+<p><strong>&quot;Dozable&quot; in Login Items?</strong> That is the menu bar app&#x27;s <strong>Start at Login</strong> (System Settings › General › Login Items &amp; Extensions; macOS said &quot;Login Item Added&quot; when you clicked it). It starts the daemon when you log in, and the menu with it; doz&#x27;s own login item is then removed, so there is only one. Turn it off from the menu (uncheck Start at Login) or with <code>doz app uninstall</code>. Switched off in System Settings, the menu says &quot;Start at Login — needs approval: Open System Settings…&quot; — click it to go there and switch Dozable back on. <code>doz daemon login-item</code> says who starts the daemon at login.</p>
+<p><strong>The menu says &quot;Start at Login — needs doz 0.50.8&quot; (or &quot;doz … is older than this app needs&quot;)?</strong> The menu bar app came with a newer doz than the one it finds (it uses <code>/opt/homebrew/bin/doz</code>, <code>/usr/local/bin/doz</code> or <code>~/.local/bin/doz</code>, in that order). Upgrade that doz (<code>doz upgrade -y</code>, or <code>brew upgrade</code>); the menu notices within a minute. Start, Stop, Restart and the dashboard work meanwhile.</p>
+<p><strong>The menu says &quot;Start at Login — open the copy in Applications&quot;?</strong> That copy of the app runs from outside Applications (a download, or Homebrew&#x27;s own folder). Run <code>doz app install --open</code> and use the copy in <code>/Applications</code>.</p>
+<p><strong>Everything is slow — a wake takes a minute?</strong> Run <code>doz doctor</code>. When <code>doz</code> was started at macOS background priority (by <code>taskpolicy -b</code>, or by a tool or agent that runs in the background), it and everything it starts run many times slower; doctor&#x27;s <code>priority</code> line says so and how to move it out. A daemon started that way leaves the background priority by itself (<code>daemon priority</code> in doctor).</p>
+<p><strong>Exit codes?</strong> <code>0</code> ok · <code>1</code> failed · <code>2</code> not found · <code>3</code> not possible now · <code>4</code> already exists · <code>5</code> not confirmed · <code>6</code> daemon unavailable · <code>7</code> not implemented yet · <code>8</code> limited · <code>9</code> not permitted · <code>64</code> usage · <code>65</code> an invalid document or value · <code>75</code> partly done · <code>124</code> timed out. <code>doz help exit-codes</code> lists them with the error codes <code>--json</code> carries. <code>exec</code>, <code>run</code> and <code>attach</code> exit with the program&#x27;s own code (<code>125</code> when <code>doz</code> itself failed; <code>exec</code>&#x27;s <code>124</code> when its <code>--timeout</code> passed — <code>--json</code> adds <code>&quot;timedOut&quot;: true</code>).</p>
 <!-- /manual text -->
 </div>
 <ul class="pager">
 <li class="prev"><a href="security-model" rel="prev"><small>&larr; Previous</small><b>Security model</b></a></li>
 <li class="next"><a href="github" rel="next"><small>Next &rarr;</small><b>GitHub as you</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/17-troubleshooting-and-faq.md">Edit this page on GitHub</a> &middot; Chapter 17 of 34</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/17-troubleshooting-and-faq.md">Edit this page on GitHub</a> &middot; Chapter 17 of 44</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">
@@ -210,11 +243,14 @@
 <ol>
 <li><a href="#start-here">Start here</a>
 </li>
+<li><a href="#the-common-five">The common five</a>
+</li>
 <li><a href="#common-problems">Common problems</a>
 <ol>
 <li><a href="#installing-and-upgrading">Installing and upgrading</a></li>
 <li><a href="#starting-and-waking">Starting and waking</a></li>
 <li><a href="#agents-and-accounts">Agents and accounts</a></li>
+<li><a href="#workspaces-and-chat">Workspaces and chat</a></li>
 <li><a href="#network">Network</a></li>
 <li><a href="#terminals-and-the-dashboard">Terminals and the dashboard</a></li>
 <li><a href="#images-and-disk-space">Images and disk space</a></li>

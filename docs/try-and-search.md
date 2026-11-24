@@ -4,7 +4,7 @@ description: "doz try takes you from nothing to talking to an agent in one comma
 url: https://dozable.com/docs/try-and-search
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-13
+updated: 2026-11-25
 chapter: 26
 ---
 # Trying agents, and what Dozable supports
@@ -38,7 +38,7 @@ as a try afterwards; you keep it, sleep it or delete it like any other:
   `~/doz-workspaces` unless you set another) and shares it at `/workspace`, so what the agent makes is on
   your Mac. It is never one of your folders: a folder of that name that holds anything is skipped (the try is named
   `try-<agent>-2`). `--isolated` shares no folder at all (`doz get try-opencode /workspace/FILE` copies a file out —
-  see [Terminals and sessions](https://dozable.com/docs/terminals-and-sessions.md)); `--workspace DIR` uses a folder you choose.
+  see [Terminals and sessions](https://dozable.com/docs/terminals-and-sessions.md)); `--folder DIR` uses a folder you choose.
 - **Your Mac's clipboard and its apps**, as in any sandbox: what the agent copies reaches your Mac's clipboard (also
   from agents that copy with `xclip`, `xsel` or `wl-copy`), and it can open a file it made, or a link, on your Mac.
   The try's first line says so:
@@ -173,7 +173,7 @@ Gemini CLI — supported · key: Google AI (Gemini API) (you have google) · try
 
 - **active**: a release in the last 3 months; **quiet**: none for 3 months; **stale**: none for 6 months;
   **deprecated**: its maker marked that release deprecated (that wins).
-- The Dozable host looks up each agent's latest release about once an hour while it runs (the same check that keeps
+- The Dozable daemon looks up each agent's latest release about once an hour while it runs (the same check that keeps
   images up to date). Looking — `doz search`, `doz try`, the Quick try — never asks the internet; before the first
   check it says *not checked yet*.
 - A tool Dozable installs from one pinned release download or a hash-locked set of Python packages (Fabric, AIChat,
@@ -211,6 +211,8 @@ categories — `personal-agent`, `terminal-tool`, `framework`, `browser-agent`, 
 | 6 | known, but not in this Dozable: coming, or not possible |
 | 2 | nothing by that name (it suggests the closest) |
 | 64 | usage |
+
+The whole table, the same for every command: `doz help exit-codes`.
 
 ## A tool's major version
 
@@ -284,13 +286,13 @@ doz try doz.sh/anthropic/claude-code        # Dozable's recipe directory, doz.sh
 | option | what it chooses |
 |---|---|
 | `--agent`, `--base`, `--dockerfile` | the agent and its base (`--image` is the shorthand for both); a tool's major or release: `--agent opencode@1`; its full name: `--agent anthropic/claude-code` |
-| `--permissions` | what the agent may do: `standard`, `locked`, `open`, `+web`, `-error-reports`, `site:HOST` (`--allow` is the same) |
+| `--permissions` | what the agent may do: `standard`, `locked`, `open`, `+web`, `-error-reports`, `site:HOST` or `site:HOST:PORT` (`--allow` is the same) |
 | `--network` | `agent`, `locked`, `open`, `bake`, `nat` or `none` |
 | `--account`, `--key` | the account, and custom keys beside it |
 | `--github`, `--ssh-agent` | GitHub as you, your SSH agent |
-| `--workspace`, `--isolated` | a folder of your Mac at `/workspace`, or none |
+| `--folder`, `--isolated` | a folder of your Mac at `/workspace`, or none |
 | `--cpus`, `--memory` | resources |
-| `--clipboard`, `--browser-bridge`, `--open-files`, `--tmux`, `--ignore-mode`, `--workspace-view`, `--agent-sudo` | the per-sandbox settings |
+| `--clipboard`, `--browser-bridge`, `--open-files`, `--tmux`, `--ignore-mode`, `--folder-view`, `--agent-sudo` | the per-sandbox settings |
 
 `doz new my-app` names the sandbox (`--name` still works). `doz init` takes `--agent`, `--base` and `--dockerfile`
 and writes them as the file's own keys.
@@ -313,4 +315,4 @@ The plan has three parts:
   yours)", "Copy to your Mac's clipboard: on", "Open files on your Mac: on").
 
 It also says whether the image is ready, which account and key it uses (where the key comes from, never the key),
-and anything in the way, with the fix. `--json` gives the same plan as data. Looking never starts the host.
+and anything in the way, with the fix. `--json` gives the same plan as data. Looking never starts the daemon.

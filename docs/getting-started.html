@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <title>Getting started — Dozable docs</title>
-<meta name="description" content="Dozable runs AI coding agents, such as Claude Code, in small Linux virtual machines on your Mac.">
+<meta name="description" content="Dozable runs teams of AI coding agents on your Mac.">
 <link rel="canonical" href="https://dozable.com/docs/getting-started">
 <link rel="alternate" type="text/markdown" href="https://dozable.com/docs/getting-started.md">
 <meta name="theme-color" content="#ffffff">
@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
 <meta property="og:title" content="Getting started — Dozable docs">
-<meta property="og:description" content="Dozable runs AI coding agents, such as Claude Code, in small Linux virtual machines on your Mac.">
+<meta property="og:description" content="Dozable runs teams of AI coding agents on your Mac.">
 <meta property="og:url" content="https://dozable.com/docs/getting-started">
 <meta property="og:image" content="https://dozable.com/og-image.png">
 <meta property="og:image:secure_url" content="https://dozable.com/og-image.png">
@@ -23,12 +23,12 @@
 <meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Getting started — Dozable docs">
-<meta name="twitter:description" content="Dozable runs AI coding agents, such as Claude Code, in small Linux virtual machines on your Mac.">
+<meta name="twitter:description" content="Dozable runs teams of AI coding agents on your Mac.">
 <meta name="twitter:image" content="https://dozable.com/og-image.png">
 <meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="stylesheet" href="../site.css?v=3c6a0f06">
+<link rel="stylesheet" href="../site.css?v=2545262c">
 <script src="../nav.js?v=4f745b91"></script>
 <link rel="stylesheet" href="docs.css?v=4bcad37f">
 <script defer src="docs.js?v=a2a39b76"></script>
@@ -53,51 +53,61 @@
   <nav class="chapters-body" aria-label="Chapters">
 <h2>Start here</h2><ol>
 <li><a href="getting-started" aria-current="page">Getting started</a></li>
-<li><a href="sandboxes-and-lifecycle">Sandboxes and their lifecycle</a></li>
-<li><a href="terminals-and-sessions">Terminals and sessions</a></li>
-<li><a href="permissions-and-network">What the agent can do</a></li>
-</ol>
-<h2>Install and set up</h2><ol>
 <li><a href="install-upgrade-uninstall">Install, upgrade, uninstall</a></li>
 <li><a href="setting-up">Setting up this Mac</a></li>
-<li><a href="projects">Projects</a></li>
-</ol>
-<h2>Using Dozable</h2><ol>
-<li><a href="the-dashboard">The dashboard</a></li>
-<li><a href="doz-serve">The dashboard on other devices</a></li>
-<li><a href="images-and-bases">Images and bases</a></li>
-<li><a href="agents-and-accounts">Agents and accounts</a></li>
-<li><a href="claude-code-other-models">Claude Code with other models</a></li>
-<li><a href="try-and-search">Trying agents</a></li>
-<li><a href="more-agents">More agents</a></li>
-<li><a href="ai-tools">Other AI tools</a></li>
-<li><a href="your-own-recipes">Your own recipes</a></li>
-<li><a href="codex">Codex</a></li>
-<li><a href="web-ports">Web ports</a></li>
-<li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
-<li><a href="github">GitHub as you</a></li>
-<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
-</ol>
-<h2>Files and tools</h2><ol>
-<li><a href="the-tools-layer">The tools layer</a></li>
-<li><a href="dotfiles">Your dotfiles</a></li>
-<li><a href="workspace-rules">Workspace rules</a></li>
-<li><a href="the-workspace-view">The workspace view</a></li>
+<li><a href="letting-another-agent-drive">Letting another agent drive</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
 </ol>
-<h2>Looking after sandboxes</h2><ol>
-<li><a href="restore-points-duplicates-templates">Restore points, duplicates, templates</a></li>
+<h2>Workspaces, rooms and agents</h2><ol>
+<li><a href="workspaces">Workspaces</a></li>
+<li><a href="chat">Chat</a></li>
+<li><a href="agents-and-bots">Agents / Bots</a></li>
+<li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="space-files">Space files</a></li>
+<li><a href="history-and-retention">History and retention</a></li>
+<li><a href="runs-the-journal-and-lessons">Runs, the journal and lessons</a></li>
+<li><a href="bring-your-own-process">Bring your own process</a></li>
+<li><a href="feeds-and-notices">Feeds and notices</a></li>
+<li><a href="tokens-and-identity">Tokens and identity</a></li>
+</ol>
+<h2>Where agents run</h2><ol>
+<li><a href="sandboxes-and-lifecycle">Sandboxes and their lifecycle</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
+<li><a href="permissions-and-network">What the agent can do</a></li>
+<li><a href="security-model">Security model</a></li>
+<li><a href="terminals-and-sessions">Terminals and sessions</a></li>
+<li><a href="workspace-rules">Folder rules</a></li>
+<li><a href="the-workspace-view">The folder view</a></li>
+<li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
+<li><a href="web-ports">Web ports</a></li>
+</ol>
+<h2>Agents, tools and accounts</h2><ol>
+<li><a href="try-and-search">Trying agents</a></li>
+<li><a href="more-agents">More agents</a></li>
+<li><a href="codex">Codex</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
+<li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="github">GitHub as you</a></li>
+<li><a href="the-tools-layer">Managed tools</a></li>
+</ol>
+<h2>Images, recipes and setup</h2><ol>
+<li><a href="images-and-bases">Images and bases</a></li>
+<li><a href="projects">Projects</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
+<li><a href="restore-points-duplicates-templates">Restore points, duplicates, saved disks</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
+<li><a href="sound">Sound</a></li>
 <li><a href="resources-and-disk-space">Resources and disk space</a></li>
-<li><a href="letting-another-agent-drive">Letting another agent drive</a></li>
+</ol>
+<h2>The dashboard and apps</h2><ol>
+<li><a href="the-dashboard">The dashboard</a></li>
+<li><a href="doz-serve">The dashboard on other devices</a></li>
+<li><a href="the-menu-bar-app">The menu bar app</a></li>
 </ol>
 <h2>Reference</h2><ol>
 <li><a href="settings-reference">Settings reference</a></li>
-<li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
 <li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
-</ol>
-<h2>Experimental</h2><ol>
-<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
@@ -108,7 +118,7 @@
 <header class="chead">
 <p class="eyebrow">Chapter 1</p>
 <h1>Getting started</h1>
-<p class="summary">Dozable runs AI coding agents, such as Claude Code, in small Linux virtual machines on your Mac.</p>
+<p class="summary">Dozable runs teams of AI coding agents on your Mac.</p>
 </header>
 <details class="toc-m"><summary>On this page</summary>
 <ol>
@@ -120,9 +130,11 @@
 <ol>
 <li><a href="#what-you-just-set-up">What you just set up</a></li>
 </ol></li>
+<li><a href="#your-first-workspace">Your first workspace</a>
+</li>
 <li><a href="#usage-statistics-and-sign-up">Usage statistics and sign-up</a>
 </li>
-<li><a href="#your-first-project">Your first project</a>
+<li><a href="#a-sandbox-on-its-own">A sandbox on its own</a>
 </li>
 <li><a href="#talk-to-your-agent">Talk to your agent</a>
 </li>
@@ -138,15 +150,33 @@
 </details>
 <div class="prose">
 <!-- manual text -->
-<p>Dozable runs AI coding agents, such as Claude Code, in small Linux virtual machines on your Mac. Each agent gets its own <strong>sandbox</strong>: its own disk, a network that only reaches what you allow, and (if you want) one project folder shared in. A sandbox pauses in about a millisecond, sleeps or hibernates to disk, and wakes in about a third of a second with the agent still where you left it.</p>
-<p>This page takes you from nothing installed to talking to Claude in a sandbox in about 15 minutes. Most of that is a one-off download that you can leave running in the background.</p>
-<p><strong>On this page:</strong> <a href="#what-you-need">What you need</a> · <a href="#install">Install</a> · <a href="#set-up-this-mac">Set up this Mac</a> · <a href="#your-first-project">Your first project</a> · <a href="#talk-to-your-agent">Talk to your agent</a> · <a href="#day-to-day">Day to day</a> · <a href="#when-the-agent-needs-a-website">When the agent needs a website</a> · <a href="#undo-with-restore-points">Undo</a> · <a href="#next-steps">Next steps</a></p>
+<p>Dozable runs teams of AI coding agents on your Mac. A <strong>workspace</strong> holds the agents, their chat room, the folders they work in and a brief that says what the work is for. Agents from any vendor (Claude Code, Codex and more) take on the work one <strong>unit of work</strong> at a time; each is recorded in a journal, and the lessons you approve carry into the next. You watch, talk to them in the room and decide what matters. You work through <code>doz</code>, a command-line tool, and a web dashboard (<code>doz ui</code>).</p>
+<p>Where each agent runs is one setting of the workspace, not the first thing you decide: in its own Linux micro VM, held by macOS&#x27;s sandbox to its folder on your Mac (<strong>fenced</strong>, the default for a workspace&#x27;s agents), or as you. Start with the default; <a href="sessions-on-this-mac">Sessions on this Mac</a> and <a href="sandboxes-and-lifecycle">Sandboxes</a> compare the choices.</p>
+<p><strong>What you&#x27;ll have in about 15 minutes:</strong> a workspace with an agent in it, a chat room where you talk to it, and a folder it works in. Most of the time is a one-off download.</p>
+<p><strong>Know three things before you start:</strong></p>
+<ul>
+<li><strong>Agents need an account.</strong> <code>doz onboard</code> uses this Mac&#x27;s own Claude Code login by default. That login expires after some hours unless the Mac&#x27;s Claude Code renews it; for unattended work, add a setup-token account (<a href="agents-and-accounts">Agents and accounts</a>).</li>
+<li><strong>Workers talk through chat.</strong> Turn it on with <code>doz chat on</code>. Without it you drive the agents yourself.</li>
+<li><strong>Long jobs need room.</strong> <code>doz exec</code> stops a command after 120 s unless you pass <code>--timeout</code>; start a long one in the background with <code>doz run NAME -d</code>.</li>
+</ul>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>brew trust --tap dozable/tap &amp;&amp; brew install dozable/tap/doz
+doz onboard --first none        <span class="c"># this Mac: the checks, the base image, your agents&#x27; account</span>
+doz chat on --name ada          <span class="c"># rooms for you and your agents; ada is your name there</span>
+doz workspace new hello --preset blank --brief &quot;Read this project and write NOTES.md: what it is and how to build it&quot; --folder ~/code/my-app --worker &quot;Do what the brief asks&quot; --dry-run
+doz workspace new hello --preset blank --brief &quot;Read this project and write NOTES.md: what it is and how to build it&quot; --folder ~/code/my-app --worker &quot;Do what the brief asks&quot;
+doz workspace start hello       <span class="c"># the brief posted in the room, the first unit of work open, the worker started</span>
+doz ui                          <span class="c"># watch it, and talk to it in the room</span></code></pre></figure>
+<p>The steps, one at a time, are below: <a href="#your-first-workspace">Your first workspace</a>.</p>
+<blockquote class="note">
+<p><strong>If you are an agent setting this up for someone,</strong> read <a href="workspaces">Workspaces</a> and then <a href="letting-another-agent-drive">Letting another agent drive Dozable</a> first.</p>
+</blockquote>
+<p><strong>On this page:</strong> <a href="#what-you-need">What you need</a> · <a href="#install">Install</a> · <a href="#set-up-this-mac">Set up this Mac</a> · <a href="#your-first-workspace">Your first workspace</a> · <a href="#a-sandbox-on-its-own">A sandbox on its own</a> · <a href="#talk-to-your-agent">Talk to your agent</a> · <a href="#day-to-day">Day to day</a> · <a href="#when-the-agent-needs-a-website">When the agent needs a website</a> · <a href="#undo-with-restore-points">Undo</a> · <a href="#next-steps">Next steps</a></p>
 <h2 id="what-you-need">What you need<a class="anchor" href="#what-you-need" aria-label="Link to this section">#</a></h2>
 <ul>
 <li>A Mac with <strong>Apple silicon</strong> (M1 or later) running <strong>macOS 26 or later</strong>.</li>
 <li>About <strong>5 GB of free disk</strong> for the first image. Sandboxes share their disks with the image they came from, so each extra sandbox usually adds only megabytes.</li>
 <li>An internet connection for the first setup.</li>
-<li><strong>Optional:</strong> <a href="https://claude.com/claude-code">Claude Code</a> installed and signed in on your Mac. Your sandboxes can then use that login, with nothing to paste. You can use an API key or a long-lived token instead, or decide later.</li>
+<li><strong>Optional:</strong> <a href="https://claude.com/claude-code">Claude Code</a> installed and signed in on your Mac. Your sandboxes can then use that login, with nothing to paste. You can use an API key or a long-lived token instead, or decide later. That login (the account <code>mac</code>) gives out access that <strong>expires</strong> after some hours, and only the Mac&#x27;s own Claude Code renews it — Dozable never does. <code>doz account keepalive always</code> keeps it fresh: when it expires, Dozable runs the Mac&#x27;s own <code>claude</code> once to renew it. It can&#x27;t do that for a daemon started over SSH (the login keychain is locked there). For long unattended work, use a <strong>setup-token</strong> account instead: <code>claude setup-token</code> makes a token valid for a year, and <code>doz account add NAME --setup-token</code> adds it (<a href="agents-and-accounts">Agents and accounts</a>).</li>
 </ul>
 <h2 id="install">Install<a class="anchor" href="#install" aria-label="Link to this section">#</a></h2>
 <p>With <a href="https://brew.sh">Homebrew</a>:</p>
@@ -163,10 +193,10 @@ doz --version</code></pre></figure>
 <li><strong>Checks.</strong> Apple silicon, macOS, the virtualization permission, disk space. A required check that fails stops setup and says why; an optional one (Claude Code not installed, for example) is a warning.</li>
 <li><strong>Base image.</strong> Node.js, the Linux system every tool runs on — <kbd>Enter</kbd> starts its download (about 380 MB) in the background, once; every tool you try is added to it. The next questions come at once.</li>
 <li><strong>Models &amp; keys.</strong> The sign-ins Dozable found on this Mac (Claude Code, Codex), then a key if you want one — Anthropic, OpenAI, xAI, Google or an OpenRouter key (it is never echoed). <kbd>Enter</kbd> adds none.</li>
-<li><strong>Access</strong>, <strong>Workspace rules</strong> and <strong>Settings</strong> — GitHub and your SSH agent (off unless you choose them), what <code>.dozignore</code> does, and the settings file. See <a href="setting-up">Setting up this Mac</a>.</li>
+<li><strong>Access</strong>, <strong>Folder rules</strong> and <strong>Settings</strong> — GitHub and your SSH agent (off unless you choose them), what <code>.dozignore</code> does, and the settings file. See <a href="setting-up">Setting up this Mac</a>.</li>
 <li><strong>Usage statistics.</strong> What an official build sends — counts and ranges about how Dozable is used, never names, paths, contents or anything inside a sandbox — and where to see it exactly (<code>doz telemetry show</code>). <kbd>Enter</kbd> keeps them on; answer <strong>n</strong> to turn them off. A build from the open-source repository sends nothing and skips this step.</li>
 <li><strong>Stay in touch (optional).</strong> Release news, tool news, early access and tips and tricks by email — skip it with <kbd>Enter</kbd>. See <a href="#usage-statistics-and-sign-up">Usage statistics and sign-up</a>.</li>
-<li><strong>Your first sandbox.</strong> <code>claude</code>, <code>pi</code> or <code>opencode</code> — a name (<code>claude</code>) and a new empty folder (<code>~/doz-workspaces/claude</code>). Dozable waits for the base if it is still downloading (<kbd>Ctrl</kbd>-<kbd>C</kbd> leaves it running; <code>doz onboard --status</code> shows it again), adds the tool and attaches you to it.</li>
+<li><strong>Your first sandbox.</strong> <code>claude</code>, <code>pi</code> or <code>opencode</code> — a name (<code>claude</code>) and a new empty folder (<code>~/doz-workspaces/claude</code>). Dozable waits for the base if it is still downloading (<kbd>Ctrl</kbd>-<kbd>C</kbd> leaves it running; <code>doz onboard --status</code> shows it again), adds the tool and attaches you to it. Going straight to a workspace? Answer <strong>none</strong> here (or run <code>doz onboard --first none</code>).</li>
 </ol>
 <p><strong>In your browser:</strong></p>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz ui</code></pre></figure>
@@ -176,13 +206,27 @@ doz --version</code></pre></figure>
 <h3 id="what-you-just-set-up">What you just set up<a class="anchor" href="#what-you-just-set-up" aria-label="Link to this section">#</a></h3>
 <ul>
 <li><strong>Each sandbox is a small Linux virtual machine,</strong> not a container, with its own kernel and disk. It can&#x27;t see your Mac&#x27;s files, apart from the one project folder you share at <code>/workspace</code>.</li>
-<li><strong>The Dozable host runs the sandboxes.</strong> It&#x27;s a background program that starts when you need it and exits when nothing is running. <code>doz</code> and the dashboard are remote controls for it.</li>
-<li><strong>Sandboxes sit behind a network proxy on your Mac.</strong> They have no network card of their own: every connection goes through the proxy, which allows only what you permit, and logs it.</li>
-<li><strong>Your credentials never enter a sandbox.</strong> The agent sees a stand-in; the proxy adds your real login as each request leaves for Anthropic.</li>
-<li><strong>Two files hold your choices:</strong> <code>~/.config/doz/doz.toml</code> (your settings for this Mac) and a project&#x27;s <code>doz_project.yaml</code> (its sandbox). Everything else is kept by the host.</li>
+<li><strong>A workspace&#x27;s agents run fenced on this Mac by default</strong> — no VM: macOS&#x27;s own sandbox holds each one to its project folder, its own temp and caches, and Dozable&#x27;s proxy for the network, with your Keychain closed. A preset or <code>--worker-isolation vm</code> puts them in micro VMs instead; <a href="sessions-on-this-mac#where-an-agent-runs-the-three-choices">Where an agent runs</a> compares the three choices.</li>
+<li><strong>The Dozable daemon runs the sandboxes and sessions.</strong> It&#x27;s a background program that the first command starts, and it keeps running when nothing is (the setting <code>daemon.always_on</code>, on by default; off, it exits once nothing runs). <code>doz</code> and the dashboard are remote controls for it.</li>
+<li><strong>Sandboxes and fenced sessions sit behind a network proxy on your Mac.</strong> A sandbox has no network card of its own: every connection goes through the proxy, which allows only what you permit, and logs it.</li>
+<li><strong>Your credentials never enter a sandbox or a fenced session.</strong> The agent sees a stand-in; the proxy adds your real login as each request leaves for Anthropic. An unfenced agent is the exception: it acts as you.</li>
+<li><strong>Two files hold your choices:</strong> <code>~/.config/doz/doz.toml</code> (your settings for this Mac) and a project&#x27;s <code>doz_project.yaml</code> (its sandbox). Everything else is kept by the daemon.</li>
 </ul>
+<h2 id="your-first-workspace">Your first workspace<a class="anchor" href="#your-first-workspace" aria-label="Link to this section">#</a></h2>
+<p>Four steps: set up this Mac, make the workspace, start it, and then give it its next unit of work.</p>
+<ol>
+<li><p><strong><code>doz onboard</code></strong> checks this Mac and sets up the account your agents use (above). Once per Mac.</p></li>
+<li><p><strong><code>doz workspace new NAME --preset …</code></strong> says what the work is: the brief, the folders, the workers, and a preset for where they run and what network they get — <code>blank</code> (choose yourself: fenced on this Mac, a locked network), <code>research</code>, <code>swift-tests</code>, <code>mac-admin</code> or <code>remotion-video</code> (<a href="workspaces#presets">what each sets up</a>). Add <code>--dry-run</code> first: it shows what would be made, what would be refused and what the start would still need, each with its fix, and makes nothing. A worker needs chat on (<code>doz chat on</code>).</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz workspace new hello --preset blank --brief &quot;Read this project and write NOTES.md&quot; --folder ~/code/my-app --worker &quot;Do what the brief asks&quot; --dry-run</code></pre></figure></li>
+<li><p><strong><code>doz workspace start NAME</code></strong> runs the set-up check (it lists every gap with the command that fixes it), posts your brief as your first message in the workspace&#x27;s room, opens the first unit of work and starts the worker, in the place the preset chose. Watch it on the dashboard (<code>doz ui</code>, then the workspace on <strong>Home</strong>), or follow its room from a terminal: <code>doz chat read hello --follow</code>. Write in the room to talk to it.</p></li>
+<li><p><strong>When it is done, finish it and go on.</strong> <code>doz workspace finish NAME</code> closes the unit of work and archives it — the room&#x27;s messages, the agents&#x27; conversations, its journal. <code>doz workspace run NAME &quot;next goal&quot;</code> opens the next one, with every lesson you approved from the ones before:</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz workspace finish hello
+doz workspace retro hello --propose --addendum &quot;Keep NOTES.md under one page&quot;   <span class="c"># a lesson; you decide it in the room</span>
+doz workspace run hello &quot;Now add a section on running the tests&quot;</code></pre></figure></li>
+</ol>
+<p>More: <a href="workspaces">Workspaces</a>, <a href="runs-the-journal-and-lessons">Runs, the journal and lessons</a>, and a worked example of a whole process in <a href="bring-your-own-process">Bring your own process</a>.</p>
 <h2 id="usage-statistics-and-sign-up">Usage statistics and sign-up<a class="anchor" href="#usage-statistics-and-sign-up" aria-label="Link to this section">#</a></h2>
-<p><strong>Official builds</strong> (Homebrew, the release download) <strong>send anonymous usage statistics</strong>, so we can see what to fix and improve: at most once a day, counts and ranges about how Dozable itself is used — which commands ran and how often they failed (by exit code), which agents, bases and network presets new sandboxes use, the size of your setup as ranges, typical start and wake times rounded to 50 ms, how long sandboxes ran and slept and how long agents worked (as ranges), which features you used (the dashboard, the installed app, the dashboard on your network (<code>doz ui --lan</code>), workspace rules, GitHub access, restore points, templates), which built-in image-preparation step failed, and your Mac&#x27;s macOS version, chip family, memory and cores as ranges — with a random install id. <strong>Never</strong> a sandbox, image or project name, a file or folder name or path, anything inside a sandbox, anything you type or a program prints, a command&#x27;s arguments, a host or website, an account, email or key. Our server adds your country from the connection and does not keep your IP address.</p>
+<p><strong>Official builds</strong> (Homebrew, the release download) <strong>send anonymous usage statistics</strong>, so we can see what to fix and improve: at most once a day, counts and ranges about how Dozable itself is used — which commands ran and how often they failed (by exit code), which agents, bases and network presets new sandboxes use, the size of your setup as ranges, typical start and wake times rounded to 50 ms, how long sandboxes ran and slept and how long agents worked (as ranges), which features you used (the dashboard, the installed app, the dashboard on your network (<code>doz ui --lan</code>), folder rules, GitHub access, restore points, saved disks), which built-in image-preparation step failed, and your Mac&#x27;s macOS version, chip family, memory and cores as ranges — with a random install id. <strong>Never</strong> a sandbox, image or project name, a file or folder name or path, anything inside a sandbox, anything you type or a program prints, a command&#x27;s arguments, a host or website, an account, email or key. Our server adds your country from the connection and does not keep your IP address.</p>
 <p>Setup tells you about them and lets you turn them off there and then: the <strong>Usage statistics</strong> step of <code>doz onboard</code> (or <code>doz onboard --usage-stats off</code> in a script) and of the dashboard&#x27;s setup wizard. If you never ran the setup, the first command says so in one line instead. See exactly what would be sent, and turn it off with any one of these:</p>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz telemetry show                                      <span class="c"># on or off, why, and the exact messages</span>
 doz config set telemetry.send_anonymous_usage_stats false   <span class="c"># off (or the switch in the dashboard&#x27;s Settings)</span>
@@ -191,8 +235,8 @@ doz ls --no-send-anonymous-usage-stats                  <span class="c"># off fo
 doz telemetry reset                                     <span class="c"># a new random install id</span></code></pre></figure>
 <p><strong>Signing up is optional</strong>: <code>doz signup</code> (or the setup&#x27;s <em>Stay in touch</em>) asks for an email and what you want — release news, tool news (new and updated tools you can try), early access, tips and tricks. A confirmation email comes first; every email has a one-click unsubscribe, and your email is never linked to the statistics.</p>
 <p><strong>Builds from the open-source repository send nothing.</strong> The statistics and sign-up code is part of the official builds only and is not open source; this repository holds the list of what may be sent and every switch. The full policy: <a href="https://dozable.com/privacy">dozable.com/privacy</a>.</p>
-<h2 id="your-first-project">Your first project<a class="anchor" href="#your-first-project" aria-label="Link to this section">#</a></h2>
-<p>A sandbox works on one project folder, shared into it at <code>/workspace</code>: the agent&#x27;s changes appear on your Mac at once, and your editor sees them live.</p>
+<h2 id="a-sandbox-on-its-own">A sandbox on its own<a class="anchor" href="#a-sandbox-on-its-own" aria-label="Link to this section">#</a></h2>
+<p>You don&#x27;t need a workspace to use one agent: a sandbox on its own is a single agent in its own micro VM, which you attach to and talk to in your terminal. A sandbox works on one project folder, shared into it at <code>/workspace</code>: the agent&#x27;s changes appear on your Mac at once, and your editor sees them live.</p>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>cd ~/code/my-app
 doz init</code></pre></figure>
 <p><code>doz init</code> asks for the sandbox&#x27;s name (from the folder&#x27;s) and its image, and writes <code>doz_project.yaml</code> in the folder. It holds no secrets, so you can commit it: anyone who runs <code>doz up</code> in the project gets the same sandbox.</p>
@@ -239,7 +283,7 @@ doz net allow my-app site:api.example.com   <span class="c"># one site</span></c
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz point take my-app before-refactor
 doz point revert my-app before-refactor        <span class="c"># go back</span>
 doz point fork my-app before-refactor try-2    <span class="c"># or try again in a new sandbox, from the same moment</span></code></pre></figure>
-<p>Restore points cover the sandbox&#x27;s own disk. Your project folder is on your Mac, so use git for that. Details: <a href="restore-points-duplicates-templates">Restore points, duplicates and templates</a>.</p>
+<p>Restore points cover the sandbox&#x27;s own disk. Your project folder is on your Mac, so use git for that. Details: <a href="restore-points-duplicates-templates">Restore points, duplicates and saved disks</a>.</p>
 <h2 id="next-steps">Next steps<a class="anchor" href="#next-steps" aria-label="Link to this section">#</a></h2>
 <ul>
 <li>Something not working? <code>doz doctor</code>, then <a href="troubleshooting-and-faq">Troubleshooting and FAQ</a>.</li>
@@ -253,7 +297,7 @@ doz point fork my-app before-refactor try-2    <span class="c"># or try again in
 <li class="prev"><a href="./" rel="prev"><small>&larr; Contents</small><b>The Dozable manual</b></a></li>
 <li class="next"><a href="install-upgrade-uninstall" rel="next"><small>Next &rarr;</small><b>Installing, upgrading and uninstalling</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/01-getting-started.md">Edit this page on GitHub</a> &middot; Chapter 1 of 34</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/01-getting-started.md">Edit this page on GitHub</a> &middot; Chapter 1 of 44</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">
@@ -267,9 +311,11 @@ doz point fork my-app before-refactor try-2    <span class="c"># or try again in
 <ol>
 <li><a href="#what-you-just-set-up">What you just set up</a></li>
 </ol></li>
+<li><a href="#your-first-workspace">Your first workspace</a>
+</li>
 <li><a href="#usage-statistics-and-sign-up">Usage statistics and sign-up</a>
 </li>
-<li><a href="#your-first-project">Your first project</a>
+<li><a href="#a-sandbox-on-its-own">A sandbox on its own</a>
 </li>
 <li><a href="#talk-to-your-agent">Talk to your agent</a>
 </li>

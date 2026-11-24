@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
-<title>Restore points, duplicates and templates — Dozable docs</title>
+<title>Restore points, duplicates and saved disks — Dozable docs</title>
 <meta name="description" content="Three ways to copy a sandbox&#x27;s disk, each instant (they&#x27;re APFS clones, sharing space until something changes).">
 <link rel="canonical" href="https://dozable.com/docs/restore-points-duplicates-templates">
 <link rel="alternate" type="text/markdown" href="https://dozable.com/docs/restore-points-duplicates-templates.md">
@@ -12,7 +12,7 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Dozable">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="Restore points, duplicates and templates — Dozable docs">
+<meta property="og:title" content="Restore points, duplicates and saved disks — Dozable docs">
 <meta property="og:description" content="Three ways to copy a sandbox&#x27;s disk, each instant (they&#x27;re APFS clones, sharing space until something changes).">
 <meta property="og:url" content="https://dozable.com/docs/restore-points-duplicates-templates">
 <meta property="og:image" content="https://dozable.com/og-image.png">
@@ -22,13 +22,13 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Restore points, duplicates and templates — Dozable docs">
+<meta name="twitter:title" content="Restore points, duplicates and saved disks — Dozable docs">
 <meta name="twitter:description" content="Three ways to copy a sandbox&#x27;s disk, each instant (they&#x27;re APFS clones, sharing space until something changes).">
 <meta name="twitter:image" content="https://dozable.com/og-image.png">
 <meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <link rel="icon" type="image/png" href="../favicon.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="stylesheet" href="../site.css?v=3c6a0f06">
+<link rel="stylesheet" href="../site.css?v=2545262c">
 <script src="../nav.js?v=4f745b91"></script>
 <link rel="stylesheet" href="docs.css?v=4bcad37f">
 <script defer src="docs.js?v=a2a39b76"></script>
@@ -53,61 +53,71 @@
   <nav class="chapters-body" aria-label="Chapters">
 <h2>Start here</h2><ol>
 <li><a href="getting-started">Getting started</a></li>
-<li><a href="sandboxes-and-lifecycle">Sandboxes and their lifecycle</a></li>
-<li><a href="terminals-and-sessions">Terminals and sessions</a></li>
-<li><a href="permissions-and-network">What the agent can do</a></li>
-</ol>
-<h2>Install and set up</h2><ol>
 <li><a href="install-upgrade-uninstall">Install, upgrade, uninstall</a></li>
 <li><a href="setting-up">Setting up this Mac</a></li>
-<li><a href="projects">Projects</a></li>
-</ol>
-<h2>Using Dozable</h2><ol>
-<li><a href="the-dashboard">The dashboard</a></li>
-<li><a href="doz-serve">The dashboard on other devices</a></li>
-<li><a href="images-and-bases">Images and bases</a></li>
-<li><a href="agents-and-accounts">Agents and accounts</a></li>
-<li><a href="claude-code-other-models">Claude Code with other models</a></li>
-<li><a href="try-and-search">Trying agents</a></li>
-<li><a href="more-agents">More agents</a></li>
-<li><a href="ai-tools">Other AI tools</a></li>
-<li><a href="your-own-recipes">Your own recipes</a></li>
-<li><a href="codex">Codex</a></li>
-<li><a href="web-ports">Web ports</a></li>
-<li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
-<li><a href="github">GitHub as you</a></li>
-<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
-</ol>
-<h2>Files and tools</h2><ol>
-<li><a href="the-tools-layer">The tools layer</a></li>
-<li><a href="dotfiles">Your dotfiles</a></li>
-<li><a href="workspace-rules">Workspace rules</a></li>
-<li><a href="the-workspace-view">The workspace view</a></li>
+<li><a href="letting-another-agent-drive">Letting another agent drive</a></li>
 <li><a href="prompts-for-your-agent">Prompts for your agent</a></li>
 </ol>
-<h2>Looking after sandboxes</h2><ol>
-<li><a href="restore-points-duplicates-templates" aria-current="page">Restore points, duplicates, templates</a></li>
+<h2>Workspaces, rooms and agents</h2><ol>
+<li><a href="workspaces">Workspaces</a></li>
+<li><a href="chat">Chat</a></li>
+<li><a href="agents-and-bots">Agents / Bots</a></li>
+<li><a href="agents-and-accounts">Agents and accounts</a></li>
+<li><a href="space-files">Space files</a></li>
+<li><a href="history-and-retention">History and retention</a></li>
+<li><a href="runs-the-journal-and-lessons">Runs, the journal and lessons</a></li>
+<li><a href="bring-your-own-process">Bring your own process</a></li>
+<li><a href="feeds-and-notices">Feeds and notices</a></li>
+<li><a href="tokens-and-identity">Tokens and identity</a></li>
+</ol>
+<h2>Where agents run</h2><ol>
+<li><a href="sandboxes-and-lifecycle">Sandboxes and their lifecycle</a></li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a></li>
+<li><a href="permissions-and-network">What the agent can do</a></li>
+<li><a href="security-model">Security model</a></li>
+<li><a href="terminals-and-sessions">Terminals and sessions</a></li>
+<li><a href="workspace-rules">Folder rules</a></li>
+<li><a href="the-workspace-view">The folder view</a></li>
+<li><a href="signing-in-from-a-sandbox">Signing in from a sandbox</a></li>
+<li><a href="web-ports">Web ports</a></li>
+</ol>
+<h2>Agents, tools and accounts</h2><ol>
+<li><a href="try-and-search">Trying agents</a></li>
+<li><a href="more-agents">More agents</a></li>
+<li><a href="codex">Codex</a></li>
+<li><a href="claude-code-other-models">Claude Code with other models</a></li>
+<li><a href="ai-tools">Other AI tools</a></li>
+<li><a href="github">GitHub as you</a></li>
+<li><a href="the-tools-layer">Managed tools</a></li>
+</ol>
+<h2>Images, recipes and setup</h2><ol>
+<li><a href="images-and-bases">Images and bases</a></li>
+<li><a href="projects">Projects</a></li>
+<li><a href="your-own-recipes">Your own recipes</a></li>
+<li><a href="restore-points-duplicates-templates" aria-current="page">Restore points, duplicates, saved disks</a></li>
+<li><a href="dotfiles">Your dotfiles</a></li>
+<li><a href="sound">Sound</a></li>
 <li><a href="resources-and-disk-space">Resources and disk space</a></li>
-<li><a href="letting-another-agent-drive">Letting another agent drive</a></li>
+</ol>
+<h2>The dashboard and apps</h2><ol>
+<li><a href="the-dashboard">The dashboard</a></li>
+<li><a href="doz-serve">The dashboard on other devices</a></li>
+<li><a href="the-menu-bar-app">The menu bar app</a></li>
 </ol>
 <h2>Reference</h2><ol>
 <li><a href="settings-reference">Settings reference</a></li>
-<li><a href="security-model">Security model</a></li>
 <li><a href="troubleshooting-and-faq">Troubleshooting and FAQ</a></li>
 <li><a href="bundling-doz-in-an-app">Bundling doz in an app</a></li>
-</ol>
-<h2>Experimental</h2><ol>
-<li><a href="sound">Sound</a></li>
 </ol>
   </nav>
 </details>
 
 <article class="article">
 <!--email_off-->
-<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="./">Docs</a></li><li aria-current="page">Restore points, duplicates and templates</li></ol></nav>
+<nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="./">Docs</a></li><li aria-current="page">Restore points, duplicates and saved disks</li></ol></nav>
 <header class="chead">
 <p class="eyebrow">Chapter 12</p>
-<h1>Restore points, duplicates and templates</h1>
+<h1>Restore points, duplicates and saved disks</h1>
 <p class="summary">Three ways to copy a sandbox&#x27;s disk, each instant (they&#x27;re APFS clones, sharing space until something changes).</p>
 </header>
 <details class="toc-m"><summary>On this page</summary>
@@ -116,7 +126,7 @@
 </li>
 <li><a href="#duplicates">Duplicates</a>
 </li>
-<li><a href="#templates">Templates</a>
+<li><a href="#saved-disks">Saved disks</a>
 </li>
 <li><a href="#seeing-the-family-tree">Seeing the family tree</a>
 </li>
@@ -129,12 +139,12 @@
 <div class="prose">
 <!-- manual text -->
 <p>Three ways to copy a sandbox&#x27;s disk, each instant (they&#x27;re APFS clones, sharing space until something changes):</p>
-<div class="tablewrap" tabindex="0" role="region" aria-label="Table: Restore points, duplicates and templates"><table>
+<div class="tablewrap" tabindex="0" role="region" aria-label="Table: Restore points, duplicates and saved disks"><table>
 <thead><tr><th scope="col"></th><th scope="col">what it is</th><th scope="col">use it to</th></tr></thead>
 <tbody>
-<tr><td><strong>Restore point</strong></td><td>a copy of a sandbox&#x27;s disks at a moment, kept with the sandbox</td><td>undo: go back, or fork a new sandbox from that moment</td></tr><tr><td><strong>Duplicate</strong></td><td>a new sandbox from an existing one&#x27;s disk</td><td>run the same setup on another project, or with more memory</td></tr><tr><td><strong>Template</strong></td><td>a sandbox&#x27;s system disk saved as an image</td><td>make many new sandboxes that start set up your way</td></tr>
+<tr><td><strong>Restore point</strong></td><td>a copy of a sandbox&#x27;s disks at a moment, kept with the sandbox</td><td>undo: go back, or fork a new sandbox from that moment</td></tr><tr><td><strong>Duplicate</strong></td><td>a new sandbox from an existing one&#x27;s disk</td><td>run the same setup on another project, or with more memory</td></tr><tr><td><strong>Saved disk</strong></td><td>a sandbox&#x27;s system disk saved as an image (<code>doz image save</code>)</td><td>make many new sandboxes that start set up your way</td></tr>
 </tbody></table></div>
-<p>None of them copies your workspace folder (it&#x27;s on your Mac — use git) or memory (a restored or forked sandbox cold-boots).</p>
+<p>None of them copies your sandbox&#x27;s folder (it&#x27;s on your Mac — use git) or memory (a restored or forked sandbox cold-boots).</p>
 <h2 id="restore-points">Restore points<a class="anchor" href="#restore-points" aria-label="Link to this section">#</a></h2>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz point take my-app before-refactor --note &quot;tests green&quot;   <span class="c"># a running sandbox pauses for milliseconds</span>
 doz point ls my-app
@@ -147,50 +157,51 @@ doz point rm my-app before-refactor</code></pre></figure>
 <li>Name a point with anything up to 64 characters (kept exactly as you type it). Wherever a command takes a point, you can give its name, its id (<code>rp-…</code>) or the start of either, as long as only one matches.</li>
 <li>Commands that ask first (<code>revert</code>, <code>rm</code>) check the point exists before asking, and the question names it, its id and when it was taken.</li>
 </ul>
-<p><strong>In the dashboard:</strong> a sandbox&#x27;s details › <strong>Points</strong> has <strong>Take a restore point…</strong>, and per point <strong>Revert</strong>, and under its <strong>⋯</strong> <strong>Fork…</strong>, <strong>Save as template…</strong>, <strong>Duplicate…</strong> and <strong>Delete…</strong> (revert and delete ask you to tick a box first).</p>
+<p><strong>In the dashboard:</strong> a sandbox&#x27;s details › <strong>Points</strong> has <strong>Take a restore point…</strong>, and per point <strong>Revert</strong>, and under its <strong>⋯</strong> <strong>Fork…</strong>, <strong>Save disk as image…</strong>, <strong>Duplicate…</strong> and <strong>Delete…</strong> (revert and delete ask you to tick a box first).</p>
 <h2 id="duplicates">Duplicates<a class="anchor" href="#duplicates" aria-label="Link to this section">#</a></h2>
-<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz duplicate my-app my-app-2 --workspace ~/code/other-project --cpus 4 --memory 4G
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz duplicate my-app my-app-2 --folder ~/code/other-project --cpus 4 --memory 4G
 doz duplicate my-app my-app-3 --from-point before-refactor --network locked
 doz duplicate my-app my-app-4 --copy-state        <span class="c"># the agent&#x27;s logins and history too</span></code></pre></figure>
 <ul>
 <li>The new sandbox is <strong>off</strong> until you start it. Anything you don&#x27;t give is the source&#x27;s, its permissions included.</li>
-<li>A <code>--workspace</code> that doesn&#x27;t exist is made; <code>--isolated</code> shares no folder.</li>
+<li>A <code>--folder</code> that doesn&#x27;t exist is made; <code>--isolated</code> shares no folder.</li>
 <li>The agent&#x27;s <strong>state disk starts fresh</strong> unless <code>--copy-state</code>.</li>
 <li>Keys given with <code>doz key set</code> are not copied; the account follows <code>--account</code> or the source&#x27;s.</li>
 </ul>
-<p><strong>In the dashboard:</strong> <strong>⋯</strong> › <strong>Duplicate…</strong> on the sandbox&#x27;s page (or from a restore point): new name, from the current disk or a point, workspace, CPUs, memory, network, account, and &quot;Copy the agent&#x27;s state disk too&quot;.</p>
-<h2 id="templates">Templates<a class="anchor" href="#templates" aria-label="Link to this section">#</a></h2>
-<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz template create my-app --as node-tools --note &quot;node 22 + pnpm&quot;   <span class="c"># now (a live sandbox pauses for ms)</span>
-doz template create my-app --from-point before-upgrade --as base-2   <span class="c"># or from a restore point</span>
-doz point save-image my-app before-upgrade --as base-3               <span class="c"># the same, from the point command</span>
-doz template ls
+<p><strong>In the dashboard:</strong> <strong>⋯</strong> › <strong>Duplicate…</strong> on the sandbox&#x27;s page (or from a restore point): new name, from the current disk or a point, folder, CPUs, memory, network, account, and &quot;Copy the agent&#x27;s state disk too&quot;.</p>
+<h2 id="saved-disks">Saved disks<a class="anchor" href="#saved-disks" aria-label="Link to this section">#</a></h2>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz image save my-app node-tools --note &quot;node 22 + pnpm&quot;            <span class="c"># now (a live sandbox pauses for ms)</span>
+doz image save my-app base-2 --from-point before-upgrade            <span class="c"># or from a restore point</span>
+doz point save-image my-app before-upgrade --as base-3              <span class="c"># the same, from the point command</span>
+doz image ls                                                        <span class="c"># saved disks say &quot;saved disk&quot;</span>
 doz create beta --image node-tools
-doz template rm node-tools                                           <span class="c"># sandboxes made from it keep working</span></code></pre></figure>
+doz image rm node-tools                                             <span class="c"># sandboxes made from it keep working</span></code></pre></figure>
 <ul>
 <li><strong>Everything on the system disk is in it</strong>: what you installed or wrote in <code>/root</code>, <code>/etc</code>, <code>/usr</code>, <code>/opt</code>, caches. <strong>Don&#x27;t save a secret you put there.</strong></li>
-<li><strong>The agent&#x27;s state disk is never in it</strong> (logins, history, tokens), so a template can be shared. A sandbox made from a template starts with a fresh state disk.</li>
-<li>A sandbox from a template gets the agent and settings of the image the template came from.</li>
+<li><strong>The agent&#x27;s state disk is never in it</strong> (logins, history, tokens), so a saved disk can be shared. A sandbox made from a saved disk starts with a fresh state disk.</li>
+<li>A sandbox from a saved disk gets the agent and settings of the image the disk came from.</li>
+<li><strong>Moved:</strong> these were <code>doz template create NAME --as DISK</code>, <code>doz template ls</code> and <code>doz template rm DISK</code>. For one release they still work and say where they moved; <code>doz template</code> is to mean workspace templates.</li>
 </ul>
-<p><strong>In the dashboard:</strong> <strong>⋯</strong> › <strong>Save as template…</strong> on a sandbox&#x27;s page (now, or from a restore point); New sandbox › <strong>Base</strong> › <strong>Template</strong> uses one; <strong>Images</strong> lists templates and removes them.</p>
+<p><strong>In the dashboard:</strong> <strong>⋯</strong> › <strong>Save disk as image…</strong> on a sandbox&#x27;s page (now, or from a restore point); New sandbox › <strong>Base</strong> › <strong>Saved disk</strong> uses one; <strong>Images</strong> lists saved disks and removes them.</p>
 <h2 id="seeing-the-family-tree">Seeing the family tree<a class="anchor" href="#seeing-the-family-tree" aria-label="Link to this section">#</a></h2>
 <figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz image ls --tree</code></pre></figure>
-<figure class="code diagram"><figcaption data-gen><span>text</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (text)"><code>IMAGE / SANDBOX   KIND      SIZE    SHARED  OWN
-alpine-3.20       prepared  34 MiB  —       116 KiB
-├─ tpl-a          template  36 MiB  33 MiB  160 KiB  from alpha
-├─ alpha          sandbox   36 MiB  33 MiB  0 B
-└─ beta           sandbox   34 MiB  34 MiB  224 KiB</code></pre></figure>
+<figure class="code diagram"><figcaption data-gen><span>text</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (text)"><code>IMAGE / SANDBOX   KIND        SIZE    SHARED  OWN
+alpine-3.20       prepared    34 MiB  —       116 KiB
+├─ tpl-a          saved disk  36 MiB  33 MiB  160 KiB  from alpha
+├─ alpha          sandbox     36 MiB  33 MiB  0 B
+└─ beta           sandbox     34 MiB  34 MiB  224 KiB</code></pre></figure>
 <p><strong>Shared</strong> is what a disk shares with its parent (counted once on disk); <strong>Own</strong> is what removing it would free. The dashboard&#x27;s <strong>Images</strong> › <strong>Lineage</strong> draws the same tree.</p>
 <h2 id="limits">Limits<a class="anchor" href="#limits" aria-label="Link to this section">#</a></h2>
 <ul>
 <li>Restore points are disk-only: a revert or fork cold-boots, and running programs start fresh.</li>
-<li>A template can&#x27;t be exported to another Mac yet (no registry push).</li>
-<li>A sandbox&#x27;s saved screens and boot logs aren&#x27;t copied by duplicate, fork or templates.</li>
+<li>A saved disk can&#x27;t be exported to another Mac yet (no registry push).</li>
+<li>A sandbox&#x27;s saved screens and boot logs aren&#x27;t copied by duplicate, fork or a saved disk.</li>
 </ul>
 <h2 id="troubleshooting">Troubleshooting<a class="anchor" href="#troubleshooting" aria-label="Link to this section">#</a></h2>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Troubleshooting"><table>
 <thead><tr><th scope="col">symptom</th><th scope="col">what to do</th></tr></thead>
 <tbody>
-<tr><td>&quot;more than one point matches&quot;</td><td>Give more of the name or id; the message lists the matches.</td></tr><tr><td>A reverted sandbox doesn&#x27;t have my latest code</td><td>The workspace is on your Mac and isn&#x27;t part of a point: use git for it.</td></tr><tr><td>A duplicate&#x27;s agent has none of the conversation history</td><td>Its state disk started fresh: duplicate again with <code>--copy-state</code>.</td></tr><tr><td>Disk space after many points</td><td>Each point costs only what changed since; <code>doz resources</code> shows each one, and <code>doz point rm</code> frees it.</td></tr>
+<tr><td>&quot;more than one point matches&quot;</td><td>Give more of the name or id; the message lists the matches.</td></tr><tr><td>A reverted sandbox doesn&#x27;t have my latest code</td><td>Its folder is on your Mac and isn&#x27;t part of a point: use git for it.</td></tr><tr><td>A duplicate&#x27;s agent has none of the conversation history</td><td>Its state disk started fresh: duplicate again with <code>--copy-state</code>.</td></tr><tr><td>Disk space after many points</td><td>Each point costs only what changed since; <code>doz resources</code> shows each one, and <code>doz point rm</code> frees it.</td></tr>
 </tbody></table></div>
 <!-- /manual text -->
 </div>
@@ -198,7 +209,7 @@ alpine-3.20       prepared  34 MiB  —       116 KiB
 <li class="prev"><a href="signing-in-from-a-sandbox" rel="prev"><small>&larr; Previous</small><b>Signing in from a sandbox</b></a></li>
 <li class="next"><a href="resources-and-disk-space" rel="next"><small>Next &rarr;</small><b>Resources and disk space</b></a></li>
 </ul>
-<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/12-restore-points-duplicates-templates.md">Edit this page on GitHub</a> &middot; Chapter 12 of 34</p>
+<p class="edit"><a href="https://github.com/dozable/dozable/blob/main/docs/manual/12-restore-points-duplicates-templates.md">Edit this page on GitHub</a> &middot; Chapter 12 of 44</p>
 <!--email_on-->
 </article>
 <nav class="toc" aria-label="On this page">
@@ -208,7 +219,7 @@ alpine-3.20       prepared  34 MiB  —       116 KiB
 </li>
 <li><a href="#duplicates">Duplicates</a>
 </li>
-<li><a href="#templates">Templates</a>
+<li><a href="#saved-disks">Saved disks</a>
 </li>
 <li><a href="#seeing-the-family-tree">Seeing the family tree</a>
 </li>

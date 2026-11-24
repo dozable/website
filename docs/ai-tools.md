@@ -4,7 +4,7 @@ description: "Beside the coding agents, Dozable runs AI tools that are not codin
 url: https://dozable.com/docs/ai-tools
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-13
+updated: 2026-11-25
 chapter: 28
 ---
 # Other AI tools

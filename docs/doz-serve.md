@@ -4,7 +4,7 @@ description: "doz ui is one dashboard. Without its LAN option it listens on 127.
 url: https://dozable.com/docs/doz-serve
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-13
+updated: 2026-11-25
 chapter: 25
 ---
 # The dashboard on your other computers, tablets and phones (`doz ui --lan`)
@@ -78,7 +78,54 @@ change their network, settings, images and resources — with two exceptions:
 - **Nothing that opens a window on the Mac's screen**: the Mac's folder and file pickers, **Open in Terminal**, **Open folder** and the Files tab's Open items are
   not shown on another computer. Type the folder's path instead, and use the browser's own terminals.
 
+**Chat** is not shared with another browser unless you say so on the Mac: `serve.chat` is `off` (they do not see it),
+`read` (they read the rooms, with nothing they can send or change) or `write` (they also post, react, edit, delete,
+reveal and attach). A browser that may write acts as you in chat — the verified human whose words your agents act on —
+and each thing it sends is a line in `doz ui log` (never what it said). See [Chat](https://dozable.com/docs/chat.md#chat-on-your-other-browsers-servechat).
+
+**Workspaces and Agents / Bots** are shown to another browser as to the Mac's own, except what is on this Mac's sessions:
+while `serve.mac_sessions` is `off` it does not see the loose sessions on this Mac, a workspace's agents on this Mac, the
+lines of its log about them, or who is working — Home, **Loose agents** and a workspace's page say how many were left
+out. A workspace's brief follows `serve.chat`, as its room does: `off`, the page says "the brief is not shared with this
+browser"; `read`, it is shown; `write`, it can also be edited (its announcement in the room speaks as you; each edit is a
+line in `doz ui log`, never the text). Another browser never makes, starts, stops, puts to sleep, wakes, finishes, archives,
+restores or deletes a workspace, adds or ends a worker or changes a bot, and never puts an agent in a workspace or takes one
+out — whatever `serve.chat` and `serve.mac_sessions` say, that is only the Mac's own browser (the **New workspace** wizard,
+**Start**, **Sleep**, **Wake** and the rest of a workspace's **⋯**, **Put in a workspace…**, **Add a worker**, **End…**) or a
+terminal on the Mac (`doz workspace new`, `start`, `sleep`, `wake`, `finish`, `archive`, `delete`, `adopt` and `release`,
+`doz worker add` and `end`); another browser sees the wizard's and Add a worker's addresses as a notice and those
+buttons disabled, with the command instead. A workspace's **Network & secrets**, **Folders &
+points**, **Activity** and an agent's **Can do** are shown too, with the same rule for this Mac's sessions; another browser
+sees how many secrets each agent holds, never their names, cannot remove an ended session on this Mac (that is this Mac's
+own browser, or `doz sessions @mac --forget-ended`, whatever `serve.mac_sessions` says), and cannot allow a site for a session on this Mac (that is
+`doz net allow @mac --session SESSION site:HOST` on the Mac). The isolation guide is the same on every browser. See
+[Sessions on this Mac](https://dozable.com/docs/sessions-on-this-mac.md#in-the-dashboard).
+
+**Your Macs** (the machine picker — "Dozable · studio ▾") is the same list on another browser as on this Mac: a phone
+switching between your Macs is what it is for. It holds names and addresses only; picking a Mac opens that Mac's own
+dashboard, where the browser needs that Mac's own invite. Adding or removing a Mac is done on this Mac, with
+`doz ui macs`.
+
 `ui.lan` and the `serve.*` settings — who can reach the dashboard — are changed only on the Mac, with `doz config set`.
+
+A workspace's runs can be listed from another browser, and a past run's messages read there only when `serve.chat`
+allows reading chat. Archiving or removing a room, and writing a run's archive again, happen only in this Mac's own
+browser (or with `doz chat room …` and `doz workspace runs …` in a terminal on the Mac).
+
+## Adding this Mac to another Mac's list
+
+To open this Mac's dashboard from another Mac's machine picker, put this dashboard on the network first (`doz ui --lan`,
+or `doz ui publish tailscale`), then, **on the other Mac**:
+
+```bash
+doz ui macs add studio studio.example.ts.net      # its Tailscale name (published: https), or
+doz ui macs add studio studio.local:7443          # its LAN name or address and port
+```
+
+Give the address only — a sign-in link is refused and not kept. `doz ui macs add` checks once that this dashboard
+answers (`doz ui macs check` again later). Then pick **studio** in the other Mac's picker: a new tab opens this
+dashboard's sign-in page, and this Mac lets that browser in once with an invite, as any other (`doz ui share` here).
+See [Your other Macs](https://dozable.com/docs/the-dashboard.md#your-other-macs-the-machine-picker).
 
 ## The browsers that are in
 
@@ -118,6 +165,52 @@ When another program holds it, `doz ui` refuses and names that program.
 ```bash
 doz config set ui.port 8443
 ```
+
+## On your tailnet, at its own https address (Tailscale)
+
+If you use Tailscale, one command puts the dashboard on your tailnet at an address of its own, with a real
+certificate — so it can be installed as an app on your other devices and takes keys and tokens:
+
+```bash
+brew install tailscale          # once: Dozable runs its own Tailscale node from it
+doz ui publish tailscale        # the dashboard at https://dozable-<this Mac>.<your tailnet>.ts.net
+```
+
+The first time, it shows Tailscale's sign-in link: open it, approve the new device, and the command carries on by
+itself (not approved within five minutes? run the same command again to continue). It then says the address, and the
+next step: run `doz ui share` on this Mac to let a browser on another device in, once — the address is on your tailnet
+only, and every browser still needs an invite.
+
+What it does, in one step:
+
+- It runs **Dozable's own Tailscale node**, from Homebrew's `tailscale` (it does not need to be linked). The Mac's own
+  Tailscale — the app or the `tailscale` command — is left exactly as it is. The node keeps its state in the store and
+  is kept running by a LaunchAgent of yours, so it comes back after a restart.
+- It names the node `dozable-<this Mac's local hostname>` (`--name` chooses another).
+- Tailscale serves `https://<name>.<your tailnet>.ts.net` to the dashboard; plain `http://` there redirects to it. The
+  redirect answers on a second port of this Mac's, on `127.0.0.1` only, picked the first time and kept; nothing needs
+  administrator rights.
+- It sets the dashboard up for it: a fixed `ui.port`, `ui.lan` on, `serve.bind` `loopback`, `serve.public_origins` the
+  address and `serve.trusted_proxies` `127.0.0.1,::1` — then restarts the dashboard. Chat on other devices stays as
+  `serve.chat` says.
+
+Run it again any time: it re-applies everything (after you changed `ui.port`, say, or when `doz doctor` says plain
+`http://` does not redirect — as it did for a dashboard published with version 0.51.14, where Tailscale refused the
+redirect). Check it:
+
+```bash
+doz ui publish status      # the node, its sign-in, what it serves, the settings, and whether the address reaches the dashboard
+doz doctor                 # the same, as rows
+```
+
+Take it off again with `doz ui unpublish tailscale` — the dashboard is this Mac's only again (`ui.port` is kept). Add
+`--logout` to also sign the node out of your tailnet and remove its state; publishing again then asks you to sign in
+again, as a new device.
+
+While it is published, the doz daemon keeps the dashboard running: it starts it in the background when the daemon
+starts (at login, with `doz daemon login-item on`) and again if it stops unexpectedly. `doz ui stop` is your word: after
+it the daemon leaves the dashboard stopped until you start it again (`doz ui --detach`). `doz ui publish status` says
+which.
 
 ## HTTPS behind your own reverse proxy
 
@@ -254,5 +347,6 @@ live updates, the installable app, keys over https, `doz doctor`); the nginx and
 | `serve.trusted_proxies` | — | your proxy's addresses or networks |
 | `serve.advertise` | true | announce with Bonjour |
 | `serve.mac_sessions` | `off` | what these browsers may do with the sessions on this Mac: `off`, `watch` or `interactive` ([Sessions on this Mac](https://dozable.com/docs/sessions-on-this-mac.md#in-the-dashboard)) |
+| `serve.chat` | `off` | what these browsers may do with chat: `off`, `read` or `write` — writing acts as you ([Chat](https://dozable.com/docs/chat.md#chat-on-your-other-browsers-servechat)) |
 
-All of them but `serve.mac_sessions` (at once) apply when `doz ui` starts again (`doz ui restart`). See the [Settings reference](https://dozable.com/docs/settings-reference.md).
+All of them but `serve.mac_sessions` and `serve.chat` (at once) apply when `doz ui` starts again (`doz ui restart`). See the [Settings reference](https://dozable.com/docs/settings-reference.md).

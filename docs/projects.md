@@ -4,7 +4,7 @@ description: "A project is a folder with a doz_project.yaml file in it."
 url: https://dozable.com/docs/projects
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-13
+updated: 2026-11-25
 chapter: 4
 ---
 # Projects
@@ -17,8 +17,8 @@ sandbox from a checkout.
 
 ## Concepts
 
-- **The folder is the workspace.** A project's sandbox always shares its own folder at `/workspace`,
-  live: what the agent writes is on your Mac at once, and the other way round.
+- **The project folder is the sandbox's folder.** A project's sandbox always shares its own folder — the folder
+  appears inside the sandbox at `/workspace` — live: what the agent writes is on your Mac at once, and the other way round.
 - **The file holds choices, never secrets.** You can commit it. Credentials come from your
   [accounts](https://dozable.com/docs/agents-and-accounts.md), which stay on your Mac.
 - **Some choices are made when the sandbox is made.** Its image, CPUs and memory — and a `nat` or
@@ -49,14 +49,14 @@ On a terminal `doz init` walks the same steps as the dashboard's **New sandbox**
    turn on is confirmed live (as `doz access` does); one that can't be confirmed can be skipped — kept,
    not confirmed — turned off, or checked again. Where the GitHub token comes from is this Mac's choice
    (`doz access set`), not the project's;
-5. **Workspace rules** — onboarding's description of `.dozignore` and `.dozreadonly`, what the folder
+5. **Folder rules** — onboarding's description of `.dozignore` and `.dozreadonly`, what the folder
    already has (each rule file, how many patterns and its first lines — or *none — the folder is shared
    as is*, with how to add one), and this sandbox's choice: **Lock** or **Hide** (`ignore_mode` in the
-   file; the default is the setting `workspace.ignore_mode`). See [Workspace rules](https://dozable.com/docs/workspace-rules.md);
+   file; the default is the setting `folder.ignore_mode`). See [Folder rules](https://dozable.com/docs/workspace-rules.md);
 6. **Permissions and network** — the network, and what the agent may do (`standard`, `locked`,
    `open`, or changes like `+web,-error-reports`);
 7. **Resources** — CPUs and memory (the disk is the image's own; it isn't set per sandbox);
-8. **Bridges** — the clipboard, links in your browser, workspace files opened on the Mac;
+8. **Bridges** — the clipboard, links in your browser, the folder's files opened on the Mac;
 9. **Session** — tmux, and the agent's sudo;
 10. **Review** — the file it will write, and **Write?**
 
@@ -77,7 +77,7 @@ doz init --force            # rewrite an existing doz_project.yaml without askin
 |---|---|
 | `DIR` | The folder (default: the current one; made if missing). |
 | `--name` · `--image` · `--cpus` · `--memory` · `--network` · `--permissions` · `--account` | Answer those questions up front. |
-| `--github` · `--ssh-agent` · `--ignore-mode` · `--clipboard` · `--browser-bridge` · `--open-files` · `--tmux` · `--agent-sudo` | The same, for access, workspace rules, bridges and the session (`--no-tmux`, `--no-agent-sudo` too). |
+| `--github` · `--ssh-agent` · `--ignore-mode` · `--clipboard` · `--browser-bridge` · `--open-files` · `--tmux` · `--agent-sudo` | The same, for access, folder rules, bridges and the session (`--no-tmux`, `--no-agent-sudo` too). |
 | `--yes` | Ask nothing: every default. `--json` and no terminal ask nothing too. |
 | `--force` | Rewrite an existing file without asking. |
 
@@ -114,7 +114,7 @@ Mac's folder picker). If that folder has a project file, the wizard starts from 
 - **✕** or **Escape** closes the wizard; once you have chosen something it asks first. The browser's
   **Back** closes it too and keeps your choices — **Forward**, or **New sandbox** again, picks up where
   you were.
-- **Workspace rules** lists the folder's `.dozignore` / `.dozreadonly` as they are now; add or edit one on
+- **Folder rules** lists the folder's `.dozignore` / `.dozreadonly` as they are now; add or edit one on
   the Mac and press **Look again**.
 - **Review** lists your choices and says what will happen; **The file, exactly as written** unfolds the
   `doz_project.yaml` it will write. **Write and create** writes it into the folder, makes the sandbox
@@ -126,7 +126,7 @@ Mac's folder picker). If that folder has a project file, the wizard starts from 
 ![The New sandbox wizard's review](https://dozable.com/docs/images/new-sandbox-wizard.png)
 
 A project's sandbox is an ordinary sandbox there: it appears under **Sandboxes**, and its page shows
-its workspace folder.
+its folder.
 
 ## `doz_project.yaml` reference
 
@@ -158,15 +158,15 @@ open_files: on              # or off
 ssh_agent: off              # or on
 github: off                 # read or push: git and gh signed in as you
 tmux: false                 # or true
-workspace_view: on          # off: share the folder directly (programs in it lose their folder at a wake)
+folder_view: on          # off: share the folder directly (programs in it lose their folder at a wake)
 ```
 
 | key | value | default | when a change applies |
 |---|---|---|---|
 | `version` | `1` | — | — |
 | `name` | the sandbox: 1–40 of `a-z 0-9 -` | the folder's name | — |
-| `image` | `claude-code`, `pi`, `lab`, a base × agent image (`python-claude-code`, `go-pi`, `debian`, …) or a template | `defaults.image` | when the sandbox is made |
-| `agent` | `claude-code`, `pi`, `codex`, `antigravity`, `gemini`, `grok` (any tool `doz search` lists) or `none` — instead of `image`, with `base` or `dockerfile`; a tool's major or exact release: `opencode@1`, `opencode@2.0.28` ([A tool's major version](https://dozable.com/docs/try-and-search.md#a-tools-major-version)); its full name: `anthropic/claude-code`, `mine/acme/tool` ([A tool's full name](https://dozable.com/docs/try-and-search.md#a-tools-full-name)) | `claude-code` | when made |
+| `image` | `claude-code`, `pi`, `lab`, a base × agent image (`python-claude-code`, `go-pi`, `debian`, …) or a saved disk (`doz image save`) | `defaults.image` | when the sandbox is made |
+| `agent` | `claude-code`, `codex`, `opencode`, `pi` (any tool `doz search` lists as supported) or `none` — instead of `image`, with `base` or `dockerfile`; a tool's major or exact release: `opencode@1`, `opencode@2.0.28` ([A tool's major version](https://dozable.com/docs/try-and-search.md#a-tools-major-version)); its full name: `anthropic/claude-code`, `mine/acme/tool` ([A tool's full name](https://dozable.com/docs/try-and-search.md#a-tools-full-name)) | `claude-code` | when made |
 | `base` | a recommended base: `node`, `python`, `go`, `rust`, `java`, `ruby`, `dotnet`, `debian`, `ubuntu`, `alpine` | `node` | when made |
 | `dockerfile` | your own Dockerfile, relative to the folder or absolute (see [Images and bases](https://dozable.com/docs/images-and-bases.md#your-own-dockerfile)) | — | when made |
 | `cpus` | 1–64 | `defaults.cpus` (2) | when made |
