@@ -1,12 +1,12 @@
 ---
 title: "Dozable — sandboxes for AI coding agents"
-description: "Run Claude Code, Codex or pi in a secure Linux VM on your Mac. Your API keys never enter the sandbox, every connection follows your policy, and it pauses in 1 ms and wakes in 0.3 s."
+description: "Dozable runs teams of AI coding agents on your Mac: Claude Code, Codex, OpenCode and more. Each runs where you choose: in its own micro VM or held to its folder on your Mac, where your keys never go inside, or as you."
 url: https://dozable.com/
 image: https://dozable.com/og-image.png
 ---
 # Suspend AI agents Wake in 0.3s
 
-Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac — your API keys never go inside. Free and open source.
+Dozable runs teams of AI coding agents on your Mac. Each agent runs where you choose: in its own micro VM or held to its folder on your Mac, where your keys never go inside, or as you. Free and open source.
 
 Alpha Stable v0.32.0 [Version history →](https://github.com/dozable/dozable/releases)
 

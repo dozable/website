@@ -420,7 +420,10 @@ def llms(root):
     docs = []
     for f in sorted(os.listdir(os.path.join(SITE, 'docs'))):
         if f.endswith('.md') and f != 'index.md':
-            fm, body = parse_front(read('docs/' + f))
+            text = read('docs/' + f)
+            if not text.startswith('---\n'):     # a hand-made redirect stub (docs/onboarding.md), not a chapter
+                continue
+            fm, body = parse_front(text)
             docs.append((int(fm['chapter']), f, fm, body))
     docs.sort(key=lambda d: d[0])
     index_fm, _ = parse_front(read('docs/index.md'))
