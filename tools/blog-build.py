@@ -189,7 +189,7 @@ class Post(docs.Page):
             if not line.strip():
                 continue
             k, sep, v = line.partition(':')
-            if not sep or k.strip() not in ('diagram', 'still', 'alt', 'mode', 'ambient'):
+            if not sep or k.strip() not in ('diagram', 'still', 'alt', 'mode', 'ambient', 'autoplay'):
                 fail(where, 'an isodiag block takes diagram:, still:, alt:, mode: and ambient: lines: %s' % line)
             spec[k.strip()] = v.strip()
         for k in ('diagram', 'still', 'alt'):
@@ -199,6 +199,8 @@ class Post(docs.Page):
             fail(where, 'mode: is light or dark')
         if spec.get('ambient', 'off') not in ('on', 'off'):
             fail(where, 'ambient: is on or off')
+        if spec.get('autoplay', 'off') not in ('visible', 'on', 'off'):
+            fail(where, 'autoplay: is visible (when most of it is in view), on or off')
         name = spec['diagram']
         if '/' in name or not re.match(r'^[A-Za-z0-9][A-Za-z0-9._-]*\.ya?ml$', name):
             fail(where, 'diagram: a plain .yaml file name beside index.md: %s' % name)
@@ -211,7 +213,7 @@ class Post(docs.Page):
         if not hasattr(self, 'lives'):
             self.lives = []
         self.lives.append({'yaml': text, 'mode': spec.get('mode', 'light'), 'alt': spec['alt'],
-                           'ambient': spec.get('ambient', 'off')})
+                           'ambient': spec.get('ambient', 'off'), 'autoplay': spec.get('autoplay', 'off')})
         still = self.image({'src': spec['still'], 'alt': spec['alt'], 'ln': b['ln']})
         return still.replace('<figure class="shot">', '<figure class="shot" data-live="%d">' % len(self.lives), 1)
 
@@ -381,7 +383,10 @@ def live_diagrams(html_body, lives):
     def swap(m):
         live = lives[int(m.group(1)) - 1]
         # ambient: the routes' marching ants; a reader who asked for less motion gets them still (reduced-motion)
-        motion = ' ambient="on" reduced-motion="respect"' if live.get('ambient') == 'on' else ''
+        motion = ' ambient="on"' if live.get('ambient') == 'on' else ''
+        play = {'visible': ' autoplay="visible"', 'on': ' autoplay'}.get(live.get('autoplay', 'off'), '')
+        # a reader who asked for less motion gets the finished drawing, still
+        motion += play + (' reduced-motion="respect"' if motion or play else '')
         return ('<figure class="shot live"><div class="frame"><isometric-diagram mode="%s"%s label="%s">'
                 '<script type="text/yaml">%s</script>%s</isometric-diagram></div></figure>'
                 % (live['mode'], motion, esc(live['alt']), live['yaml'], m.group(2)))
