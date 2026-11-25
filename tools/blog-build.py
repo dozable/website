@@ -175,7 +175,42 @@ class Post(docs.Page):
     def code(self, b):
         if b['lang'] == 'mermaid':
             fail('%s:%d' % (self.name, b['ln']), 'no Mermaid diagrams in a post')
+        if b['lang'] == 'isodiag':
+            return self.live_diagram(b)
         return docs.Page.code(self, b)
+
+    def live_diagram(self, b):
+        """```isodiag``` with `diagram: FILE.yaml`, `still: IMAGE`, `alt: TEXT` and optional `mode: light|dark`: a live
+        <isometric-diagram> on the post page (zoom_gallery's sibling, post_page swaps it in), and everywhere else — the
+        feed, the email, a page without script — the still. Both files beside index.md, plain names."""
+        where = '%s:%d' % (self.name, b['ln'])
+        spec = {}
+        for line in b['text'].splitlines():
+            if not line.strip():
+                continue
+            k, sep, v = line.partition(':')
+            if not sep or k.strip() not in ('diagram', 'still', 'alt', 'mode'):
+                fail(where, 'an isodiag block takes diagram:, still:, alt: and mode: lines: %s' % line)
+            spec[k.strip()] = v.strip()
+        for k in ('diagram', 'still', 'alt'):
+            if not spec.get(k):
+                fail(where, 'an isodiag block needs %s:' % k)
+        if spec.get('mode', 'light') not in ('light', 'dark'):
+            fail(where, 'mode: is light or dark')
+        name = spec['diagram']
+        if '/' in name or not re.match(r'^[A-Za-z0-9][A-Za-z0-9._-]*\.ya?ml$', name):
+            fail(where, 'diagram: a plain .yaml file name beside index.md: %s' % name)
+        disk = os.path.join(self.folder, name)
+        if not os.path.isfile(disk):
+            fail(where, 'a missing diagram: %s' % name)
+        text = open(disk, encoding='utf-8').read()
+        if '</' in text or '<!--' in text:
+            fail(where, 'the diagram may not contain "</" or "<!--" (it is inlined in a <script> element)')
+        if not hasattr(self, 'lives'):
+            self.lives = []
+        self.lives.append({'yaml': text, 'mode': spec.get('mode', 'light'), 'alt': spec['alt']})
+        still = self.image({'src': spec['still'], 'alt': spec['alt'], 'ln': b['ln']})
+        return still.replace('<figure class="shot">', '<figure class="shot" data-live="%d">' % len(self.lives), 1)
 
     def image(self, b):
         where = '%s:%d' % (self.name, b['ln'])
@@ -325,6 +360,30 @@ ZOOM_GLYPH = ('<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true
               'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>')
 
 
+ENGINE = 'isometric-engine-0.18.0'   # vendor/<ENGINE>/: isometric-diagram.js (npm, sha256 b214f42e…) + dozable-marks.js
+
+
+def live_md(spec):
+    """An isodiag block in the Markdown twin: its still, as an image."""
+    kv = dict((k.strip(), v.strip()) for k, _, v in (l.partition(':') for l in spec.splitlines() if ':' in l))
+    return '![%s](%s)' % (kv.get('alt', ''), kv.get('still', ''))
+
+
+def live_diagrams(html_body, lives):
+    """The post page's live drawings: each still a block marked data-live becomes <isometric-diagram> with the drawing
+    inlined and the still as its child (shown until the element is defined, and if its script never loads). The
+    script: dozable-marks.js, which loads the element itself and registers Dozable's marks."""
+    if not lives:
+        return html_body, ''
+    def swap(m):
+        live = lives[int(m.group(1)) - 1]
+        return ('<figure class="shot live"><div class="frame"><isometric-diagram mode="%s" label="%s">'
+                '<script type="text/yaml">%s</script>%s</isometric-diagram></div></figure>'
+                % (live['mode'], esc(live['alt']), live['yaml'], m.group(2)))
+    body = re.sub(r'<figure class="shot" data-live="(\d+)"><div class="frame">(<img [^>]*>)</div></figure>', swap, html_body)
+    return body, '<script type="module" src="../vendor/%s/dozable-marks.js"></script>\n' % ENGINE
+
+
 def zoom_gallery(html_body):
     """The post page's CSS-only zoom: each image gets an expand link in its corner (shown on hover or focus) to a
     full-screen view (`:target`) with previous / next between the post's images and a close that returns to the
@@ -358,7 +417,8 @@ def zoom_gallery(html_body):
 
 def post_page(p, header, footer):
     f = p['fm']
-    body, views = zoom_gallery(p['html'])
+    body, live_script = live_diagrams(p['html'], p.get('lives', []))
+    body, views = zoom_gallery(body)
     url = BASE + 'blog/' + p['slug']
     title = '%s — Dozable blog' % f['title']
     extra = ('<meta property="article:published_time" content="%s">\n' % f['date']
@@ -377,7 +437,7 @@ def post_page(p, header, footer):
             '<h2 id="sub-h">%s</h2>\n'
             '<p>Tick what you\u2019d like to hear about. <a href="./">Read past issues &rarr;</a></p>\n%s\n</div></aside>\n</main>\n%s\n%s</body>\n</html>\n'
             % (f['date'], fmt_date(f['date']), chips(f['topics']), esc(f['title']), esc(f['summary']), body,
-               esc(sub_h), signup_box('post-'), footer, views))
+               esc(sub_h), signup_box('post-'), footer, views + live_script))
 
 
 def index_page(posts, header, footer):
@@ -494,7 +554,10 @@ def load_posts(repo, drafts):
         post.check_fragments()
         if not ''.join(body).strip():
             fail(d + '/index.md', 'an empty post')
-        posts.append({'slug': slug, 'fm': fm, 'html': post.body_html(), 'md': post.body_md(), 'images': post.images, 'folder': folder})
+        html_body = post.body_html()
+        md_body = re.sub(r'```isodiag\n(.*?)\n```', lambda m: live_md(m.group(1)), post.body_md(), flags=re.S)
+        posts.append({'slug': slug, 'fm': fm, 'html': html_body, 'md': md_body, 'images': post.images, 'folder': folder,
+                      'lives': getattr(post, 'lives', [])})
     posts.sort(key=lambda p: (p['fm']['date'], p['slug']), reverse=True)
     return posts
 
@@ -590,7 +653,8 @@ def main():
         sitemap(posts)
     else:                                  # a preview copy: the page assets the pages link to
         for f in ('site.css', 'site.js', 'signup.js', 'nav.js', 'favicon.png', 'apple-touch-icon.png', 'og-image.png',
-                  'docs/docs.css', 'docs/docs.js'):
+                  'docs/docs.css', 'docs/docs.js', 'vendor/%s/isometric-diagram.js' % ENGINE,
+                  'vendor/%s/dozable-marks.js' % ENGINE):
             os.makedirs(os.path.dirname(os.path.join(out, f)) or out, exist_ok=True)
             shutil.copyfile(os.path.join(SITE, f), os.path.join(out, f))
     print('blog-build: %d post%s%s -> %s' % (len(posts), '' if len(posts) == 1 else 's',
