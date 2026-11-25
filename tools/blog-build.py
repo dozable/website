@@ -189,14 +189,16 @@ class Post(docs.Page):
             if not line.strip():
                 continue
             k, sep, v = line.partition(':')
-            if not sep or k.strip() not in ('diagram', 'still', 'alt', 'mode'):
-                fail(where, 'an isodiag block takes diagram:, still:, alt: and mode: lines: %s' % line)
+            if not sep or k.strip() not in ('diagram', 'still', 'alt', 'mode', 'ambient'):
+                fail(where, 'an isodiag block takes diagram:, still:, alt:, mode: and ambient: lines: %s' % line)
             spec[k.strip()] = v.strip()
         for k in ('diagram', 'still', 'alt'):
             if not spec.get(k):
                 fail(where, 'an isodiag block needs %s:' % k)
         if spec.get('mode', 'light') not in ('light', 'dark'):
             fail(where, 'mode: is light or dark')
+        if spec.get('ambient', 'off') not in ('on', 'off'):
+            fail(where, 'ambient: is on or off')
         name = spec['diagram']
         if '/' in name or not re.match(r'^[A-Za-z0-9][A-Za-z0-9._-]*\.ya?ml$', name):
             fail(where, 'diagram: a plain .yaml file name beside index.md: %s' % name)
@@ -208,7 +210,8 @@ class Post(docs.Page):
             fail(where, 'the diagram may not contain "</" or "<!--" (it is inlined in a <script> element)')
         if not hasattr(self, 'lives'):
             self.lives = []
-        self.lives.append({'yaml': text, 'mode': spec.get('mode', 'light'), 'alt': spec['alt']})
+        self.lives.append({'yaml': text, 'mode': spec.get('mode', 'light'), 'alt': spec['alt'],
+                           'ambient': spec.get('ambient', 'off')})
         still = self.image({'src': spec['still'], 'alt': spec['alt'], 'ln': b['ln']})
         return still.replace('<figure class="shot">', '<figure class="shot" data-live="%d">' % len(self.lives), 1)
 
@@ -377,9 +380,11 @@ def live_diagrams(html_body, lives):
         return html_body, ''
     def swap(m):
         live = lives[int(m.group(1)) - 1]
-        return ('<figure class="shot live"><div class="frame"><isometric-diagram mode="%s" label="%s">'
+        # ambient: the routes' marching ants; a reader who asked for less motion gets them still (reduced-motion)
+        motion = ' ambient="on" reduced-motion="respect"' if live.get('ambient') == 'on' else ''
+        return ('<figure class="shot live"><div class="frame"><isometric-diagram mode="%s"%s label="%s">'
                 '<script type="text/yaml">%s</script>%s</isometric-diagram></div></figure>'
-                % (live['mode'], esc(live['alt']), live['yaml'], m.group(2)))
+                % (live['mode'], motion, esc(live['alt']), live['yaml'], m.group(2)))
     body = re.sub(r'<figure class="shot" data-live="(\d+)"><div class="frame">(<img [^>]*>)</div></figure>', swap, html_body)
     return body, '<script type="module" src="../vendor/%s/dozable-marks.js"></script>\n' % ENGINE
 
