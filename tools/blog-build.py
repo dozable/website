@@ -189,7 +189,7 @@ class Post(docs.Page):
             if not line.strip():
                 continue
             k, sep, v = line.partition(':')
-            if not sep or k.strip() not in ('diagram', 'still', 'alt', 'mode', 'ambient', 'autoplay', 'reduced-motion'):
+            if not sep or k.strip() not in ('diagram', 'still', 'alt', 'mode', 'ambient', 'autoplay', 'reduced-motion', 'loop'):
                 fail(where, 'an isodiag block takes diagram:, still:, alt:, mode: and ambient: lines: %s' % line)
             spec[k.strip()] = v.strip()
         for k in ('diagram', 'still', 'alt'):
@@ -199,6 +199,8 @@ class Post(docs.Page):
             fail(where, 'mode: is light or dark')
         if spec.get('ambient', 'off') not in ('on', 'off'):
             fail(where, 'ambient: is on or off')
+        if spec.get('loop', 'off') not in ('on', 'off'):
+            fail(where, 'loop: is on or off')
         if spec.get('reduced-motion', 'respect') not in ('respect', 'ignore'):
             fail(where, 'reduced-motion: is respect (the finished drawing, still) or ignore (it plays; a Motion off button)')
         if spec.get('autoplay', 'off') not in ('visible', 'on', 'off'):
@@ -216,7 +218,7 @@ class Post(docs.Page):
             self.lives = []
         self.lives.append({'yaml': text, 'mode': spec.get('mode', 'light'), 'alt': spec['alt'],
                            'ambient': spec.get('ambient', 'off'), 'autoplay': spec.get('autoplay', 'off'),
-                           'reduced': spec.get('reduced-motion', 'respect')})
+                           'reduced': spec.get('reduced-motion', 'respect'), 'loop': spec.get('loop', 'off')})
         still = self.image({'src': spec['still'], 'alt': spec['alt'], 'ln': b['ln']})
         return still.replace('<figure class="shot">', '<figure class="shot" data-live="%d">' % len(self.lives), 1)
 
@@ -388,6 +390,7 @@ def live_diagrams(html_body, lives):
         # ambient: the routes' marching ants; a reader who asked for less motion gets them still (reduced-motion)
         motion = ' ambient="on"' if live.get('ambient') == 'on' else ''
         play = {'visible': ' autoplay="visible"', 'on': ' autoplay'}.get(live.get('autoplay', 'off'), '')
+        play += ' loop' if live.get('loop') == 'on' else ''
         # a reader who asked for less motion gets the finished drawing, still
         motion += play + (' reduced-motion="respect"' if (motion or play) and live.get('reduced') == 'respect' else '')
         return ('<figure class="shot live"><div class="frame"><isometric-diagram mode="%s"%s label="%s">'
