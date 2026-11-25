@@ -370,7 +370,7 @@ ZOOM_GLYPH = ('<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true
               'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>')
 
 
-ENGINE = 'isometric-engine-0.18.0'   # vendor/<ENGINE>/: isometric-diagram.js (npm, sha256 b214f42e…) + dozable-marks.js
+ENGINE = 'isometric-engine-0.19.0'   # vendor/<ENGINE>/: isometric-diagram.js (npm 0.19.0, sha256 2004f85c…) + dozable-marks.js
 
 
 def live_md(spec):
