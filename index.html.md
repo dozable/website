@@ -8,7 +8,7 @@ image: https://dozable.com/og-image.png
 
 Dozable runs teams of AI coding agents on your Mac. Each agent runs where you choose: in its own micro VM or held to its folder on your Mac, where your keys never go inside, or as you. Free and open source.
 
-Alpha Stable v0.32.0 [Version history →](https://github.com/dozable/dozable/releases)
+Alpha Stable v0.52.58 [Version history →](https://github.com/dozable/dozable/releases)
 
 ```
 brew trust --tap dozable/tap && brew install dozable/tap/doz && doz ui
