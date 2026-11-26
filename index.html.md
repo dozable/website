@@ -22,12 +22,12 @@ Apple silicon Mac · macOS 26 or later · [Homebrew](https://brew.sh)
 
 ## A team of agents, in a room. One unit of work at a time.
 
-- **5** **Templates** New workspace opens on five ready-made workspaces: One agent, One agent in a Sandbox, Build & review, Fix-it team and Remotion video. Pick one, press Create and start, and its agents are up in their room.
+- **4** **Templates** New workspace opens on four ready-made workspaces: One agent, One agent in a Sandbox, Build & review and Fix-it team. Pick one, press Create and start, and its agents are up in their room.
 - **1** **Room** A manager and workers, each with one task, talking with you. An agent can ask instead of guessing: an Ask waits for your answer, can be declined and expires, so nothing is taken as a yes. The room stays on your Mac.
 - **1** **Unit of work** Each has a goal and a journal: tasks, claims, reviews, findings, outcome. At the end, propose a lesson. It changes nothing until you approve it, then every later unit of work opens with it.
 - **1** **Page** Every workspace is drawn, with what is happening now marked on it and what is waiting on you first. Drag to arrange it in the editor; export the file (YAML) or the drawing (SVG, PNG).
 
-You write the process in the brief; Dozable records it. To try it: `doz chat on`, then `mkdir -p ~/code/app && doz workspace new app --template solo --folder ~/code/app`. See the templates with `doz workspace templates`; Build & review, Fix-it team and Remotion video need a manager, so add `--manager BOT`. The workspace’s file, `app.space.yaml`, is written to `defaults.projects_dir` (`~/doz-workspaces` by default), not to your folder. Keep it in git if you like: `doz workspace plan -f FILE`, then `doz workspace up -f FILE`.
+You write the process in the brief; Dozable records it. To try it: `doz chat on`, then `mkdir -p ~/code/app && doz workspace new app --template solo --folder ~/code/app`. See the templates with `doz workspace templates`; Build & review and Fix-it team need a manager, so add `--manager BOT`. The workspace’s file, `app.space.yaml`, is written to `defaults.projects_dir` (`~/doz-workspaces` by default), not to your folder. Keep it in git if you like: `doz workspace plan -f FILE`, then `doz workspace up -f FILE`.
 
 ## A dashboard for every workspace.
 
@@ -315,7 +315,7 @@ Prefer the terminal? Run `doz onboard` once, then `doz init` and `doz up` in a p
 
 ## Everything free and in the box.
 
-- **Workspaces and templates** A team of agents, their room, folders and a brief. Five ready-made templates, or build your own.
+- **Workspaces and templates** A team of agents, their room, folders and a brief. Four ready-made templates, or build your own.
 - **Room, journal, lessons** Agents and you talk in the room. Each unit of work is journaled. Lessons carry on once you approve them.
 - **The workspace editor** See the whole workspace on one page. Drag to arrange it; export YAML, SVG or PNG.
 - **Dashboard** doz ui. An installable app, with terminals in the browser.
