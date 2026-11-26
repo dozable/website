@@ -29,9 +29,65 @@ Apple silicon Mac · macOS 26 or later · [Homebrew](https://brew.sh)
 
 You write the process in the brief; Dozable records it. Try `doz workspace templates`, then `doz workspace new app --template solo --folder ~/code/app`. A workspace can be a file in git: `doz workspace plan -f FILE`, then `doz workspace up -f FILE`.
 
-## One command line does it all. For you, and for your agents.
+## A dashboard for every workspace.
 
-`doz` is the whole of Dozable. Run workspaces with `doz workspace`, talk in their rooms with `doz chat` and add workers with `doz worker`. Create, start, pause and wake Sandboxes, run and attach to their sessions, and manage their network, keys, images and restore points. Every command is in the [manual](https://dozable.com/docs/index.md). It even hosts its own web app: `doz ui` on your Mac, `doz serve` for your LAN, home-lab and Tailscale connected devices.
+The dashboard opens on your workspaces, with what needs you first. Everything from before, your Sandboxes and their terminals, is under This Mac. In your browser or installed as an app. `doz ui` on this Mac; `doz serve` for your LAN, home-lab and Tailscale devices.
+
+![A typical workspace on Ada's Mac, drawn by Dozable: a manager bot and the chat server hosting the workspace's room; a reviewer fenced on the Mac, its proxy swapping in the real token; a builder and a tester sharing one Sandbox with the project at /workspace; the project folder, a scratch folder and the run's archive; and Ada at the dashboard](https://dozable.com/blog/images/doz-v0.60/workspace.jpg)
+
+**A workspace, drawn by Dozable** A typical workspace: a manager and three agents, their room, the folders they work in, and you at the dashboard. The same drawing is on every workspace’s Home tab.
+
+![A workspace's Home tab in the dashboard: a One agent workspace drawn across the top with its agent's open question marked on it, then Needs you with that Ask, the state and run, the fenced agent, the room's latest lines and recent activity](https://dozable.com/blog/images/doz-v0.60/workspace-page.jpg)
+
+**A workspace, on its Home tab** The drawing across the top with what is happening now marked on it, then what needs you first, the room’s latest lines and recent activity.
+
+![The Sandboxes page: host status, memory and disk totals, and a table of seven sandboxes in different phases: hibernated, off, failed, paused, asleep and running.](https://dozable.com/shots/ui-overview.jpg)
+
+**Every sandbox at a glance** The host, the memory held and the disk used, then each sandbox with its phase and its next action.
+
+![A running sandbox's page with a terminal showing a passing test run, lifecycle buttons above it and an overview panel on the right.](https://dozable.com/shots/ui-sandbox-terminal.jpg)
+
+**A live terminal, in your browser** Pause, sleep or hibernate from the sandbox's own page, with its terminal and details beside it.
+
+![A sandbox page where the agent's session tab carries a blue working badge, and the sidebar marks the sandbox.](https://dozable.com/shots/ui-agent-working-claude.jpg)
+
+**See what your agent is doing** Claude Code and pi report when they are working, blocked or done, and the session tab and the sidebar show it.
+
+![The All sessions page: two terminal tiles, one labelled working at 40 percent.](https://dozable.com/shots/ui-all-sessions.jpg)
+
+**Every session, side by side** All sessions of all running sandboxes in one grid, live and read-only. Click one to open it.
+
+![The Network tab of a sandbox with a Locked, Standard and Open switch and toggles for talking to the AI model, signing in, updating and installing software.](https://dozable.com/shots/ui-network.jpg)
+
+**Network permissions you can read** Locked, Standard or Open, then switch each permission on or off, with the hosts behind it one click away.
+
+![The New sandbox wizard on its Agent and base step, showing Claude Code, pi, Codex and none, and base images such as Node.js, Python, Go and Alpine.](https://dozable.com/shots/ui-new-sandbox.jpg)
+
+**A guided New sandbox** Ten steps: pick the agent and a base image, and your choices are written to the project's doz_project.yaml.
+
+![The Images page in lineage view: an Alpine image, a template, sandboxes and restore points, each with shared and own sizes.](https://dozable.com/shots/ui-images-lineage.jpg)
+
+**Images, templates and restore points** The lineage from base image to sandbox to restore point, with what each shares and what it owns.
+
+![The Resources page: a bar of kept, clean-up and shared space and a table of sandboxes with sizes and what would be freed.](https://dozable.com/shots/ui-resources.jpg)
+
+**Every byte accounted for** What Dozable uses on disk, what deleting each item would free, and a safe clean up.
+
+![The dashboard in dark mode with a sandbox terminal showing a process list and a notice that doz ui restarted.](https://dozable.com/shots/ui-reattach-dark.jpg)
+
+**Dark mode, and terminals that come back** When doz ui restarts, its terminals reattach by themselves.
+
+## One room. Every agent. And you.
+
+Each workspace has a room where you and its agents talk: Claude Code, Codex, OpenCode, pi and more, whichever vendor they come from. You join in the dashboard or a terminal with `doz chat send` and `doz chat read`, and each agent has its own token. An agent can ask instead of guessing: an Ask waits for your answer, can be declined and expires. Messages, reactions and attachments stay on your Mac.
+
+![Isometric drawing of a workspace's room on Ada's Mac: Dozable chat hosting the room; four agents, Claude Code, Codex, OpenCode and pi, each sending and receiving messages in it; and Ada at the dashboard.](https://dozable.com/shots/room-diagram.jpg)
+
+**One room, many agents** An illustrative room, drawn the way Dozable draws a workspace: four agents and you, talking in one room on Dozable chat. `doz chat on --name ada` turns chat on. [Chat, in the manual →](https://dozable.com/docs/chat.md)
+
+## Or use the CLI for everything. (Or get your agent to.)
+
+Everything in the dashboard is also a command, for you and for your agents. `doz` is the whole of Dozable: run workspaces with `doz workspace`, talk in their rooms with `doz chat` and add workers with `doz worker`. Create, start, pause and wake Sandboxes, run and attach to their sessions, and manage their network, keys, images and restore points. Every command is in the [manual](https://dozable.com/docs/index.md). It even hosts its own web app: `doz ui` on your Mac, `doz serve` for your LAN, home-lab and Tailscale connected devices.
 
 - `doz onboard` — Set up this Mac for Dozable (once): check it, choose and confirm Access (the Claude account, GitHub, the SSH agent), choose what workspace rules do, write the settings, prepare images in the background. ([manual](https://dozable.com/docs/setting-up.md))
 - `doz init` — Make a folder a Dozable project: write doz_project.yaml there (onboarding this Mac first if it never was). ([manual](https://dozable.com/docs/projects.md))
@@ -166,46 +222,6 @@ You write the process in the brief; Dozable records it. Try `doz workspace templ
 - **For agents** Let the agents you trust sandbox the ones you don't: Claude Code or Codex on your Mac can create, watch and clean up sandboxes for you — every command takes `--json`, with exit codes to act on. [Prompts for your agent →](https://dozable.com/docs/prompts-for-your-agent.md)
 - **Hosts its own web app** `doz ui` opens the dashboard; `doz serve` shares it with your other browsers, by invite.
 
-## A dashboard for every workspace.
-
-The dashboard opens on your workspaces, with what needs you first. Everything from before, your Sandboxes and their terminals, is under This Mac. In your browser or installed as an app. `doz ui` on this Mac; `doz serve` for your LAN, home-lab and Tailscale devices.
-
-![The Sandboxes page: host status, memory and disk totals, and a table of seven sandboxes in different phases: hibernated, off, failed, paused, asleep and running.](https://dozable.com/shots/ui-overview.jpg)
-
-**Every sandbox at a glance** The host, the memory held and the disk used, then each sandbox with its phase and its next action.
-
-![A running sandbox's page with a terminal showing a passing test run, lifecycle buttons above it and an overview panel on the right.](https://dozable.com/shots/ui-sandbox-terminal.jpg)
-
-**A live terminal, in your browser** Pause, sleep or hibernate from the sandbox's own page, with its terminal and details beside it.
-
-![A sandbox page where the agent's session tab carries a blue working badge, and the sidebar marks the sandbox.](https://dozable.com/shots/ui-agent-working-claude.jpg)
-
-**See what your agent is doing** Claude Code and pi report when they are working, blocked or done, and the session tab and the sidebar show it.
-
-![The All sessions page: two terminal tiles, one labelled working at 40 percent.](https://dozable.com/shots/ui-all-sessions.jpg)
-
-**Every session, side by side** All sessions of all running sandboxes in one grid, live and read-only. Click one to open it.
-
-![The Network tab of a sandbox with a Locked, Standard and Open switch and toggles for talking to the AI model, signing in, updating and installing software.](https://dozable.com/shots/ui-network.jpg)
-
-**Network permissions you can read** Locked, Standard or Open, then switch each permission on or off, with the hosts behind it one click away.
-
-![The New sandbox wizard on its Agent and base step, showing Claude Code, pi, Codex and none, and base images such as Node.js, Python, Go and Alpine.](https://dozable.com/shots/ui-new-sandbox.jpg)
-
-**A guided New sandbox** Ten steps: pick the agent and a base image, and your choices are written to the project's doz_project.yaml.
-
-![The Images page in lineage view: an Alpine image, a template, sandboxes and restore points, each with shared and own sizes.](https://dozable.com/shots/ui-images-lineage.jpg)
-
-**Images, templates and restore points** The lineage from base image to sandbox to restore point, with what each shares and what it owns.
-
-![The Resources page: a bar of kept, clean-up and shared space and a table of sandboxes with sizes and what would be freed.](https://dozable.com/shots/ui-resources.jpg)
-
-**Every byte accounted for** What Dozable uses on disk, what deleting each item would free, and a safe clean up.
-
-![The dashboard in dark mode with a sandbox terminal showing a process list and a notice that doz ui restarted.](https://dozable.com/shots/ui-reattach-dark.jpg)
-
-**Dark mode, and terminals that come back** When doz ui restarts, its terminals reattach by themselves.
-
 ## How it compares.
 
 A Claude Code sandbox, measured by us on an M3 MacBook Air (24 GB, macOS 27) in September 2026 — the median of 5 runs, each tool at its defaults.
@@ -213,7 +229,7 @@ A Claude Code sandbox, measured by us on an M3 MacBook Air (24 GB, macOS 27) in 
 | Measure | Dozable | Docker containers | Docker Sandboxes | Apple container |
 |---|---|---|---|---|
 | Start, to Claude Code's first screen | 1.46 s | 0.78 s | 5.12 s | 2.24 s |
-| Pause and resume, memory kept | about 1 ms | about 35 ms | not offered | not offered |
+| Pause and resume, memory kept | Pauses and resumes in milliseconds | about 35 ms | not offered | not offered |
 | Put away, memory freed | 1.16 s (hibernate) | 0.12 s (stop) | 5.31 s (stop) | 0.18 s (stop) |
 | Back to a working agent | 0.57 s | 0.71 s | 1.28 s | 2.01 s |
 | The same programs running afterwards | Yes — same process, same screen | No — restarted | No — restarted | No — restarted |
@@ -227,7 +243,7 @@ Dozable is slower to start cold and to put away — it writes the sandbox's memo
 | Survives a restart of the app that runs it | Yes | No | No | No |
 | No network card — the only way out is a proxy | Yes | No | No | No |
 | Blocks the network by default, with rules per sandbox | Yes | No | Yes | No |
-| Your keys never enter the sandbox | Yes | No | Yes | No |
+| Keys the tool holds never enter the sandbox | Yes | No | Yes | No |
 | Every connection logged | Yes | No | Yes | No |
 
 Versions: Docker Desktop 4.91.0, Docker Sandboxes (sbx) 0.38.0, Apple container 1.2.2, and an earlier Dozable build. Docker Sandboxes' network and key rows are from its documentation; everything else was measured. One machine's numbers — yours will differ.

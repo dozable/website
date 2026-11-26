@@ -544,3 +544,14 @@ html { scroll-behavior: smooth; }
 .zoom-close:focus-visible, .zoom-prev:focus-visible, .zoom-next:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
 .zoom-count { position: absolute; top: 24px; left: 50%; translate: -50% 0; color: #c9c9cd; font-size: 13px; }
 @media (prefers-reduced-motion: reduce) { .zoom-open { transition: none; } }
+
+
+/* ---------- 0.60 home page: the live workspace and room drawings (<isometric-diagram>, with a static image inside as the fallback) ---------- */
+.intro h1 { text-wrap: balance; }
+.wsdiagram { max-width: 1000px; margin: 0 auto 40px; text-align: left; }
+.wsdiagram isometric-diagram, .art isometric-diagram { display: block; }
+.wsdiagram figcaption { margin-top: 18px; display: flex; flex-direction: column; gap: 4px; }
+.wsdiagram figcaption b { font-size: 21px; letter-spacing: -.02em; line-height: 1.2; }
+.wsdiagram figcaption span { color: var(--ink-2); font-size: 16px; line-height: 1.4; }
+.art .frame { box-shadow: 0 3px 0 #000; }
+@media (max-width: 700px) { .wsdiagram figcaption b { font-size: 18px; } }

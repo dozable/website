@@ -1,7 +1,7 @@
 # The hero's headlines, in the order the page shows them. One per line; " / " splits it into its two lines.
 # The FIRST is the primary: tools/stamp.sh writes it into index.html (what search engines and no-JS visitors see).
 # The page shows each for 5 seconds, then the next. Lines starting with # are notes. Run tools/stamp.sh after editing.
-Workspaces for your / agent teamwork.
+Workspaces for your agent teamwork.
 A team of agents. / One room.
 Start from a template. / Your agents are up.
 One unit of work / at a time.

@@ -28,7 +28,7 @@
 <meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="stylesheet" href="site.css?v=2545262c">
+<link rel="stylesheet" href="site.css?v=3d56b4e9">
 <script src="nav.js?v=4f745b91"></script>
 <script type="application/ld+json">
 [
@@ -77,6 +77,7 @@
 <script defer src="site.js?v=a61781db"></script>
 <script defer src="headlines.js?v=c9886fd2"></script>
 <script defer src="cli.js?v=f96eacee"></script>
+<script type="module" src="vendor/isometric-engine-0.19.0/dozable-marks.js"></script>
 <script defer src="carousel.js?v=fd56ad4b"></script>
 <script defer src="signup.js?v=4c5f91c5"></script>
 </head>
@@ -87,7 +88,7 @@
   
   <a class="nav-name" href="./">Dozable</a>
   <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel" aria-label="Menu"><svg class="bars" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-  <nav id="nav-panel" aria-label="Site"><a href="./#teams">Workspaces</a><a href="./#cli">CLI</a><a href="./#tour">Web UI</a><a href="./#compare">Compare</a><a href="./#security">Security</a><a href="./#uses">Use cases</a><a href="./#features">Features</a><a href="timeline.html">Timeline</a><a href="blog/">Blog</a><a href="docs/">Docs</a><a class="nav-extra" href="https://github.com/dozable/dozable">GitHub</a></nav>
+  <nav id="nav-panel" aria-label="Site"><a href="./#teams">Workspaces</a><a href="./#tour">Web UI</a><a href="./#chat">Chat</a><a href="./#cli">CLI</a><a href="./#compare">Compare</a><a href="./#security">Security</a><a href="./#uses">Use cases</a><a href="./#features">Features</a><a href="timeline.html">Timeline</a><a href="blog/">Blog</a><a href="docs/">Docs</a><a class="nav-extra" href="https://github.com/dozable/dozable">GitHub</a></nav>
   <a class="nav-gh" href="https://github.com/dozable/dozable" aria-label="Source code on GitHub" title="Source code on GitHub"><svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg></a>
   <a class="pill" href="./#install">Install</a>
 </div></header>
@@ -96,7 +97,7 @@
 
 <section class="sec light intro" id="top"><div class="wrap">
   <p class="eyebrow reveal"><a href="blog/doz-v0.60">New in 0.60: workspaces &rarr;</a></p>
-  <h1 id="headline" data-headlines="headlines.txt?v=d5fd4a4f">Workspaces for your<br>agent teamwork.</h1>
+  <h1 id="headline" data-headlines="headlines.txt?v=27b78eef">Workspaces for your agent teamwork.</h1>
   <p class="lede reveal">Run a team of AI coding agents on your Mac. A workspace holds the agents, their room, the folders they work in and a brief. They take on one unit of work at a time, each recorded in a journal, and the lessons you approve carry into the next. Free and open source.</p>
   <p class="alpha reveal"><span class="alpha-tag">Alpha</span><span class="alpha-ver">Stable <span id="stable-version">v0.60.4</span></span><a class="alpha-link" href="https://github.com/dozable/dozable/releases">Version history &rarr;</a></p>
   <div class="oneline"><pre><code id="oneliner">brew trust --tap dozable/tap &amp;&amp; brew install dozable/tap/doz &amp;&amp; doz ui</code></pre></div>
@@ -117,10 +118,480 @@
   <p class="fine">You write the process in the brief; Dozable records it. Try <code>doz workspace templates</code>, then <code>doz workspace new app --template solo --folder ~/code/app</code>. A workspace can be a file in git: <code>doz workspace plan -f FILE</code>, then <code>doz workspace up -f FILE</code>.</p>
 </div></section>
 
+
+<section class="sec tone tour" id="tour"><div class="wrap">
+  <span id="dashboard"></span>
+  <p class="eyebrow reveal">Web UI</p>
+  <h2 class="reveal">A dashboard for every workspace.</h2>
+  <p class="sub reveal">The dashboard opens on your workspaces, with what needs you first. Everything from before, your Sandboxes and their terminals, is under This Mac. In your browser or installed as an app. <code>doz ui</code> on this Mac; <code>doz serve</code> for your LAN, home-lab and Tailscale devices.</p>
+  <figure class="wsdiagram reveal"><div class="frame"><isometric-diagram mode="light" ambient="on" autoplay loop label="A typical workspace on Ada&#x27;s Mac, drawn by Dozable: a manager bot and the chat server hosting the workspace&#x27;s room; a reviewer fenced on the Mac, its proxy swapping in the real token; a builder and a tester sharing one Sandbox with the project at /workspace; the project folder, a scratch folder and the run&#x27;s archive; and Ada at the dashboard"><script type="text/yaml"># A typical workspace — the 0.52 release post's hero, for <isometric-diagram>. Converted from typical.space.yaml by the
+# engine's own tool (isodiag, 2026-11-25), then edited for a public page: no run steps, nothing appearing or disappearing,
+# plain labels. The icon "claude" needs Dozable's marks registered (an engine release is pending).
+isodiag: 1
+title: A typical workspace
+grid:
+  snap: 0.5
+kinds:
+  user:
+    legend: You
+  control:
+    legend: Control or port
+  event:
+    legend: "Wake: listen or webhook"
+  token:
+    legend: Token or placeholder
+  reply:
+    legend: Reply, or into the archive
+scenes:
+  - id: space
+    title: A typical workspace
+    caption: "A manager and three agents on Ada's Mac: a reviewer fenced on the Mac, read-only, its proxy swapping in the real token; a builder and a tester sharing one Sandbox with the project at /workspace; the workspace's room on Dozable chat; and every run archived."
+    aria: "Isometric drawing of a typical Dozable workspace on Ada's Mac: a manager bot and Dozable chat hosting the workspace's room; a reviewer fenced on the Mac behind a proxy that swaps in the real token; a builder and a tester sharing one Sandbox with the project mounted at /workspace; the project folder, a scratch folder and the archive of every run; and Ada at the dashboard."
+    legend: false
+    # the routes' marching ants: the element runs its ambient clock only for a drawing with a timeline
+    motion:
+      isomotion: 1
+      series:
+        - sequence:                                         # the drawing builds itself, region by region
+            name: build
+            duration: 7s
+            children:
+              - { assemble: { style: build, order: by-region, connectors: draw, labels: fade }, duration: 7s }
+        - sequence: { name: live, duration: 12s, ants: true }   # then the lines march
+        - sequence:                                         # and it fades as one, the ants still marching, so the loop
+            name: fade                                      # starts again from empty
+            duration: 1.5s
+            ants: true
+            children:
+              - { disassemble: { style: fade, connectors: fade, stagger: 0, overlap: 1 }, duration: 1.5s }
+    gap: 3
+    regions:
+      - id: mac
+        kind: slab
+        label: ADA’S MAC
+        padding: 1.4
+        nodes:
+          - id: manager
+            asset: session
+            role: lead
+            label: manager
+            sub: "your bot, mira"
+            size:
+              - 2.4
+              - 2.4
+              - 1.8
+            deco:
+              - terminal: 3
+              - icon: claude
+          - id: chat
+            asset: chat
+            size:
+              - 3.2
+              - 3.2
+              - 1.1
+            label: Dozable chat
+            sub: app · 5 members
+            below: manager
+            gap: 4.5
+          - id: dir-repo
+            asset: folder
+            label: repo
+            sub: your project · ~/code/app
+        regions:
+          - id: space-slab
+            kind: pad
+            role: pad                       # the workspace: a cool grey, apart from the Mac's warm slab
+            height: 0.45
+            label: WORKSPACE · app
+            padding: 1.2
+            nodes:
+              - id: reviewer-proxy
+                asset: gate
+                label: proxy
+                sub: swaps in the real token
+              - id: room-app
+                asset: mailbox
+                role: chat
+                size:
+                  - 1.5
+                  - 1.5
+                  - 0.9
+                label: app
+                sub: the workspace's room
+                at:
+                  - 0
+                  - 0
+              - id: dir-scratch
+                asset: folder
+                label: scratch
+                sub: fresh each run
+                at:
+                  - 8
+                  - 0
+              - id: archive
+                asset: volume
+                role: folder
+                size:
+                  - 2.2
+                  - 2.2
+                  - 1.5
+                label: archive
+                sub: every run, kept
+            regions:
+              - id: reviewer-fence
+                kind: fence
+                label: FENCE
+                size:
+                  - 7
+                  - 5.5
+                gate:
+                  side: w
+                  at: 0.5
+                  width: 2
+                  node: reviewer-proxy
+                nodes:
+                  - id: reviewer
+                    asset: session
+                    role: violet
+                    label: reviewer
+                    sub: ~/code/app
+                    size:
+                      - 2.4
+                      - 2.4
+                      - 1.6
+                    deco:
+                      - terminal: 3
+                      - icon: claude
+                    at:
+                      - 3.5
+                      - 1.5
+              - id: build-vm
+                kind: vm
+                label: SANDBOX · build
+                padding: 0.9
+                nodes:
+                  - id: builder
+                    asset: session
+                    role: work
+                    label: builder
+                    sub: /workspace
+                    size:
+                      - 2.4
+                      - 2.4
+                      - 1.6
+                    deco:
+                      - terminal: 3
+                      - icon: claude
+                  - id: tester
+                    asset: session
+                    role: work
+                    label: tester
+                    sub: /workspace
+                    size:
+                      - 2.4
+                      - 2.4
+                      - 1.6
+                    deco:
+                      - terminal: 3
+                      - icon: claude
+                  - id: build-vm-ws
+                    asset: folder
+                    size:
+                      - 2
+                      - 1.6
+                      - 0.4
+                    label: /workspace
+                    sub: ~/code/app
+                at:
+                  - 0
+                  - 6.5
+      - id: ownerpad
+        kind: pad
+        below: mac
+        gap: 3
+        nodes:
+          - id: owner
+            asset: person
+            label: Ada
+            sub: owner
+          - id: dash
+            asset: screen
+            face: chat
+            left-of: owner
+            gap: 0.8
+            label: dashboard
+    nodes: []
+    routes:
+      - id: manager-in
+        from: chat
+        to: manager
+        kind: event
+        label: dozchat listen
+      - id: manager-out
+        from: manager
+        to: chat
+        kind: reply
+      - id: builder-in
+        from: chat
+        to: builder
+        kind: event
+        label: dozchat listen
+      - id: builder-out
+        from: builder
+        to: chat
+        kind: reply
+      - id: tester-in
+        from: chat
+        to: tester
+        kind: event
+      - id: tester-out
+        from: tester
+        to: chat
+        kind: reply
+      - id: reviewer-poll
+        from: reviewer-proxy
+        to: reviewer
+        kind: event
+        label: listen
+      - id: reviewer-gate
+        from: chat
+        to: reviewer-proxy
+        kind: send
+      - id: reviewer-out
+        from: reviewer
+        to: reviewer-proxy
+        kind: token
+        label: placeholder
+      - id: reviewer-swap
+        from: reviewer-proxy
+        to: chat
+        kind: reply
+        label: real token
+      - id: owner-chat
+        from: dash
+        to: chat
+        kind: user
+        label: rooms
+      - id: arch-chat
+        from: chat
+        to: archive
+        kind: reply
+        label: messages
+</script><img src="blog/images/doz-v0.60/workspace.jpg" alt="A typical workspace on Ada&#x27;s Mac, drawn by Dozable: a manager bot and the chat server hosting the workspace&#x27;s room; a reviewer fenced on the Mac, its proxy swapping in the real token; a builder and a tester sharing one Sandbox with the project at /workspace; the project folder, a scratch folder and the run&#x27;s archive; and Ada at the dashboard" width="2400" height="1650" loading="lazy" decoding="async"></isometric-diagram></div>
+  <figcaption><b>A workspace, drawn by Dozable</b><span>A typical workspace: a manager and three agents, their room, the folders they work in, and you at the dashboard. The same drawing is on every workspace&rsquo;s Home tab.</span></figcaption></figure>
+    <div class="carousel reveal" role="region" aria-roledescription="carousel" aria-label="Dashboard screenshots">
+  <div class="car-track" id="car-track" tabindex="0" aria-label="Screenshots, use the left and right arrow keys">
+    <figure class="slide" role="group" aria-roledescription="slide" aria-label="1 of 10">
+      <div class="frame"><img src="blog/images/doz-v0.60/workspace-page.jpg" width="2000" height="1250" loading="lazy" decoding="async" alt="A workspace&#x27;s Home tab in the dashboard: a One agent workspace drawn across the top with its agent&#x27;s open question marked on it, then Needs you with that Ask, the state and run, the fenced agent, the room&#x27;s latest lines and recent activity"></div>
+      <figcaption><b>A workspace, on its Home tab</b><span>The drawing across the top with what is happening now marked on it, then what needs you first, the room&rsquo;s latest lines and recent activity.</span></figcaption>
+    </figure>
+    <figure class="slide" role="group" aria-roledescription="slide" aria-label="2 of 10">
+      <div class="frame"><img src="shots/ui-overview.jpg" width="1280" height="860" loading="lazy" decoding="async" alt="The Sandboxes page: host status, memory and disk totals, and a table of seven sandboxes in different phases: hibernated, off, failed, paused, asleep and running."></div>
+      <figcaption><b>Every sandbox at a glance</b><span>The host, the memory held and the disk used, then each sandbox with its phase and its next action.</span></figcaption>
+    </figure>
+    <figure class="slide" role="group" aria-roledescription="slide" aria-label="3 of 10">
+      <div class="frame"><img src="shots/ui-sandbox-terminal.jpg" width="1280" height="860" loading="lazy" decoding="async" alt="A running sandbox's page with a terminal showing a passing test run, lifecycle buttons above it and an overview panel on the right."></div>
+      <figcaption><b>A live terminal, in your browser</b><span>Pause, sleep or hibernate from the sandbox's own page, with its terminal and details beside it.</span></figcaption>
+    </figure>
+    <figure class="slide" role="group" aria-roledescription="slide" aria-label="4 of 10">
+      <div class="frame"><img src="shots/ui-agent-working-claude.jpg" width="1280" height="860" loading="lazy" decoding="async" alt="A sandbox page where the agent's session tab carries a blue working badge, and the sidebar marks the sandbox."></div>
+      <figcaption><b>See what your agent is doing</b><span>Claude Code and pi report when they are working, blocked or done, and the session tab and the sidebar show it.</span></figcaption>
+    </figure>
+    <figure class="slide" role="group" aria-roledescription="slide" aria-label="5 of 10">
+      <div class="frame"><img src="shots/ui-all-sessions.jpg" width="1280" height="420" loading="lazy" decoding="async" alt="The All sessions page: two terminal tiles, one labelled working at 40 percent."></div>
+      <figcaption><b>Every session, side by side</b><span>All sessions of all running sandboxes in one grid, live and read-only. Click one to open it.</span></figcaption>
+    </figure>
+    <figure class="slide" role="group" aria-roledescription="slide" aria-label="6 of 10">
+      <div class="frame"><img src="shots/ui-network.jpg" width="1280" height="860" loading="lazy" decoding="async" alt="The Network tab of a sandbox with a Locked, Standard and Open switch and toggles for talking to the AI model, signing in, updating and installing software."></div>
+      <figcaption><b>Network permissions you can read</b><span>Locked, Standard or Open, then switch each permission on or off, with the hosts behind it one click away.</span></figcaption>
+    </figure>
+    <figure class="slide" role="group" aria-roledescription="slide" aria-label="7 of 10">
+      <div class="frame"><img src="shots/ui-new-sandbox.jpg" width="1280" height="860" loading="lazy" decoding="async" alt="The New sandbox wizard on its Agent and base step, showing Claude Code, pi, Codex and none, and base images such as Node.js, Python, Go and Alpine."></div>
+      <figcaption><b>A guided New sandbox</b><span>Ten steps: pick the agent and a base image, and your choices are written to the project's doz_project.yaml.</span></figcaption>
+    </figure>
+    <figure class="slide" role="group" aria-roledescription="slide" aria-label="8 of 10">
+      <div class="frame"><img src="shots/ui-images-lineage.jpg" width="1280" height="520" loading="lazy" decoding="async" alt="The Images page in lineage view: an Alpine image, a template, sandboxes and restore points, each with shared and own sizes."></div>
+      <figcaption><b>Images, templates and restore points</b><span>The lineage from base image to sandbox to restore point, with what each shares and what it owns.</span></figcaption>
+    </figure>
+    <figure class="slide" role="group" aria-roledescription="slide" aria-label="9 of 10">
+      <div class="frame"><img src="shots/ui-resources.jpg" width="1280" height="860" loading="lazy" decoding="async" alt="The Resources page: a bar of kept, clean-up and shared space and a table of sandboxes with sizes and what would be freed."></div>
+      <figcaption><b>Every byte accounted for</b><span>What Dozable uses on disk, what deleting each item would free, and a safe clean up.</span></figcaption>
+    </figure>
+    <figure class="slide" role="group" aria-roledescription="slide" aria-label="10 of 10">
+      <div class="frame"><img src="shots/ui-reattach-dark.jpg" width="1440" height="940" loading="lazy" decoding="async" alt="The dashboard in dark mode with a sandbox terminal showing a process list and a notice that doz ui restarted."></div>
+      <figcaption><b>Dark mode, and terminals that come back</b><span>When doz ui restarts, its terminals reattach by themselves.</span></figcaption>
+    </figure>
+  </div>
+  </div>
+</div></section>
+
+<section class="sec light chat" id="chat"><div class="wrap">
+  <p class="eyebrow reveal">Chat rooms</p>
+  <h2 class="reveal">One room. Every agent.<br>And you.</h2>
+  <p class="sub reveal">Each workspace has a room where you and its agents talk: Claude Code, Codex, OpenCode, pi and more, whichever vendor they come from. You join in the dashboard or a terminal with <code>doz chat send</code> and <code>doz chat read</code>, and each agent has its own token. An agent can ask instead of guessing: an Ask waits for your answer, can be declined and expires. Messages, reactions and attachments stay on your Mac.</p>
+  <figure class="wsdiagram reveal"><div class="frame"><isometric-diagram mode="light" ambient="on" label="Isometric drawing of a workspace&#x27;s room on Ada&#x27;s Mac: Dozable chat hosting the room; four agents, Claude Code, Codex, OpenCode and pi, each sending and receiving messages in it; and Ada at the dashboard."><script type="text/yaml"># A workspace's room, for <isometric-diagram>. Written for the 0.60 home page in the same form as the 0.60 post's workspace
+# drawing (same engine, same assets and kinds); illustrative: four agents from different vendors in one room, and you.
+isodiag: 1
+title: A workspace's room
+grid:
+  snap: 0.5
+kinds:
+  user:
+    legend: You
+  event:
+    legend: Message to an agent
+  reply:
+    legend: Message to the room
+scenes:
+  - id: room
+    title: A workspace's room
+    caption: "A workspace's room on Ada's Mac: Claude Code, Codex, OpenCode and pi, each with its own token, and Ada at the dashboard, all talking in one room on Dozable chat."
+    aria: "Isometric drawing of a workspace's room on Ada's Mac: Dozable chat hosting the room; four agents, Claude Code, Codex, OpenCode and pi, each sending and receiving messages in it; and Ada at the dashboard."
+    legend: false
+    gap: 3
+    regions:
+      - id: mac
+        kind: slab
+        label: ADA’S MAC
+        padding: 1.4
+        nodes:
+          - id: chat
+            asset: chat
+            size:
+              - 3.2
+              - 3.2
+              - 1.1
+            label: Dozable chat
+            sub: the room, "app"
+        regions:
+          - id: agents
+            kind: pad
+            role: pad
+            height: 0.45
+            label: WORKSPACE · app
+            padding: 1.2
+            right-of: chat
+            gap: 5
+            nodes:
+              - id: a-claude
+                asset: session
+                role: lead
+                label: Claude Code
+                sub: manager
+                size:
+                  - 2.4
+                  - 2.4
+                  - 1.6
+                deco:
+                  - terminal: 3
+                  - icon: claude
+                at:
+                  - 0
+                  - 0
+              - id: a-codex
+                asset: session
+                role: work
+                label: Codex
+                sub: worker
+                size:
+                  - 2.4
+                  - 2.4
+                  - 1.6
+                deco:
+                  - terminal: 3
+                at:
+                  - 5
+                  - 0
+              - id: a-opencode
+                asset: session
+                role: work
+                label: OpenCode
+                sub: worker
+                size:
+                  - 2.4
+                  - 2.4
+                  - 1.6
+                deco:
+                  - terminal: 3
+                at:
+                  - 0
+                  - 5
+              - id: a-pi
+                asset: session
+                role: violet
+                label: pi
+                sub: reviewer
+                size:
+                  - 2.4
+                  - 2.4
+                  - 1.6
+                deco:
+                  - terminal: 3
+                at:
+                  - 5
+                  - 5
+      - id: ownerpad
+        kind: pad
+        below: mac
+        gap: 3
+        nodes:
+          - id: owner
+            asset: person
+            label: Ada
+            sub: you
+          - id: dash
+            asset: screen
+            face: chat
+            left-of: owner
+            gap: 0.8
+            label: dashboard
+    nodes: []
+    routes:
+      - id: claude-in
+        from: chat
+        to: a-claude
+        kind: event
+      - id: claude-out
+        from: a-claude
+        to: chat
+        kind: reply
+      - id: codex-in
+        from: chat
+        to: a-codex
+        kind: event
+      - id: codex-out
+        from: a-codex
+        to: chat
+        kind: reply
+      - id: opencode-in
+        from: chat
+        to: a-opencode
+        kind: event
+      - id: opencode-out
+        from: a-opencode
+        to: chat
+        kind: reply
+      - id: pi-in
+        from: chat
+        to: a-pi
+        kind: event
+      - id: pi-out
+        from: a-pi
+        to: chat
+        kind: reply
+      - id: owner-chat
+        from: dash
+        to: chat
+        kind: user
+        label: you, in the room
+</script><img src="shots/room-diagram.jpg" alt="Isometric drawing of a workspace&#x27;s room on Ada&#x27;s Mac: Dozable chat hosting the room; four agents, Claude Code, Codex, OpenCode and pi, each sending and receiving messages in it; and Ada at the dashboard." width="1772" height="1112" loading="lazy" decoding="async"></isometric-diagram></div>
+  <figcaption><b>One room, many agents</b><span>An illustrative room, drawn the way Dozable draws a workspace: four agents and you, talking in one room on Dozable chat. <code>doz chat on --name ada</code> turns chat on. <a href="docs/chat">Chat, in the manual &rarr;</a></span></figcaption></figure>
+</div></section>
+
 <section class="sec tone cli" id="cli"><div class="wrap">
   <p class="eyebrow reveal">CLI</p>
-  <h2 class="reveal">One command line does it all.<br>For you, and for your agents.</h2>
-  <p class="sub reveal"><code>doz</code> is the whole of Dozable. Run workspaces with <code>doz workspace</code>, talk in their rooms with <code>doz chat</code> and add workers with <code>doz worker</code>. Create, start, pause and wake Sandboxes, run and attach to their sessions, and manage their network, keys, images and restore points. Every command is in the <a href="docs/">manual</a>. It even hosts its own web app: <code>doz ui</code> on your Mac, <code>doz serve</code> for your LAN, home-lab and Tailscale connected devices.</p>
+  <h2 class="reveal">Or use the CLI for everything.<br>(Or get your agent to.)</h2>
+  <p class="sub reveal">Everything in the dashboard is also a command, for you and for your agents. <code>doz</code> is the whole of Dozable: run workspaces with <code>doz workspace</code>, talk in their rooms with <code>doz chat</code> and add workers with <code>doz worker</code>. Create, start, pause and wake Sandboxes, run and attach to their sessions, and manage their network, keys, images and restore points. Every command is in the <a href="docs/">manual</a>. It even hosts its own web app: <code>doz ui</code> on your Mac, <code>doz serve</code> for your LAN, home-lab and Tailscale connected devices.</p>
   <div class="cli-grid">
     <div class="term reveal" id="term" aria-label="Every doz command — hover or focus one for what it does">
       <div class="term-bar"><i></i><i></i><i></i><span>doz — zsh</span></div>
@@ -134,53 +605,6 @@
   </div>
 </div></section>
 
-<section class="sec light tour" id="tour"><div class="wrap">
-  <span id="dashboard"></span>
-  <p class="eyebrow reveal">Web UI</p>
-  <h2 class="reveal">A dashboard for every workspace.</h2>
-  <p class="sub reveal">The dashboard opens on your workspaces, with what needs you first. Everything from before, your Sandboxes and their terminals, is under This Mac. In your browser or installed as an app. <code>doz ui</code> on this Mac; <code>doz serve</code> for your LAN, home-lab and Tailscale devices.</p>
-  <div class="carousel reveal" role="region" aria-roledescription="carousel" aria-label="Dashboard screenshots">
-  <div class="car-track" id="car-track" tabindex="0" aria-label="Screenshots, use the left and right arrow keys">
-    <figure class="slide" role="group" aria-roledescription="slide" aria-label="1 of 9">
-      <div class="frame"><img src="shots/ui-overview.jpg" width="1280" height="860" loading="lazy" decoding="async" alt="The Sandboxes page: host status, memory and disk totals, and a table of seven sandboxes in different phases: hibernated, off, failed, paused, asleep and running."></div>
-      <figcaption><b>Every sandbox at a glance</b><span>The host, the memory held and the disk used, then each sandbox with its phase and its next action.</span></figcaption>
-    </figure>
-    <figure class="slide" role="group" aria-roledescription="slide" aria-label="2 of 9">
-      <div class="frame"><img src="shots/ui-sandbox-terminal.jpg" width="1280" height="860" loading="lazy" decoding="async" alt="A running sandbox's page with a terminal showing a passing test run, lifecycle buttons above it and an overview panel on the right."></div>
-      <figcaption><b>A live terminal, in your browser</b><span>Pause, sleep or hibernate from the sandbox's own page, with its terminal and details beside it.</span></figcaption>
-    </figure>
-    <figure class="slide" role="group" aria-roledescription="slide" aria-label="3 of 9">
-      <div class="frame"><img src="shots/ui-agent-working-claude.jpg" width="1280" height="860" loading="lazy" decoding="async" alt="A sandbox page where the agent's session tab carries a blue working badge, and the sidebar marks the sandbox."></div>
-      <figcaption><b>See what your agent is doing</b><span>Claude Code and pi report when they are working, blocked or done, and the session tab and the sidebar show it.</span></figcaption>
-    </figure>
-    <figure class="slide" role="group" aria-roledescription="slide" aria-label="4 of 9">
-      <div class="frame"><img src="shots/ui-all-sessions.jpg" width="1280" height="420" loading="lazy" decoding="async" alt="The All sessions page: two terminal tiles, one labelled working at 40 percent."></div>
-      <figcaption><b>Every session, side by side</b><span>All sessions of all running sandboxes in one grid, live and read-only. Click one to open it.</span></figcaption>
-    </figure>
-    <figure class="slide" role="group" aria-roledescription="slide" aria-label="5 of 9">
-      <div class="frame"><img src="shots/ui-network.jpg" width="1280" height="860" loading="lazy" decoding="async" alt="The Network tab of a sandbox with a Locked, Standard and Open switch and toggles for talking to the AI model, signing in, updating and installing software."></div>
-      <figcaption><b>Network permissions you can read</b><span>Locked, Standard or Open, then switch each permission on or off, with the hosts behind it one click away.</span></figcaption>
-    </figure>
-    <figure class="slide" role="group" aria-roledescription="slide" aria-label="6 of 9">
-      <div class="frame"><img src="shots/ui-new-sandbox.jpg" width="1280" height="860" loading="lazy" decoding="async" alt="The New sandbox wizard on its Agent and base step, showing Claude Code, pi, Codex and none, and base images such as Node.js, Python, Go and Alpine."></div>
-      <figcaption><b>A guided New sandbox</b><span>Ten steps: pick the agent and a base image, and your choices are written to the project's doz_project.yaml.</span></figcaption>
-    </figure>
-    <figure class="slide" role="group" aria-roledescription="slide" aria-label="7 of 9">
-      <div class="frame"><img src="shots/ui-images-lineage.jpg" width="1280" height="520" loading="lazy" decoding="async" alt="The Images page in lineage view: an Alpine image, a template, sandboxes and restore points, each with shared and own sizes."></div>
-      <figcaption><b>Images, templates and restore points</b><span>The lineage from base image to sandbox to restore point, with what each shares and what it owns.</span></figcaption>
-    </figure>
-    <figure class="slide" role="group" aria-roledescription="slide" aria-label="8 of 9">
-      <div class="frame"><img src="shots/ui-resources.jpg" width="1280" height="860" loading="lazy" decoding="async" alt="The Resources page: a bar of kept, clean-up and shared space and a table of sandboxes with sizes and what would be freed."></div>
-      <figcaption><b>Every byte accounted for</b><span>What Dozable uses on disk, what deleting each item would free, and a safe clean up.</span></figcaption>
-    </figure>
-    <figure class="slide" role="group" aria-roledescription="slide" aria-label="9 of 9">
-      <div class="frame"><img src="shots/ui-reattach-dark.jpg" width="1440" height="940" loading="lazy" decoding="async" alt="The dashboard in dark mode with a sandbox terminal showing a process list and a notice that doz ui restarted."></div>
-      <figcaption><b>Dark mode, and terminals that come back</b><span>When doz ui restarts, its terminals reattach by themselves.</span></figcaption>
-    </figure>
-  </div>
-  </div>
-</div></section>
-
 <section class="sec light compare" id="compare"><div class="wrap">
   <p class="eyebrow reveal">Compared</p>
   <h2 class="reveal">How it compares.</h2>
@@ -190,7 +614,7 @@
 <thead><tr><th scope="col"><span class="sr">Measure</span></th><th scope="col" class="us">Dozable</th><th scope="col">Docker containers</th><th scope="col">Docker Sandboxes</th><th scope="col">Apple container</th></tr></thead>
 <tbody>
 <tr><th scope="row">Start, to Claude Code's first screen</th><td class="us">1.46 s</td><td>0.78 s</td><td>5.12 s</td><td>2.24 s</td></tr>
-<tr><th scope="row">Pause and resume, memory kept</th><td class="us">about 1 ms</td><td>about 35 ms</td><td>not offered</td><td>not offered</td></tr>
+<tr><th scope="row">Pause and resume, memory kept</th><td class="us">Pauses and resumes in milliseconds</td><td>about 35 ms</td><td>not offered</td><td>not offered</td></tr>
 <tr><th scope="row">Put away, memory freed</th><td class="us">1.16 s (hibernate)</td><td>0.12 s (stop)</td><td>5.31 s (stop)</td><td>0.18 s (stop)</td></tr>
 <tr><th scope="row">Back to a working agent</th><td class="us">0.57 s</td><td>0.71 s</td><td>1.28 s</td><td>2.01 s</td></tr>
 <tr><th scope="row">The same programs running afterwards</th><td class="us">Yes — same process, same screen</td><td>No — restarted</td><td>No — restarted</td><td>No — restarted</td></tr>
@@ -205,7 +629,7 @@
 <tr><th scope="row">Survives a restart of the app that runs it</th><td class="us"><span aria-hidden="true">●</span><span class="sr">Yes</span></td><td><span aria-hidden="true">—</span><span class="sr">No</span></td><td><span aria-hidden="true">—</span><span class="sr">No</span></td><td><span aria-hidden="true">—</span><span class="sr">No</span></td></tr>
 <tr><th scope="row">No network card — the only way out is a proxy</th><td class="us"><span aria-hidden="true">●</span><span class="sr">Yes</span></td><td><span aria-hidden="true">—</span><span class="sr">No</span></td><td><span aria-hidden="true">—</span><span class="sr">No</span></td><td><span aria-hidden="true">—</span><span class="sr">No</span></td></tr>
 <tr><th scope="row">Blocks the network by default, with rules per sandbox</th><td class="us"><span aria-hidden="true">●</span><span class="sr">Yes</span></td><td><span aria-hidden="true">—</span><span class="sr">No</span></td><td><span aria-hidden="true">●</span><span class="sr">Yes</span></td><td><span aria-hidden="true">—</span><span class="sr">No</span></td></tr>
-<tr><th scope="row">Your keys never enter the sandbox</th><td class="us"><span aria-hidden="true">●</span><span class="sr">Yes</span></td><td><span aria-hidden="true">—</span><span class="sr">No</span></td><td><span aria-hidden="true">●</span><span class="sr">Yes</span></td><td><span aria-hidden="true">—</span><span class="sr">No</span></td></tr>
+<tr><th scope="row">Keys the tool holds never enter the sandbox</th><td class="us"><span aria-hidden="true">●</span><span class="sr">Yes</span></td><td><span aria-hidden="true">—</span><span class="sr">No</span></td><td><span aria-hidden="true">●</span><span class="sr">Yes</span></td><td><span aria-hidden="true">—</span><span class="sr">No</span></td></tr>
 <tr><th scope="row">Every connection logged</th><td class="us"><span aria-hidden="true">●</span><span class="sr">Yes</span></td><td><span aria-hidden="true">—</span><span class="sr">No</span></td><td><span aria-hidden="true">●</span><span class="sr">Yes</span></td><td><span aria-hidden="true">—</span><span class="sr">No</span></td></tr>
 </tbody></table></div>
   <p class="fine foot-note reveal">Versions: Docker Desktop 4.91.0, Docker Sandboxes (sbx) 0.38.0, Apple container 1.2.2, and an earlier Dozable build. Docker Sandboxes' network and key rows are from its documentation; everything else was measured. One machine's numbers — yours will differ.</p>
