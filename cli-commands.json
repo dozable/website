@@ -11,22 +11,22 @@
  },
  {
   "cmd": "doz uninstall",
-  "desc": "Remove Dozable from this Mac: the store, the settings and the installed doz — listed first, asked once.",
+  "desc": "Remove Dozable from this Mac: the store, the settings and the installed doz \u2014 listed first, asked once.",
   "manual": "https://dozable.com/docs/install-upgrade-uninstall"
  },
  {
   "cmd": "doz upgrade",
-  "desc": "Look for a newer doz on your channel and install it (Homebrew: brew upgrade; a tarball install: the signed download) — asks first; -y does not.",
+  "desc": "Look for a newer doz on your channel and install it (Homebrew: brew upgrade; a tarball install: the signed download) \u2014 asks first; -y does not.",
   "manual": "https://dozable.com/docs/install-upgrade-uninstall"
  },
  {
   "cmd": "doz new",
-  "desc": "The quickest way in: a new sandbox with every default — created, started and attached.",
+  "desc": "The quickest way in: a new sandbox with every default \u2014 created, started and attached.",
   "manual": "https://dozable.com/docs/sandboxes-and-lifecycle"
  },
  {
   "cmd": "doz try",
-  "desc": "Try an agent now: a throwaway sandbox with safe defaults — made, started and attached in one command.",
+  "desc": "Try an agent now: a throwaway sandbox with safe defaults \u2014 made, started and attached in one command.",
   "manual": "https://dozable.com/docs/more-agents"
  },
  {
@@ -56,12 +56,12 @@
  },
  {
   "cmd": "doz down",
-  "desc": "Put a sandbox away: hibernate it (the default — RAM returned, sessions come back on up), or --sleep, or --shutdown.",
+  "desc": "Put a sandbox away: hibernate it (the default \u2014 RAM returned, sessions come back on up), or --sleep, or --shutdown.",
   "manual": "https://dozable.com/docs/sandboxes-and-lifecycle"
  },
  {
   "cmd": "doz start",
-  "desc": "Boot a sandbox — or wake it, if it is asleep; resume it if paused.",
+  "desc": "Boot a sandbox \u2014 or wake it, if it is asleep; resume it if paused.",
   "manual": "https://dozable.com/docs/sandboxes-and-lifecycle"
  },
  {
@@ -81,7 +81,7 @@
  },
  {
   "cmd": "doz hibernate",
-  "desc": "Hibernate: snapshot to disk and stop the VM — RAM returned; sessions come back on wake.",
+  "desc": "Hibernate: snapshot to disk and stop the VM \u2014 RAM returned; sessions come back on wake.",
   "manual": "https://dozable.com/docs/sandboxes-and-lifecycle"
  },
  {
@@ -181,7 +181,7 @@
  },
  {
   "cmd": "doz key",
-  "desc": "Credentials held by the host's proxy — the sandbox only ever sees a placeholder.",
+  "desc": "Credentials held by the host's proxy \u2014 the sandbox only ever sees a placeholder.",
   "manual": "https://dozable.com/docs/agents-and-accounts"
  },
  {
@@ -200,8 +200,8 @@
   "manual": "https://dozable.com/docs/troubleshooting-and-faq"
  },
  {
-  "cmd": "doz host",
-  "desc": "The per-user host that owns every running sandbox (started for you; exits when idle).",
+  "cmd": "doz daemon login-item",
+  "desc": "Start the daemon at login: doz daemon login-item on.",
   "manual": "https://dozable.com/docs/sandboxes-and-lifecycle"
  },
  {
@@ -216,7 +216,7 @@
  },
  {
   "cmd": "doz base",
-  "desc": "The recommended bases a sandbox's image is made from (an image is a base × an agent).",
+  "desc": "The recommended bases a sandbox's image is made from (an image is a base \u00d7 an agent).",
   "manual": "https://dozable.com/docs/images-and-bases"
  },
  {
@@ -236,12 +236,12 @@
  },
  {
   "cmd": "doz builder start",
-  "desc": "Start Apple's container services (container system start --enable-kernel-install) — asks first.",
+  "desc": "Start Apple's container services (container system start --enable-kernel-install) \u2014 asks first.",
   "manual": "https://dozable.com/docs/images-and-bases"
  },
  {
   "cmd": "doz builder install",
-  "desc": "Install Apple's container tool: its signed package (pinned, sha256-checked) opened in macOS Installer — asks first; never sudo.",
+  "desc": "Install Apple's container tool: its signed package (pinned, sha256-checked) opened in macOS Installer \u2014 asks first; never sudo.",
   "manual": "https://dozable.com/docs/images-and-bases"
  },
  {
@@ -311,12 +311,12 @@
  },
  {
   "cmd": "doz net allow",
-  "desc": "Switch permissions on (install:python, web, update, …; install = every ecosystem), allow a site (site:api.example.com), or set a preset (standard, locked, open).",
+  "desc": "Switch permissions on (install:python, web, update, \u2026; install = every ecosystem), allow a site (site:api.example.com), or set a preset (standard, locked, open).",
   "manual": "https://dozable.com/docs/permissions-and-network"
  },
  {
   "cmd": "doz net deny",
-  "desc": "Switch permissions off (web, update, install:node, …) or deny a site (site:HOST).",
+  "desc": "Switch permissions off (web, update, install:node, \u2026) or deny a site (site:HOST).",
   "manual": "https://dozable.com/docs/permissions-and-network"
  },
  {
@@ -331,12 +331,12 @@
  },
  {
   "cmd": "doz net log",
-  "desc": "The connection log (metadata only: host, verdict, rule, bytes — never contents).",
+  "desc": "The connection log (metadata only: host, verdict, rule, bytes \u2014 never contents).",
   "manual": "https://dozable.com/docs/permissions-and-network"
  },
  {
   "cmd": "doz key set",
-  "desc": "Give a proxied sandbox a key: read from stdin (or a prompt) or the keychain — never an argument.",
+  "desc": "Give a proxied sandbox a key: read from stdin (or a prompt) or the keychain \u2014 never an argument.",
   "manual": "https://dozable.com/docs/agents-and-accounts"
  },
  {
@@ -371,7 +371,7 @@
  },
  {
   "cmd": "doz account show",
-  "desc": "One account: its kind, where its key comes from and the last read — never a secret.",
+  "desc": "One account: its kind, where its key comes from and the last read \u2014 never a secret.",
   "manual": "https://dozable.com/docs/agents-and-accounts"
  },
  {
@@ -401,7 +401,7 @@
  },
  {
   "cmd": "doz access",
-  "desc": "Every credential sandboxes can use — the Claude account, GitHub as you, the SSH agent — confirmed live; set a choice.",
+  "desc": "Every credential sandboxes can use \u2014 the Claude account, GitHub as you, the SSH agent \u2014 confirmed live; set a choice.",
   "manual": "https://dozable.com/docs/agents-and-accounts"
  },
  {
@@ -411,7 +411,7 @@
  },
  {
   "cmd": "doz access set",
-  "desc": "Change an Access choice (the defaults for new sandboxes) and confirm it — failures are said, never blocking.",
+  "desc": "Change an Access choice (the defaults for new sandboxes) and confirm it \u2014 failures are said, never blocking.",
   "manual": "https://dozable.com/docs/agents-and-accounts"
  },
  {
@@ -426,7 +426,7 @@
  },
  {
   "cmd": "doz ignore check",
-  "desc": "Which rule decides each path — locked, hidden, read-only or visible — and from which line of which file.",
+  "desc": "Which rule decides each path \u2014 locked, hidden, read-only or visible \u2014 and from which line of which file.",
   "manual": "https://dozable.com/docs/workspace-rules"
  },
  {
@@ -445,28 +445,28 @@
   "manual": "https://dozable.com/docs/web-ports"
  },
  {
-  "cmd": "doz host start",
-  "desc": "Start the host (detached, unless --foreground).",
+  "cmd": "doz daemon start",
+  "desc": "Start the doz daemon, detached.",
   "manual": "https://dozable.com/docs/sandboxes-and-lifecycle"
  },
  {
-  "cmd": "doz host stop",
-  "desc": "Hibernate every running sandbox and stop the host (the next command starts a new one; wake brings each back).",
+  "cmd": "doz daemon stop",
+  "desc": "Stop the doz daemon (the next command starts a new one).",
   "manual": "https://dozable.com/docs/sandboxes-and-lifecycle"
  },
  {
-  "cmd": "doz host restart",
-  "desc": "Stop the host (running sandboxes hibernate) and start it again — on this doz's build (after an update).",
+  "cmd": "doz daemon restart",
+  "desc": "Stop the daemon and start it again, on this doz's build (after an update).",
   "manual": "https://dozable.com/docs/sandboxes-and-lifecycle"
  },
  {
-  "cmd": "doz host status",
-  "desc": "Is a host running, and what does it hold?",
+  "cmd": "doz daemon status",
+  "desc": "Is a daemon running, and what does it hold?",
   "manual": "https://dozable.com/docs/sandboxes-and-lifecycle"
  },
  {
-  "cmd": "doz host upgrade-check",
-  "desc": "After an upgrade: is a host of an older build still running?",
+  "cmd": "doz daemon upgrade-check",
+  "desc": "After an upgrade: is a daemon of an older build still running?",
   "manual": "https://dozable.com/docs/sandboxes-and-lifecycle"
  },
  {
@@ -481,12 +481,12 @@
  },
  {
   "cmd": "doz ui restart",
-  "desc": "Restart the running UI of this store — the same port (or a changed ui.port), open pages stay signed in and reconnect by themselves.",
+  "desc": "Restart the running UI of this store \u2014 the same port (or a changed ui.port), open pages stay signed in and reconnect by themselves.",
   "manual": "https://dozable.com/docs/the-dashboard"
  },
  {
   "cmd": "doz ui start",
-  "desc": "Start the UI (the default) — or, when one runs for this store, open a new link to it.",
+  "desc": "Start the UI (the default) \u2014 or, when one runs for this store, open a new link to it.",
   "manual": "https://dozable.com/docs/the-dashboard"
  },
  {
@@ -526,7 +526,7 @@
  },
  {
   "cmd": "doz serve start",
-  "desc": "Start serving (the default) — or, when doz serve runs for this store, say where.",
+  "desc": "Start serving (the default) \u2014 or, when doz serve runs for this store, say where.",
   "manual": "https://dozable.com/docs/doz-serve"
  },
  {
@@ -591,7 +591,7 @@
  },
  {
   "cmd": "doz config init",
-  "desc": "Write the settings file: every setting with its default commented out — an agent's own once one of them is set (an existing file keeps its values and gains any new settings).",
+  "desc": "Write the settings file: every setting with its default commented out \u2014 an agent's own once one of them is set (an existing file keeps its values and gains any new settings).",
   "manual": "https://dozable.com/docs/settings-reference"
  },
  {
@@ -616,7 +616,7 @@
  },
  {
   "cmd": "doz signup",
-  "desc": "Sign up for news from Dozable — release news, early access, tips and tricks (optional; an email, confirmed before anything is sent).",
+  "desc": "Sign up for news from Dozable \u2014 release news, early access, tips and tricks (optional; an email, confirmed before anything is sent).",
   "manual": "https://dozable.com/docs/getting-started"
  },
  {

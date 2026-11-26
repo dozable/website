@@ -27,11 +27,11 @@ Apple silicon Mac · macOS 26 or later · [Homebrew](https://brew.sh)
 - **1** **Unit of work** Each has a goal and a journal: tasks, claims, reviews, findings, outcome. At the end, propose a lesson. It changes nothing until you approve it, then every later unit of work opens with it.
 - **1** **Page** Every workspace is drawn, with what is happening now marked on it and what is waiting on you first. Drag to arrange it in the editor; export the file (YAML) or the drawing (SVG, PNG).
 
-You write the process in the brief; Dozable records it. Try `doz workspace templates`, then `doz workspace new app --template solo --folder ~/code/app`. A workspace can be a file in git: `doz workspace plan -f FILE`, then `doz workspace up -f FILE`.
+You write the process in the brief; Dozable records it. To try it: `doz chat on`, then `mkdir -p ~/code/app && doz workspace new app --template solo --folder ~/code/app`. See the templates with `doz workspace templates`; Build & review, Fix-it team and Remotion video need a manager, so add `--manager BOT`. The workspace’s file, `app.space.yaml`, is written to `defaults.projects_dir` (`~/doz-workspaces` by default), not to your folder. Keep it in git if you like: `doz workspace plan -f FILE`, then `doz workspace up -f FILE`.
 
 ## A dashboard for every workspace.
 
-The dashboard opens on your workspaces, with what needs you first. Everything from before, your Sandboxes and their terminals, is under This Mac. In your browser or installed as an app. `doz ui` on this Mac; `doz serve` for your LAN, home-lab and Tailscale devices.
+The dashboard opens on your workspaces, with what needs you first. Everything from before, your Sandboxes and their terminals, is under This Mac. In your browser or installed as an app. `doz ui` on this Mac; `doz ui --lan` for your LAN, home-lab and Tailscale devices.
 
 ![A typical workspace on Ada's Mac, drawn by Dozable: a manager bot and the chat server hosting the workspace's room; a reviewer fenced on the Mac, its proxy swapping in the real token; a builder and a tester sharing one Sandbox with the project at /workspace; the project folder, a scratch folder and the run's archive; and Ada at the dashboard](https://dozable.com/blog/images/doz-v0.60/workspace.jpg)
 
@@ -81,13 +81,13 @@ The dashboard opens on your workspaces, with what needs you first. Everything fr
 
 Each workspace has a room where you and its agents talk: Claude Code, Codex, OpenCode, pi and more, whichever vendor they come from. You join in the dashboard or a terminal with `doz chat send` and `doz chat read`, and each agent has its own token. An agent can ask instead of guessing: an Ask waits for your answer, can be declined and expires. Messages, reactions and attachments stay on your Mac.
 
-![Isometric drawing of a workspace's room on Ada's Mac: Dozable chat hosting the room; four agents, Claude Code, Codex, OpenCode and pi, each sending and receiving messages in it; and Ada at the dashboard.](https://dozable.com/shots/room-diagram.jpg)
+![Isometric drawing of a workspace's room on Ada's Mac: Dozable chat hosting the room; four agents, Claude Code, Codex, OpenCode and pi, each posting to it; and Ada at the dashboard.](https://dozable.com/shots/room-diagram.jpg)
 
 **One room, many agents** An illustrative room, drawn the way Dozable draws a workspace: four agents and you, talking in one room on Dozable chat. `doz chat on --name ada` turns chat on. [Chat, in the manual →](https://dozable.com/docs/chat.md)
 
 ## Or use the CLI for everything. (Or get your agent to.)
 
-Everything in the dashboard is also a command, for you and for your agents. `doz` is the whole of Dozable: run workspaces with `doz workspace`, talk in their rooms with `doz chat` and add workers with `doz worker`. Create, start, pause and wake Sandboxes, run and attach to their sessions, and manage their network, keys, images and restore points. Every command is in the [manual](https://dozable.com/docs/index.md). It even hosts its own web app: `doz ui` on your Mac, `doz serve` for your LAN, home-lab and Tailscale connected devices.
+Everything in the dashboard is also a command, for you and for your agents. `doz` is the whole of Dozable: run workspaces with `doz workspace`, talk in their rooms with `doz chat` and add workers with `doz worker`. Create, start, pause and wake Sandboxes, run and attach to their sessions, and manage their network, keys, images and restore points. Every command is in the [manual](https://dozable.com/docs/index.md). It even hosts its own web app: `doz ui` on your Mac, `doz ui --lan` for your LAN, home-lab and Tailscale connected devices.
 
 - `doz onboard` — Set up this Mac for Dozable (once): check it, choose and confirm Access (the Claude account, GitHub, the SSH agent), choose what workspace rules do, write the settings, prepare images in the background. ([manual](https://dozable.com/docs/setting-up.md))
 - `doz init` — Make a folder a Dozable project: write doz_project.yaml there (onboarding this Mac first if it never was). ([manual](https://dozable.com/docs/projects.md))
@@ -129,7 +129,7 @@ Everything in the dashboard is also a command, for you and for your agents. `doz
 - `doz account` — Accounts the host holds for sandboxes: the Mac's Claude login, setup tokens, API keys; for Codex, a ChatGPT sign-in or an OpenAI key. ([manual](https://dozable.com/docs/agents-and-accounts.md))
 - `doz metrics` — Lifecycle timings recorded by the host: per action count, median, p90, min, max, failures. ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
 - `doz doctor` — Check this Mac and the store: macOS, Apple silicon, the entitlement, the kernel, vmnet, disk, the host. ([manual](https://dozable.com/docs/troubleshooting-and-faq.md))
-- `doz host` — The per-user host that owns every running sandbox (started for you; exits when idle). ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
+- `doz daemon login-item` — Start the daemon at login: doz daemon login-item on. ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
 - `doz events` — Follow what the host does: phases, timed steps, notes (Ctrl-C stops). ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
 - `doz console` — Show a sandbox's boot console (the kernel and init); --follow keeps printing it as it boots (Ctrl-C stops). ([manual](https://dozable.com/docs/terminals-and-sessions.md))
 - `doz base` — The recommended bases a sandbox's image is made from (an image is a base × an agent). ([manual](https://dozable.com/docs/images-and-bases.md))
@@ -178,11 +178,11 @@ Everything in the dashboard is also a command, for you and for your agents. `doz
 - `doz ignore show` — A sandbox's workspace rules: every pattern with its line, the mode, warnings, and whether the view runs in the sandbox. ([manual](https://dozable.com/docs/workspace-rules.md))
 - `doz ports` — A sandbox's web ports on this Mac: list them, add one, remove one. ([manual](https://dozable.com/docs/web-ports.md))
 - `doz open` — Open a sandbox's web port in this Mac's browser (its first web port, or PORT). ([manual](https://dozable.com/docs/web-ports.md))
-- `doz host start` — Start the host (detached, unless --foreground). ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
-- `doz host stop` — Hibernate every running sandbox and stop the host (the next command starts a new one; wake brings each back). ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
-- `doz host restart` — Stop the host (running sandboxes hibernate) and start it again — on this doz's build (after an update). ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
-- `doz host status` — Is a host running, and what does it hold? ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
-- `doz host upgrade-check` — After an upgrade: is a host of an older build still running? ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
+- `doz daemon start` — Start the doz daemon, detached. ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
+- `doz daemon stop` — Stop the doz daemon (the next command starts a new one). ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
+- `doz daemon restart` — Stop the daemon and start it again, on this doz's build (after an update). ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
+- `doz daemon status` — Is a daemon running, and what does it hold? ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
+- `doz daemon upgrade-check` — After an upgrade: is a daemon of an older build still running? ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
 - `doz ui` — A local web dashboard for this store: sandboxes, sessions, terminals, images, restore points, network, accounts, metrics, events. ([manual](https://dozable.com/docs/the-dashboard.md))
 - `doz ui link` — A new one-use link to the running UI of this store (opened, or printed with --print-url). ([manual](https://dozable.com/docs/the-dashboard.md))
 - `doz ui restart` — Restart the running UI of this store — the same port (or a changed ui.port), open pages stay signed in and reconnect by themselves. ([manual](https://dozable.com/docs/the-dashboard.md))
@@ -220,7 +220,7 @@ Everything in the dashboard is also a command, for you and for your agents. `doz
 - `doz resources kernel` — The kernel NEW sandboxes boot: a kernel:<version> doz resources lists, or pinned (this build's). ([manual](https://dozable.com/docs/resources-and-disk-space.md))
 - **For people** Readable output, live progress, and a question before anything is deleted.
 - **For agents** Let the agents you trust sandbox the ones you don't: Claude Code or Codex on your Mac can create, watch and clean up sandboxes for you — every command takes `--json`, with exit codes to act on. [Prompts for your agent →](https://dozable.com/docs/prompts-for-your-agent.md)
-- **Hosts its own web app** `doz ui` opens the dashboard; `doz serve` shares it with your other browsers, by invite.
+- **Hosts its own web app** `doz ui` opens the dashboard; `doz ui share` shares it with your other browsers, by invite.
 
 ## How it compares.
 
@@ -254,7 +254,7 @@ In a Sandbox, or fenced to its folder on your Mac. An agent runs outside the fen
 
 ## Every connection. A policy you can read.
 
-A sandbox has no network card. The proxy on your Mac judges every connection against permissions you can read and change with doz net permissions.
+A sandbox has no network card. The proxy on your Mac judges every connection against permissions you read with doz net permissions and change with doz net allow or doz net deny.
 
 ## The keys Dozable holds never go in.
 
@@ -270,7 +270,7 @@ Its programs, sessions and terminal screens are as you left them. After a crash,
 
 ## On every screen you own.
 
-doz serve shows the same dashboard to your other computers, tablets and phones on your network, admitted with an invite or a QR code.
+doz ui share shows the same dashboard to your other computers, tablets and phones on your network, admitted with an invite or a QR code.
 
 ## Undo is instant.
 
@@ -284,11 +284,11 @@ Claude Code, Codex, OpenCode, pi and more run ready to work, told where they run
 
 ### Build & review
 
-- Start from the Build & review template. The agents build and review in one room, and you watch, talk to them and decide what matters.
+- Start from the Build & review template, with a manager (`--manager BOT`). The agents build and review in one room, and you watch, talk to them and decide what matters.
 
 ### A fix-it team
 
-- Start from the Fix-it team template with a brief like “Fix the failing test”. A manager hands the work to helpers, and each reports back in the room.
+- Start from the Fix-it team template (it needs `--manager BOT`) with a brief like “Fix the failing test”. A manager hands the work to helpers, and each reports back in the room.
 
 ### A risky change, in a Sandbox
 
@@ -306,11 +306,11 @@ brew install dozable/tap/doz
 doz ui
 ```
 
-Prefer the terminal? Run `doz onboard` once, then `doz up` in a project folder.
+Prefer the terminal? Run `doz onboard` once, then `doz init` and `doz up` in a project folder.
 
 ### Requirements
 
-- Apple silicon. macOS 26 or later. [Homebrew](https://brew.sh). For an agent, an account it can use.
+- Apple silicon. macOS 26 or later. [Homebrew](https://brew.sh). For an agent, an account it can use: agents use this Mac’s Claude login, or an account you add.
 
 ### Channels
 
@@ -329,7 +329,7 @@ Prefer the terminal? Run `doz onboard` once, then `doz up` in a project folder.
 - **Claude Code, Codex, OpenCode, pi** Sessions outlive your terminal.
 - **No network card** Every connection goes through a policy you can read. The keys Dozable holds never go in.
 - **.dozignore, .dozreadonly** Lock files, or make them read-only.
-- **doz serve** The dashboard on your LAN, with invites and QR codes.
+- **doz ui share** The dashboard on your LAN, with invites and QR codes.
 - **Pause, resume** A paused Sandbox picks up where it left off.
 - **Crash recovery** Back, with their sessions.
 - **Permissions** Readable and editable.
