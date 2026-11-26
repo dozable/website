@@ -495,48 +495,13 @@
   "manual": "https://dozable.com/docs/the-dashboard"
  },
  {
-  "cmd": "doz serve",
-  "desc": "The dashboard for your other computers, tablets and phones: http://<this Mac>.local:7443 on your network.",
+  "cmd": "doz ui --lan",
+  "desc": "The same dashboard for your other computers, tablets and phones: http://<this Mac>.local:7443 on your network.",
   "manual": "https://dozable.com/docs/doz-serve"
  },
  {
-  "cmd": "doz serve devices",
-  "desc": "The browsers let in: name, when first and last seen, from where, which browser.",
-  "manual": "https://dozable.com/docs/doz-serve"
- },
- {
-  "cmd": "doz serve log",
-  "desc": "What the other browsers did (the audit log): admissions, changes, terminals, refusals.",
-  "manual": "https://dozable.com/docs/doz-serve"
- },
- {
-  "cmd": "doz serve rename",
-  "desc": "Give a browser a name you will recognise (\"Kitchen iPad\").",
-  "manual": "https://dozable.com/docs/doz-serve"
- },
- {
-  "cmd": "doz serve revoke",
-  "desc": "Remove a browser (by its ID from doz serve devices), or --all: it is signed out at once and needs a new invite.",
-  "manual": "https://dozable.com/docs/doz-serve"
- },
- {
-  "cmd": "doz serve share",
+  "cmd": "doz ui share",
   "desc": "An invite for one more browser: a QR code, a short code and a link (each works once, for five minutes).",
-  "manual": "https://dozable.com/docs/doz-serve"
- },
- {
-  "cmd": "doz serve start",
-  "desc": "Start serving (the default) \u2014 or, when doz serve runs for this store, say where.",
-  "manual": "https://dozable.com/docs/doz-serve"
- },
- {
-  "cmd": "doz serve status",
-  "desc": "Whether doz serve runs for this store, where, and how many browsers are let in.",
-  "manual": "https://dozable.com/docs/doz-serve"
- },
- {
-  "cmd": "doz serve stop",
-  "desc": "Stop the running doz serve of this store (its browsers stay let in for the next one).",
   "manual": "https://dozable.com/docs/doz-serve"
  },
  {

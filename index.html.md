@@ -1,6 +1,6 @@
 ---
 title: "Dozable — workspaces for your agent teamwork"
-description: "Dozable runs teams of AI coding agents on your Mac, in workspaces: the agents, their room, their folders and a brief. Claude Code, Codex, OpenCode, pi and more run where you choose, in a Sandbox or fenced to a folder. Free and open source."
+description: "Run teams of AI coding agents on your Mac. Bring your own process, put Claude Code, Codex, OpenCode, pi and more in one chat room, and see the whole workspace as a diagram with a live view. Free and open source."
 url: https://dozable.com/
 image: https://dozable.com/og-image.png
 ---
@@ -33,11 +33,11 @@ You write the process in the brief; Dozable records it. To try it: `doz chat on`
 
 The dashboard opens on your workspaces, with what needs you first. Everything from before, your Sandboxes and their terminals, is under This Mac. In your browser or installed as an app. `doz ui` on this Mac; `doz ui --lan` for your LAN, home-lab and Tailscale devices.
 
-![A typical workspace on Ada's Mac, drawn by Dozable: a manager bot and the chat server hosting the workspace's room; a reviewer fenced on the Mac, its proxy swapping in the real token; a builder and a tester sharing one Sandbox with the project at /workspace; the project folder, a scratch folder and the run's archive; and Ada at the dashboard](https://dozable.com/blog/images/doz-v0.60/workspace.jpg)
+![A typical workspace on Ada's Mac, drawn by Dozable: a manager bot and the chat server hosting the workspace's room; a reviewer isolated on the Mac, its proxy swapping in the real token; a builder and a tester sharing one Sandbox with the project at /workspace; the project folder, a scratch folder and the run's archive; and Ada at the dashboard](https://dozable.com/blog/images/doz-v0.60/workspace.jpg)
 
 **A workspace, drawn by Dozable** A typical workspace: a manager and three agents, their room, the folders they work in, and you at the dashboard. The same drawing is on every workspace’s Home tab.
 
-![A workspace's Home tab in the dashboard: a One agent workspace drawn across the top with its agent's open question marked on it, then Needs you with that Ask, the state and run, the fenced agent, the room's latest lines and recent activity](https://dozable.com/blog/images/doz-v0.60/workspace-page.jpg)
+![A workspace's Home tab in the dashboard: a One agent workspace drawn across the top with its agent's open question marked on it, then Needs you with that Ask, the state and run, the isolated agent, the room's latest lines and recent activity](https://dozable.com/blog/images/doz-v0.60/workspace-page.jpg)
 
 **A workspace, on its Home tab** The drawing across the top with what is happening now marked on it, then what needs you first, the room’s latest lines and recent activity.
 
@@ -47,7 +47,7 @@ The dashboard opens on your workspaces, with what needs you first. Everything fr
 
 ![A running sandbox's page with a terminal showing a passing test run, lifecycle buttons above it and an overview panel on the right.](https://dozable.com/shots/ui-sandbox-terminal.jpg)
 
-**A live terminal, in your browser** Pause, sleep or hibernate from the sandbox's own page, with its terminal and details beside it.
+**A live terminal, in your browser** Pause or sleep from the sandbox's own page, with its terminal and details beside it.
 
 ![A sandbox page where the agent's session tab carries a blue working badge, and the sidebar marks the sandbox.](https://dozable.com/shots/ui-agent-working-claude.jpg)
 
@@ -188,15 +188,8 @@ Everything in the dashboard is also a command, for you and for your agents. `doz
 - `doz ui restart` — Restart the running UI of this store — the same port (or a changed ui.port), open pages stay signed in and reconnect by themselves. ([manual](https://dozable.com/docs/the-dashboard.md))
 - `doz ui start` — Start the UI (the default) — or, when one runs for this store, open a new link to it. ([manual](https://dozable.com/docs/the-dashboard.md))
 - `doz ui stop` — Stop the running UI of this store (a detached one, or one in another terminal); its open pages say it stopped. ([manual](https://dozable.com/docs/the-dashboard.md))
-- `doz serve` — The dashboard for your other computers, tablets and phones: http://<this Mac>.local:7443 on your network. ([manual](https://dozable.com/docs/doz-serve.md))
-- `doz serve devices` — The browsers let in: name, when first and last seen, from where, which browser. ([manual](https://dozable.com/docs/doz-serve.md))
-- `doz serve log` — What the other browsers did (the audit log): admissions, changes, terminals, refusals. ([manual](https://dozable.com/docs/doz-serve.md))
-- `doz serve rename` — Give a browser a name you will recognise ("Kitchen iPad"). ([manual](https://dozable.com/docs/doz-serve.md))
-- `doz serve revoke` — Remove a browser (by its ID from doz serve devices), or --all: it is signed out at once and needs a new invite. ([manual](https://dozable.com/docs/doz-serve.md))
-- `doz serve share` — An invite for one more browser: a QR code, a short code and a link (each works once, for five minutes). ([manual](https://dozable.com/docs/doz-serve.md))
-- `doz serve start` — Start serving (the default) — or, when doz serve runs for this store, say where. ([manual](https://dozable.com/docs/doz-serve.md))
-- `doz serve status` — Whether doz serve runs for this store, where, and how many browsers are let in. ([manual](https://dozable.com/docs/doz-serve.md))
-- `doz serve stop` — Stop the running doz serve of this store (its browsers stay let in for the next one). ([manual](https://dozable.com/docs/doz-serve.md))
+- `doz ui --lan` — The same dashboard for your other computers, tablets and phones: http://<this Mac>.local:7443 on your network. ([manual](https://dozable.com/docs/doz-serve.md))
+- `doz ui share` — An invite for one more browser: a QR code, a short code and a link (each works once, for five minutes). ([manual](https://dozable.com/docs/doz-serve.md))
 - `doz template` — Templates: a sandbox's root disk saved as an image other sandboxes are created from (never its state disk). ([manual](https://dozable.com/docs/restore-points-duplicates-templates.md))
 - `doz template create` — Save a sandbox's root disk (now, or a restore point's) as a template. ([manual](https://dozable.com/docs/restore-points-duplicates-templates.md))
 - `doz template ls` — The templates in this store. ([manual](https://dozable.com/docs/restore-points-duplicates-templates.md))
@@ -230,7 +223,7 @@ A Claude Code sandbox, measured by us on an M3 MacBook Air (24 GB, macOS 27) in 
 |---|---|---|---|---|
 | Start, to Claude Code's first screen | 1.46 s | 0.78 s | 5.12 s | 2.24 s |
 | Pause and resume, memory kept | Pauses and resumes in milliseconds | about 35 ms | not offered | not offered |
-| Put away, memory freed | 1.16 s (hibernate) | 0.12 s (stop) | 5.31 s (stop) | 0.18 s (stop) |
+| Put away, memory freed | 1.16 s (to disk) | 0.12 s (stop) | 5.31 s (stop) | 0.18 s (stop) |
 | Back to a working agent | 0.57 s | 0.71 s | 1.28 s | 2.01 s |
 | The same programs running afterwards | Yes — same process, same screen | No — restarted | No — restarted | No — restarted |
 
@@ -239,7 +232,7 @@ Dozable is slower to start cold and to put away — it writes the sandbox's memo
 | Measure | Dozable | Docker containers | Docker Sandboxes | Apple container |
 |---|---|---|---|---|
 | Its own virtual machine per sandbox | Yes | No (one shared VM) | Yes | Yes |
-| Hibernate and wake with programs still running | Yes | No | No | No |
+| Put away and wake with programs still running | Yes | No | No | No |
 | Survives a restart of the app that runs it | Yes | No | No | No |
 | No network card — the only way out is a proxy | Yes | No | No | No |
 | Blocks the network by default, with rules per sandbox | Yes | No | Yes | No |
@@ -250,7 +243,7 @@ Versions: Docker Desktop 4.91.0, Docker Sandboxes (sbx) 0.38.0, Apple container 
 
 ## You choose where each agent runs. The VM is the boundary.
 
-In a Sandbox, or fenced to its folder on your Mac. An agent runs outside the fence, as you, only when you name it and confirm. Each Sandbox is its own Linux virtual machine on Apple's Virtualization framework, with your project folder inside it. Run Claude Code, Codex, OpenCode or pi with its permission prompts off.
+In a Sandbox, or isolated to its folder on your Mac. An agent runs outside that isolation, as you, only when you name it and confirm. Each Sandbox is its own Linux virtual machine on Apple's Virtualization framework, with your project folder inside it. Run Claude Code, Codex, OpenCode or pi with its permission prompts off.
 
 ## Every connection. A policy you can read.
 
