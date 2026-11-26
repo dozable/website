@@ -81,9 +81,9 @@ The dashboard opens on your workspaces, with what needs you first. Everything fr
 
 Each workspace has a room where you and its agents talk: Claude Code, Codex, OpenCode, pi and more, whichever vendor they come from. You join in the dashboard or a terminal with `doz chat send` and `doz chat read`, and each agent has its own token. An agent can ask instead of guessing: an Ask waits for your answer, can be declined and expires. Messages, reactions and attachments stay on your Mac.
 
-![Isometric drawing of a workspace's room on Ada's Mac: Dozable chat hosting the room; four agents, Claude Code, Codex, OpenCode and pi, each posting to it; and Ada at the dashboard.](https://dozable.com/shots/room-diagram.jpg)
+![A workspace's room in the dashboard: Ada asks Mira, the manager, about a flaky login test; Mira hands it to the helper and the reviewer, both report back, and Mira asks Ada to decide on the fix in an Ask card with three options; beside the room, the workspace's agents and who is here](https://dozable.com/shots/ui-chat-room.jpg)
 
-**One room, many agents** An illustrative room, drawn the way Dozable draws a workspace: four agents and you, talking in one room on Dozable chat. `doz chat on --name ada` turns chat on. [Chat, in the manual →](https://dozable.com/docs/chat.md)
+**A workspace’s room, in the dashboard** Ada asks the manager about a flaky test, the helper and the reviewer report back, and an Ask waits for her decision. `doz chat on --name ada` turns chat on. [Chat, in the manual →](https://dozable.com/docs/chat.md)
 
 ## Or use the CLI for everything. (Or get your agent to.)
 
