@@ -1,6 +1,6 @@
 # Dozable
 
-> Dozable runs teams of AI coding agents on your Mac. Each agent runs where you choose: in its own micro VM or held to its folder on your Mac, where your keys never go inside, or as you. Free and open source.
+> Run a team of AI coding agents on your Mac. A workspace holds the agents, their room, the folders they work in and a brief. They take on one unit of work at a time, each recorded in a journal, and the lessons you approve carry into the next. Free and open source.
 
 The user manual for Dozable, which runs teams of AI coding agents on your Mac: install, set up, make workspaces, and run each agent in its own micro VM or held to its folder, with the doz command or its dashboard.
 
@@ -57,6 +57,7 @@ Pages have Markdown twins: add `.md` to a page URL (`/docs/` is `/docs/index.md`
 ## Blog
 
 - [Blog index](https://dozable.com/blog/index.md): news, early access, tips and tricks.
+- [Dozable 0.60 - workspaces for your agent teamwork](https://dozable.com/blog/doz-v0.60.md): Dozable 0.60 runs teams of AI coding agents in workspaces, with a brief, a room, a manager and workers, one unit of work at a time, a journal of each, and the lessons you approve carried into the next.
 - [Dozable 0.51 - chat rooms, and fenced sessions on your Mac](https://dozable.com/blog/doz-v0.51.md): Dozable 0.51 adds chat rooms for you and your agents, fences sessions on your Mac by default, keeps the daemon running with a menu bar app, and can publish the dashboard on your tailnet.
 - [Working together with Grok Bot in a Claude Code session, enabled by Dozable](https://dozable.com/blog/grok-bot-claude-dozable.md): Claude Code superpowers granted to your Grok Bots.
 - [Dozable 0.37 - sessions on this Mac](https://dozable.com/blog/doz-v0.37.md): Dozable 0.37 holds sessions on this Mac for work a Linux sandbox cannot do, and adds Claude Code with local models, your own recipes, and dotfiles in every sandbox.

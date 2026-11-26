@@ -1,6 +1,6 @@
 # Dozable — the manual and privacy policy
 
-> Dozable runs teams of AI coding agents on your Mac. Each agent runs where you choose: in its own micro VM or held to its folder on your Mac, where your keys never go inside, or as you. Free and open source.
+> Run a team of AI coding agents on your Mac. A workspace holds the agents, their room, the folders they work in and a brief. They take on one unit of work at a time, each recorded in a journal, and the lessons you approve carry into the next. Free and open source.
 
 The complete user manual (every chapter, in reading order) followed by the privacy policy. Each part starts with the URL of its page.
 

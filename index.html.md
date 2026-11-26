@@ -1,12 +1,12 @@
 ---
-title: "Dozable — sandboxes for AI coding agents"
-description: "Dozable runs teams of AI coding agents on your Mac: Claude Code, Codex, OpenCode and more. Each runs where you choose: in its own micro VM or held to its folder on your Mac, where your keys never go inside, or as you."
+title: "Dozable — workspaces for your agent teamwork"
+description: "Dozable runs teams of AI coding agents on your Mac, in workspaces: the agents, their room, their folders and a brief. Claude Code, Codex, OpenCode, pi and more run where you choose, in a Sandbox or fenced to a folder. Free and open source."
 url: https://dozable.com/
 image: https://dozable.com/og-image.png
 ---
-# Suspend AI agents Wake in 0.3s
+# Workspaces for your agent teamwork.
 
-Dozable runs teams of AI coding agents on your Mac. Each agent runs where you choose: in its own micro VM or held to its folder on your Mac, where your keys never go inside, or as you. Free and open source.
+Run a team of AI coding agents on your Mac. A workspace holds the agents, their room, the folders they work in and a brief. They take on one unit of work at a time, each recorded in a journal, and the lessons you approve carry into the next. Free and open source.
 
 Alpha Stable v0.60.4 [Version history →](https://github.com/dozable/dozable/releases)
 
@@ -16,20 +16,22 @@ brew trust --tap dozable/tap && brew install dozable/tap/doz && doz ui
 
 Apple silicon Mac · macOS 26 or later · [Homebrew](https://brew.sh)
 
+[Read what’s new in 0.60](https://dozable.com/blog/doz-v0.60) · [Getting started](https://dozable.com/docs/getting-started.md) (about 15 minutes)
+
 ![Line drawing of a bulldozer asleep, with Zs rising](https://dozable.com/dozable-sleeping.jpg)
 
-## Built for sandboxing AI agents. Everything happens in milliseconds.
+## A team of agents, in a room. One unit of work at a time.
 
-- **~0.3 s** **Start** with the image prepared
-- **~1 ms** **Pause** attached terminals freeze and continue
-- **~0.35 s** **Sleep** to disk — its memory goes back to the Mac
-- **~0.3 s** **Wake** with programs, sessions and terminal screens as they were
+- **5** **Templates** New workspace opens on five ready-made workspaces: One agent, One agent in a Sandbox, Build & review, Fix-it team and Remotion video. Pick one, press Create and start, and its agents are up in their room.
+- **1** **Room** A manager and workers, each with one task, talking with you. An agent can ask instead of guessing: an Ask waits for your answer, can be declined and expires, so nothing is taken as a yes. The room stays on your Mac.
+- **1** **Unit of work** Each has a goal and a journal: tasks, claims, reviews, findings, outcome. At the end, propose a lesson. It changes nothing until you approve it, then every later unit of work opens with it.
+- **1** **Page** Every workspace is drawn, with what is happening now marked on it and what is waiting on you first. Drag to arrange it in the editor; export the file (YAML) or the drawing (SVG, PNG).
 
-Measured on an M3, with an Alpine guest of 512 MiB to 1 GiB.
+You write the process in the brief; Dozable records it. Try `doz workspace templates`, then `doz workspace new app --template solo --folder ~/code/app`. A workspace can be a file in git: `doz workspace plan -f FILE`, then `doz workspace up -f FILE`.
 
 ## One command line does it all. For you, and for your agents.
 
-`doz` is the whole of Dozable — 129 commands to create, start, pause, sleep and wake sandboxes, run and attach to their sessions, and manage their network, keys, images and restore points. It even hosts its own web app: `doz ui` on your Mac, `doz serve` for your LAN, home-lab and Tailscale connected devices.
+`doz` is the whole of Dozable. Run workspaces with `doz workspace`, talk in their rooms with `doz chat` and add workers with `doz worker`. Create, start, pause and wake Sandboxes, run and attach to their sessions, and manage their network, keys, images and restore points. Every command is in the [manual](https://dozable.com/docs/index.md). It even hosts its own web app: `doz ui` on your Mac, `doz serve` for your LAN, home-lab and Tailscale connected devices.
 
 - `doz onboard` — Set up this Mac for Dozable (once): check it, choose and confirm Access (the Claude account, GitHub, the SSH agent), choose what workspace rules do, write the settings, prepare images in the background. ([manual](https://dozable.com/docs/setting-up.md))
 - `doz init` — Make a folder a Dozable project: write doz_project.yaml there (onboarding this Mac first if it never was). ([manual](https://dozable.com/docs/projects.md))
@@ -44,11 +46,11 @@ Measured on an M3, with an Alpine guest of 512 MiB to 1 GiB.
 - `doz up` — Create the sandbox if it is missing, start or wake it, then attach (vagrant up / compose up). ([manual](https://dozable.com/docs/projects.md))
 - `doz down` — Put a sandbox away: hibernate it (the default — RAM returned, sessions come back on up), or --sleep, or --shutdown. ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
 - `doz start` — Boot a sandbox — or wake it, if it is asleep; resume it if paused. ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
-- `doz pause` — Pause: guest CPU to 0 in ~1 ms, RAM kept. ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
+- `doz pause` — Pause: guest CPU to 0, RAM kept. ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
 - `doz resume` — Resume after pause (from sleep it wakes). ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
 - `doz sleep` — Sleep: pause + snapshot to disk; RAM kept, and it survives a host crash. ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
 - `doz hibernate` — Hibernate: snapshot to disk and stop the VM — RAM returned; sessions come back on wake. ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
-- `doz wake` — Wake from sleep or hibernation (~0.3 s), sessions and pids where they were. ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
+- `doz wake` — Wake from sleep or hibernation, sessions and pids where they were. ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
 - `doz shutdown` — Shut down: a cold stop that keeps the disk; running programs end. ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
 - `doz reset` — Reset to the image: shut down and discard the disk (restore points and the state disk stay). ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
 - `doz rm` — Remove a sandbox and everything it has on disk. ([manual](https://dozable.com/docs/sandboxes-and-lifecycle.md))
@@ -164,9 +166,9 @@ Measured on an M3, with an Alpine guest of 512 MiB to 1 GiB.
 - **For agents** Let the agents you trust sandbox the ones you don't: Claude Code or Codex on your Mac can create, watch and clean up sandboxes for you — every command takes `--json`, with exit codes to act on. [Prompts for your agent →](https://dozable.com/docs/prompts-for-your-agent.md)
 - **Hosts its own web app** `doz ui` opens the dashboard; `doz serve` shares it with your other browsers, by invite.
 
-## A dashboard for every sandbox.
+## A dashboard for every workspace.
 
-Your sandboxes and their terminals in one place, in your browser or installed as an app. `doz ui` on this Mac; `doz serve` for your LAN, home-lab and Tailscale devices.
+The dashboard opens on your workspaces, with what needs you first. Everything from before, your Sandboxes and their terminals, is under This Mac. In your browser or installed as an app. `doz ui` on this Mac; `doz serve` for your LAN, home-lab and Tailscale devices.
 
 ![The Sandboxes page: host status, memory and disk totals, and a table of seven sandboxes in different phases: hibernated, off, failed, paused, asleep and running.](https://dozable.com/shots/ui-overview.jpg)
 
@@ -230,25 +232,25 @@ Dozable is slower to start cold and to put away — it writes the sandbox's memo
 
 Versions: Docker Desktop 4.91.0, Docker Sandboxes (sbx) 0.38.0, Apple container 1.2.2, and an earlier Dozable build. Docker Sandboxes' network and key rows are from its documentation; everything else was measured. One machine's numbers — yours will differ.
 
-## The VM is the boundary.
+## You choose where each agent runs. The VM is the boundary.
 
-Each sandbox is its own Linux virtual machine on Apple's Virtualization framework, with your project folder inside it. Run Claude Code, Codex or pi with its permission prompts off.
+In a Sandbox, or fenced to its folder on your Mac. An agent runs outside the fence, as you, only when you name it and confirm. Each Sandbox is its own Linux virtual machine on Apple's Virtualization framework, with your project folder inside it. Run Claude Code, Codex, OpenCode or pi with its permission prompts off.
 
 ## Every connection. A policy you can read.
 
 A sandbox has no network card. The proxy on your Mac judges every connection against permissions you can read and change with doz net permissions.
 
-## Your keys never go in.
+## The keys Dozable holds never go in.
 
-The proxy swaps your credentials in on the way out. The sandbox only ever sees a placeholder.
+The proxy swaps your credentials in on the way out. A Sandbox only ever sees a placeholder. Secrets you write to a Sandbox's disk yourself travel with its restore points.
 
 ## Your project, at /workspace.
 
 A folder on your Mac, shared into the sandbox. Keep .env files and secrets out of reach with .dozignore, or read-only with .dozreadonly. The rules guard against accidents; they are not a security boundary.
 
-## Hibernate. Give the memory back.
+## A paused Sandbox picks up where it left off.
 
-A hibernated sandbox lets go of its memory and wakes with every program still running where it was. After a crash, sleeping sandboxes are restored with their sessions.
+Its programs, sessions and terminal screens are as you left them. After a crash, sleeping Sandboxes are restored with their sessions.
 
 ## On every screen you own.
 
@@ -258,23 +260,23 @@ doz serve shows the same dashboard to your other computers, tablets and phones o
 
 Restore points, duplicates and templates are APFS clones. Go back to a moment before the change, or fork a new sandbox from it.
 
-## Bring your agent.
+## Bring your agents.
 
-Claude Code, Codex and pi run ready to work, told where they run, with their credentials kept on your Mac.
+Claude Code, Codex, OpenCode, pi and more run ready to work, told where they run, with the credentials Dozable holds kept on your Mac. Sessions outlive your terminal.
 
-## Three things worth a sandbox.
+## Three things worth a workspace.
 
-### A risky change
+### Build & review
 
-- A dependency upgrade, a big refactor, a migration. Let a sandboxed agent work on your project folder, with a restore point to fall back to. Review it with git diff.
+- Start from the Build & review template. The agents build and review in one room, and you watch, talk to them and decide what matters.
 
-### Jail an untrusted agent
+### A fix-it team
 
-- No folders shared, no logins held, the clipboard, browser and file bridges off, and the internet only where you allow it.
+- Start from the Fix-it team template with a brief like “Fix the failing test”. A manager hands the work to helpers, and each reports back in the room.
 
-### A project that holds secrets
+### A risky change, in a Sandbox
 
-- Keep .env files, credentials and customer data out of the agent's reach, without moving anything.
+- A dependency upgrade, a big refactor, a migration, with a restore point to fall back to. To jail an untrusted agent, share no folders and hold no logins. For a project that holds secrets, keep .env files and credentials out of its reach.
 
 [Prompts to paste for each, in the manual.](https://dozable.com/docs/prompts-for-your-agent.md)
 
@@ -304,15 +306,15 @@ Prefer the terminal? Run `doz onboard` once, then `doz up` in a project folder.
 
 ## Everything free and in the box.
 
-- **Sleeps like a laptop** Pause in 1 ms. Hibernate to disk. Wake in 0.3 s, programs still running.
-- **No network card** Every connection goes through a policy you can read.
-- **Keys never go in** The proxy swaps credentials in. The sandbox sees a placeholder.
+- **Workspaces and templates** A team of agents, their room, folders and a brief. Five ready-made templates, or build your own.
+- **Room, journal, lessons** Agents and you talk in the room. Each unit of work is journaled. Lessons carry on once you approve them.
+- **The workspace editor** See the whole workspace on one page. Drag to arrange it; export YAML, SVG or PNG.
 - **Dashboard** doz ui. An installable app, with terminals in the browser.
-- **Claude Code, Codex, pi** Sessions outlive your terminal.
-- **Restore points** Instant APFS clones. Go back, or fork.
+- **Claude Code, Codex, OpenCode, pi** Sessions outlive your terminal.
+- **No network card** Every connection goes through a policy you can read. The keys Dozable holds never go in.
 - **.dozignore, .dozreadonly** Lock files, or make them read-only.
 - **doz serve** The dashboard on your LAN, with invites and QR codes.
-- **Pause, resume** About 1 ms.
+- **Pause, resume** A paused Sandbox picks up where it left off.
 - **Crash recovery** Back, with their sessions.
 - **Permissions** Readable and editable.
 - **Images** Base images and Dockerfiles.

@@ -66,7 +66,7 @@
  },
  {
   "cmd": "doz pause",
-  "desc": "Pause: guest CPU to 0 in ~1 ms, RAM kept.",
+  "desc": "Pause: guest CPU to 0, RAM kept.",
   "manual": "https://dozable.com/docs/sandboxes-and-lifecycle"
  },
  {
@@ -86,7 +86,7 @@
  },
  {
   "cmd": "doz wake",
-  "desc": "Wake from sleep or hibernation (~0.3 s), sessions and pids where they were.",
+  "desc": "Wake from sleep or hibernation, sessions and pids where they were.",
   "manual": "https://dozable.com/docs/sandboxes-and-lifecycle"
  },
  {
