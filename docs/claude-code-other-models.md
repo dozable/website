@@ -4,7 +4,7 @@ description: "Claude Code talks to Anthropic by default: this Mac's Claude login
 url: https://dozable.com/docs/claude-code-other-models
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 32
 ---
 # Claude Code with other models — a gateway, or a model server on your Mac

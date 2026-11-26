@@ -4,7 +4,7 @@ description: "A new sandbox has a stock shell: no aliases, no prompt of yours, n
 url: https://dozable.com/docs/dotfiles
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 31
 ---
 # Your dotfiles

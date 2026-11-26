@@ -4,7 +4,7 @@ description: "A session is a terminal program running inside a sandbox: a shell,
 url: https://dozable.com/docs/terminals-and-sessions
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 7
 ---
 # Terminals and sessions

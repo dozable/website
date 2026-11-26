@@ -165,7 +165,7 @@
 <tr><td><code>claude-code</code></td><td>Node.js</td><td>Claude Code</td></tr><tr><td><code>pi</code></td><td>Node.js</td><td>pi</td></tr><tr><td><code>codex</code></td><td>Node.js</td><td>Codex (new — on other bases <code>&lt;base&gt;-codex</code>)</td></tr><tr><td><code>lab</code></td><td>Alpine</td><td>none (bash and a few tools)</td></tr>
 </tbody></table></div></li>
 <li><p><strong>The developer baseline.</strong> On every base, Dozable adds the tools agents expect: git, curl, jq, ripgrep (<code>rg</code>), fd, python3, less, vim, ssh, sudo, tmux and the package lists, so the agent can install more with <code>sudo apt-get install</code> (or <code>apk add</code> on Alpine). Claude Code on a base without Node is its standalone build; pi on a base without Node gets its own Node; Codex is its official static linux-arm64 build on every base.</p></li>
-<li><p><strong>Preparing</strong> an image downloads the base (digest-pinned), installs the baseline and the agent in a temporary VM, and checks the result. Minutes, once, with the network. A sandbox started while its image is being prepared joins that preparation.</p></li>
+<li><p><strong>Preparing</strong> an image downloads the base (digest-pinned), installs the baseline and the agent in a temporary Sandbox, and checks the result. Minutes, once, with the network. A sandbox started while its image is being prepared joins that preparation.</p></li>
 <li><p><strong>Copies are free.</strong> A sandbox&#x27;s disk is an APFS clone of its image: it costs almost nothing until it changes.</p></li>
 </ul>
 <h2 id="the-recommended-bases">The recommended bases<a class="anchor" href="#the-recommended-bases" aria-label="Link to this section">#</a></h2>

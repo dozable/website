@@ -4,7 +4,7 @@ description: "Many command-line tools sign you in through a web browser: they op
 url: https://dozable.com/docs/signing-in-from-a-sandbox
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 11
 ---
 # Signing in from a sandbox

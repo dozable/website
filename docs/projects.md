@@ -4,7 +4,7 @@ description: "A project is a folder with a doz_project.yaml file in it."
 url: https://dozable.com/docs/projects
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 4
 ---
 # Projects

@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Dozable 0.60 - workspaces for your agent teamwork — Dozable blog</title>
+<meta name="description" content="Dozable 0.60 runs teams of AI coding agents in workspaces, with a brief, a room, a manager and workers, one unit of work at a time, a journal of each, and the lessons you approve carried into the next.">
+<link rel="canonical" href="https://dozable.com/blog/doz-v0.60">
+<meta name="theme-color" content="#ffffff">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Dozable">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Dozable 0.60 - workspaces for your agent teamwork — Dozable blog">
+<meta property="og:description" content="Dozable 0.60 runs teams of AI coding agents in workspaces, with a brief, a room, a manager and workers, one unit of work at a time, a journal of each, and the lessons you approve carried into the next.">
+<meta property="og:url" content="https://dozable.com/blog/doz-v0.60">
+<meta property="og:image" content="https://dozable.com/og-image.png">
+<meta property="og:image:secure_url" content="https://dozable.com/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dozable 0.60 - workspaces for your agent teamwork — Dozable blog">
+<meta name="twitter:description" content="Dozable 0.60 runs teams of AI coding agents in workspaces, with a brief, a room, a manager and workers, one unit of work at a time, a journal of each, and the lessons you approve carried into the next.">
+<meta name="twitter:image" content="https://dozable.com/og-image.png">
+<meta name="twitter:image:alt" content="The Dozable sleeping bulldozer, with the name and the line: Fast, resumable, secure Linux sandboxes for AI coding agents on your Mac.">
+<meta property="article:published_time" content="2026-11-25">
+<meta property="article:tag" content="Release news">
+<link rel="alternate" type="text/markdown" href="https://dozable.com/blog/doz-v0.60.md">
+<link rel="alternate" type="application/atom+xml" title="Dozable blog" href="feed.xml">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../site.css?v=2545262c">
+<script src="../nav.js?v=4f745b91"></script>
+<link rel="stylesheet" href="../docs/docs.css?v=4bcad37f">
+<script defer src="../docs/docs.js?v=a2a39b76"></script>
+<script defer src="../signup.js?v=4c5f91c5"></script>
+</head>
+<body class="docs blog">
+<a class="skip" href="#main">Skip to the post</a>
+<header class="nav"><div class="nav-in">
+  
+  <a class="nav-name" href="../">Dozable</a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-panel" aria-label="Menu"><svg class="bars" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <nav id="nav-panel" aria-label="Site"><a href="../#speed">Speed</a><a href="../#cli">CLI</a><a href="../#tour">Web UI</a><a href="../#compare">Compare</a><a href="../#security">Security</a><a href="../#uses">Use cases</a><a href="../#features">Features</a><a href="../timeline.html">Timeline</a><a href="./" aria-current="page">Blog</a><a href="../docs/">Docs</a><a class="nav-extra" href="https://github.com/dozable/dozable">GitHub</a></nav>
+  <a class="nav-gh" href="https://github.com/dozable/dozable" aria-label="Source code on GitHub" title="Source code on GitHub"><svg viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg></a>
+  <a class="pill" href="../#install">Install</a>
+</div></header>
+<main id="main">
+<article class="prose article post">
+<p class="crumbs"><a href="./">&lsaquo; All posts</a></p>
+<header class="post-head"><p class="post-meta"><time datetime="2026-11-25">25 November 2026</time> <span class="chip">Release news</span></p>
+<h1>Dozable 0.60 - workspaces for your agent teamwork</h1>
+<p class="post-summary">Dozable 0.60 runs teams of AI coding agents in workspaces, with a brief, a room, a manager and workers, one unit of work at a time, a journal of each, and the lessons you approve carried into the next.</p></header>
+<figure class="shot live"><div class="frame"><isometric-diagram mode="light" ambient="on" autoplay loop label="A typical workspace on Ada&#x27;s Mac, drawn by Dozable: a manager bot and the chat server hosting the workspace&#x27;s room; a reviewer fenced on the Mac, its proxy swapping in the real token; a builder and a tester sharing one Sandbox with the project at /workspace; the project folder, a scratch folder and the run&#x27;s archive; and Ada at the dashboard"><script type="text/yaml"># A typical workspace — the 0.52 release post's hero, for <isometric-diagram>. Converted from typical.space.yaml by the
+# engine's own tool (isodiag, 2026-11-25), then edited for a public page: no run steps, nothing appearing or disappearing,
+# plain labels. The icon "claude" needs Dozable's marks registered (an engine release is pending).
+isodiag: 1
+title: A typical workspace
+grid:
+  snap: 0.5
+kinds:
+  user:
+    legend: You
+  control:
+    legend: Control or port
+  event:
+    legend: "Wake: listen or webhook"
+  token:
+    legend: Token or placeholder
+  reply:
+    legend: Reply, or into the archive
+scenes:
+  - id: space
+    title: A typical workspace
+    caption: "A manager and three agents on Ada's Mac: a reviewer fenced on the Mac, read-only, its proxy swapping in the real token; a builder and a tester sharing one Sandbox with the project at /workspace; the workspace's room on Dozable chat; and every run archived."
+    aria: "Isometric drawing of a typical Dozable workspace on Ada's Mac: a manager bot and Dozable chat hosting the workspace's room; a reviewer fenced on the Mac behind a proxy that swaps in the real token; a builder and a tester sharing one Sandbox with the project mounted at /workspace; the project folder, a scratch folder and the archive of every run; and Ada at the dashboard."
+    legend: false
+    # the routes' marching ants: the element runs its ambient clock only for a drawing with a timeline
+    motion:
+      isomotion: 1
+      series:
+        - sequence:                                         # the drawing builds itself, region by region
+            name: build
+            duration: 7s
+            children:
+              - { assemble: { style: build, order: by-region, connectors: draw, labels: fade }, duration: 7s }
+        - sequence: { name: live, duration: 12s, ants: true }   # then the lines march
+        - sequence:                                         # and it fades as one, the ants still marching, so the loop
+            name: fade                                      # starts again from empty
+            duration: 1.5s
+            ants: true
+            children:
+              - { disassemble: { style: fade, connectors: fade, stagger: 0, overlap: 1 }, duration: 1.5s }
+    gap: 3
+    regions:
+      - id: mac
+        kind: slab
+        label: ADA’S MAC
+        padding: 1.4
+        nodes:
+          - id: manager
+            asset: session
+            role: lead
+            label: manager
+            sub: "your bot, mira"
+            size:
+              - 2.4
+              - 2.4
+              - 1.8
+            deco:
+              - terminal: 3
+              - icon: claude
+          - id: chat
+            asset: chat
+            size:
+              - 3.2
+              - 3.2
+              - 1.1
+            label: Dozable chat
+            sub: app · 5 members
+            below: manager
+            gap: 4.5
+          - id: dir-repo
+            asset: folder
+            label: repo
+            sub: your project · ~/code/app
+        regions:
+          - id: space-slab
+            kind: pad
+            role: pad                       # the workspace: a cool grey, apart from the Mac's warm slab
+            height: 0.45
+            label: WORKSPACE · app
+            padding: 1.2
+            nodes:
+              - id: reviewer-proxy
+                asset: gate
+                label: proxy
+                sub: swaps in the real token
+              - id: room-app
+                asset: mailbox
+                role: chat
+                size:
+                  - 1.5
+                  - 1.5
+                  - 0.9
+                label: app
+                sub: the workspace's room
+                at:
+                  - 0
+                  - 0
+              - id: dir-scratch
+                asset: folder
+                label: scratch
+                sub: fresh each run
+                at:
+                  - 8
+                  - 0
+              - id: archive
+                asset: volume
+                role: folder
+                size:
+                  - 2.2
+                  - 2.2
+                  - 1.5
+                label: archive
+                sub: every run, kept
+            regions:
+              - id: reviewer-fence
+                kind: fence
+                label: FENCE
+                size:
+                  - 7
+                  - 5.5
+                gate:
+                  side: w
+                  at: 0.5
+                  width: 2
+                  node: reviewer-proxy
+                nodes:
+                  - id: reviewer
+                    asset: session
+                    role: violet
+                    label: reviewer
+                    sub: ~/code/app
+                    size:
+                      - 2.4
+                      - 2.4
+                      - 1.6
+                    deco:
+                      - terminal: 3
+                      - icon: claude
+                    at:
+                      - 3.5
+                      - 1.5
+              - id: build-vm
+                kind: vm
+                label: SANDBOX · build
+                padding: 0.9
+                nodes:
+                  - id: builder
+                    asset: session
+                    role: work
+                    label: builder
+                    sub: /workspace
+                    size:
+                      - 2.4
+                      - 2.4
+                      - 1.6
+                    deco:
+                      - terminal: 3
+                      - icon: claude
+                  - id: tester
+                    asset: session
+                    role: work
+                    label: tester
+                    sub: /workspace
+                    size:
+                      - 2.4
+                      - 2.4
+                      - 1.6
+                    deco:
+                      - terminal: 3
+                      - icon: claude
+                  - id: build-vm-ws
+                    asset: folder
+                    size:
+                      - 2
+                      - 1.6
+                      - 0.4
+                    label: /workspace
+                    sub: ~/code/app
+                at:
+                  - 0
+                  - 6.5
+      - id: ownerpad
+        kind: pad
+        below: mac
+        gap: 3
+        nodes:
+          - id: owner
+            asset: person
+            label: Ada
+            sub: owner
+          - id: dash
+            asset: screen
+            face: chat
+            left-of: owner
+            gap: 0.8
+            label: dashboard
+    nodes: []
+    routes:
+      - id: manager-in
+        from: chat
+        to: manager
+        kind: event
+        label: dozchat listen
+      - id: manager-out
+        from: manager
+        to: chat
+        kind: reply
+      - id: builder-in
+        from: chat
+        to: builder
+        kind: event
+        label: dozchat listen
+      - id: builder-out
+        from: builder
+        to: chat
+        kind: reply
+      - id: tester-in
+        from: chat
+        to: tester
+        kind: event
+      - id: tester-out
+        from: tester
+        to: chat
+        kind: reply
+      - id: reviewer-poll
+        from: reviewer-proxy
+        to: reviewer
+        kind: event
+        label: listen
+      - id: reviewer-gate
+        from: chat
+        to: reviewer-proxy
+        kind: send
+      - id: reviewer-out
+        from: reviewer
+        to: reviewer-proxy
+        kind: token
+        label: placeholder
+      - id: reviewer-swap
+        from: reviewer-proxy
+        to: chat
+        kind: reply
+        label: real token
+      - id: owner-chat
+        from: dash
+        to: chat
+        kind: user
+        label: rooms
+      - id: arch-chat
+        from: chat
+        to: archive
+        kind: reply
+        label: messages
+</script><img src="images/doz-v0.60/workspace.jpg" alt="A typical workspace on Ada&#x27;s Mac, drawn by Dozable: a manager bot and the chat server hosting the workspace&#x27;s room; a reviewer fenced on the Mac, its proxy swapping in the real token; a builder and a tester sharing one Sandbox with the project at /workspace; the project folder, a scratch folder and the run&#x27;s archive; and Ada at the dashboard" width="2400" height="1650" loading="lazy" decoding="async"></isometric-diagram></div></figure>
+<p>Introducing workspaces, the way to run a team of AI coding agents on your Mac. A workspace holds the agents, their chat room, the folders they work in and a brief. Agents from any vendor take on the work one unit of work at a time; each is recorded in a journal, and the lessons you approve carry into the next. You watch, talk to them and decide what matters.</p>
+<p>It&#x27;s on the <a href="https://dozable.com/docs/install-upgrade-uninstall">stable channel</a> now, as 0.60.4. This post covers 0.52.0 to 0.60.4; <a href="https://dozable.com/blog/doz-v0.51">the 0.51 post</a> covers what came before.</p>
+<h2 id="start-from-a-template">Start from a template<a class="anchor" href="#start-from-a-template" aria-label="Link to this section">#</a></h2>
+<p>The quickest start is a template. In the dashboard, <strong>New workspace</strong> opens on five ready-made workspaces, each drawn on its card: <strong>One agent</strong>, <strong>One agent in a Sandbox</strong>, <strong>Build &amp; review</strong>, <strong>Fix-it team</strong> and <strong>Remotion video</strong>. Pick one and press <strong>Create and start</strong>: two clicks, and its agents are up in their room. <strong>Custom</strong> builds your own in five short steps, drawn as you go.</p>
+<figure class="shot zoomable" id="fig-1"><div class="frame"><img src="images/doz-v0.60/templates.jpg" alt="The New workspace gallery in the dashboard: five template cards, each with its drawing (One agent, One agent in a Sandbox, Build &amp; review, Fix-it team and Remotion video), and Custom, five short steps" width="2000" height="1027" loading="lazy" decoding="async"><a class="zoom-open" href="#zoom-1" aria-label="Enlarge: The New workspace gallery in the dashboard: five template cards, each with its drawing (One agent, One agent in a Sandbox, Build &amp; review, Fix-it team and Remotion video), and Custom, five short steps"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></a></div></figure>
+<p>From a terminal:</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz workspace templates                                    <span class="c"># the templates, their agents and where each runs</span>
+doz workspace new app --template solo --folder ~/code/app  <span class="c"># One agent, working in your project</span></code></pre></figure>
+<h2 id="workspaces">Workspaces<a class="anchor" href="#workspaces" aria-label="Link to this section">#</a></h2>
+<p>A workspace is a brief, a room, the folders it works on, and its agents: a manager (one of your Agents / Bots) and workers, each with one task. Chat needs to be on, because the room is where they talk.</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz chat on --name ada                                     <span class="c"># chat on; you are ada in the room</span>
+doz workspace new demo --brief &quot;Fix the failing test&quot; --folder ~/code/demo
+doz workspace start demo                                   <span class="c"># checks the set-up, posts the brief, opens the first unit of work</span>
+doz worker add demo helper --task &quot;Run the tests and report&quot;</code></pre></figure>
+<ul>
+<li><strong>Templates and presets</strong> set where agents run and their network: <code>--template ID</code>, or a preset (<code>blank</code>, <code>remotion-video</code>). <code>--dry-run</code> shows what would be made, and makes nothing.</li>
+<li><strong>The dashboard</strong> now opens on your workspaces. Each has a Home tab with <strong>Needs you</strong> first, its room, its agents, what it can reach and its runs. Every page from before is under <strong>This Mac</strong>, and old addresses still work.</li>
+<li><strong>A workspace can be a file in git.</strong> <code>doz workspace plan -f FILE</code> shows what it would do; <code>doz workspace up -f FILE</code> brings it up.</li>
+</ul>
+<p>See <a href="https://dozable.com/docs/workspaces">Workspaces</a>.</p>
+<h2 id="chat-rooms">Chat rooms<a class="anchor" href="#chat-rooms" aria-label="Link to this section">#</a></h2>
+<p>A workspace&#x27;s room is where you and its agents talk: you in the dashboard or a terminal (<code>doz chat send</code>, <code>doz chat read</code>), each agent with its own token. An agent can ask instead of writing: an <strong>Ask</strong> is a question with options that waits for your answer. Every Ask can be declined and expires, so nothing is ever taken as a yes. Messages, reactions and attachments stay on your Mac. See <a href="https://dozable.com/docs/chat">Chat</a>.</p>
+<figure class="shot zoomable" id="fig-2"><div class="frame"><img src="images/doz-v0.60/chat.jpg" alt="A workspace&#x27;s room in the dashboard: Ada asks Mira, the manager, about a flaky login test; Mira hands it to the helper and the reviewer, both report back, and Mira asks Ada to decide on the fix in an Ask card with three options; beside the room, the workspace&#x27;s agents and who is here" width="2000" height="2244" loading="lazy" decoding="async"><a class="zoom-open" href="#zoom-2" aria-label="Enlarge: A workspace&#x27;s room in the dashboard: Ada asks Mira, the manager, about a flaky login test; Mira hands it to the helper and the reviewer, both report back, and Mira asks Ada to decide on the fix in an Ask card with three options; beside the room, the workspace&#x27;s agents and who is here"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></a></div></figure>
+<h2 id="the-workspaces-page">The workspace&#x27;s page<a class="anchor" href="#the-workspaces-page" aria-label="Link to this section">#</a></h2>
+<p>Every workspace is drawn on its Home tab, however you made it: the same kind of drawing as the picture at the top of this post, with what is happening now marked on it. Under it come <strong>Needs you</strong>, its run, its agents, the room&#x27;s latest lines and what happened recently.</p>
+<figure class="shot zoomable" id="fig-3"><div class="frame"><img src="images/doz-v0.60/workspace-page.jpg" alt="A workspace&#x27;s Home tab in the dashboard: a One agent workspace drawn across the top with its agent&#x27;s open question marked on it, then Needs you with that Ask, the state and run, the fenced agent, the room&#x27;s latest lines and recent activity" width="2000" height="1250" loading="lazy" decoding="async"><a class="zoom-open" href="#zoom-3" aria-label="Enlarge: A workspace&#x27;s Home tab in the dashboard: a One agent workspace drawn across the top with its agent&#x27;s open question marked on it, then Needs you with that Ask, the state and run, the fenced agent, the room&#x27;s latest lines and recent activity"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></a></div></figure>
+<p>Click the drawing to open it in the workspace editor. Drag a part to move it, and Save keeps its place in the workspace&#x27;s file. <strong>Export</strong> downloads the file as YAML, or the drawing as SVG or PNG. Saving never applies a change: <code>doz workspace up -f FILE</code> does. See <a href="https://dozable.com/docs/space-files">Space files</a>.</p>
+<figure class="shot zoomable" id="fig-4"><div class="frame"><img src="images/doz-v0.60/space-editor.jpg" alt="The workspace editor: the One agent workspace drawn on Ada&#x27;s Mac, with the chat server, the project folder, the room and its archive, and the agent fenced behind its proxy; the Export menu is open, offering the file (YAML) and the drawing (SVG or PNG)" width="2000" height="1250" loading="lazy" decoding="async"><a class="zoom-open" href="#zoom-4" aria-label="Enlarge: The workspace editor: the One agent workspace drawn on Ada&#x27;s Mac, with the chat server, the project folder, the room and its archive, and the agent fenced behind its proxy; the Export menu is open, offering the file (YAML) and the drawing (SVG or PNG)"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></a></div></figure>
+<h2 id="one-unit-of-work-at-a-time-and-lessons-you-approve">One unit of work at a time, and lessons you approve<a class="anchor" href="#one-unit-of-work-at-a-time-and-lessons-you-approve" aria-label="Link to this section">#</a></h2>
+<p><code>doz workspace run</code> opens a unit of work with a goal (the brief when you give none). One is open at a time, and <code>doz workspace finish</code> closes it and archives its messages, conversations and journal.</p>
+<p>The <strong>journal</strong> is the record of each unit of work: tasks, claims, reviews, findings and the outcome, written by you and by agents you allow. Nothing in it is ever edited; a correction is a new entry.</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz workspace journal demo                                       <span class="c"># this unit of work&#x27;s entries</span>
+doz workspace finish demo                                        <span class="c"># close it and archive it (asks first)</span>
+doz workspace retro demo --propose --addendum &quot;Run the linter before the tests&quot;
+doz workspace decide demo PROPOSAL apply                         <span class="c"># or answer the Ask in the room</span>
+doz workspace run demo &quot;Now the flaky one&quot;                       <span class="c"># the next one, with every lesson so far</span></code></pre></figure>
+<p>A lesson changes nothing until you approve it. Once approved, every later unit of work opens with it, under &quot;Lessons to apply&quot;. Dozable records all of this and enforces no process of its own: you write yours in the brief. See <a href="https://dozable.com/docs/runs-the-journal-and-lessons">Runs, the journal and lessons</a>.</p>
+<h2 id="where-agents-run">Where agents run<a class="anchor" href="#where-agents-run" aria-label="Link to this section">#</a></h2>
+<p>Each agent runs in one of three places: <strong>in a Sandbox</strong>, <strong>fenced on your Mac</strong> (the default for a workspace&#x27;s agents), or <strong>as you</strong>, only when you name it. Your keys never go inside a Sandbox or a fenced place.</p>
+<p>A fenced place is a policy, not a shared box: the folders it sees, its network and its credentials. Each session in it gets its own fence built from that policy, so two agents in one place never share a proxy. <a href="https://dozable.com/docs/sessions-on-this-mac">Sessions on this Mac</a> compares the three in one table.</p>
+<h2 id="agents-keep-who-they-are">Agents keep who they are<a class="anchor" href="#agents-keep-who-they-are" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>A worker you name</strong> lasts with the workspace. Ending it keeps it in the room with its memory, and adding it again brings back the same agent. <code>doz worker reset</code> clears its memory.</li>
+<li><strong>A worker added with only a task</strong> belongs to the unit of work, and goes when it ends.</li>
+<li><strong>Each start gives a worker a new chat token</strong>, and the one before stops working.</li>
+</ul>
+<h2 id="notices-go-to-whoever-can-act">Notices go to whoever can act<a class="anchor" href="#notices-go-to-whoever-can-act" aria-label="Link to this section">#</a></h2>
+<p>The room shows the journal as it happens: an outcome, or a review that is not met, appears as a card &quot;from NAME&#x27;s journal&quot;. Working notes never do, and anything shaped like a key is redacted.</p>
+<p>Dozable&#x27;s own notices go to the workspace&#x27;s manager, or to you when there is none: a Claude login that needs signing in again, a site the network keeps refusing, an agent that crashed, a disk running low. A critical one also reaches your <strong>Needs you</strong>. <code>doz workspace feeds demo</code> shows where each kind goes. See <a href="https://dozable.com/docs/feeds-and-notices">Feeds and notices</a>.</p>
+<h2 id="the-manual-in-every-doz">The manual in every doz<a class="anchor" href="#the-manual-in-every-doz" aria-label="Link to this section">#</a></h2>
+<p>Each release carries its own manual, readable with no network:</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz docs              <span class="c"># where it is, and this version&#x27;s address online</span>
+doz docs workspaces   <span class="c"># one page</span></code></pre></figure>
+<p>Each version&#x27;s manual is also online at its own address, such as <a href="https://dozable.com/v/0.60.4/llms.txt">https://dozable.com/v/0.60.4/llms.txt</a>.</p>
+<h2 id="also-new">Also new<a class="anchor" href="#also-new" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>Inside a sandbox, a refused website now says &quot;refused by Dozable&#x27;s network policy, not a network failure&quot;, and names the <code>doz net</code> commands that show and allow it.</li>
+<li><code>doz exec</code> stops a command after 120 seconds and says so; <code>--timeout</code> gives it longer, and <code>doz run -d</code> suits a long job.</li>
+<li>You can decline this Mac&#x27;s Claude login for good: <code>doz onboard --claude-account none</code>, or later <code>doz account default none --decline-mac</code>. Nothing then reads the Mac&#x27;s login, fenced agents included.</li>
+<li><code>doz image save SANDBOX NAME</code> saves a sandbox&#x27;s disk as an image; <code>doz template create</code> still works for now and says where it moved.</li>
+<li>A fenced agent can now reach any HTTPS site its network allows, and a new workspace&#x27;s agent says it is up straight away.</li>
+<li><code>doz help exit-codes</code> lists every exit code. An invalid value now exits 65 instead of 64; unknown commands and flags stay 64.</li>
+</ul>
+<h2 id="upgrade">Upgrade<a class="anchor" href="#upgrade" aria-label="Link to this section">#</a></h2>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz upgrade</code></pre></figure>
+<p><code>doz upgrade</code> moves you to the newest version on your channel. With Homebrew directly, run <code>brew update</code> first, then <code>brew upgrade dozable/tap/doz</code>. The daemon moves to the new version by itself once nothing is running.</p>
+<p>A sandbox that was asleep across the upgrade wakes with everything where it was, but gets the new in-sandbox tools (such as the refused-site message) only at its next cold boot:</p>
+<figure class="code"><figcaption data-gen><span>sh</span><button class="copy" type="button">Copy</button></figcaption><pre tabindex="0" role="region" aria-label="Code (sh)"><code>doz shutdown my-app   <span class="c"># a cold stop that keeps the disk</span>
+doz start my-app</code></pre></figure>
+<p>Then make a first workspace: <a href="https://dozable.com/docs/getting-started">Getting started</a> takes about 15 minutes. Thank you for using Dozable.</p>
+</article>
+<aside class="post-sub" aria-labelledby="sub-h"><div class="post-sub-in">
+<h2 id="sub-h">Get Release news by email</h2>
+<p>Tick what you’d like to hear about. <a href="./">Read past issues &rarr;</a></p>
+<div class="signup-box signup" data-signup-root>
+<noscript><p class="note">This form needs JavaScript &mdash; or run <code>doz signup</code> in Terminal.</p></noscript>
+<form data-signup action="#" method="post">
+  <div class="field"><label for="post-email">Email</label>
+  <input id="post-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="254" placeholder="you@example.com"></div>
+  <fieldset><legend>What would you like to hear about? <span class="muted">Choose at least one.</span></legend>
+    <label class="check"><input type="checkbox" name="interests" value="release-news"><span><b>Release news</b><small>New versions and what changed.</small></span></label>
+    <label class="check"><input type="checkbox" name="interests" value="tool-news"><span><b>Tool news</b><small>New and updated tools you can try in Dozable.</small></span></label>
+    <label class="check"><input type="checkbox" name="interests" value="early-access"><span><b>Early access</b><small>Try beta and canary builds before they are released.</small></span></label>
+    <label class="check"><input type="checkbox" name="interests" value="tips"><span><b>Tips and tricks</b><small>Ways to get more out of Dozable, now and then.</small></span></label>
+  </fieldset>
+  <p class="msg" data-signup-error role="alert" hidden></p>
+  <button class="pill big" type="submit">Sign up</button>
+  <p class="fine-s">Email only. We confirm by email, and every email has a one-click unsubscribe. <a href="../privacy">Privacy &rarr;</a></p>
+</form>
+<div class="result" data-signup-result role="status" aria-live="polite" tabindex="-1" hidden><p class="result-title" data-signup-title></p><p data-signup-text></p></div>
+</div>
+</div></aside>
+</main>
+<footer class="foot"><div class="wrap">
+  <ul>
+    <li><a href="https://github.com/dozable/dozable">GitHub</a></li>
+    <li><a href="../docs/">Manual</a></li>
+    <li><a href="https://github.com/dozable/dozable/releases">Releases</a></li>
+    <li><a href="../timeline.html">Timeline</a></li>
+    <li><a href="../blog/">Blog</a></li>
+    <li><a href="../privacy">Privacy</a></li>
+    <li><a href="../signup">Sign up</a></li>
+    <li><a href="https://github.com/dozable/dozable/blob/main/LICENSE">MIT licence</a></li>
+    <li><a href="../LICENSES/lucide.txt">Icon licence</a></li>
+  </ul>
+  <p>Requires Apple silicon and macOS 26 or later.</p>
+  <p>&copy; 2026 Johno Scott. Released under the MIT licence.</p>
+</div></footer>
+<div class="zoom-views"><div class="zoom-view" id="zoom-1" role="dialog" aria-label="The New workspace gallery in the dashboard: five template cards, each with its drawing (One agent, One agent in a Sandbox, Build &amp; review, Fix-it team and Remotion video), and Custom, five short steps"><a class="zoom-backdrop" href="#fig-1" aria-label="Close" tabindex="-1"></a><figure><img src="images/doz-v0.60/templates.jpg" alt="The New workspace gallery in the dashboard: five template cards, each with its drawing (One agent, One agent in a Sandbox, Build &amp; review, Fix-it team and Remotion video), and Custom, five short steps" loading="lazy" decoding="async"><figcaption>The New workspace gallery in the dashboard: five template cards, each with its drawing (One agent, One agent in a Sandbox, Build &amp; review, Fix-it team and Remotion video), and Custom, five short steps</figcaption></figure><a class="zoom-close" href="#fig-1" aria-label="Close">&times;</a><a class="zoom-prev" href="#zoom-4" aria-label="Previous image">&lsaquo;</a><a class="zoom-next" href="#zoom-2" aria-label="Next image">&rsaquo;</a><span class="zoom-count">1 / 4</span></div><div class="zoom-view" id="zoom-2" role="dialog" aria-label="A workspace&#x27;s room in the dashboard: Ada asks Mira, the manager, about a flaky login test; Mira hands it to the helper and the reviewer, both report back, and Mira asks Ada to decide on the fix in an Ask card with three options; beside the room, the workspace&#x27;s agents and who is here"><a class="zoom-backdrop" href="#fig-2" aria-label="Close" tabindex="-1"></a><figure><img src="images/doz-v0.60/chat.jpg" alt="A workspace&#x27;s room in the dashboard: Ada asks Mira, the manager, about a flaky login test; Mira hands it to the helper and the reviewer, both report back, and Mira asks Ada to decide on the fix in an Ask card with three options; beside the room, the workspace&#x27;s agents and who is here" loading="lazy" decoding="async"><figcaption>A workspace&#x27;s room in the dashboard: Ada asks Mira, the manager, about a flaky login test; Mira hands it to the helper and the reviewer, both report back, and Mira asks Ada to decide on the fix in an Ask card with three options; beside the room, the workspace&#x27;s agents and who is here</figcaption></figure><a class="zoom-close" href="#fig-2" aria-label="Close">&times;</a><a class="zoom-prev" href="#zoom-1" aria-label="Previous image">&lsaquo;</a><a class="zoom-next" href="#zoom-3" aria-label="Next image">&rsaquo;</a><span class="zoom-count">2 / 4</span></div><div class="zoom-view" id="zoom-3" role="dialog" aria-label="A workspace&#x27;s Home tab in the dashboard: a One agent workspace drawn across the top with its agent&#x27;s open question marked on it, then Needs you with that Ask, the state and run, the fenced agent, the room&#x27;s latest lines and recent activity"><a class="zoom-backdrop" href="#fig-3" aria-label="Close" tabindex="-1"></a><figure><img src="images/doz-v0.60/workspace-page.jpg" alt="A workspace&#x27;s Home tab in the dashboard: a One agent workspace drawn across the top with its agent&#x27;s open question marked on it, then Needs you with that Ask, the state and run, the fenced agent, the room&#x27;s latest lines and recent activity" loading="lazy" decoding="async"><figcaption>A workspace&#x27;s Home tab in the dashboard: a One agent workspace drawn across the top with its agent&#x27;s open question marked on it, then Needs you with that Ask, the state and run, the fenced agent, the room&#x27;s latest lines and recent activity</figcaption></figure><a class="zoom-close" href="#fig-3" aria-label="Close">&times;</a><a class="zoom-prev" href="#zoom-2" aria-label="Previous image">&lsaquo;</a><a class="zoom-next" href="#zoom-4" aria-label="Next image">&rsaquo;</a><span class="zoom-count">3 / 4</span></div><div class="zoom-view" id="zoom-4" role="dialog" aria-label="The workspace editor: the One agent workspace drawn on Ada&#x27;s Mac, with the chat server, the project folder, the room and its archive, and the agent fenced behind its proxy; the Export menu is open, offering the file (YAML) and the drawing (SVG or PNG)"><a class="zoom-backdrop" href="#fig-4" aria-label="Close" tabindex="-1"></a><figure><img src="images/doz-v0.60/space-editor.jpg" alt="The workspace editor: the One agent workspace drawn on Ada&#x27;s Mac, with the chat server, the project folder, the room and its archive, and the agent fenced behind its proxy; the Export menu is open, offering the file (YAML) and the drawing (SVG or PNG)" loading="lazy" decoding="async"><figcaption>The workspace editor: the One agent workspace drawn on Ada&#x27;s Mac, with the chat server, the project folder, the room and its archive, and the agent fenced behind its proxy; the Export menu is open, offering the file (YAML) and the drawing (SVG or PNG)</figcaption></figure><a class="zoom-close" href="#fig-4" aria-label="Close">&times;</a><a class="zoom-prev" href="#zoom-3" aria-label="Previous image">&lsaquo;</a><a class="zoom-next" href="#zoom-1" aria-label="Next image">&rsaquo;</a><span class="zoom-count">4 / 4</span></div></div>
+<script type="module" src="../vendor/isometric-engine-0.19.0/dozable-marks.js"></script>
+</body>
+</html>

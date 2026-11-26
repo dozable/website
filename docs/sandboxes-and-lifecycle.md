@@ -4,7 +4,7 @@ description: "A sandbox is one Linux virtual machine with its own disks."
 url: https://dozable.com/docs/sandboxes-and-lifecycle
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 5
 ---
 # Sandboxes and their lifecycle
@@ -18,7 +18,7 @@ A sandbox can also be adopted into a workspace, with other agents, a room and a 
 hibernates its sandboxes (the same as `doz hibernate`, all at once) and `wake` wakes them; `finish` shuts them down, keeping
 their disks — a workspace never removes a sandbox unless you say so (`--remove-sandboxes`, and never one you adopted).
 
-A sandbox is one of three places an agent can run — a micro VM; the other two are fenced and unfenced sessions on this
+A Sandbox is one of three places an agent can run; the other two are fenced and unfenced sessions on this
 Mac. [Where an agent runs: the three choices](https://dozable.com/docs/sessions-on-this-mac.md#where-an-agent-runs-the-three-choices) compares
 them (what each reaches, its memory, its start time, when to pick it).
 
@@ -39,7 +39,7 @@ them (what each reaches, its memory, its start time, when to pick it).
   on your Mac is shared. `doz ls` shows `isolated`, and the agent is told.
 - **Sessions.** The terminal programs running inside (a shell, `claude`, `pi`). They survive pause,
   sleep and hibernate. See [Terminals and sessions](https://dozable.com/docs/terminals-and-sessions.md).
-- **The daemon.** One background `doz` process per store. It owns every running VM, the network proxy
+- **The daemon.** One background `doz` process per store. It owns every running Sandbox, the network proxy
   and the credentials. The first command that needs it starts it, and it keeps running (`daemon.always_on`),
   so you normally never think about it.
 
@@ -77,7 +77,7 @@ asleep or hibernated sandbox and resumes a paused one, so it's the one command t
 | `doz start NAME` | boots (or wakes it if asleep, resumes it if paused) | ~0.4 s (a first start may prepare the image) | used as needed | start fresh |
 | `doz pause NAME` · `doz resume NAME` | the CPU stops | ~1 ms | kept | frozen, then carry on |
 | `doz sleep NAME` · `doz wake NAME` | paused **and** saved to disk — survives a crash of the daemon | ~0.3 s | kept | carry on |
-| `doz hibernate NAME` · `doz wake NAME` | saved to disk, then the VM stops | ~0.35 s / ~0.3 s | **given back** | carry on: same processes, same screens |
+| `doz hibernate NAME` · `doz wake NAME` | saved to disk, then the Sandbox stops | ~0.35 s / ~0.3 s | **given back** | carry on: same processes, same screens |
 | `doz shutdown NAME` | a cold stop; the disks are kept | | given back | end |
 | `doz down NAME` | the opposite of `up`: hibernate (`--sleep`: sleep; `--shutdown`: shut down) | as those | as those | as those |
 | `doz reset NAME` | shut down and go back to a fresh copy of the image (the state disk and restore points stay) | | | end |
@@ -230,7 +230,7 @@ doz inspect my-app      # everything about one, as JSON
 doz sessions my-app     # its terminal sessions
 ```
 
-**RAM held** is what the VM costs your Mac right now: its allocation, less what it handed back after
+**RAM held** is what the Sandbox costs your Mac right now: its allocation, less what it handed back after
 a wake. It shows `—` for a sandbox that is off or hibernated. Looking never starts a daemon: with none
 running, these commands read the store directly.
 

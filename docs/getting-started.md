@@ -4,7 +4,7 @@ description: "Dozable runs teams of AI coding agents on your Mac."
 url: https://dozable.com/docs/getting-started
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 1
 ---
 # Getting started
@@ -15,7 +15,7 @@ work one **unit of work** at a time; each is recorded in a journal, and the less
 watch, talk to them in the room and decide what matters. You work through `doz`, a command-line tool, and a web
 dashboard (`doz ui`).
 
-Where each agent runs is one setting of the workspace, not the first thing you decide: in its own Linux micro VM, held
+Where each agent runs is one setting of the workspace, not the first thing you decide: in its own Sandbox, held
 by macOS's sandbox to its folder on your Mac (**fenced**, the default for a workspace's agents), or as you. Start with
 the default; [Sessions on this Mac](https://dozable.com/docs/sessions-on-this-mac.md) and [Sandboxes](https://dozable.com/docs/sandboxes-and-lifecycle.md) compare
 the choices.
@@ -136,9 +136,9 @@ Details: [Setting up](https://dozable.com/docs/setting-up.md).
 
 - **Each sandbox is a small Linux virtual machine,** not a container, with its own kernel and disk.
   It can't see your Mac's files, apart from the one project folder you share at `/workspace`.
-- **A workspace's agents run fenced on this Mac by default** — no VM: macOS's own sandbox holds each one to its
+- **A workspace's agents run fenced on this Mac by default** — no Sandbox: macOS's own sandbox holds each one to its
   project folder, its own temp and caches, and Dozable's proxy for the network, with your Keychain closed. A preset or
-  `--worker-isolation vm` puts them in micro VMs instead; [Where an agent runs](https://dozable.com/docs/sessions-on-this-mac.md#where-an-agent-runs-the-three-choices)
+  `--worker-isolation sandbox` (`vm` is the same) puts them in Sandboxes instead; [Where an agent runs](https://dozable.com/docs/sessions-on-this-mac.md#where-an-agent-runs-the-three-choices)
   compares the three choices.
 - **The Dozable daemon runs the sandboxes and sessions.** It's a background program that the first command starts, and
   it keeps running when nothing is (the setting `daemon.always_on`, on by default; off, it exits once nothing runs).
@@ -156,8 +156,7 @@ Four steps: set up this Mac, make the workspace, start it, and then give it its 
 
 1. **`doz onboard`** checks this Mac and sets up the account your agents use (above). Once per Mac.
 2. **`doz workspace new NAME --preset …`** says what the work is: the brief, the folders, the workers, and a preset for
-   where they run and what network they get — `blank` (choose yourself: fenced on this Mac, a locked network), `research`,
-   `swift-tests`, `mac-admin` or `remotion-video` ([what each sets up](https://dozable.com/docs/workspaces.md#presets)). Add `--dry-run` first:
+   where they run and what network they get — `blank` (choose yourself: fenced on this Mac, a locked network) or `remotion-video` ([what each sets up](https://dozable.com/docs/workspaces.md#presets)). Add `--dry-run` first:
    it shows what would be made, what would be refused and what the start would still need, each with its fix, and makes
    nothing. A worker needs chat on (`doz chat on`).
 
@@ -219,7 +218,7 @@ every switch. The full policy: [dozable.com/privacy](https://dozable.com/privacy
 
 ## A sandbox on its own
 
-You don't need a workspace to use one agent: a sandbox on its own is a single agent in its own micro VM, which you
+You don't need a workspace to use one agent: a sandbox on its own is a single agent in its own Sandbox, which you
 attach to and talk to in your terminal. A sandbox works on one project folder, shared into it at `/workspace`: the agent's changes appear on
 your Mac at once, and your editor sees them live.
 
@@ -256,14 +255,14 @@ what it was when you detach. Details: [Projects](https://dozable.com/docs/projec
 ## Talk to your agent
 
 You're now in Claude Code, inside the sandbox. Its first-run screens are done and it doesn't stop to
-ask permission for each command: inside a sandbox, the VM and its network are the boundary. (To have
+ask permission for each command: inside a sandbox, the Sandbox and its network are the boundary. (To have
 Claude ask first anyway, see `recipes.anthropic.claude-code.approvals` in the [settings](https://dozable.com/docs/settings-reference.md).)
 
 Claude also knows where it runs. Ask it:
 
 > where are you running, and where is /workspace on my Mac?
 
-It should tell you it is in a Dozable sandbox (a Linux VM on your Mac), that `/workspace` is your
+It should tell you it is in a Dozable sandbox (a small Linux virtual machine on your Mac), that `/workspace` is your
 `~/code/my-app`, that its network only reaches what you allow, and that your credentials are added
 by your Mac and never stored in the sandbox. It learns this from a short note Dozable gives it at every
 start. See [Agents and accounts](https://dozable.com/docs/agents-and-accounts.md).
@@ -288,7 +287,7 @@ back exactly where it was: same conversation, same running programs.
 |---|---|---|---|
 | `doz pause my-app` | frozen instantly | kept | ~1 ms |
 | `doz sleep my-app` | frozen and saved to disk, so it survives a crash | kept | ~0.3 s |
-| `doz hibernate my-app` | saved to disk, and the VM stops | **given back to your Mac** | ~0.3 s |
+| `doz hibernate my-app` | saved to disk, and the Sandbox stops | **given back to your Mac** | ~0.3 s |
 
 `doz wake my-app`, or simply `doz up` in the project folder, brings it back. `doz ls` lists your
 sandboxes; the dashboard (`doz ui`) shows the same thing with a live terminal for each.

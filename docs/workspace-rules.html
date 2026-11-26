@@ -168,7 +168,7 @@ build/*.tmp</code></pre></figure>
 </ul>
 <p><strong>Names are compared without case</strong> when your Mac&#x27;s volume ignores case (every standard macOS volume): <code>SECRETS.ENV</code> in the sandbox is the same file as <code>secrets.env</code> on the Mac, so the rules cover it — and the same for accented letters written in either Unicode form. This only ever covers <em>more</em> than Docker would.</p>
 <h2 id="always-read-only">Always read-only<a class="anchor" href="#always-read-only" aria-label="Link to this section">#</a></h2>
-<p>While a sandbox&#x27;s rules apply, these are read-only to the agent&#x27;s user in the micro VM even if your <code>.dozreadonly</code> does not list them (root in the VM can lift it: the rules are a mask, not the boundary — the VM is). A fenced session on your Mac has its own guard: <code>.git/hooks</code> and <code>.git/config</code> are kept from it by the fence (<a href="sessions-on-this-mac">Sessions on this Mac</a>).</p>
+<p>While a sandbox&#x27;s rules apply, these are read-only to the agent&#x27;s user in the Sandbox even if your <code>.dozreadonly</code> does not list them (root in the Sandbox can lift it: the rules are a mask, not the boundary — the Sandbox is). A fenced session on your Mac has its own guard: <code>.git/hooks</code> and <code>.git/config</code> are kept from it by the fence (<a href="sessions-on-this-mac">Sessions on this Mac</a>).</p>
 <div class="tablewrap" tabindex="0" role="region" aria-label="Table: Always read-only"><table>
 <thead><tr><th scope="col">path</th><th scope="col">why</th></tr></thead>
 <tbody>

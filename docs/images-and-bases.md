@@ -4,7 +4,7 @@ description: "Every sandbox starts from a baked image: a disk with a Linux syste
 url: https://dozable.com/docs/images-and-bases
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 8
 ---
 # Images and bases
@@ -38,7 +38,7 @@ baked images and their size.
   Node is its standalone build; pi on a base without Node gets its own Node; Codex is its official
   static linux-arm64 build on every base.
 - **Preparing** an image downloads the base (digest-pinned), installs the baseline and the agent in a
-  temporary VM, and checks the result. Minutes, once, with the network. A sandbox started while its
+  temporary Sandbox, and checks the result. Minutes, once, with the network. A sandbox started while its
   image is being prepared joins that preparation.
 - **Copies are free.** A sandbox's disk is an APFS clone of its image: it costs almost nothing until
   it changes.

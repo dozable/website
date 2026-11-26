@@ -4,7 +4,7 @@ description: "Every tool Dozable runs comes from a recipe: a YAML file that says
 url: https://dozable.com/docs/your-own-recipes
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 30
 ---
 # Your own recipes, and community catalogues

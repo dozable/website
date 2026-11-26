@@ -4,7 +4,7 @@ description: "Dozable's daemon is the background process that runs your sandboxe
 url: https://dozable.com/docs/the-menu-bar-app
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 35
 ---
 # The menu bar app

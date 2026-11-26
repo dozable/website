@@ -4,7 +4,7 @@ description: "doz ui is one dashboard. Without its LAN option it listens on 127.
 url: https://dozable.com/docs/doz-serve
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 25
 ---
 # The dashboard on your other computers, tablets and phones (`doz ui --lan`)

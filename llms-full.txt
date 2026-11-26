@@ -16,7 +16,7 @@ work one **unit of work** at a time; each is recorded in a journal, and the less
 watch, talk to them in the room and decide what matters. You work through `doz`, a command-line tool, and a web
 dashboard (`doz ui`).
 
-Where each agent runs is one setting of the workspace, not the first thing you decide: in its own Linux micro VM, held
+Where each agent runs is one setting of the workspace, not the first thing you decide: in its own Sandbox, held
 by macOS's sandbox to its folder on your Mac (**fenced**, the default for a workspace's agents), or as you. Start with
 the default; [Sessions on this Mac](https://dozable.com/docs/sessions-on-this-mac.md) and [Sandboxes](https://dozable.com/docs/sandboxes-and-lifecycle.md) compare
 the choices.
@@ -137,9 +137,9 @@ Details: [Setting up](https://dozable.com/docs/setting-up.md).
 
 - **Each sandbox is a small Linux virtual machine,** not a container, with its own kernel and disk.
   It can't see your Mac's files, apart from the one project folder you share at `/workspace`.
-- **A workspace's agents run fenced on this Mac by default** — no VM: macOS's own sandbox holds each one to its
+- **A workspace's agents run fenced on this Mac by default** — no Sandbox: macOS's own sandbox holds each one to its
   project folder, its own temp and caches, and Dozable's proxy for the network, with your Keychain closed. A preset or
-  `--worker-isolation vm` puts them in micro VMs instead; [Where an agent runs](https://dozable.com/docs/sessions-on-this-mac.md#where-an-agent-runs-the-three-choices)
+  `--worker-isolation sandbox` (`vm` is the same) puts them in Sandboxes instead; [Where an agent runs](https://dozable.com/docs/sessions-on-this-mac.md#where-an-agent-runs-the-three-choices)
   compares the three choices.
 - **The Dozable daemon runs the sandboxes and sessions.** It's a background program that the first command starts, and
   it keeps running when nothing is (the setting `daemon.always_on`, on by default; off, it exits once nothing runs).
@@ -157,8 +157,7 @@ Four steps: set up this Mac, make the workspace, start it, and then give it its 
 
 1. **`doz onboard`** checks this Mac and sets up the account your agents use (above). Once per Mac.
 2. **`doz workspace new NAME --preset …`** says what the work is: the brief, the folders, the workers, and a preset for
-   where they run and what network they get — `blank` (choose yourself: fenced on this Mac, a locked network), `research`,
-   `swift-tests`, `mac-admin` or `remotion-video` ([what each sets up](https://dozable.com/docs/workspaces.md#presets)). Add `--dry-run` first:
+   where they run and what network they get — `blank` (choose yourself: fenced on this Mac, a locked network) or `remotion-video` ([what each sets up](https://dozable.com/docs/workspaces.md#presets)). Add `--dry-run` first:
    it shows what would be made, what would be refused and what the start would still need, each with its fix, and makes
    nothing. A worker needs chat on (`doz chat on`).
 
@@ -220,7 +219,7 @@ every switch. The full policy: [dozable.com/privacy](https://dozable.com/privacy
 
 ## A sandbox on its own
 
-You don't need a workspace to use one agent: a sandbox on its own is a single agent in its own micro VM, which you
+You don't need a workspace to use one agent: a sandbox on its own is a single agent in its own Sandbox, which you
 attach to and talk to in your terminal. A sandbox works on one project folder, shared into it at `/workspace`: the agent's changes appear on
 your Mac at once, and your editor sees them live.
 
@@ -257,14 +256,14 @@ what it was when you detach. Details: [Projects](https://dozable.com/docs/projec
 ## Talk to your agent
 
 You're now in Claude Code, inside the sandbox. Its first-run screens are done and it doesn't stop to
-ask permission for each command: inside a sandbox, the VM and its network are the boundary. (To have
+ask permission for each command: inside a sandbox, the Sandbox and its network are the boundary. (To have
 Claude ask first anyway, see `recipes.anthropic.claude-code.approvals` in the [settings](https://dozable.com/docs/settings-reference.md).)
 
 Claude also knows where it runs. Ask it:
 
 > where are you running, and where is /workspace on my Mac?
 
-It should tell you it is in a Dozable sandbox (a Linux VM on your Mac), that `/workspace` is your
+It should tell you it is in a Dozable sandbox (a small Linux virtual machine on your Mac), that `/workspace` is your
 `~/code/my-app`, that its network only reaches what you allow, and that your credentials are added
 by your Mac and never stored in the sandbox. It learns this from a short note Dozable gives it at every
 start. See [Agents and accounts](https://dozable.com/docs/agents-and-accounts.md).
@@ -289,7 +288,7 @@ back exactly where it was: same conversation, same running programs.
 |---|---|---|---|
 | `doz pause my-app` | frozen instantly | kept | ~1 ms |
 | `doz sleep my-app` | frozen and saved to disk, so it survives a crash | kept | ~0.3 s |
-| `doz hibernate my-app` | saved to disk, and the VM stops | **given back to your Mac** | ~0.3 s |
+| `doz hibernate my-app` | saved to disk, and the Sandbox stops | **given back to your Mac** | ~0.3 s |
 
 `doz wake my-app`, or simply `doz up` in the project folder, brings it back. `doz ls` lists your
 sandboxes; the dashboard (`doz ui`) shows the same thing with a live terminal for each.
@@ -350,7 +349,7 @@ dashboard, and the permission macOS requires to run virtual machines. You instal
 
 - **The `doz` program** is what you install. It is signed with Apple's virtualization entitlement;
   without that, macOS refuses to boot virtual machines. A copy you build yourself without signing can
-  run every command except the ones that boot a VM, and `doz doctor` says so.
+  run every command except the ones that boot a Sandbox, and `doz doctor` says so.
 - **The store** is where your sandboxes, images and restore points live:
   `~/Library/Application Support/doz` unless you choose another (see
   [Settings reference](https://dozable.com/docs/settings-reference.md), `store.path`). Upgrading `doz` never touches it
@@ -1177,7 +1176,7 @@ A sandbox can also be adopted into a workspace, with other agents, a room and a 
 hibernates its sandboxes (the same as `doz hibernate`, all at once) and `wake` wakes them; `finish` shuts them down, keeping
 their disks — a workspace never removes a sandbox unless you say so (`--remove-sandboxes`, and never one you adopted).
 
-A sandbox is one of three places an agent can run — a micro VM; the other two are fenced and unfenced sessions on this
+A Sandbox is one of three places an agent can run; the other two are fenced and unfenced sessions on this
 Mac. [Where an agent runs: the three choices](https://dozable.com/docs/sessions-on-this-mac.md#where-an-agent-runs-the-three-choices) compares
 them (what each reaches, its memory, its start time, when to pick it).
 
@@ -1198,7 +1197,7 @@ them (what each reaches, its memory, its start time, when to pick it).
   on your Mac is shared. `doz ls` shows `isolated`, and the agent is told.
 - **Sessions.** The terminal programs running inside (a shell, `claude`, `pi`). They survive pause,
   sleep and hibernate. See [Terminals and sessions](https://dozable.com/docs/terminals-and-sessions.md).
-- **The daemon.** One background `doz` process per store. It owns every running VM, the network proxy
+- **The daemon.** One background `doz` process per store. It owns every running Sandbox, the network proxy
   and the credentials. The first command that needs it starts it, and it keeps running (`daemon.always_on`),
   so you normally never think about it.
 
@@ -1236,7 +1235,7 @@ asleep or hibernated sandbox and resumes a paused one, so it's the one command t
 | `doz start NAME` | boots (or wakes it if asleep, resumes it if paused) | ~0.4 s (a first start may prepare the image) | used as needed | start fresh |
 | `doz pause NAME` · `doz resume NAME` | the CPU stops | ~1 ms | kept | frozen, then carry on |
 | `doz sleep NAME` · `doz wake NAME` | paused **and** saved to disk — survives a crash of the daemon | ~0.3 s | kept | carry on |
-| `doz hibernate NAME` · `doz wake NAME` | saved to disk, then the VM stops | ~0.35 s / ~0.3 s | **given back** | carry on: same processes, same screens |
+| `doz hibernate NAME` · `doz wake NAME` | saved to disk, then the Sandbox stops | ~0.35 s / ~0.3 s | **given back** | carry on: same processes, same screens |
 | `doz shutdown NAME` | a cold stop; the disks are kept | | given back | end |
 | `doz down NAME` | the opposite of `up`: hibernate (`--sleep`: sleep; `--shutdown`: shut down) | as those | as those | as those |
 | `doz reset NAME` | shut down and go back to a fresh copy of the image (the state disk and restore points stay) | | | end |
@@ -1389,7 +1388,7 @@ doz inspect my-app      # everything about one, as JSON
 doz sessions my-app     # its terminal sessions
 ```
 
-**RAM held** is what the VM costs your Mac right now: its allocation, less what it handed back after
+**RAM held** is what the Sandbox costs your Mac right now: its allocation, less what it handed back after
 a wake. It shows `—` for a sandbox that is off or hibernated. Looking never starts a daemon: with none
 running, these commands read the store directly.
 
@@ -1588,7 +1587,7 @@ Quick add. The page, sandbox or session you are on is tinted, with a line at its
 A workspace's line in the sidebar shows its state as a dot (a ring while it is setting up), its name, and a caret. Its
 name opens the workspace's page at its **Home** (below, [A workspace's page](#a-workspaces-page)); the caret unfolds it into its rooms (**#
 review**, each opening that room on the workspace's **Room** tab) and its agents — a sandbox's opens the sandbox's page, a session on this Mac opens it under **On this Mac**, an
-agent elsewhere is its name only; a workspace a space file made shows a small picture of itself first (see [The workspace
+agent elsewhere is its name only; every workspace shows a small picture of itself first (see [The workspace
 drawn](39-space-files.md#the-workspace-drawn); `ui.nav_thumbnails` turns it off). Asleep workspaces fold into one line, **Asleep (2)**, and finished and archived ones into
 **Finished & archived (5)**; this browser remembers what you unfolded. Click **Sandboxes** while its page is shown (or
 its caret) to fold the list of sandboxes under it, and again to show it; this browser remembers. The
@@ -1600,11 +1599,11 @@ sidebar as a drawer, the machine picker, a key button while a key needs you, and
 
 | page | what it's for |
 |---|---|
-| **Home** | Every workspace, one row each: its state in the words `doz workspace ls` uses (**waiting on you** first, then **working**, **starting**, **idle**, **setting up**, **asleep**; finished and archived fold into one line below), the workspace — drawn small from its space file, or a plain tile for one made without a file — and its folders, who drives it (**you**), its manager (**mira (fenced)**; an unfenced one says **acts as you** in the warning colour), who is working (for a workspace waiting on you, why — an agent blocked, in error, or a sandbox that failed), its room, the room's last line (while the chat server runs) and one next action: **Sleep**, **Wake**, **Reopen** or **Restore** (the same dialog as on its page) and **Open room** (the workspace's **Room** tab), or for a workspace still setting up what it lacks and the command that starts it, `doz workspace start NAME`, to copy; asleep workspaces fold into **Asleep (N)** above the finished and archived ones. **New workspace** (also the **+** beside **Workspaces** in the sidebar) opens the New workspace wizard over the page, `#/new-workspace` — the work, who manages it, where it runs and when it starts, with what is still missing shown as you go; only in this Mac's own browser (see [The New workspace wizard](https://dozable.com/docs/workspaces.md#the-new-workspace-wizard)). With no workspace yet, Home says what one is — "A workspace is an environment set up for getting work done: its agents, its rooms, the brief that says what the work is for, and any folders it works on (usually projects). Work starts only once it is fully set up." — offers **Just try an agent** (Quick try), counts the sandboxes and sessions on this Mac that are not in any workspace (**Put them in workspaces…** opens **Loose agents**) and points to **Agents / Bots** for an agent elsewhere. See [Workspaces](https://dozable.com/docs/workspaces.md). |
+| **Home** | Every workspace, one row each: its state in the words `doz workspace ls` uses (**waiting on you** first, then **working**, **starting**, **idle**, **setting up**, **asleep**; finished and archived fold into one line below), the workspace — drawn small from its space file, or from its record for one made without a file — and its folders, who drives it (**you**), its manager (**mira (fenced)**; an unfenced one says **acts as you** in the warning colour), who is working (for a workspace waiting on you, why — an agent blocked, in error, or a sandbox that failed), its room, the room's last line (while the chat server runs) and one next action: **Sleep**, **Wake**, **Reopen** or **Restore** (the same dialog as on its page) and **Open room** (the workspace's **Room** tab), or for a workspace still setting up what it lacks and the command that starts it, `doz workspace start NAME`, to copy; asleep workspaces fold into **Asleep (N)** above the finished and archived ones. **New workspace** (also the **+** beside **Workspaces** in the sidebar) opens the New workspace wizard over the page, `#/new-workspace` — always fresh, on a gallery of five templates (**One agent**, **One agent in a Sandbox**, **Build & review**, **Fix-it team**, **Remotion video**), each card a drawing of the workspace it makes with **⤢** for the full view, and **Custom**: five short steps, name, manager, workers, how they chat, confirm; only in this Mac's own browser (see [The New workspace wizard](https://dozable.com/docs/workspaces.md#the-new-workspace-wizard)). With no workspace yet, Home says what one is — "A workspace is an environment set up for getting work done: its agents, its rooms, the brief that says what the work is for, and any folders it works on (usually projects). Work starts only once it is fully set up." — offers **Just try an agent** (Quick try), counts the sandboxes and sessions on this Mac that are not in any workspace (**Put them in workspaces…** opens **Loose agents**) and points to **Agents / Bots** for an agent elsewhere. See [Workspaces](https://dozable.com/docs/workspaces.md). |
 | **Agents / Bots** | Every Agent / Bot, as `doz bot ls` lists them: its avatar and name, its agent program, how it runs (**acts as you** when unfenced), how the chat server reaches it, the workspaces it manages or works in, who keeps its key, and what it is doing; **Show retired** lists the retired ones. **+ New agent / bot** makes one; a bot's page (`#/bots/NAME`) shows it across its workspaces, its rooms and what it said last, and its tabs edit it; its ⋯ duplicates it, includes it in a room as a voice, gives it a new token or retires it. Only this Mac's own browser changes a bot, and no page ever shows a bot's token — a bot elsewhere gets its token in a terminal. See [Agents / Bots](https://dozable.com/docs/agents-and-bots.md). |
 | **This Mac › Overview** | One line for each of This Mac's pages, saying what it holds now: what runs (sandboxes running, sessions on this Mac fenced and unfenced), the loose agents, a key that does not work, the disk Dozable uses (once Resources has measured it), a failed operation, the chat server's state, and the daemon with **Restart daemon** (or **Start daemon**). Nothing is measured or checked when you open it. |
 | **This Mac › Your Macs** | The other Macs the machine picker opens, as `doz ui macs ls` lists them: each one's name, address (**plain HTTP** when it is), when it was last seen, what the last check found, **Open**, and the command that removes it, `doz ui macs rm NAME`, to copy; then how to add one, `doz ui macs add NAME ADDRESS`. The list is changed in a terminal on this Mac only. |
-| **This Mac › Loose agents** | The sandboxes and sessions on this Mac that are not in any workspace, each with its kind (**micro VM** or **on this Mac**), its state, **Open**, and the command that adopts it, `doz workspace adopt WORKSPACE NAME`, to copy. Nothing moves by itself: adopting changes only the workspace's record. |
+| **This Mac › Loose agents** | The sandboxes and sessions on this Mac that are not in any workspace, each with its kind (**Sandbox** or **on this Mac**), its state, **Open**, and the command that adopts it, `doz workspace adopt WORKSPACE NAME`, to copy. Nothing moves by itself: adopting changes only the workspace's record. |
 | **This Mac › On this Mac** | The sessions on this Mac (`doz run @mac`), fenced or not. Its sidebar line says **N no isolation** while unfenced sessions run. See [Sessions on this Mac](https://dozable.com/docs/sessions-on-this-mac.md). |
 | **This Mac › Sandboxes** | Every sandbox: state, RAM held, disk, network, account. Each row has the one likely next action (**Start**, **Resume**, **Wake** or **Pause**) and **⋯** for the state's other actions; click a row to open the sandbox. Under each running or sleeping sandbox, a row of its sessions' pictures (live, or the saved screen), each one opening its session; **Thumbnails under each sandbox** above the table turns these rows off (this browser remembers): the pictures are then small, in a **Sessions** column — a grid in a 4:3 box, smaller the more sessions there are. Rest on any picture for half a second to see it larger. Every picture of a running sandbox is live: it follows its session within about a second while it is on screen (pictures you have scrolled past are not asked for, and keep their last screen until you scroll back). A picture marked **last screen** is one the daemon could not give live (a session started before an update of Dozable, for instance): it shows the session's last saved screen instead. Tick sandboxes in the left margin and the controls above the table — **Start** (start, resume or wake), **Pause**, **Sleep**, **Hibernate**, **Shut down** (asks first) — act on those; with none ticked they act on every sandbox, and each says how many it applies to. They do not all run at once — every start or wake would be slower: at most `ui.batch_concurrency` (3) starts, wakes, resumes, sleeps, hibernations and shut-downs run at a time, and the others wait their turn, each row saying **queued — 2 ahead** (or **queued — next**) with a small **Cancel**, and the controls **N queued · Cancel all**. A cancelled one did nothing. One you start yourself on a single sandbox, or by typing in its terminal, goes ahead of them; a pause, and a resume from a pause, never wait. **Quick add** (every default, started and opened — also the **+** beside the **This Mac** heading in the sidebar; see [The quickest way](https://dozable.com/docs/sandboxes-and-lifecycle.md#the-quickest-way-quick-add-and-doz-new)) and **New sandbox** (a wizard: every choice, step by step, written to the project folder's `doz_project.yaml` — see [Projects](https://dozable.com/docs/projects.md#in-the-dashboard)). Under it in the sidebar, each sandbox has its own entry that opens **its page** at its Home; its dot is filled while the sandbox holds memory (running, paused, asleep), a crescent moon when it is hibernated, a ring when it is shut down, a square when it failed; a second dot at the right says what its agent is doing (see [What the agent is doing](https://dozable.com/docs/terminals-and-sessions.md#what-the-agent-is-doing)). Under each sandbox, all its **sessions** (each with its agent's mark, or a terminal for a shell), in the order of the tabs on its page (then any without a tab: the agent's first), each with what it is doing; click one — or its screen icon — to open it; **⋮** (on hover) has **Restart session** and **End session**, and the screen icon beside it shows the session's live picture when you rest on it for half a second (then another session's line shows its picture at once). A sleeping sandbox lists the sessions it wakes back into. The caret beside a sandbox (or a click on the sandbox while its Home is shown) folds it to one line with its number of sessions (a session that needs you or failed still shows); this browser remembers the fold. **⋮** on the **Sandboxes** line (on hover) has **Expand all** and **Collapse all**. |
 | **A sandbox's page** | See [A sandbox's page](#a-sandboxs-page) below. |
@@ -1651,9 +1650,11 @@ works the state reads **sleeping…** or **waking…**. Only this Mac's own brow
 tabs: **Home**, **Room**, **Agents**, **Network & secrets**, **Folders & points**, **Activity** and **Runs** work; **Permissions** and
 **Settings** are marked **coming** and say what they will hold.
 
-**Home** shows the workspace at a glance. A workspace a space file made is drawn from its file and its live state, across the
-page; click the picture (or **Edit the space** beside it) to open the file in the space editor, the whole window (see
-[Editing a space in the dashboard](https://dozable.com/docs/space-files.md#editing-a-space-in-the-dashboard)).
+**Home** shows the workspace at a glance, drawn with its live state across the page. A workspace a space file made is drawn
+from its file: click the picture (or **Edit the space** beside it) to open the file in the space editor, the whole window (see
+[Editing a space in the dashboard](https://dozable.com/docs/space-files.md#editing-a-space-in-the-dashboard)). One made without a space file — with
+the wizard, `doz workspace new`, by adopting agents — is drawn from its record, as `doz workspace doc NAME` writes it; there
+is no file to edit, so the picture opens nothing, and the command beside it prints the document.
 Below it, cards, each heading a link to the tab that holds the whole of it: **Needs you** first, only when something waits
 — what it still lacks while it is setting up, with **Start** and `doz workspace start NAME`; an open ask in one of its rooms,
 with **Answer in the room** (asks are answered in the room); an agent that is blocked or ended in error —, then **State and
@@ -1667,7 +1668,7 @@ refused lately — **Allow for** that agent, or **For all** that can be limited 
 default for new workers does not change) —, this Mac's ports and the forwarded ones, the secrets held for its agents by name,
 where each goes and a fingerprint, and the accounts used. Nothing on it is a secret's value. Allowing a site for a session on
 this Mac is done only in this Mac's own browser. **Folders & points** lists each folder, the files changed in it since the
-work started (found without running anything there; it never says which agent changed a file) and each micro VM agent's
+work started (found without running anything there; it never says which agent changed a file) and each Sandbox agent's
 restore points, with **Take a restore point**. **Activity** is the workspace's log, newest first (**Load older** for more),
 with the operations this dashboard started for its agents (the last 50); show **All**, **You**, **Agents**, **Lifecycle** or
 **Network**. Each tab is read afresh when you open it. An agent's **Can do** (the **Can do** button on its screen) is its
@@ -1689,21 +1690,21 @@ unfenced one **acts as you**. What `doz workspace log` says (the work started, t
 among the messages in grey, by time; it is never posted in the room. An address naming a room that is not this
 workspace's opens its main room and says so.
 
-The side panel says who is here and in what: each agent with its state, its isolation (**micro VM**, **fenced**,
+The side panel says who is here and in what: each agent with its state, its isolation (**Sandbox**, **fenced**,
 **unfenced**, **elsewhere**), a worker's task — each opens its screen in the workspace (below) — then **In this room**,
 the workspace's folders and its network. **+ Worker** opens **Add a worker** (below). In a narrow window the panel is
 below the room. Every isolation chip — here, on the Agents tab, on an agent's screen and in Agents / Bots — opens **the
-isolation guide** (`#/guide/isolation`) at that choice: micro VM, fenced on this Mac, unfenced on this Mac and elsewhere,
+isolation guide** (`#/guide/isolation`) at that choice: Sandbox, fenced on this Mac, unfenced on this Mac and elsewhere,
 in order of isolation, each with what it is for and not for and its commands.
 
 **Agents** (`#/w/NAME/agents`) is one table of every agent of the workspace, whatever runs it: where it is (**this Mac** or
-**elsewhere**) and how it is isolated (**micro VM**, **fenced**, **unfenced** — which says **acts as you** and "no proxy · no
+**elsewhere**) and how it is isolated (**Sandbox**, **fenced**, **unfenced** — which says **acts as you** and "no proxy · no
 placeholders · no guard" — or **elsewhere**, "not run by Dozable · token only"), its state, its task, what it uses and what
 isolates it, who started it and when, **Watch** (or **Open**) and **⋯** (its screen, Open in Terminal, Restart, **End…** for a
 worker — ticked, its place kept —, **Take out of the workspace…** and **Move to another workspace…**). **+ Add a worker** opens
 **Add a worker** (`#/w/NAME/agents/new`): the agent program, its name, the account it would use (shown, not chosen), its one
-task, its rooms, who it is (anonymous, or an Agent / Bot), where it is, and **where it runs** — a table of micro VM, fenced,
-unfenced and cloud (later) side by side, fenced chosen unless the workspace's or the bot's default is micro VM; unfenced is
+task, its rooms, who it is (anonymous, or an Agent / Bot), where it is, and **where it runs** — a table of Sandbox, fenced,
+unfenced and cloud (later) side by side, fenced chosen unless the workspace's or the bot's default is Sandbox; unfenced is
 never chosen for you and needs the tick "It acts as you". Each field is checked as you type and a refusal shows beside it;
 **Show the command** gives `doz worker add …` to run in a terminal instead; **Add and start** adds it. A worker that ended is listed folded
 below; a greyed "cloud worker" row shows where a worker run off your Mac will appear later; **Grid** is coming. In a narrow
@@ -1934,7 +1935,7 @@ dashboard can switch this off but never on.
 | `ui.theme` | `auto` | `auto` follows macOS; `light`; `dark`. The sun / moon at the right of the status bar, at the foot of the sidebar, sets it. |
 | `ui.density` | `comfortable` | `compact`: tighter rows, tabs, controls and page margins — the text stays the same size. **Settings › This UI** switches it at once. |
 | `ui.notifications` | `cards` | How notifications look in the top right corner: `cards`, `pills` or `bell` (see [Notifications](#notifications)). **Settings › This UI** and the Debug page switch it at once. |
-| `ui.nav_thumbnails` | `true` | The sidebar's pictures: a session line shows a screen icon on hover (resting on it for half a second shows the session's live picture), and an unfolded workspace a space file made shows a small picture of it. |
+| `ui.nav_thumbnails` | `true` | The sidebar's pictures: a session line shows a screen icon on hover (resting on it for half a second shows the session's live picture), and an unfolded workspace shows a small picture of it. |
 | `ui.terminals` | `true` | Terminals in the browser. `false`: none open (Open in Terminal still works). |
 | `ui.terminal_font_size` | `13` | Font size of a browser terminal (9–32). |
 | `ui.terminal_title` | `{sandbox} · {session} · {time}` | A terminal tab's title (and your terminal's, in `doz attach`). |
@@ -2508,7 +2509,7 @@ baked images and their size.
   Node is its standalone build; pi on a base without Node gets its own Node; Codex is its official
   static linux-arm64 build on every base.
 - **Preparing** an image downloads the base (digest-pinned), installs the baseline and the agent in a
-  temporary VM, and checks the result. Minutes, once, with the network. A sandbox started while its
+  temporary Sandbox, and checks the result. Minutes, once, with the network. A sandbox started while its
   image is being prepared joins that preparation.
 - **Copies are free.** A sandbox's disk is an APFS clone of its image: it costs almost nothing until
   it changes.
@@ -2744,7 +2745,7 @@ under `[recipes.VENDOR.PRODUCT]`.
 ## Claude Code in a sandbox
 
 Claude Code starts ready to work: its first-run screens are done, the working folder is trusted, and
-it runs without asking permission for each command (the VM and its network are the boundary). It
+it runs without asking permission for each command (the Sandbox and its network are the boundary). It
 also shows your real plan ("Claude Max") and picks the same default model as on your Mac.
 
 To have it ask first, set its recipe's `approvals` to `ask` — on this Mac
@@ -3059,7 +3060,7 @@ An agent image installs its agent at one exact version, chosen by `recipes.anthr
 
 The agent has **passwordless `sudo`** in its sandbox, so it can install what a task needs:
 `sudo apt-get install -y PACKAGE` (Debian-based images keep the package lists, and never stop to
-ask configuration questions) or `sudo apk add PACKAGE` on Alpine. Root inside the VM reaches no more
+ask configuration questions) or `sudo apk add PACKAGE` on Alpine. Root inside the Sandbox reaches no more
 than the agent: there's no network card, every connection still goes through your permissions, no
 credential is inside, and nothing of your Mac but its folder. `doz reset` or a restore point
 undoes what it installed.
@@ -3072,7 +3073,7 @@ Turn it off for every sandbox (`doz config set sandbox.agent_sudo false`) or one
 
 At every session start, Dozable tells the agent where it is:
 
-- a short **facts block**, added to its system prompt: that it's in a Dozable sandbox (a Linux VM on
+- a short **facts block**, added to its system prompt: that it's in a Dozable sandbox (a small Linux virtual machine on
   your Mac, not a container) with its name, image, CPUs and memory; whether `/workspace` is your Mac
   folder (and which) or isolated; how its network works and what to do when refused; that its
   credentials are supplied by the proxy; whether it has sudo; its time zone; what the clipboard does;
@@ -3774,6 +3775,17 @@ token of one store means nothing to another). Three things to know:
   its own settings folder (`XDG_CONFIG_HOME`); two chat servers cannot share a port, so give each store its own settings
   folder, or its own `chat.page_port` and `chat.line_port`. `doz chat status --store DIR` shows the ports it uses. An agent
   Dozable starts is given its own store's address (`CHAT_URL`); one you start yourself must be told it.
+- **Its settings are yours unless you say otherwise.** With `DOZ_STORE` (or `--store`) and no `XDG_CONFIG_HOME`,
+  `doz config set` changes your own `~/.config/doz/doz.toml` — the one every store reads. `doz config set`, `doz doctor`
+  and `doz onboard` say so when it happens, naming the file; `doz config path` prints it.
+- **Where else it writes.** A few files live outside the store, whatever `DOZ_STORE` says:
+  - `~/Library/Application Support/Dozable/fence/HASH/` — fenced sessions on this Mac: one folder per session (its
+    temporary files, caches and agent settings), HASH named for the store, so each store has its own; beside them the
+    `.not-fenced` marker, which no fenced program can read (it is how Dozable tells a fenced program from one that is
+    not).
+  - `~/Library/HTTPStorages/doz.binarycookies` — macOS makes this one for the `doz` program itself: the cookie store of
+    its web requests, one for every store.
+  - The settings folder above, and the login item if you turn it on (`~/Library/LaunchAgents`).
 - **It keeps running.** `daemon.always_on` is on by default, for every store: the second store's daemon stays up after
   its last sandbox stops, until `doz daemon stop --store DIR`.
 - **The menu bar app is for the default store only** (the one `doz` uses with no `--store`), its Start at Login
@@ -3806,7 +3818,7 @@ URL: https://dozable.com/docs/letting-another-agent-drive
 So far *you* have run `doz`. But the agent you already use on your Mac — Claude Code, Codex, Cursor —
 can run it too. Its job is to orchestrate a **workspace** for you: make it with a brief and your folders, start its
 agents, follow the room and the journal of each unit of work, and bring you what needs your decision. A sandbox is one
-place an agent of the workspace can run (a micro VM), beside a fenced session on this Mac or, only when you say, a
+place an agent of the workspace can run (a Sandbox), beside a fenced session on this Mac or, only when you say, a
 session that acts as you.
 
 Before anything else, it should run `doz --version` and read the manual of that version (`doz docs`, below): commands
@@ -3834,7 +3846,7 @@ doz workspace start app --json
 
 - **Create.** `--brief TEXT` (or `--brief -` for standard input, or `--prompt-file FILE`), `--folder DIR` (repeatable;
   the first is the main one), `--worker "TASK"` (repeatable: declared now, started by `doz workspace start`), `--preset
-  NAME` (`blank`, `research`, `swift-tests`, `mac-admin`, `remotion-video`; a flag given wins) and `--start` to start it
+  NAME` (`blank` or `remotion-video`; a flag given wins) and `--start` to start it
   at once. `--dry-run --json` shows what would be made and makes nothing. `doz workspace create` is the same command.
   An unknown preset exits `65` (`invalid-value`), naming the real ones. Workers need chat on (`doz chat on`).
 - **State.** `doz workspace state app --json` gives each agent's `condition` — `running`, `asleep`, `stopped`,
@@ -4121,7 +4133,7 @@ This table is generated from `doz config show` and checked against it on every b
 | `ui.boot_view_on_start` | `false` | boolean | at once | — | After Start the page stays on its Console tab (the kernel and vminitd), and marks the agent's tab when it is ready; false (the default): it switches to the agent's tab as soon as that has drawn its screen. |
 | `ui.confirm_shutdown` | `true` | boolean | at once | — | Shut Down asks first (its dialog's "don't ask again" sets this to false). Reset and Remove always ask with a box to tick. |
 | `ui.explain_tab_close` | `true` | boolean | at once | — | Closing an agent's tab returns to the sandbox's Home, which says the agent is still running and that End stops it (its "Don't say this again" sets this to false). false: Home does not say it. |
-| `ui.nav_thumbnails` | `true` | boolean | at once | — | The sidebar's pictures. Hovering a session shows a screen icon; resting on it for half a second shows the session's live picture (moving to another session then shows its picture at once). An unfolded workspace that a space file made shows a small picture of it, drawn from its file and its live state. false: no icon and no picture (Home and a workspace's page still show theirs). |
+| `ui.nav_thumbnails` | `true` | boolean | at once | — | The sidebar's pictures. Hovering a session shows a screen icon; resting on it for half a second shows the session's live picture (moving to another session then shows its picture at once). An unfolded workspace shows a small picture of it, drawn from its space file (or, made without one, from its record) and its live state. false: no icon and no picture (Home and a workspace's page still show theirs). |
 | `ui.split_default` | `shell` | shell \| watch \| attach \| dialog | at once | — | What a terminal's Split opens: shell (a new shell session), watch (a read-only view of the left terminal's session), attach (a second, shared view of it), dialog (choose each time). |
 | `ui.terminals` | `true` | boolean | at once | — | Terminals in the browser. false: the UI opens none and refuses a terminal ticket (Terminal.app still works). |
 | `ui.terminal_title` | `{sandbox} · {session} · {time}` | a title with {sandbox} {session} {image} {time} {phase} ("" = leave the title alone) | at once | — | The title doz attach gives your terminal (window or tab) while attached, and a doz ui terminal's tab: {sandbox} {session} {image} {time} (this Mac's, HH:MM, refreshed each minute) {phase}. The terminal's own title comes back when you detach (where the terminal keeps a title stack: iTerm2, Ghostty, kitty, xterm). While doz sets it, a session's own title is not shown; "" leaves the title to the session. |
@@ -4272,7 +4284,7 @@ This table is generated from `doz config show` and checked against it on every b
 
 | key | default | values | applies | overridden by | what it does |
 |---|---|---|---|---|---|
-| `sandbox.agent_sudo` | `true` | boolean | next session | `doz create --no-agent-sudo / --agent-sudo` | The agent (the image's user in claude-code and pi sandboxes) has passwordless sudo inside its sandbox, so it can install system packages (sudo apt-get install …). The VM, the network policy and the absent credentials are the boundary — root inside reaches no more than the agent does. Applied at every boot and every agent session start (no image is rebuilt); a sandbox's own choice (doz create --no-agent-sudo, agent_sudo in doz_project.yaml) wins over this. |
+| `sandbox.agent_sudo` | `true` | boolean | next session | `doz create --no-agent-sudo / --agent-sudo` | The agent (the image's user in claude-code and pi sandboxes) has passwordless sudo inside its sandbox, so it can install system packages (sudo apt-get install …). The Sandbox (its own virtual machine), the network policy and the absent credentials are the boundary — root inside reaches no more than the agent does. Applied at every boot and every agent session start (no image is rebuilt); a sandbox's own choice (doz create --no-agent-sudo, agent_sudo in doz_project.yaml) wins over this. |
 | `sandbox.timezone` | `mac` | mac, or a time zone like Australia/Sydney | next start or wake | — | The sandboxes' time zone: mac (this Mac's, read again at every boot and wake — a laptop that travels while a sandbox sleeps is followed) or a zone like Australia/Sydney. Written to the guest's /etc/localtime; the agent's facts say it. |
 | `sandbox.clipboard` | `write` | write \| off | at once | `doz create --clipboard write\|off` | The clipboard bridge: a program in a sandbox that copies (OSC 52 — Claude Code, vim, tmux) puts the text on this Mac's clipboard, and every copy shows a notice (SANDBOX copied N chars) in doz attach and doz ui. At most 1 MiB a copy and 10 copies in 10 s. A sandbox can never READ the Mac clipboard. The risk: an agent could put a command there for you to paste — off turns the bridge off (copies are dropped, and said). A sandbox's own choice (doz config set --sandbox NAME, clipboard in doz_project.yaml) wins over this. |
 | `sandbox.browser_bridge` | `on` | on \| off | at once | `doz create --browser-bridge on\|off` | The browser bridge: xdg-open (and $BROWSER, open, sensible-browser) in a sandbox opens an http or https URL in this Mac's default browser, with a notice every time (at most 3 in 10 s). A sign-in whose redirect is the sandbox's localhost (Claude Code's /login) gets that port forwarded from the Mac into the sandbox for up to 10 minutes, so the login completes. Never file: or other schemes, never the Mac's own localhost. off: nothing opens (said). A sandbox's own choice (doz config set --sandbox NAME, browser_bridge in doz_project.yaml) wins over this. |
@@ -4402,8 +4414,8 @@ each boundary does and doesn't cover, and the few ways a sandbox can reach your 
 
 ### 1. A virtual machine, not a container
 
-Each sandbox is a real Linux VM with its own kernel, run by Apple's Virtualization framework. A
-program in it — root included — sees only the VM: its own disks, and nothing of your Mac except the one
+Each Sandbox is a small Linux virtual machine with its own kernel, run by Apple's Virtualization framework. A
+program in it — root included — sees only the Sandbox: its own disks, and nothing of your Mac except the one
 folder you chose to share at `/workspace`. An isolated sandbox shares nothing at all.
 
 - The shared folder is live in both directions: **the agent can change or delete anything in it.** Use
@@ -4416,7 +4428,7 @@ A proxied sandbox (the default for every image) has no network interface. Its on
 proxy, in the daemon on your Mac, which checks every connection — DNS included — against the sandbox's
 [permissions](https://dozable.com/docs/permissions-and-network.md), and logs it (host, verdict, bytes; never contents).
 
-- The agent can't change its own permissions, and root inside the VM can't get around them: there is
+- The agent can't change its own permissions, and root inside the Sandbox can't get around them: there is
   no route out but the proxy.
 - **Browse the web** and **Open** let the agent reach anything, so it could send your code anywhere.
   They warn before you turn them on. Prefer `site:HOST` for what's really needed.
@@ -4436,7 +4448,7 @@ proxy, in the daemon on your Mac, which checks every connection — DNS included
 The proxy holds your Claude login, token or API key and adds it to requests to Anthropic on their way
 out. Inside the sandbox the agent sees a placeholder (`doz_cred_…`), so there's nothing to steal:
 
-- a secret is never written into the VM, never a command-line argument, never in a log, an event or an
+- a secret is never written into the Sandbox, never a command-line argument, never in a log, an event or an
   error message;
 - your Mac login's refresh token is never read — only the short-lived access token;
 - a credential the agent brings itself is flagged or refused (the [key policy](https://dozable.com/docs/agents-and-accounts.md#a-credential-the-agent-brings-itself));
@@ -4452,7 +4464,7 @@ Mac's own Codex login (`~/.codex`) is never read or changed.
 Access step, or for one sandbox ([GitHub as you](https://dozable.com/docs/github.md)):
 
 - the token (your Mac's `gh` login, read when used and kept in the proxy's memory a few minutes, or a
-  token you gave the sandbox) never enters the VM, the store or a log — the sandbox's `GH_TOKEN` and
+  token you gave the sandbox) never enters the Sandbox, the store or a log — the sandbox's `GH_TOKEN` and
   git's login are placeholders, swapped only on the way to `github.com`, `api.github.com`,
   `uploads.github.com` and `codeload.github.com` (git's `Basic` login is decoded, swapped and
   re-encoded there, and nowhere else);
@@ -4503,7 +4515,7 @@ the proxy swaps it on. Raw TCP to a secret's own destination is refused outright
 
 ### 4. Root inside is not root outside
 
-The agent has passwordless `sudo` inside its sandbox by default. That's deliberate: root inside the VM
+The agent has passwordless `sudo` inside its sandbox by default. That's deliberate: root inside the Sandbox
 reaches no more than the agent does — the same proxy, no credentials, only the shared folder. It lets
 the agent install what it needs. Turn it off with `sandbox.agent_sudo` if you prefer.
 
@@ -4563,7 +4575,7 @@ fully resolved path.
 - **Dockerfile builds** run in Apple's `container` builder, **outside Dozable's network policy**: their
   `RUN` steps reach the internet directly. Only build Dockerfiles you trust. See
   [Images and bases](https://dozable.com/docs/images-and-bases.md#your-own-dockerfile).
-- **Image preparation** runs in a temporary VM with the `bake` permissions (package registries only),
+- **Image preparation** runs in a temporary Sandbox with the `bake` permissions (package registries only),
   logged like any sandbox.
 - **Keep-alive**, when you turn it on, runs your Mac's own `claude` once when its login expires. It runs with no tools, no MCP servers
   and no hooks, in an empty folder, with a short list of environment variables. Nothing from a sandbox reaches it. It never
@@ -5194,8 +5206,8 @@ would.
 
 ## Always read-only
 
-While a sandbox's rules apply, these are read-only to the agent's user in the micro VM even if your `.dozreadonly` does
-not list them (root in the VM can lift it: the rules are a mask, not the boundary — the VM is). A fenced session on your
+While a sandbox's rules apply, these are read-only to the agent's user in the Sandbox even if your `.dozreadonly` does
+not list them (root in the Sandbox can lift it: the rules are a mask, not the boundary — the Sandbox is). A fenced session on your
 Mac has its own guard: `.git/hooks` and `.git/config` are kept from it by the fence ([Sessions on this
 Mac](34-sessions-on-this-mac.md)).
 
@@ -5388,7 +5400,7 @@ Sleeping and waking such a sandbox keeps the old view (the wake says so); shut i
 
 - **Always read-only to the agent's user**, whatever the rules say: `.dozignore` and `.dozreadonly` themselves (an
   agent cannot edit its own rules), and — unless your `.dozreadonly` says `!name` — `doz_project.yaml`,
-  `doz_project.yml` and `.git/hooks`. Root in the VM can lift it (a mask, not the boundary); a fenced session on the Mac
+  `doz_project.yml` and `.git/hooks`. Root in the Sandbox can lift it (a mask, not the boundary); a fenced session on the Mac
   guards `.git/hooks` and `.git/config` with its fence instead.
 - **Rules are read from the shared folder itself.** Edit `.dozignore` on the Mac and the sandbox follows
   within about a quarter of a second; `dozview` also drops anything the sandbox's kernel had cached about
@@ -5736,7 +5748,7 @@ URL: https://dozable.com/docs/codex
 # Codex
 
 OpenAI's **Codex** runs in a Dozable sandbox the way Claude Code does: ready to work, without approval
-prompts (the VM and its network are the boundary), told where it runs, and with its credential kept on
+prompts (the Sandbox and its network are the boundary), told where it runs, and with its credential kept on
 your Mac — it never enters the sandbox. It can use **this Mac's own Codex login** (`mac` — nothing to
 add: your ChatGPT plan, through Codex's own sign-in) or an **OpenAI API key**.
 
@@ -5778,7 +5790,7 @@ offers only OpenAI accounts; an OpenAI key can be typed in the masked field.
 `codex` in a sandbox is Dozable's launcher, which:
 
 - runs Codex with **approvals and Codex's own Linux sandbox off**
-  (`--dangerously-bypass-approvals-and-sandbox`): the VM, the network permissions and the absent
+  (`--dangerously-bypass-approvals-and-sandbox`): the Sandbox, the network permissions and the absent
   credentials are the boundary. Set `recipes.openai.codex.approvals` to `ask` (or run
   `doz run NAME -e DOZ_CODEX_PERMISSIONS=ask -- codex`) to keep Codex's own approvals; `codex` run as
   root always keeps them;
@@ -5828,7 +5840,7 @@ Dozable daemon renews it on first use). `doz account ls` shows the account's pla
 
 - **In the sandbox**, Codex's `~/.codex/auth.json` holds only **placeholders** (`doz_cred_…`) where the
   tokens go, written at every session start. The id_token's details Codex reads (your plan, account id)
-  are there; its signature is not — nothing in the VM can be used anywhere else.
+  are there; its signature is not — nothing in the Sandbox can be used anywhere else.
 - **On the way out**, Dozable's proxy on your Mac puts the real access token into Codex's requests to
   `chatgpt.com` — only there.
 - **Renewal happens on your Mac.** OpenAI's tokens last about an hour; Dozable renews them with the
@@ -7719,7 +7731,7 @@ doz-VERSION-helper/
     ├── doz                           the program (signed, with the virtualization entitlement)
     ├── VERSION                       its version, one line
     ├── RELEASE                       helper
-    ├── DozableKit_DozableKit.bundle/ the small Linux programs each sandbox uses (deckhold, doznet, dozview, tmux), and skills/ (doz skill show)
+    ├── DozableKit_DozableKit.bundle/ the small Linux programs each sandbox uses (deckhold, doznet, dozview, tmux), and skills/ (doz skill show; the chat skills a workspace's agents read)
     ├── manual/                       this version's user manual: its pages, llms.txt, llms-full.txt, VERSION (doz docs)
     ├── kernels/vmlinux-6.18.15-186   the pinned Linux kernel (GPL-2.0, unmodified)
     └── licences/                     LICENSE, NOTICE, THIRD-PARTY-LICENSES.txt; kernel/: the kernel's source offer
@@ -7797,7 +7809,7 @@ A new session on this Mac is **fenced** by default. **Fenced** means: macOS's ow
 program and everything it starts to its project folder, its own temporary files and caches, and Dozable's proxy for
 the network. Your Keychain, your secrets and your other folders are closed to it. `--unfenced` opts one session out —
 then nothing is around it at all, and it acts as you. A workspace's manager and workers run fenced unless you choose a
-micro VM or name unfenced. What the fence does and does not block is said plainly below ([What the fence
+Sandbox or name unfenced. What the fence does and does not block is said plainly below ([What the fence
 is not](#what-the-fence-is-not)) and in the [Security model](https://dozable.com/docs/security-model.md).
 
 Each fenced session has a fence of its own — its own proxy, its own placeholders, its own profile — and shares none of it
@@ -7809,7 +7821,7 @@ fenced place are two sessions with two fences, each built from the place.
 Every agent — a sandbox you make, a workspace's manager or worker — runs in one of three places. This table is the one
 comparison; other pages point here.
 
-| | **micro VM** (a sandbox) | **fenced** on this Mac (the default for a workspace's agents) | **unfenced** on this Mac (as you) |
+| | **Sandbox** | **fenced** on this Mac (the default for a workspace's agents) | **unfenced** on this Mac (as you) |
 |---|---|---|---|
 | what holds it | its own Linux virtual machine: its own kernel and disk | macOS's own sandbox, around the program and everything it starts | nothing |
 | files it reaches | the one folder shared at `/workspace` | its project folder (and folders you name with `--write` / `--read`), its own temp and caches; reads your tools | all of yours |
@@ -7817,7 +7829,7 @@ comparison; other pages point here.
 | your keys and logins | never inside: a placeholder, swapped on the way out | the same; the Keychain closed (`--keychain` opens it) | yours, as you |
 | memory | its own allocation (1 GiB for a plain shell, 2 GiB for an agent image; `--memory`), given back when it hibernates | a program on your Mac: what it uses | the same |
 | start | a first start may prepare its image (minutes, once); then ~0.4 s to boot, ~0.3 s to wake | a program starting: about a second | the same |
-| pick it when | the work is Linux work, or you want the strongest wall (a tool that installs things, a render, untrusted code) | the work has to happen on the Mac (Xcode, the Simulator, a Mac-only build), or you want no VM | signing and notarising, or anything that needs your Keychain and networking whole — knowingly |
+| pick it when | the work is Linux work, or you want the strongest wall (a tool that installs things, a render, untrusted code) | the work has to happen on the Mac (Xcode, the Simulator, a Mac-only build), or you want no Sandbox | signing and notarising, or anything that needs your Keychain and networking whole — knowingly |
 
 What each wall does and does not stop is in the [Security model](https://dozable.com/docs/security-model.md); a sandbox's lifecycle is in
 [Sandboxes and their lifecycle](https://dozable.com/docs/sandboxes-and-lifecycle.md).
@@ -8821,12 +8833,12 @@ URL: https://dozable.com/docs/workspaces
 A workspace is an environment set up for getting work done: its agents, its rooms, the brief that says what the work is
 for, and any folders it works on (usually projects). Work starts only once it is fully set up, and then goes one **unit
 of work** (a run) at a time: each has a goal, a journal of what was done, and the lessons you approved from the ones
-before ([Runs, the journal and lessons](https://dozable.com/docs/runs-the-journal-and-lessons.md)). Where each agent runs — a micro VM, fenced
+before ([Runs, the journal and lessons](https://dozable.com/docs/runs-the-journal-and-lessons.md)). Where each agent runs — a Sandbox, fenced
 on this Mac, or unfenced as you — is one setting of the workspace, not the first thing you decide.
 
 ```bash
-doz workspace new demo --preset swift-tests --brief "Fix the failing test" --folder ~/code/demo --dry-run   # what it would make
-doz workspace new demo --preset swift-tests --brief "Fix the failing test" --folder ~/code/demo
+doz workspace new demo --brief "Fix the failing test" --folder ~/code/demo --dry-run   # what it would make
+doz workspace new demo --brief "Fix the failing test" --folder ~/code/demo
 doz workspace start demo                                   # the set-up check, the brief posted, the first unit of work open
 doz workspace finish demo                                  # the unit of work closed and archived (asks first)
 doz workspace run demo "Now the flaky one"                 # the next unit of work, with the lessons so far
@@ -8860,7 +8872,7 @@ doz workspace new app --preset blank --brief "Fix the build" --folder ~/code/app
   65, `invalid-value`, naming the presets) and nothing is made.
 - `--worker "TASK"` declares a worker (repeatable): it is recorded on the workspace now — `doz worker ls` lists it
   with its task, **not started** — and `doz workspace start` starts it, as `doz worker add NAME --task "TASK"` would, where
-  the workspace's new workers run (fenced on this Mac unless `--worker-isolation vm`). Each is named when it is declared,
+  the workspace's new workers run (fenced on this Mac unless `--worker-isolation sandbox`; `vm` is the same). Each is named when it is declared,
   the first free `bot1`, `bot2`, …. Declaring needs nothing else — chat may be off — but a worker talks in the
   workspace's room, so the start refuses (exit 3, saying the declared worker needs chat) until chat is on and the
   workspace has its room (`doz workspace edit NAME --make-room`); `--no-room` with `--worker` is refused at once. One that
@@ -8874,7 +8886,7 @@ doz workspace new app --preset blank --brief "Fix the build" --folder ~/code/app
   file is only read, never written. A `--network` that differs from it is refused.
 - `--manager BOT` makes one of your Agents / Bots its manager (see [The manager](#the-manager) below). Nothing is
   started yet.
-- `--worker-isolation fenced|vm` is where its new workers run unless `doz worker add` says otherwise (fenced by default;
+- `--worker-isolation fenced|sandbox` (`vm` is the same) is where its new workers run unless `doz worker add` says otherwise (fenced by default;
   never unfenced by default — a worker is unfenced only when you name it).
 - `--network locked|standard|open` is the network its agents get (locked by default); the room is always added.
 - `--dry-run` shows what would be made and makes nothing: a few lines, everything that would be refused, what the start
@@ -8895,10 +8907,7 @@ added read-only — and nothing else. It installs no tool, makes no agent and al
 | preset | the manager and new workers | network | folders | what it does not cover |
 |---|---|---|---|---|
 | `blank` | as you choose (fenced unless you say) | as you choose (locked unless you say) | as you give them | — |
-| `research` | fenced on this Mac | locked: its AI model only | added read-only | any website: allow each one (`doz net allow`) |
-| `swift-tests` | fenced on this Mac | standard (its AI model, GitHub and the package registries, Swift's included) | as you give them | any other site: allow it |
-| `mac-admin` | fenced on this Mac | locked: its AI model only | as you give them | anything else on the network: allow each site |
-| `remotion-video` | micro VMs | standard, and `remotion.media` (where a render downloads Remotion's own browser) | as you give them | any other site — fonts or media a composition fetches, a browser's own background requests: allow what the work needs (`doz workspace show W --network` shows each refusal and the command) |
+| `remotion-video` | Sandboxes | standard, and `remotion.media` (where a render downloads Remotion's own browser) | as you give them | any other site — fonts or media a composition fetches, a browser's own background requests: allow what the work needs (`doz workspace show W --network` shows each refusal and the command) |
 
 `--worker-isolation`, `--manager-isolation`, `--network` and a folder's `:ro` or `:rw` each win over the preset.
 `--site HOST` (repeatable) adds a site every agent the workspace starts may reach on top of its network; a preset's own
@@ -8967,7 +8976,7 @@ sessions running, and each session's condition: `starting`, `running`, `asleep`,
 doz workspace state demo --json | jq -r '.agents.mira.condition'    # running
 ```
 
-`places` lists where the agents run, each with its `isolation` (`vm`, `fenced` or `unfenced`), its `view`, `network`
+`places` lists where the agents run, each with its `isolation` (`vm`, `fenced` or `unfenced`; `vm` is a Sandbox), its `view`, `network`
 and `credentials` (an unfenced place says "none: acts as you" for each), `external` for a sandbox the workspace only
 references, and its `sessions` — each `{identity, session, state, fence}`. A fenced place is a policy: every session in
 it has its own fence, so two agents in one fenced place show two different `fence` values. A workspace made from a space
@@ -9006,7 +9015,7 @@ doz workspace log demo --limit 50           # the newest 50 lines; it prints the
 
 **Can do** says, for each agent, only what is true today, each row live (it changes now) or at the next start: where it runs
 and what holds it there, the folders it reads and writes, its network, the secrets it holds as placeholders (by name and
-where each goes), the Claude account by name, and what it can drive. A fenced or micro VM manager talks in the room only — it
+where each goes), the Claude account by name, and what it can drive. A fenced or Sandbox manager talks in the room only — it
 cannot drive Dozable; an unfenced one **acts as you**: it runs doz and anything else as you. Last, its **permissions** — how
 many answer allow, ask and never, by its role and your grants — and its **ceiling**, each cap and whose it is ("What agents
 may do", below). They are read only there and in the dashboard, and none is enforced yet.
@@ -9018,7 +9027,7 @@ where it goes and a fingerprint; the values stay in your keychain.
 **Folders** lists the files changed in each folder since the work started — `A` new, `M` changed — by their file times.
 Dozable never runs a program, git included, in a folder an agent writes in order to look at it (git would run that folder's
 own settings as you), so it says which folder changed, never which agent changed a file, and a deleted file is not seen. A big
-folder is looked at only up to its limits (the list says when it was cut short). Restore points are a micro VM agent's: one
+folder is looked at only up to its limits (the list says when it was cut short). Restore points are a Sandbox agent's: one
 per disk.
 
 A workspace's state is one of: **setting up** (never started, and no running agent adopted yet), **starting** (being
@@ -9035,34 +9044,57 @@ workspace (`working`) and `doz workspace show --json` what each agent's program 
 
 ### The New workspace wizard
 
-**New workspace** on Home (or the **+** beside **Workspaces** in the sidebar, or **New workspace with this bot** on an
-Agent / Bot) opens a wizard over the page, `#/new-workspace`. It asks in four steps:
+**New workspace** on Home (or the **+** beside **Workspaces** in the sidebar, or **⋯ › New workspace with this bot**
+on an Agent / Bot) opens over the page, `#/new-workspace`. It always opens fresh, on a gallery of templates.
 
-1. **The work.** The prompt becomes the brief; references (paths or links, typed or chosen with **Choose…**) are added
-   to it. The name is suggested from the prompt's first words. Folders are optional — each read-write or read-only, the
-   first the main one — and **A new empty folder** makes `~/doz-workspaces/NAME`. When the main folder holds a
-   `doz_project.yaml`, its network preset is used to fill in choices (the file is never written). **Start from** offers
-   a few built-in starting points (Remotion video, Swift tests, Mac admin, Research, Blank); templates you make come
-   later.
-2. **Who manages.** One of your Agents / Bots, or **No manager — I manage** (you drive). **A new agent / bot…** opens the
-   Agent / Bot editor and brings you back with the new one chosen; the wizard keeps everything you chose. **Change here**
-   opens that bot's own page — a change there changes it everywhere.
-3. **Where it runs.** This Mac (the cloud comes later). The manager runs fenced by default, or in a micro VM; **unfenced**
-   only when you pick it and confirm that it acts as you — then **acts as you** shows on the choice, in the review and in
-   the plan. New workers run in a micro VM or fenced, never unfenced by default. The network preset: Locked, Standard or
-   Open, with the room always added.
-4. **Grants & when.** It says plainly what limits apply today (none yet: an unfenced manager acts as you; a fenced or VM
-   one can only talk in the room). The room it gets — made, an existing room of no workspace, or none — and when it
-   starts: **Right now** (Create and start) or **Later — keep it setting up** (Create, keep setting up). The plan lists
-   what will be made, what is still missing for the start (each linking to its step, its command under **Show the
-   command**), and **Copy as doz commands** gives the same workspace in a terminal.
+**The gallery.** Five templates — **One agent**, **One agent in a Sandbox**, **Build & review**, **Fix-it team** and
+**Remotion video** — each a card with a drawing of the workspace it makes, and a sixth card, **Custom**. **⤢** on a
+template's card expands it to a full page: the drawing, labelled; its agents and where each runs; its room; its network
+in one line; and **Use this template**. Escape, **✕** or a click outside closes it.
 
-Every change asks Dozable what it would make, so what is missing is shown as you go — each step shows how many things it
-still has to set up — and nothing is written and no daemon is started until you create it. **Create and start** is
-disabled while anything is missing. If the start is refused after the workspace is made, its page opens anyway, still
-setting up, saying what is missing. A brief too long for the page (over 15 KiB) is made with the copied commands
-instead. Only this Mac's own browser makes or starts a workspace; another computer sees the command to run in a terminal
-on the Mac.
+**A template is one screen.**
+
+- **Name** — already filled in: the next free `workspaceN`.
+- **A new empty folder `~/doz-workspaces/NAME`** — ticked. Untick it to choose a folder of your own: the agents work
+  there, and nothing is written into it.
+- **The manager** — only when the template has one: your bots that can manage it, each with where it runs, or **A new
+  bot, bossN**, made when you create the workspace.
+- **Create and start.**
+
+The template's files, `NAME.space.yaml` and `DESCRIPTION.md`, are written to `~/doz-workspaces/NAME/` (your
+`defaults.projects_dir`; when that is not under your home folder, the files go in `~/doz-workspaces/NAME/` and the agents
+still work in `defaults.projects_dir`), and the workspace is set up and started from them. It opens on its room. No built-in template runs an agent unfenced.
+
+**Custom** has five short steps — **Name · Manager · Workers · How they chat · Confirm**. Every step's header draws the
+workspace as chosen so far, with **⤢** for the full view.
+
+1. **Name.** The name, and a new empty folder filled in. **+ Add a description** is optional: it is posted in the room as
+   your first message when the workspace starts. With none, the manager asks in the room what to work on. When the main
+   folder holds a `doz_project.yaml`, it is read (never written) to preselect the network.
+2. **Manager.** Only the bots that can manage it now, each with a chip saying where it runs — a fact of the bot, never
+   asked again. The others are folded under **N more bots cannot manage it now**, each with its reason and its one fix
+   (for example **Reach it by poll**). **No manager — I drive** makes none. **+ New bot** makes one inline — **Bot name**,
+   the program, and **Runs in**: **Sandbox**, **Fenced on this Mac** or **Unfenced — acts as you** — made when you
+   create the workspace.
+3. **Workers.** Where new workers run — **Fenced on this Mac** (the default) or **Sandbox** — and what they may reach:
+   **Locked**, **Standard** or **Open**. A main folder's `doz_project.yaml` preset is preselected, marked **from
+   doz_project.yaml**.
+4. **How they chat.** The room's name (or **Use a room I have**), who is in it and how each gets messages, and **Also
+   invite** (optional). With chat off, the step offers only **Turn chat on**.
+5. **Confirm.** Only the check's findings, each with a **Change** link to its step — or **Everything checks out**. A
+   manager that runs unfenced asks one tick, **Yes, NAME acts as me**. **Start it now** (ticked) makes the one button
+   **Create and start**; unticked, it is **Create**.
+
+Every change asks Dozable what it would make, and nothing is written and no daemon is started until you create it. If
+the start is refused after the workspace is made, its page opens anyway, still setting up, saying what is missing. A
+description too long for the page (over 15 KiB) is made with `--prompt-file` instead. Only this Mac's own browser makes
+or starts a workspace; another computer sees the command to run in a terminal on the Mac.
+
+**The same in a terminal.** `doz workspace templates` lists the templates. `doz workspace new [NAME] --template ID
+[--manager BOT] [--folder DIR]` makes one; with no `NAME` it takes the next free `workspaceN`. `--brief` and
+`--prompt-file` are optional. `--room-name R` names the room that is made, and `--invite NAME` (repeatable) says who is
+invited. `--worker-isolation sandbox` (`vm` is the same) puts new workers in Sandboxes. The presets `swift-tests`,
+`mac-admin` and `research` are retired; `blank` and `remotion-video` remain for `--preset`.
 
 ### In the dashboard
 
@@ -9118,7 +9150,7 @@ running; a live worker is ended instead (`doz worker end`) and a running manager
 **Move to another workspace…** is the two in turn. Only the Mac's own browser does this; another browser sees the
 buttons disabled and the command to copy.
 
-A workspace's **Agents** tab (`#/w/NAME/agents`) lists every agent — in a micro VM, fenced or unfenced on this Mac, or
+A workspace's **Agents** tab (`#/w/NAME/agents`) lists every agent — in a Sandbox, fenced or unfenced on this Mac, or
 elsewhere — side by side, and each opens its screen in the workspace (`#/w/NAME/agent/AGENT`): its sandbox's or session's
 page with the workspace around it ([The dashboard](https://dozable.com/docs/the-dashboard.md#a-workspaces-page)). An agent of a workspace may be an Agent / Bot — a lasting identity in chat (see
 [Agents / Bots](https://dozable.com/docs/agents-and-bots.md)); a bot in a workspace is released from it before it can be retired. A sandbox you rename (`doz rename`) stays in its workspace under its new name; one you delete
@@ -9149,7 +9181,7 @@ the manager is started. The brief is posted once: a start after a stop never pos
 posts the brief and you drive — and the workers declared with `--worker` still start, each with its task, as they do
 with one.
 
-`stop` stops **everything**: every agent's process ends — a session on this Mac ended, a micro VM shut down with its disk
+`stop` stops **everything**: every agent's process ends — a session on this Mac ended, a Sandbox shut down with its disk
 kept — and every conversation, record, room and folder is kept. Nothing is removed. Unlike `sleep` nothing is held: each
 agent is **stopped**, not asleep, and `doz workspace start demo` (or `doz workspace wake demo`) brings each back in its
 conversation. It shows its plan and
@@ -9185,7 +9217,7 @@ how it comes back — what is kept and what goes (with sizes), how many agents c
 a yes for stop and finish, and the workspace's name typed for archive and delete. `--yes` skips the question (a script needs it).
 It acts only on what it showed you: if the workspace changed in between, it is refused and says so.
 
-| | A micro VM | Fenced on this Mac | Unfenced on this Mac | Elsewhere |
+| | A Sandbox | Fenced on this Mac | Unfenced on this Mac | Elsewhere |
 |---|---|---|---|---|
 | **start** (after a stop or a sleep) | woken, or booted again, as wake does — the manager first, then every other agent | the same conversation | the same conversation; its token file written again | untouched |
 | **stop** | shut down, its disk kept | stopped, its conversation kept | stopped; its token file deleted | untouched |
@@ -9195,7 +9227,7 @@ It acts only on what it showed you: if the workspace changed in between, it is r
 | **down** | as finish; for a workspace a space file made, a sandbox that lasts only the run is then removed, its disk saved as an image first | as finish | as finish | untouched; for a workspace a space file made, an adopted agent is released, loose again |
 
 **Stopped is not asleep.** After `stop` the workspace and each agent read **stopped**; after `sleep` they read
-**asleep**. On this Mac both end the session and keep its conversation; a micro VM is shut down by a stop and hibernated
+**asleep**. On this Mac both end the session and keep its conversation; a Sandbox is shut down by a stop and hibernated
 by a sleep. Either way `doz workspace start demo` or `doz workspace wake demo` brings every agent back: a start after a
 stop (or a sleep) wakes the manager and every worker in its own conversation, and its answer names who came back.
 
@@ -9246,7 +9278,7 @@ room with you.
 
 ```bash
 doz workspace new demo --prompt-file brief.md --folder ~/code/demo --manager mira
-doz workspace edit demo --manager otto --manager-isolation vm    # another, or another isolation
+doz workspace edit demo --manager otto --manager-isolation sandbox    # another, or another isolation
 doz workspace edit demo --no-manager
 ```
 
@@ -9254,17 +9286,17 @@ Where it runs:
 
 - **fenced** on this Mac — the default. Its session is named after the workspace (`@mac/demo`). It can talk in the room,
   but cannot start or stop agents yet: it asks you.
-- **vm** — in a micro VM named after the workspace (`--manager-isolation vm`, or when the bot's own default is vm).
+- **sandbox** (`vm` is the same) — in a Sandbox named after the workspace (`--manager-isolation sandbox`, or when the bot's own default is a Sandbox).
 - **unfenced** on this Mac — **only when you name it** (`--manager-isolation unfenced`), even when the bot's default is
   unfenced. An unfenced manager **acts as you**: `doz` is on its PATH and what it does is done as you. `show`, `ls` and
   `--json` (`actsAsYou`) say so wherever it appears.
 
 The manager starts with a short first prompt telling it to read its START file: who it is, its room, how to talk with
 `dozchat`, its skills and instructions, and the brief. It says in the room that it is up. Its token never appears in a
-command line, a record, a log or `--json`: a fenced or VM manager holds only a placeholder Dozable's proxy swaps; an
+command line, a record, a log or `--json`: a fenced or Sandbox manager holds only a placeholder Dozable's proxy swaps; an
 unfenced one reads its token from a file only you can read, in your temporary folder, deleted when it stops.
 
-A fenced or VM manager collects its messages itself, so its bot must be reached by polling (`doz bot set mira --deliver
+A fenced or Sandbox manager collects its messages itself, so its bot must be reached by polling (`doz bot set mira --deliver
 poll`); a manager is never reached by a webhook. A bot elsewhere runs on its own machine and is never started by
 Dozable. **For now a bot runs in one live workspace at a time**, as a manager or a worker: starting a second workspace
 with the same bot is refused — stop the first one, or end it as a worker there. A manager is not removed, replaced or released while it runs: stop it first.
@@ -9279,7 +9311,7 @@ for, and any folders it works on (usually projects). Work starts only once it is
 doz worker add demo --task "list the files"                 # bot1, the run's: fenced on this Mac, gone when the run ends
 doz worker add demo helper --task "work on the project"     # helper, a lasting identity of the workspace
 doz worker add demo --from-bot otto --task "review the PR"  # one of your Agents / Bots as a worker
-doz worker add demo carl --isolation vm --cpus 2 --memory 2G --task "build it"   # in a micro VM of its own
+doz worker add demo carl --isolation sandbox --cpus 2 --memory 2G --task "build it"   # in a Sandbox of its own
 doz worker ls demo                                          # every agent: where it runs, what isolates it, its state, its task
 doz worker end demo bot1                                    # its session ends; the run's leaves chat, a lasting one is kept
 doz worker reset demo helper --yes                          # clear what Dozable keeps of helper's memory
@@ -9300,24 +9332,24 @@ nothing is made. To have workers from the start, declare them when you make it: 
   declared at `new` belongs to the run too. `--from-bot otto` makes it that Agent / Bot: its name, token, skills and
   instructions.
 - **Where it runs** — the narrowest place unless you say otherwise: **fenced** on this Mac (the default; its session is
-  `demo-bot1`), **vm** (a micro VM of its own, `demo-carl`, when you say so or the workspace's or the bot's default is
-  vm), **in a running sandbox of the workspace** (`--sandbox X`: it is its own participant there, but it **shares X** —
+  `demo-bot1`), **sandbox** (a Sandbox of its own, `demo-carl`, when you say so or the workspace's or the bot's default is
+  a Sandbox; `vm` is the same), **in a running sandbox of the workspace** (`--sandbox X`: it is its own participant there, but it **shares X** —
   workers there can read each other's placeholders), or **unfenced** — acting as you — only when you name it
   (`--isolation unfenced`).
 - **What it reaches.** It works in the workspace's main folder; its network is the workspace's default, else locked; it
   reaches only the chat server's port of this Mac, opens no URL and copies to no clipboard. A fenced Claude Code worker
   may use only the chat client without asking; `--allow-tool Edit` (repeatable) adds a tool.
-- **Its token** never appears on a command line, in a record, a log or `--json`. A fenced or VM worker holds only a
+- **Its token** never appears on a command line, in a record, a log or `--json`. A fenced or Sandbox worker holds only a
   placeholder Dozable's proxy swaps; an unfenced one reads its token from a file only you can read, deleted when it ends.
 - **`worker ls`** shows every agent of the workspace — its manager, the agents you adopted and its workers — with its
-  place, its isolation, what isolates it (fenced: "proxy · placeholders · guard"; vm: "micro VM · proxy · placeholders";
+  place, its isolation, what isolates it (fenced: "proxy · placeholders · guard"; Sandbox: "Sandbox · proxy · placeholders";
   unfenced: "no proxy · no placeholders · no guard · acts as you"), its network, its state and its task. It answers with
   the daemon stopped. `--all` adds the ended workers.
-- **Ending one.** `doz worker end demo bot1` ends its session (or stops its own micro VM, keeping its disk). A worker of
+- **Ending one.** `doz worker end demo bot1` ends its session (or stops its own Sandbox, keeping its disk). A worker of
   the run leaves every room and its token is refused from then on; its messages keep its name, and its name is free
   again. A lasting one stays an identity of the workspace and a member of its rooms, with its memory; its token is
   refused, and `doz worker add demo helper --task …` brings it back as itself with a new one. A bot's token is kept and it
-  stays in the room. `--rm` deletes its session's record or its micro VM too.
+  stays in the room. `--rm` deletes its session's record or its Sandbox too.
 
 `doz workspace manager stop` stops only the manager; workers go on until you end them. `doz workspace stop` stops every
 agent, workers included.
@@ -9340,7 +9372,7 @@ in chat and its memory — and, while it runs, a **session**: its program in a p
   `down` (taking it again does).
 - **Its memory.** A fenced session's agent folder is cleared each time it opens (its conversations kept), so Dozable
   keeps a lasting identity's memory when its session stops, sleeps or ends, and gives it back to its next fenced session.
-  An unfenced one uses your own agent folder, and a micro VM keeps its memory on its disk: Dozable neither copies nor
+  An unfenced one uses your own agent folder, and a Sandbox keeps its memory on its disk: Dozable neither copies nor
   removes either. Only `doz worker reset W NAME --yes` (refused while it runs) or `down --purge` removes what Dozable
   kept — `--purge` only after copying it into the store's archive and checking the copy. Switching an agent between
   fenced and unfenced in a space file keeps it, and says so.
@@ -9360,18 +9392,18 @@ A task over 1 KiB goes in a file: the command reads it with `--task="$(cat task.
 opens its page (`#/w/NAME/agents/new`): the agent program (Claude Code or Codex), its name (the next `botN` shown), the
 account it would use (shown, not chosen), its one task, the rooms (the main one always), who it is (anonymous, or one of
 your Agents / Bots that is not live in another workspace) and where — a place of its own, or a new session in a running
-sandbox of the workspace — and **where it runs**: a table of micro VM, fenced, unfenced and cloud (later) side by side —
+sandbox of the workspace — and **where it runs**: a table of Sandbox, fenced, unfenced and cloud (later) side by side —
 what each reaches of your files, network and keys, what controls it, what it costs, whether it has the Mac's tools,
 sleeps with its programs kept or asks for approvals. Fenced is chosen for you unless the workspace's or the bot's default
-is micro VM; **unfenced is never chosen for you**, and adding one needs the tick "It acts as you: your files, Keychain and
+is Sandbox; **unfenced is never chosen for you**, and adding one needs the tick "It acts as you: your files, Keychain and
 network". Each field is checked as you type — the same check as `--dry-run` — and a refusal shows beside its field;
 **Show the command** is the command `--dry-run` prints. **Add and start** adds it; it then appears in the room and on the
 panel, and says it is up. **End…** in a worker's ⋯ ends it (ticked; its place is kept). Adding and ending are this Mac's
 own browser only — another computer sees the commands.
 
-**Where an agent runs.** Every isolation chip in the dashboard (micro VM, fenced, unfenced, elsewhere) opens **the
+**Where an agent runs.** Every isolation chip in the dashboard (Sandbox, fenced, unfenced, elsewhere) opens **the
 isolation guide** (`#/guide/isolation`) at that choice: the four choices in order of isolation, what each is for and not
-for, and the commands of today. Whatever the choice, your keys never go inside a micro VM or a fenced session; an
+for, and the commands of today. Whatever the choice, your keys never go inside a Sandbox or a fenced session; an
 unfenced agent is the one exception, and the reason it always asks. An agent elsewhere is not isolated by Dozable.
 
 ## Units of work: runs, the journal and lessons
@@ -9490,7 +9522,7 @@ doz bot new far --agent codex --isolation elsewhere --to-file ~/far.token
 ```
 
 - `--agent` is the agent program, as `doz search` names it.
-- `--isolation` says where it runs: `fenced` on this Mac (the default), `vm` (a sandbox), `unfenced` on this Mac — which
+- `--isolation` says where it runs: `fenced` on this Mac (the default), `sandbox` (`vm` is the same), `unfenced` on this Mac — which
   **acts as you**, and says so wherever it shows; only when you name it — or `elsewhere`, another machine that runs it
   itself.
 - `--deliver` says how the chat server reaches it: `poll` (the default — it collects its messages with its token),
@@ -9504,7 +9536,7 @@ With chat off, a new bot takes part once chat is on (`doz chat on`).
 
 ## Its token
 
-- A bot that runs on this Mac (`vm`, `fenced` or `unfenced`) has its token kept in your login keychain — one item for each
+- A bot that runs on this Mac (a Sandbox, `fenced` or `unfenced`) has its token kept in your login keychain — one item for each
   bot — and Dozable never shows it. `doz bot show` and `doz bot token NAME` say where it is and its fingerprint.
 - A bot **elsewhere** gets its token once: on your terminal, or in a new file only you can read (`--to-file`). Dozable
   never keeps it. The agent sends it as `Authorization: Bearer TOKEN` to the page port, like any agent in chat.
@@ -9538,10 +9570,10 @@ dashboard").
 ## Managing a workspace
 
 A bot that runs on this Mac or in a sandbox can manage a workspace: `doz workspace new demo … --manager mira` records
-it, and `doz workspace start demo` starts it — fenced by default, in a sandbox with `--manager-isolation vm`, and
-unfenced (acting as you) only when you name it. Its token reaches the manager without ever being shown: a fenced or VM
+it, and `doz workspace start demo` starts it — fenced by default, in a sandbox with `--manager-isolation sandbox`, and
+unfenced (acting as you) only when you name it. Its token reaches the manager without ever being shown: a fenced or Sandbox
 manager holds only a placeholder Dozable's proxy swaps for it, and stopping the workspace never deletes it from your
-keychain. A manager collects its messages itself, so a fenced or VM manager's bot is reached by polling (`doz bot set
+keychain. A manager collects its messages itself, so a fenced or Sandbox manager's bot is reached by polling (`doz bot set
 mira --deliver poll`). For now a bot runs in one live workspace at a time. `doz bot ls` says what each bot manages and
 where it runs now (`demo (running)`); `doz bot show` too. Giving a running manager's bot a new token stops it from
 talking until the workspace is started again.
@@ -9549,10 +9581,10 @@ talking until the workspace is started again.
 ## Working in a workspace
 
 A bot can also be a **worker** in a started workspace: `doz worker add demo --from-bot otto --task "review the PR"`
-brings it up with its own name, token, skills and instructions, in the workspace's room — fenced by default, in a micro
-VM with `--isolation vm` (or when its default is vm), and unfenced (acting as you) only with `--isolation unfenced`. Its
+brings it up with its own name, token, skills and instructions, in the workspace's room — fenced by default, in a
+Sandbox with `--isolation sandbox` (or when its default is Sandbox), and unfenced (acting as you) only with `--isolation unfenced`. Its
 token reaches it the same way a manager's does, never shown. `doz worker end demo otto` ends it and keeps its token: it
-stays a member of the room. A fenced or VM worker's bot is reached by polling. A bot is never a worker of the workspace
+stays a member of the room. A fenced or Sandbox worker's bot is reached by polling. A bot is never a worker of the workspace
 it manages, and **one live workspace at a time** counts both roles: while otto works in `wk`, starting a workspace it
 manages, or adding it as a worker elsewhere, is refused ("otto already works in wk, which is running…" — end it there
 first). `doz bot ls` says where each bot works now (`works in: wk`).
@@ -9593,7 +9625,7 @@ asks first; pass `--yes` when there is no terminal or with `--json`.
 ## Its ceiling
 
 A bot's **ceiling** is the most it may ever get, wherever it works and whatever it is granted: per permission, `ask` or
-`never` ([what agents may do](https://dozable.com/docs/workspaces.md)). Its isolation ceiling (`fenced` or `vm`) means it never runs unfenced.
+`never` ([what agents may do](https://dozable.com/docs/workspaces.md)). Its isolation ceiling (`fenced` or `sandbox`) means it never runs unfenced.
 
 ```bash
 doz bot ceiling otto sudo=never keychain.use=never   # the same as doz permissions ceiling --bot otto
@@ -9767,10 +9799,10 @@ agents:
   in this version.
 - **The lifetime is not a 3.1 key**: it stays under `x-dozable` in either version and is never required (a file that says
   none is read as `runs`). A top-level `lifetime:` in a 3.1 file is refused (65) with the fix.
-- **`agent_defaults: { where: sandbox }`** runs every agent that does not say where in the workspace's own VM, a sandbox
+- **`agent_defaults: { where: sandbox }`** runs every agent that does not say where in the workspace's own Sandbox, a sandbox
   the run makes (named `SPACE-vm`). On an agent, a place is `mac` or `sandbox:NAME`.
-- **An agent's own `network`**: an unfenced agent has none (it acts as you), and an agent in a VM — the workspace's or
-  a sandbox the space makes — shares the VM's, which is the workspace's (standard when the file says none). Either
+- **An agent's own `network`**: an unfenced agent has none (it acts as you), and an agent in a Sandbox — the workspace's or
+  a sandbox the space makes — shares the Sandbox's, which is the workspace's (standard when the file says none). Either
   written otherwise is refused (65).
 - An empty `refs`, `tags` or `allow` list is refused; leave the key out instead.
 - A 3.1 key in a file that says `doz: space/3` is refused (65): change the version line to `doz: space/3.1`. A space/3
@@ -9793,7 +9825,7 @@ agent_defaults: { x-dozable: { isolation: vm } }              # where a workspac
 
 ### Places: `x-dozable.places` and `where:`
 
-A **place** is where an agent runs: a VM, a fenced session on this Mac, or an unfenced one that acts as you. Declare your
+A **place** is where an agent runs: a Sandbox, a fenced session on this Mac, or an unfenced one that acts as you. Declare your
 places under `x-dozable.places` and put each agent in one with `where:`:
 
 ```yaml
@@ -9917,33 +9949,47 @@ others were done). `doz help exit-codes` lists them all.
 
 ## The workspace drawn
 
-In the dashboard a workspace a space file made is drawn from its file and what is running now: its agents, rooms, folders
-and sandboxes in the file's layout, each marked as it is — running, asleep, missing, gone after down — and what waits for
-you. The picture is on the workspace's **Home** tab, across the page — on no other tab: click it to open the file in the
-space editor (below). Home and the Workspaces page show each workspace small beside its
+In the dashboard every workspace is drawn with what is running now: its agents, rooms, folders and sandboxes, each marked
+as it is — running, asleep, missing, gone after down — and what waits for you. One a space file made is drawn from its
+file, in the file's layout; one made without a space file (with the wizard, `doz workspace new`, by adopting agents) from
+its record — the document `doz workspace doc NAME` prints. The picture is on the workspace's **Home** tab, across the page
+— on no other tab: for a space file, click it to open the file in the space editor (below); one made without has no file
+to edit, and shows `doz workspace doc NAME` beside its picture instead. Home and the Workspaces page show each workspace small beside its
 name, and the sidebar shows it at the top of an unfolded workspace (the setting `ui.nav_thumbnails` turns the sidebar's
 pictures off; the sidebar keeps no empty box while a picture is on its way). The picture follows what happens — an up or down, a save, a
-sleep or wake from the dashboard, a sandbox starting or stopping — and is never read on a timer; a change made only in a
+sleep or wake from the dashboard, a sandbox starting or stopping, a worker added or ended — and is never read on a timer; a change made only in a
 terminal to agents on this Mac shows the next time you open a page.
 
 A file that doesn't read is drawn as a small warning, and the page adds what Dozable itself found wrong with it and the
-command that checks it, `doz workspace up -f FILE --dry-run`. A workspace made without a space file shows a small tile on
-Home and the Workspaces page and, on its Home tab, "Made without a space file — `doz workspace up -f FILE` draws it". Another computer sees the picture
-only while `serve.chat` lets it read; otherwise it sees the tile, "Shown to another computer only with serve.chat read".
+command that checks it, `doz workspace up -f FILE --dry-run`. Another computer sees the picture only while `serve.chat` lets
+it read; otherwise it sees a tile, "Shown to another computer only with serve.chat read" — and, while `serve.mac_sessions`
+is off, a workspace made without a space file is drawn without its agents on this Mac.
 
 ## Editing a space in the dashboard
 
 A workspace's picture (or **Edit the space** beside it) opens its space file in the space editor, the whole window, at
 its own address — `#/w/NAME/space`, which you can bookmark, reload or open in a new tab. The bar above it leads back to
-the workspace, names the file, says **Saved**, **Unsaved** or **Read-only here**, and has **Text**, **Watch** and **Open in
-a new window**.
+the workspace, names the file, says **Saved**, **Unsaved** or **Read-only here**, and has **Text**, **Watch**, **Export**
+and **Open in a new window**.
 
 - **The canvas** draws the file; you change it there, and its problems are listed and marked as you go — a problem in a
   defaults file it extends is named with that file. **Live** draws what is running now over it (the agents, their rooms,
   what waits for you — a permission prompt, an open Ask, which you can answer there), following what happens; it is never
   read on a timer. The runs strip under it steps through a past run's states.
+- **Moving things** on the canvas pins them where you put them: the file keeps each position under `x-editor.layout`
+  (a plan never acts on it), by name — and the parts with no name of their own by the keys `"@space"`, `"@chat"`,
+  `"@archive"`, `"@owner"` and `"@fence/AGENT"` (an agent's fence, which follows the agent's name). What is drawn as part
+  of something else can't be dragged on its own, and says what to drag instead: the dashboard moves with the owner, a
+  proxy or a disk with its sandbox or fence, and the Mac has no place of its own to move to. A move is an edit like any
+  other: **Unsaved** until you save it.
 - **Text** adds the YAML beside the canvas; it is loaded only when you ask for it, and your changes, undo and selection
   carry over. The dashboard remembers that you use it.
+- **Export** downloads the space as a file named after the workspace: **The file (YAML)** — the space file as saved,
+  byte for byte (it holds the agents' prompts, the members and the folders' paths) —, **The drawing (SVG)** and **The
+  drawing (PNG)**, in the dashboard's light or dark theme. A drawing shows what is happening now only when you tick
+  **Drawings show what is happening now** (who is working, waiting or stuck). Exports are of the file as saved: save
+  first to include your changes. They are made in your browser from what the page already shows you, so another computer
+  that may read the file exports it too, and nothing else.
 - **Saving** (**⌘S**) writes the file only if it is still the version you opened. If it changed since — in your editor or
   with `doz workspace edit` — nothing is written and the editor says **Changed elsewhere**; **Reload** reads the file as it
   is now (your changes there are lost). A save is never applied: "Saved. Not applied: Up applies it." — `doz workspace up
@@ -9952,7 +9998,8 @@ a new window**.
   asks too, and a restart of `doz ui` waits to reload the page until the file is saved.
 - **Watch** (`#/w/NAME/space/watch`) shows the drawing with Live on and nothing else, read-only — for a second screen.
 - **Another computer** sees the file only while `serve.chat` lets it read, read-only: "Changed only in this Mac's own
-  browser", with the command that changes it on the Mac. Only this Mac's own browser saves a space file.
+  browser", with the command that changes it on the Mac — nothing moves there, and Export works as here. Only this Mac's
+  own browser saves a space file.
 - **A phone** shows the drawing and Live, read-only ("Edit on a wider screen").
 
 ---
@@ -10294,7 +10341,7 @@ doz workspace new promo --preset remotion-video --prompt-file ~/video/promo/BRIE
     --worker "Draft each scene and render a still of it" --worker "Review each still against the criteria" --dry-run
 ```
 
-The dry run says what it would make — the workspace, its room `promo`, two declared workers in micro VMs (the preset),
+The dry run says what it would make — the workspace, its room `promo`, two declared workers in Sandboxes (the preset),
 the standard network and `remotion.media` — and anything that would be refused. Then, in this order — make it, open the
 first unit of work and set what "done" means, start the workers, grant them — so no worker ever looks at a unit of work
 with no criteria:
@@ -10315,7 +10362,7 @@ needs the grant (`reviewer` is the usual one — [What agents may write](https:/
 An entry written in the moment before it is refused with exit 4, naming `journal.write`, and the agent tries again once
 you have granted it — nothing is lost.
 
-**The network.** `remotion-video` gives its micro VMs the standard network and `remotion.media`, where a render first
+**The network.** `remotion-video` gives its Sandboxes the standard network and `remotion.media`, where a render first
 downloads Remotion's own browser. Anything else a composition fetches (a web font, a remote image) is refused until you
 allow it — look, then allow exactly what it shows:
 
@@ -10358,7 +10405,7 @@ doz workspace journal promo add criterion "The title reads at phone size" --data
 doz workspace journal promo add criterion "The logo is on screen for the last second" --data '{"id":"c2"}'
 ```
 
-**bot1** (inside its micro VM, with `dozchat`) claims the work, drafts, renders and hands over:
+**bot1** (inside its Sandbox, with `dozchat`) claims the work, drafts, renders and hands over:
 
 ```bash
 dozchat journal add task "Scene 1: the title card"
@@ -10521,7 +10568,7 @@ the network acts as you.
 | the participant | made by | where its token is kept | it reaches the agent |
 |---|---|---|---|
 | a participant you add (`doz chat add NAME`) | you | shown once, or written to a new file (`--to-file`, `--to-dir`); `--from-stdin` gives it one it already has | however you hand it over |
-| an Agent / Bot on this Mac (`vm`, `fenced`, `unfenced`) | `doz bot new` | your login keychain, one item per bot | as a manager or worker: a placeholder the proxy swaps (fenced, micro VM), or a file only you can read, deleted when it stops (unfenced) |
+| an Agent / Bot on this Mac (`sandbox`, `fenced`, `unfenced`) | `doz bot new` | your login keychain, one item per bot | as a manager or worker: a placeholder the proxy swaps (fenced, Sandbox), or a file only you can read, deleted when it stops (unfenced) |
 | an Agent / Bot elsewhere (`--isolation elsewhere`) | `doz bot new` | nowhere: shown once, or written to a new file (`--to-file`) | you put it on that machine |
 | a worker that is not a bot (`helper`, `bot1`, …) | the daemon, at `doz worker add` — and a new one at each start | the daemon only, as a launch secret of its place | as a placeholder, or a file for an unfenced one |
 | an adopted agent | the daemon, at `doz workspace adopt` (with chat on and a room) | the daemon only, as a launch secret of its place | every session Dozable starts there from then on (below) |

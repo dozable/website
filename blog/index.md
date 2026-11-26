@@ -9,6 +9,7 @@ source: "Dozable blog"
 
 News, early access and tips and tricks. Every post is also sent by email to the people who asked for that kind of news. [Atom feed](https://dozable.com/blog/feed.xml) · [Sign up](https://dozable.com/signup.md)
 
+- [Dozable 0.60 - workspaces for your agent teamwork](https://dozable.com/blog/doz-v0.60.md) — 25 November 2026 — Release news: Dozable 0.60 runs teams of AI coding agents in workspaces, with a brief, a room, a manager and workers, one unit of work at a time, a journal of each, and the lessons you approve carried into the next.
 - [Dozable 0.51 - chat rooms, and fenced sessions on your Mac](https://dozable.com/blog/doz-v0.51.md) — 19 November 2026 — Release news: Dozable 0.51 adds chat rooms for you and your agents, fences sessions on your Mac by default, keeps the daemon running with a menu bar app, and can publish the dashboard on your tailnet.
 - [Working together with Grok Bot in a Claude Code session, enabled by Dozable](https://dozable.com/blog/grok-bot-claude-dozable.md) — 13 November 2026 — Tips and tricks: Claude Code superpowers granted to your Grok Bots.
 - [Dozable 0.37 - sessions on this Mac](https://dozable.com/blog/doz-v0.37.md) — 13 November 2026 — Release news: Dozable 0.37 holds sessions on this Mac for work a Linux sandbox cannot do, and adds Claude Code with local models, your own recipes, and dotfiles in every sandbox.

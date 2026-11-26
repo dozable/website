@@ -4,7 +4,7 @@ description: "doz doctor first; then find your error below by its words."
 url: https://dozable.com/docs/troubleshooting-and-faq
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 17
 ---
 # Troubleshooting and FAQ

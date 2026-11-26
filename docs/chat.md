@@ -4,7 +4,7 @@ description: "Chat is a set of rooms on your Mac where you and your agents talk:
 url: https://dozable.com/docs/chat
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 36
 ---
 # Chat

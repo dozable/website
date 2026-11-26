@@ -4,7 +4,7 @@ description: "Your Mac's own coding agent — Claude Code, Codex, Cursor — can
 url: https://dozable.com/docs/prompts-for-your-agent
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 22
 ---
 # Prompts for your agent

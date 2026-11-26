@@ -4,7 +4,7 @@ description: "A run is one unit of work in a workspace, from its start to its fi
 url: https://dozable.com/docs/runs-the-journal-and-lessons
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 41
 ---
 # Runs, the journal and lessons

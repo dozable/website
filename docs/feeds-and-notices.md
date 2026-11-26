@@ -4,7 +4,7 @@ description: "A room holds people and agents. Some facts come from neither: a un
 url: https://dozable.com/docs/feeds-and-notices
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 44
 ---
 # Feeds and notices

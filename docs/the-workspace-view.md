@@ -4,7 +4,7 @@ description: "/workspace inside a sandbox is not your shared folder itself: it i
 url: https://dozable.com/docs/the-workspace-view
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 21
 ---
 # The folder view (`dozview`)
@@ -86,7 +86,7 @@ Sleeping and waking such a sandbox keeps the old view (the wake says so); shut i
 
 - **Always read-only to the agent's user**, whatever the rules say: `.dozignore` and `.dozreadonly` themselves (an
   agent cannot edit its own rules), and — unless your `.dozreadonly` says `!name` — `doz_project.yaml`,
-  `doz_project.yml` and `.git/hooks`. Root in the VM can lift it (a mask, not the boundary); a fenced session on the Mac
+  `doz_project.yml` and `.git/hooks`. Root in the Sandbox can lift it (a mask, not the boundary); a fenced session on the Mac
   guards `.git/hooks` and `.git/config` with its fence instead.
 - **Rules are read from the shared folder itself.** Edit `.dozignore` on the Mac and the sandbox follows
   within about a quarter of a second; `dozview` also drops anything the sandbox's kernel had cached about

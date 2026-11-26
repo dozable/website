@@ -4,7 +4,7 @@ description: "Dozable keeps a history of what happened on this Mac — every act
 url: https://dozable.com/docs/history-and-retention
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 40
 ---
 # History and retention

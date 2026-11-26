@@ -118,13 +118,13 @@
 <p class="eyebrow">User manual</p>
 <h1>The Dozable manual</h1>
 <p class="summary">Every chapter of the Dozable manual, for the <code>doz</code> command and its dashboard.</p>
-<p class="meta">44 chapters. Built from dozer-sandbox <a href="https://github.com/dozable/dozable/commit/eb649984">eb649984</a>.</p>
+<p class="meta">44 chapters. Built from dozer-sandbox <a href="https://github.com/dozable/dozable/commit/b273a414">b273a414</a>.</p>
 </header>
 <div class="prose">
 <!-- manual text -->
 
 <blockquote class="example">
-<p>Dozable runs teams of AI coding agents on your Mac. A workspace holds the agents, their chat room, the folders they work in and a brief. Agents from any vendor (Claude Code, Codex, OpenCode and more) take on the work one unit of work at a time; each is recorded in a journal, and the lessons you approve carry into the next. You watch, talk to them and decide what matters. Each agent runs where you choose: in its own micro VM or held to its folder on your Mac, where your keys never go inside, or as you.</p>
+<p>Dozable runs teams of AI coding agents on your Mac. A workspace holds the agents, their chat room, the folders they work in and a brief. Agents from any vendor (Claude Code, Codex, OpenCode and more) take on the work one unit of work at a time; each is recorded in a journal, and the lessons you approve carry into the next. You watch, talk to them and decide what matters. Each agent runs where you choose: in its own Sandbox or held to its folder on your Mac, where your keys never go inside, or as you.</p>
 </blockquote>
 <p>You drive it with the <code>doz</code> command or its dashboard in your browser (<code>doz ui</code>). Every page here shows both. New to Dozable? Start with <a href="getting-started">Getting started</a>, then <a href="workspaces">Workspaces</a>.</p>
 <h2 id="if-you-are-an-agent">If you are an agent<a class="anchor" href="#if-you-are-an-agent" aria-label="Link to this section">#</a></h2>
@@ -156,8 +156,8 @@
 </ul>
 <h3 id="where-agents-run">Where agents run<a class="anchor" href="#where-agents-run" aria-label="Link to this section">#</a></h3>
 <ul>
-<li><a href="sandboxes-and-lifecycle">Sandboxes and their lifecycle</a>: the micro VM choice — a Linux virtual machine with its own disk; running, paused, asleep, hibernated and off; the daemon that runs them.</li>
-<li><a href="sessions-on-this-mac">Sessions on this Mac</a>: the on-your-Mac choice — fenced (held by macOS&#x27;s own sandbox to its project folder, no Keychain, the network only through Dozable&#x27;s proxy, this Mac&#x27;s ports only when given, the chat server&#x27;s among them) or unfenced (no isolation: it acts as you); its first section compares the three places an agent runs (micro VM, fenced, as you: what each reaches, memory, start time, when to pick it); page 16 says exactly what the fence blocks.</li>
+<li><a href="sandboxes-and-lifecycle">Sandboxes and their lifecycle</a>: the Sandbox choice — a Linux virtual machine with its own disk; running, paused, asleep, hibernated and off; the daemon that runs them.</li>
+<li><a href="sessions-on-this-mac">Sessions on this Mac</a>: the on-your-Mac choice — fenced (held by macOS&#x27;s own sandbox to its project folder, no Keychain, the network only through Dozable&#x27;s proxy, this Mac&#x27;s ports only when given, the chat server&#x27;s among them) or unfenced (no isolation: it acts as you); its first section compares the three places an agent runs (Sandbox, fenced, as you: what each reaches, memory, start time, when to pick it); page 16 says exactly what the fence blocks.</li>
 <li><a href="permissions-and-network">What the agent can do: permissions and the network</a>: a sandbox&#x27;s network, and a fenced session&#x27;s, goes only through a proxy that checks each connection against plain-language permissions; inside, a refused HTTPS site answers 403 &quot;refused by Dozable&#x27;s network policy&quot; to a program that uses the proxy and looks like a DNS error (ENOTFOUND) to one that does not; <code>doz net NAME</code> names the host and the allow command; a browser&#x27;s own background requests swell the refused count and are no reason to allow them.</li>
 <li><a href="security-model">Security model</a>: what protects your Mac, credentials and data in each place an agent runs, what each boundary does and does not cover, and the deliberate ways in.</li>
 <li><a href="terminals-and-sessions">Terminals and sessions</a>: programs running in a sandbox — attach, detach, watch read-only, type from a script, files, the clipboard and links; <code>doz exec</code> stops a command after 120 s unless <code>--timeout</code>, so a long job such as a render uses <code>--timeout</code> or <code>doz run -d</code>.</li>

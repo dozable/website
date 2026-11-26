@@ -4,7 +4,7 @@ description: "doz is one command-line program. It comes with everything it needs
 url: https://dozable.com/docs/install-upgrade-uninstall
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 2
 ---
 # Installing, upgrading and uninstalling
@@ -17,7 +17,7 @@ dashboard, and the permission macOS requires to run virtual machines. You instal
 
 - **The `doz` program** is what you install. It is signed with Apple's virtualization entitlement;
   without that, macOS refuses to boot virtual machines. A copy you build yourself without signing can
-  run every command except the ones that boot a VM, and `doz doctor` says so.
+  run every command except the ones that boot a Sandbox, and `doz doctor` says so.
 - **The store** is where your sandboxes, images and restore points live:
   `~/Library/Application Support/doz` unless you choose another (see
   [Settings reference](https://dozable.com/docs/settings-reference.md), `store.path`). Upgrading `doz` never touches it

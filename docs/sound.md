@@ -4,7 +4,7 @@ description: "A sandbox can have sound: programs in it play through your Mac's s
 url: https://dozable.com/docs/sound
 image: https://dozable.com/og-image.png
 source: "Dozable manual"
-updated: 2026-11-25
+updated: 2026-11-26
 chapter: 23
 ---
 # Sound
